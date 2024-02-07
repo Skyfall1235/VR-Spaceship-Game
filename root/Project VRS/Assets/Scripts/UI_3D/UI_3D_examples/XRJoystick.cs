@@ -129,6 +129,7 @@ namespace UnityEngine.XR.Content.Interaction
         /// </summary>
         public ValueChangeEvent onValueChangeY => m_OnValueChangeY;
 
+
         void Start()
         {
             if (m_RecenterOnRelease)
