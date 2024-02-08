@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class ShipRCS : MonoBehaviour
 {
     [Header("Flight Path Viability")]
 
     [SerializeField]
-    private Vector3 m_targetVector;
+    private readonly Vector3 m_targetVector;//normailzed vector3.forward with the thrust value as the x
 
     [SerializeField]
-    private Vector3 m_currentVector;
+    private readonly Vector3 m_currentVector; // just the rigidbodies current velocity
+
+    [SerializeField]
+    private float m_breakingForce;
 
     [SerializeField]
     [Range(1.0f, 90.0f)]
@@ -20,15 +24,52 @@ public class ShipRCS : MonoBehaviour
     [Range(.0f, 90.0f)]
     private float m_flightPathDeadZoneVectorDeviation = 10.0f;
 
-    public float DetermineRCSApplicationValue()
+
+    private void Start()
     {
 
-        return 0f;
     }
 
-    public void ApplyRCSToVector(Rigidbody rb, Vector3 targetVector)
+    public float DetermineRCSLinearValue()
+    {
+        float applicationPercent = 0f;
+        //applicationPercent
+
+        float magnitude = m_currentVector.magnitude;
+
+        if (magnitude <= m_flightPathDeadZoneVectorDeviation)
+        {
+            return 0f; // Return zero if within deadzone
+        }
+        if (magnitude >= m_flightPathMaxVectorDeviation)
+        {
+            return 1f; // Return zero if within deadzone
+        }
+
+        //we dont need the full spectrum of floats, just go to the hundredths place
+        Vector3 averageVector = (m_targetVector + m_currentVector) / 2; //since the target vector can be extrmemely small, even 0, the current vector will do most of the work
+        Vector3 normalizedAverageVector = averageVector.normalized; //the direction the craft is currently going, irrespective of its target vector or velocity
+
+        //get the angle from the target velocity to the normalized average vector
+        float angleOfVectors = Vector3.Angle(m_targetVector.normalized, normalizedAverageVector);
+
+        applicationPercent = Remap(angleOfVectors, 0, 90, 0, 1);
+
+        return applicationPercent;
+    }
+
+    public void ApplyRCSLinearToVector(Rigidbody rb, Vector3 targetVector, Vector3[] applicationLocation)
     {
         //have a deadzone of acceptable movement vectors
+
+        //invert the normalizedAverageVector to find the opposide direction, and apply force to slow down the craft
+
+        //use the application locations to find the best locations to apply the braking force
+    }
+
+    public static float Remap(float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 
     void OnDrawGizmosSelected()
