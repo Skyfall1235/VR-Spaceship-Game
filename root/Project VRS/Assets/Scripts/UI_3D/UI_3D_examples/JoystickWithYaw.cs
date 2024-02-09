@@ -80,14 +80,14 @@ public class JoystickWithYaw : XRBaseInteractable
     /// <summary>
     /// The value of the joystick
     /// </summary>
-    public Vector2 value
+    public Vector2 JoystickValue
     {
         get => m_Value;
         set
         {
             if (!m_RecenterOnRelease)
             {
-                SetValue(value);
+                SetJoystickValue(value);
                 SetHandleAngle(value * m_MaxAngle);
             }
         }
@@ -302,11 +302,19 @@ public class JoystickWithYaw : XRBaseInteractable
 
     void Start()
     {
+        //joystick components
         if (m_RecenterOnRelease)
+        {
             SetHandleAngle(Vector2.zero);
-        SetValue(m_Value);
+        }
+        SetJoystickValue(m_Value);
+
+        //knob components
+        SetKnobValue(m_KnobValue);
         SetKnobRotation(ValueToRotation());
     }
+
+    #region XR specific methods
 
     protected override void OnEnable()
     {
@@ -341,7 +349,7 @@ public class JoystickWithYaw : XRBaseInteractable
         if (m_RecenterOnRelease)
         {
             SetHandleAngle(Vector2.zero);
-            SetValue(Vector2.zero);
+            SetJoystickValue(Vector2.zero);
         }
 
         m_Interactor = null;
@@ -360,6 +368,8 @@ public class JoystickWithYaw : XRBaseInteractable
             }
         }
     }
+
+    #endregion
 
     #region JoyStick Methods
     Vector3 GetLookDirection()
@@ -428,10 +438,10 @@ public class JoystickWithYaw : XRBaseInteractable
         stickValue.y *= signY;
 
         SetHandleAngle(new Vector2(leftRightAngle, upDownAngle));
-        SetValue(stickValue);
+        SetJoystickValue(stickValue);
     }
 
-    void SetValue(Vector2 value)
+    void SetJoystickValue(Vector2 value)
     {
         m_Value = value;
         m_OnValueChangeX.Invoke(m_Value.x);
@@ -448,7 +458,7 @@ public class JoystickWithYaw : XRBaseInteractable
         var largerComp = Mathf.Max(Mathf.Abs(xComp), Mathf.Abs(zComp));
         var yComp = Mathf.Sqrt(1.0f - largerComp * largerComp);
 
-        m_Handle.up = (transform.up * yComp) + (transform.right * xComp) + (transform.forward * zComp);
+        m_Handle.up = (transform.up * yComp) + (transform.right * xComp) + (transform.forward * zComp); //THIS MIGHT B THE PROBLEM ABOUT THE POSITION NOT UDATING PROPERLY
     }
     #endregion
 
@@ -593,6 +603,8 @@ public class JoystickWithYaw : XRBaseInteractable
 
     #endregion
 
+    #region Other Monobehavior Methods
+
     void OnDrawGizmosSelected()
     {
         var angleStartPoint = transform.position;
@@ -673,5 +685,6 @@ public class JoystickWithYaw : XRBaseInteractable
     {
         m_DeadZoneAngle = Mathf.Min(m_DeadZoneAngle, m_MaxAngle * k_MaxDeadZonePercent);
     }
+    #endregion
 }
 
