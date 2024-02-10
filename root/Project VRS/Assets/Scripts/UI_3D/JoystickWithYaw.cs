@@ -233,7 +233,7 @@ public class JoystickWithYaw : XRBaseInteractable
 
     [SerializeField]
     [Tooltip("Events to trigger when the knob is rotated")]
-    ValueChangeEvent m_OnValueChange = new ValueChangeEvent();
+    ValueChangeEvent m_KnobOnValueChange = new ValueChangeEvent();
 
     bool m_PositionDriven = false;
     bool m_UpVectorDriven = false;
@@ -248,7 +248,7 @@ public class JoystickWithYaw : XRBaseInteractable
     /// <summary>
     /// The value of the knob
     /// </summary>
-    public float Knobvalue
+    public float KnobValue
     {
         get => m_KnobValue;
         set
@@ -261,7 +261,7 @@ public class JoystickWithYaw : XRBaseInteractable
     /// <summary>
     /// Whether this knob's rotation should be clamped by the angle limits
     /// </summary>
-    public bool KnobclampedMotion
+    public bool KnobClampedMotion
     {
         get => m_KnobClampedMotion;
         set => m_KnobClampedMotion = value;
@@ -270,16 +270,16 @@ public class JoystickWithYaw : XRBaseInteractable
     /// <summary>
     /// Rotation of the knob at value '1'
     /// </summary>
-    public float KnobmaxAngle
+    public float KnobMaxAngle
     {
-        get => m_MaxAngle;
-        set => m_MaxAngle = value;
+        get => m_KnobMaxAngle;
+        set => m_KnobMaxAngle = value;
     }
 
     /// <summary>
     /// Rotation of the knob at value '0'
     /// </summary>
-    public float KnobminAngle
+    public float KnobMinAngle
     {
         get => m_KnobMinAngle;
         set => m_KnobMinAngle = value;
@@ -288,7 +288,7 @@ public class JoystickWithYaw : XRBaseInteractable
     /// <summary>
     /// The position of the interactor controls rotation when outside this radius
     /// </summary>
-    public float KnobpositionTrackedRadius
+    public float KnobPositionTrackedRadius
     {
         get => m_KnobPositionTrackedRadius;
         set => m_KnobPositionTrackedRadius = value;
@@ -297,21 +297,21 @@ public class JoystickWithYaw : XRBaseInteractable
     /// <summary>
     /// Events to trigger when the knob is rotated
     /// </summary>
-    public ValueChangeEvent onValueChange => m_OnValueChange;
+    public ValueChangeEvent onKnobValueChange => m_KnobOnValueChange;
     #endregion
 
     void Start()
     {
+        //knob components
+        SetKnobValue(m_KnobValue);
+        SetKnobRotation(ValueToRotation());
+
         //joystick components
         if (m_RecenterOnRelease)
         {
             SetHandleAngle(Vector2.zero);
         }
         SetJoystickValue(m_Value);
-
-        //knob components
-        SetKnobValue(m_KnobValue);
-        SetKnobRotation(ValueToRotation());
     }
 
     #region XR specific methods
@@ -344,7 +344,7 @@ public class JoystickWithYaw : XRBaseInteractable
 
     private void EndGrab(SelectExitEventArgs arts)
     {
-        UpdateValue();
+        UpdateJoystickValue();
 
         if (m_RecenterOnRelease)
         {
@@ -363,7 +363,8 @@ public class JoystickWithYaw : XRBaseInteractable
         {
             if (isSelected)
             {
-                UpdateValue();
+                //does position here matter?
+                UpdateJoystickValue();
                 UpdateRotation();
             }
         }
@@ -390,7 +391,7 @@ public class JoystickWithYaw : XRBaseInteractable
         return direction.normalized;
     }
 
-    void UpdateValue()
+    void UpdateJoystickValue()
     {
         var lookDirection = GetLookDirection();
 
@@ -441,6 +442,7 @@ public class JoystickWithYaw : XRBaseInteractable
         SetJoystickValue(stickValue);
     }
 
+
     void SetJoystickValue(Vector2 value)
     {
         m_Value = value;
@@ -453,13 +455,19 @@ public class JoystickWithYaw : XRBaseInteractable
         if (m_Handle == null)
             return;
 
-        var xComp = Mathf.Tan(angles.x * Mathf.Deg2Rad);
-        var zComp = Mathf.Tan(angles.y * Mathf.Deg2Rad);
-        var largerComp = Mathf.Max(Mathf.Abs(xComp), Mathf.Abs(zComp));
-        var yComp = Mathf.Sqrt(1.0f - largerComp * largerComp);
+        // Store current Y rotation (if desired)
+        float currentYRotation = m_Handle.localRotation.eulerAngles.y;
 
-        m_Handle.up = (transform.up * yComp) + (transform.right * xComp) + (transform.forward * zComp); //THIS MIGHT B THE PROBLEM ABOUT THE POSITION NOT UDATING PROPERLY
+        // Combine angles (including the previously stored Y rotation)
+        Vector2 newAngle = new Vector2(angles.x, currentYRotation);
+
+        // Construct a valid rotation quaternion
+        Quaternion handleRotation = Quaternion.Euler(newAngle);
+
+        // Set the handle's local rotation using the quaternion
+        m_Handle.localRotation = handleRotation;
     }
+
     #endregion
 
     #region Knob Methods
@@ -559,7 +567,7 @@ public class JoystickWithYaw : XRBaseInteractable
         }
 
         if (m_Handle != null)
-            m_Handle.localEulerAngles = new Vector3(0.0f, angle, 0.0f);
+            m_Handle.localEulerAngles = new Vector3(transform.localRotation.x, angle, transform.localRotation.z);
     }
 
     void SetKnobValue(float tempvalue)
@@ -570,13 +578,13 @@ public class JoystickWithYaw : XRBaseInteractable
         if (m_KnobAngleIncrement > 0)
         {
             var angleRange = m_MaxAngle - m_KnobMinAngle;
-            var angle = Mathf.Lerp(0.0f, angleRange, Knobvalue);
+            var angle = Mathf.Lerp(0.0f, angleRange, KnobValue);
             angle = Mathf.Round(angle / m_KnobAngleIncrement) * m_KnobAngleIncrement;
             tempvalue = Mathf.InverseLerp(0.0f, angleRange, angle);
         }
 
         m_KnobValue = tempvalue;
-        m_OnValueChange.Invoke(m_KnobValue);
+        m_KnobOnValueChange.Invoke(m_KnobValue);
     }
 
     float ValueToRotation()
