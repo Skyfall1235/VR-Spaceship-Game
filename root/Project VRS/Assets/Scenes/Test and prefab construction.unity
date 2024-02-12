@@ -1047,19 +1047,7 @@ MonoBehaviour:
   m_DeadZoneAngle: 4.6
   m_OnValueChangeX:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 258696088}
-        m_TargetAssemblyTypeName: ShipInputHandler, Assembly-CSharp
-        m_MethodName: UpdatePlayerInput
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnValueChangeY:
     m_PersistentCalls:
       m_Calls: []
@@ -1206,6 +1194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 239467689}
+  - component: {fileID: 239467690}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -1228,6 +1217,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 153647073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239467690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239467688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showLogs: 0
 --- !u!1 &256289402 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e1d26b1aa215de4d84000091c3d9a53, type: 3}
@@ -1419,6 +1421,12 @@ MonoBehaviour:
   maxDeceleration: 5.3
   currentSpeed: 0
   rateOfTurn: 5
+  m_OnRotationChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnVelocityChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
   logger: {fileID: 0}
 --- !u!54 &258696090
 Rigidbody:
@@ -1526,6 +1534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 334561610}
+  - component: {fileID: 334561611}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -1548,6 +1557,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 153647073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &334561611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334561609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showLogs: 0
 --- !u!1 &345971005
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,6 +2619,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 774613202}
+  - component: {fileID: 774613203}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2619,6 +2642,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 153647073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774613203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774613201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showLogs: 0
 --- !u!1 &822914678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4357,6 +4393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1685474692}
+  - component: {fileID: 1685474693}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -4379,6 +4416,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 153647073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1685474693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685474691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showLogs: 0
 --- !u!1 &1731895500
 GameObject:
   m_ObjectHideFlags: 0
@@ -5726,6 +5776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2132206350}
+  - component: {fileID: 2132206351}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -5748,6 +5799,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 153647073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132206351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132206349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showLogs: 0
 --- !u!1001 &4636607658419468551
 PrefabInstance:
   m_ObjectHideFlags: 0

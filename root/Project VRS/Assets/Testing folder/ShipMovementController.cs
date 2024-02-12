@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Burst;
+using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ShipInputHandler))]
 [RequireComponent(typeof(Rigidbody))]
@@ -38,9 +40,24 @@ public class ShipMovementController : MonoBehaviour
     const float lowerJoystickInputBounds = -2f;
     const float UpperJoystickInputBounds = 2f;
 
+    [Serializable]
+    public class TransformChangeEvent : UnityEvent<float> { }
+
+    [SerializeField]
+    [Tooltip("Events to trigger when the joystick's y value changes")]
+    TransformChangeEvent m_OnRotationChangeEvent = new TransformChangeEvent();
+
+    [SerializeField]
+    [Tooltip("Events to trigger when the joystick's x value changes")]
+    TransformChangeEvent m_OnVelocityChangeEvent = new TransformChangeEvent();
+
+    public TransformChangeEvent OnRotationChangeEvent => m_OnRotationChangeEvent;
+    public TransformChangeEvent OnVelocityChangeEvent => m_OnVelocityChangeEvent;
+
+
     [SerializeField] Logger logger;
 
-    
+
 
 
 
@@ -48,12 +65,13 @@ public class ShipMovementController : MonoBehaviour
 
     #endregion
 
-    //apply new thrsut value
+    #region Application of Motion
+
+    //apply new thrust value
     void ApplyLinearMotionValue(float rawThrottleInput)
     {
-        
         float appliedThrustValue = Remap(rawThrottleInput, lowerJoystickInputBounds, maxAcceleration, UpperJoystickInputBounds, maxDeceleration);
-
+        
     }
     //apply a change in turn
     void ApplyRotationOnAxis(Vector3 axis, float rotationSpeed)
@@ -66,7 +84,21 @@ public class ShipMovementController : MonoBehaviour
         
     }
 
+    #endregion
 
+    #region Internal execution
+
+    void ClampVelocityToMaxSpeed()
+    {
+        if (m_shipRigidbody.velocity.magnitude > maxSpeed)
+        {
+            m_shipRigidbody.velocity = Vector3.ClampMagnitude(m_shipRigidbody.velocity, maxSpeed);
+        }
+    }
+
+    #endregion
+
+    #region Math
 
     //calculate the rotation axis for a turn
     private Vector3 FindAxisForRotation(Vector2 axis, Transform localTransform)
@@ -84,6 +116,10 @@ public class ShipMovementController : MonoBehaviour
         float rescaledValue = normalizedValue * (newMax - newMin) + newMin;
         return rescaledValue;
     }
+
+    #endregion
+
+    #region Monobehavior
 
     void OnDrawGizmosSelected()
     {
@@ -110,6 +146,7 @@ public class ShipMovementController : MonoBehaviour
         }
     }
 
+    #endregion
 }
 
 
