@@ -24,9 +24,14 @@ public class ShipMovementController : MonoBehaviour
     [Range(0f, 10f)]
     public float maxAcceleration = 10f;
     [Range(0f, 10f)]
-    public float maxDeceleration = 5f;
+    public float maxDeceleration = -5f;
+
+    public float MaxBreakValue = 5f;
 
     public float maxRateOfTurn = 10f;
+
+    [Range(0f, 1f)]
+    public float DampeningMultiplier = 0.75f;
 
     public float maxStrafeSpeed
     {
@@ -40,6 +45,8 @@ public class ShipMovementController : MonoBehaviour
     public const float maxSpeed = 100f;
     const float lowerJoystickInputBounds = -2f;
     const float upperJoystickInputBounds = 2f;
+
+
 
     //continously applied vectors that change upon setting values for the inputs
     private Vector3 savedForwardVector;
@@ -67,6 +74,7 @@ public class ShipMovementController : MonoBehaviour
 
     [SerializeField] Logger logger;
 
+    #region Monobehavior
 
     private void FixedUpdate()
     {
@@ -74,14 +82,44 @@ public class ShipMovementController : MonoBehaviour
         ApplyAllCurrentForces();
     }
 
+    void OnDrawGizmosSelected()
+    {
+        //Gizmos.color = Color.magenta;
+
+        // Get the input vector (assuming it's a Vector2)
+        //Vector2 inputVector;
+
+        // Calculate the desired direction in world space based on transform.forward
+        //Vector3 desiredDirection = transform.forward + new Vector3(inputVector.y, inputVector.x, 0f); // Set Z to 0
+
+        // Calculate the end point of the line in world space
+        //Vector3 endPoint = transform.position + desiredDirection * 4f; // Adjust the scaling factor as needed
+
+        // Draw the line
+        //Gizmos.DrawLine(transform.position, endPoint);
+    }
+
+    private void OnValidate()
+    {
+        if (maxDeceleration + 0.1f >= maxAcceleration)
+        {
+            maxDeceleration = maxAcceleration - 0.1f;
+        }
+    }
+
+    #endregion
+
+
     #endregion
 
     #region Application of Motion
     public void CallUpdateForLinearMotion()
     {
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
-        float secondaryJoystickVal = currentInput.ThrustValue;
-        SaveNewLinearMotionVector(secondaryJoystickVal);
+        float secondaryJoystickYVal = currentInput.ThrustValue;
+
+        SaveNewLinearMotionVector(secondaryJoystickYVal);
+        //unlike the rest of the methods, brakes can be applied even if you are using thrust.
     }
 
     public void CallUpdateForRotation()
@@ -89,13 +127,25 @@ public class ShipMovementController : MonoBehaviour
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         float rotationSpeed = currentInput.PrimaryFlightStick.x; // this might be wrong, come back later
         Vector3 axisOfRotation = FindAxisForRotation(currentInput.PrimaryFlightStick, transform);//this might also be problematic
-        SaveNewRotationOnAxis(axisOfRotation, rotationSpeed);
+
+        if(currentInput.PrimaryFlightStick != Vector2.zero)
+        {
+            SaveNewRotationOnAxis(axisOfRotation, rotationSpeed);
+        }
+        else { DecelerateRotationalMovement(); }
+        
     }
 
     public void CallUpdateForStrafe()
     {
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
-        SaveNewStrafeVector(currentInput.yawValue);
+
+        if(currentInput.yawValue != 0)
+        {
+            SaveNewStrafeVector(currentInput.yawValue);
+        }
+        else { DecelerateStrafe(); }
+        
     }
 
     private void ApplyAllCurrentForces()
@@ -103,8 +153,63 @@ public class ShipMovementController : MonoBehaviour
         ApplyLinearMotionValue(savedForwardVector);
         ApplyRotationOnAxis(savedRotationAxis, savedRotationSpeed);
         ApplyStrafe(savedStrafeVector);
+        //if()
     }
 
+    #endregion
+
+    #region Application
+
+    //this section is to help slow down the RB
+    //we can add if statements to the call updates above to run these modules
+
+    void BrakeLinearMovement()
+    {
+        //get the trigger value from the hand that is currently grabbing the joystick
+        Vector3 currentLinearVector = savedForwardVector;
+        ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+
+        //get the current trigger value
+        float triggerVal = currentInput.BreakValue;
+        //set the consts
+        const float minTriggerVal = 0f;
+        const float maxTriggerVal = 1f;
+
+        //remap the trigger value to be equal to the breakforce to be applied against the linear motion
+        float mappedTriggerVal = Remap(triggerVal, minTriggerVal, maxTriggerVal, 0f, MaxBreakValue);
+
+        //apply a force opposite of the current vector normalized, multiplied by the trigger val
+        Vector3 BreakingVector = (-currentLinearVector.normalized * mappedTriggerVal);
+        ApplyLinearMotionValue(BreakingVector);
+    }
+
+    //will be needed for when the throttle is at zero
+    void DecelerateLinearMovement()
+    {
+        //determine inverted force needed on the fly based on the current linear velocity
+        Vector3 currentInputVector = savedForwardVector;
+        Vector3 invertedDampendVector  = -currentInputVector * DampeningMultiplier;
+        ApplyLinearMotionValue(invertedDampendVector);
+    }
+
+    void DecelerateRotationalMovement()
+    {
+        //determine inverted torque needed on the fly based on the current torque
+        Vector3 currentTorque = savedRotationAxis;
+        float currentRotationalSpeed = savedRotationSpeed;
+
+        //invert the vector3 and apply it when input is equal to zero, so it stops the rotation of whereever it is
+        Vector3 invertedTorque = -currentTorque;
+        ApplyRotationOnAxis(invertedTorque * DampeningMultiplier, -currentRotationalSpeed * DampeningMultiplier);//this might be problematic, but it think i just need to invert the rotational speed?
+    }
+
+    void DecelerateStrafe()
+    {
+        //determine inverted force needed on the fly based on the current strafe velocity
+        Vector3 currentStrafe = savedStrafeVector;
+        Vector3 invertedStrafe = -currentStrafe;
+        ApplyStrafe(invertedStrafe * DampeningMultiplier);
+    }
 
     #endregion
 
@@ -168,6 +273,7 @@ public class ShipMovementController : MonoBehaviour
 
     void ApplyRotationOnAxis(Vector3 rotationAxisWithMappedSpeed, float newRotationSpeed)
     {
+        //float newRotationSpeed = rotationAxisWithMappedSpeed.
         m_shipRigidbody.AddRelativeTorque(rotationAxisWithMappedSpeed, ForceMode.Force);
         m_OnRotationChangeEvent.Invoke(newRotationSpeed);
     }
@@ -212,34 +318,6 @@ public class ShipMovementController : MonoBehaviour
 
     #endregion
 
-    #region Monobehavior
-
-    void OnDrawGizmosSelected()
-    {
-        //Gizmos.color = Color.magenta;
-
-        // Get the input vector (assuming it's a Vector2)
-        //Vector2 inputVector;
-
-        // Calculate the desired direction in world space based on transform.forward
-        //Vector3 desiredDirection = transform.forward + new Vector3(inputVector.y, inputVector.x, 0f); // Set Z to 0
-
-        // Calculate the end point of the line in world space
-        //Vector3 endPoint = transform.position + desiredDirection * 4f; // Adjust the scaling factor as needed
-
-        // Draw the line
-        //Gizmos.DrawLine(transform.position, endPoint);
-    }
-
-    private void OnValidate()
-    {
-        if(maxDeceleration + 0.1f >= maxAcceleration)
-        {
-            maxDeceleration = maxAcceleration - 0.1f;
-        }
-    }
-
-    #endregion
 }
 
 

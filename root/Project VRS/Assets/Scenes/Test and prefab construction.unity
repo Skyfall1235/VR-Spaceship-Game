@@ -1382,7 +1382,7 @@ Transform:
   m_GameObject: {fileID: 258696086}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.76, z: 0.50299996}
+  m_LocalPosition: {x: -0.001, y: 3.76, z: 0.50299996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1406,6 +1406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useKeyboardControls: 1
   logger: {fileID: 0}
+  breakVal: 0
 --- !u!114 &258696089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1418,11 +1419,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a434f400ccd4140a01356896647f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_shipInputHandler: {fileID: 0}
-  m_shipRigidbody: {fileID: 0}
+  m_shipInputHandler: {fileID: 258696088}
+  m_shipRigidbody: {fileID: 258696090}
   maxAcceleration: 7.42
   maxDeceleration: 5.3
+  MaxBreakValue: 5
   maxRateOfTurn: 10
+  DampeningMultiplier: 0.75
   m_OnRotationChangeEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1456,7 +1459,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1001 &329211112
 PrefabInstance:
   m_ObjectHideFlags: 0
