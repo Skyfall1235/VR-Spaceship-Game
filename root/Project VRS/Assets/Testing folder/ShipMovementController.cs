@@ -46,8 +46,6 @@ public class ShipMovementController : MonoBehaviour
     const float lowerJoystickInputBounds = -2f;
     const float upperJoystickInputBounds = 2f;
 
-
-
     //continously applied vectors that change upon setting values for the inputs
     private Vector3 savedForwardVector;
 
@@ -55,7 +53,6 @@ public class ShipMovementController : MonoBehaviour
     private float savedRotationSpeed;
 
     private Vector3 savedStrafeVector;
-
 
     [Serializable]
     public class TransformChangeEvent : UnityEvent<float> { }
@@ -73,6 +70,8 @@ public class ShipMovementController : MonoBehaviour
 
 
     [SerializeField] Logger logger;
+
+    #endregion
 
     #region Monobehavior
 
@@ -109,8 +108,6 @@ public class ShipMovementController : MonoBehaviour
 
     #endregion
 
-
-    #endregion
 
     #region Application of Motion
     public void CallUpdateForLinearMotion()
@@ -158,7 +155,7 @@ public class ShipMovementController : MonoBehaviour
 
     #endregion
 
-    #region Application
+    #region application of Deceletation
 
     //this section is to help slow down the RB
     //we can add if statements to the call updates above to run these modules
