@@ -35,8 +35,12 @@ namespace UnityEngine.XR.Content.Interaction
         Vector2 m_Value = Vector2.zero;
 
         [SerializeField]
-        [Tooltip("If true, the joystick will return to center on release")]
+        [Tooltip("If true, the joystick will return to (0, 0) on release")]
         bool m_RecenterOnRelease = true;
+
+        [SerializeField]
+        [Tooltip("If true, the joystick will return to center not accounting for the Y value on release.\nNote : recenter will always take priority")]
+        bool m_RecenterXOnRelease = true;
 
         [SerializeField]
         [Tooltip("Maximum angle the joystick can move")]
@@ -93,12 +97,21 @@ namespace UnityEngine.XR.Content.Interaction
         }
 
         /// <summary>
-        /// If true, the joystick will return to center on release
+        /// If true, the joystick will return to dead center on release
         /// </summary>
         public bool recenterOnRelease
         {
             get => m_RecenterOnRelease;
             set => m_RecenterOnRelease = value;
+        }
+
+        /// <summary>
+        /// If true, the joysticks X value will return to center on release
+        /// </summary>
+        public bool recenterXOnRelease
+        {
+            get => m_RecenterXOnRelease;
+            set => m_RecenterXOnRelease = value;
         }
 
         /// <summary>
@@ -158,6 +171,13 @@ namespace UnityEngine.XR.Content.Interaction
         private void EndGrab(SelectExitEventArgs arts)
         {
             UpdateValue();
+
+            if (m_RecenterXOnRelease)
+            {
+                Vector2 centeredX = new Vector2(0, m_Value.y);
+                SetHandleAngle(centeredX);
+                SetValue(centeredX);
+            }
 
             if (m_RecenterOnRelease)
             {

@@ -14,31 +14,44 @@ public class ShipMovementController : MonoBehaviour
     /// <summary>
     /// The input handler of the entire ship
     /// </summary>
-    private ShipInputHandler m_shipInputHandler
-    {
-        get { return GetComponent<ShipInputHandler>(); }
-    }
+    [SerializeField] private ShipInputHandler m_shipInputHandler;
 
     /// <summary>
     /// the rigidbody component of the entire ship
     /// </summary>
-    private Rigidbody m_shipRigidbody
-    {
-        get { return GetComponent<Rigidbody>(); }
-    }
+    [SerializeField] private Rigidbody m_shipRigidbody;
+
     [Range(0f, 10f)]
     public float maxAcceleration = 10f;
     [Range(0f, 10f)]
     public float maxDeceleration = 5f;
 
-    public float currentSpeed;
+    public float maxRateOfTurn = 10f;
 
-    public float rateOfTurn = 5f;
+    public float maxStrafeSpeed
+    {
+        get
+        {
+            return maxAcceleration / 2;
+        }
+    }
 
     [Range(0f, 1000f)]
     public const float maxSpeed = 100f;
     const float lowerJoystickInputBounds = -2f;
-    const float UpperJoystickInputBounds = 2f;
+    const float upperJoystickInputBounds = 2f;
+
+    //continously applied vectors that change upon setting values for the inputs
+    private Vector3 savedForwardVector;
+
+    private Vector3 savedRotationAxis;
+    private float savedRotationSpeed;
+
+    private Vector3 savedStrafeVector;
+
+
+
+
 
     [Serializable]
     public class TransformChangeEvent : UnityEvent<float> { }
@@ -58,6 +71,13 @@ public class ShipMovementController : MonoBehaviour
     [SerializeField] Logger logger;
 
 
+    private void FixedUpdate()
+    {
+        
+    }
+
+
+
 
 
 
@@ -67,26 +87,72 @@ public class ShipMovementController : MonoBehaviour
 
     #region Application of Motion
 
-    //apply new thrust value
-    void ApplyLinearMotionValue(float rawThrottleInput)
+    public void UpdateLinearMotionVector(float rawThrottleInput)
     {
-        float appliedThrustValue = Remap(rawThrottleInput, lowerJoystickInputBounds, maxAcceleration, UpperJoystickInputBounds, maxDeceleration);
-        
-    }
-    //apply a change in turn
-    void ApplyRotationOnAxis(Vector3 axis, float rotationSpeed)
-    {
+        float appliedThrustValue = Remap(rawThrottleInput,        // Value to modify
+                                        lowerJoystickInputBounds, // Lower original bound
+                                        upperJoystickInputBounds, // Upper original bound
+                                        maxDeceleration,          // Lower new bound
+                                        maxAcceleration);         // Upper new bound
+
+        Vector3 forwardVector = new Vector3(appliedThrustValue, 0f, 0f);
+        //save the value
+        savedForwardVector = forwardVector;
 
     }
 
-    void ApplyStrafe(float rawYawInput)
+    public void UpdateRotationOnAxis(Vector3 axis, float rotationSpeed)
     {
-        
+        //ADD-RELATIVE-TORQUE ROTATES THE BODY CLOCKWISE AROUND THE AXIS (if it is counter clockwise your visualization is upside down)
+
+        float newRotationSpeed = Remap(rotationSpeed,            // Value to modify
+                                       lowerJoystickInputBounds, // Lower original bound
+                                       upperJoystickInputBounds, // Upper original bound
+                                       0f,                       // Lower new bound
+                                       maxRateOfTurn);           // Upper new bound
+
+        //since the axis is a normalized vector we can just multiply it
+        Vector3 rotationAxisWithMappedSpeed = axis * newRotationSpeed;
+        //save the values
+        savedRotationAxis = rotationAxisWithMappedSpeed;
+        savedRotationSpeed = newRotationSpeed;
+    }
+
+    public void UpdateStrafeVector(float rawYawInput)
+    {
+        float appliedYawValue = Remap(rawYawInput,              // Value to modify  
+                                      lowerJoystickInputBounds, // Lower original bound
+                                      upperJoystickInputBounds, // Upper original bound
+                                      0f,                       // Lower new bound
+                                      maxStrafeSpeed);          // Upper new bound
+
+        //save the values
+        //NOT FINISHED
+        //savedStrafeVector = ;
+
     }
 
     #endregion
 
     #region Internal execution
+
+    void ApplyLinearMotionValue(Vector3 forwardVector, float appliedThrustValue)
+    {
+        m_shipRigidbody.AddRelativeForce(forwardVector, ForceMode.Force);
+        m_OnVelocityChangeEvent.Invoke(appliedThrustValue);
+    }
+
+    void ApplyRotationOnAxis(Vector3 rotationAxisWithMappedSpeed, float newRotationSpeed)
+    {
+        m_shipRigidbody.AddRelativeTorque(rotationAxisWithMappedSpeed, ForceMode.Force);
+        m_OnRotationChangeEvent.Invoke(newRotationSpeed);
+    }
+
+    void ApplyStrafe(Vector3 strafeVector, float appliedStrafeValue)
+    {
+        m_shipRigidbody.AddRelativeForce(strafeVector, ForceMode.Force);
+        m_OnVelocityChangeEvent.Invoke(appliedStrafeValue);
+    }
 
     void ClampVelocityToMaxSpeed()
     {
@@ -105,6 +171,12 @@ public class ShipMovementController : MonoBehaviour
     {
         Vector3 crossAxis = Vector3.Cross(axis, localTransform.up);
         return crossAxis.normalized;
+    }
+
+    private Vector3 FindYawDirection(Vector2 joystickInput)
+    {
+        //NOT FINISHED
+        return Vector3.zero;
     }
 
     public static float Remap(float value, float originalMin, float originalMax, float newMin, float newMax)
