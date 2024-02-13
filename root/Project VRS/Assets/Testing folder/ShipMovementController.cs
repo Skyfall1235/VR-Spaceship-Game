@@ -50,9 +50,6 @@ public class ShipMovementController : MonoBehaviour
     private Vector3 savedStrafeVector;
 
 
-
-
-
     [Serializable]
     public class TransformChangeEvent : UnityEvent<float> { }
 
@@ -73,21 +70,47 @@ public class ShipMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        //this will apply all current inputs. this does not SLOW DOWN or stop inputs.
+        ApplyAllCurrentForces();
     }
-
-
-
-
-
-
-
 
     #endregion
 
     #region Application of Motion
+    public void CallUpdateForLinearMotion()
+    {
+        ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        float secondaryJoystickVal = currentInput.ThrustValue;
+        SaveNewLinearMotionVector(secondaryJoystickVal);
+    }
 
-    public void UpdateLinearMotionVector(float rawThrottleInput)
+    public void CallUpdateForRotation()
+    {
+        ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        float rotationSpeed = currentInput.PrimaryFlightStick.x; // this might be wrong, come back later
+        Vector3 axisOfRotation = FindAxisForRotation(currentInput.PrimaryFlightStick, transform);//this might also be problematic
+        SaveNewRotationOnAxis(axisOfRotation, rotationSpeed);
+    }
+
+    public void CallUpdateForStrafe()
+    {
+        ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        SaveNewStrafeVector(currentInput.yawValue);
+    }
+
+    private void ApplyAllCurrentForces()
+    {
+        ApplyLinearMotionValue(savedForwardVector);
+        ApplyRotationOnAxis(savedRotationAxis, savedRotationSpeed);
+        ApplyStrafe(savedStrafeVector);
+    }
+
+
+    #endregion
+
+    #region Internal execution
+
+    private void SaveNewLinearMotionVector(float rawThrottleInput)
     {
         float appliedThrustValue = Remap(rawThrottleInput,        // Value to modify
                                         lowerJoystickInputBounds, // Lower original bound
@@ -95,13 +118,12 @@ public class ShipMovementController : MonoBehaviour
                                         maxDeceleration,          // Lower new bound
                                         maxAcceleration);         // Upper new bound
 
-        Vector3 forwardVector = new Vector3(appliedThrustValue, 0f, 0f);
+        Vector3 forwardVector = new Vector3(0f, 0f, appliedThrustValue);
         //save the value
         savedForwardVector = forwardVector;
-
     }
 
-    public void UpdateRotationOnAxis(Vector3 axis, float rotationSpeed)
+    private void SaveNewRotationOnAxis(Vector3 axis, float rotationSpeed)
     {
         //ADD-RELATIVE-TORQUE ROTATES THE BODY CLOCKWISE AROUND THE AXIS (if it is counter clockwise your visualization is upside down)
 
@@ -118,26 +140,28 @@ public class ShipMovementController : MonoBehaviour
         savedRotationSpeed = newRotationSpeed;
     }
 
-    public void UpdateStrafeVector(float rawYawInput)
+    //since the strafe is just the x value of the secondary joystick, it can just take a float
+    private void SaveNewStrafeVector(float rawYawInput)
     {
         float appliedYawValue = Remap(rawYawInput,              // Value to modify  
                                       lowerJoystickInputBounds, // Lower original bound
                                       upperJoystickInputBounds, // Upper original bound
                                       0f,                       // Lower new bound
                                       maxStrafeSpeed);          // Upper new bound
-
+        //set the vector for the strafe to the speed of the strafe value
+        Vector3 strafeVector = new Vector3(appliedYawValue, 0f, 0f);
         //save the values
-        //NOT FINISHED
-        //savedStrafeVector = ;
-
+        savedStrafeVector = strafeVector;
     }
 
-    #endregion
-
-    #region Internal execution
-
-    void ApplyLinearMotionValue(Vector3 forwardVector, float appliedThrustValue)
+    ShipJoystickInput GrabCurrentShipControlInputs()
     {
+        return m_shipInputHandler.CurrentShipJoystickInputs;
+    }
+
+    void ApplyLinearMotionValue(Vector3 forwardVector)
+    {
+        float appliedThrustValue = forwardVector.z;
         m_shipRigidbody.AddRelativeForce(forwardVector, ForceMode.Force);
         m_OnVelocityChangeEvent.Invoke(appliedThrustValue);
     }
@@ -148,12 +172,14 @@ public class ShipMovementController : MonoBehaviour
         m_OnRotationChangeEvent.Invoke(newRotationSpeed);
     }
 
-    void ApplyStrafe(Vector3 strafeVector, float appliedStrafeValue)
+    void ApplyStrafe(Vector3 strafeVector)
     {
+        float appliedStrafeValue = strafeVector.x;
         m_shipRigidbody.AddRelativeForce(strafeVector, ForceMode.Force);
         m_OnVelocityChangeEvent.Invoke(appliedStrafeValue);
     }
 
+    //possibily an optimisattion to change this to setting an inverse force instead of a clamp
     void ClampVelocityToMaxSpeed()
     {
         if (m_shipRigidbody.velocity.magnitude > maxSpeed)
@@ -167,17 +193,12 @@ public class ShipMovementController : MonoBehaviour
     #region Math
 
     //calculate the rotation axis for a turn
-    private Vector3 FindAxisForRotation(Vector2 axis, Transform localTransform)
+    private Vector3 FindAxisForRotation(Vector2 inputVal, Transform localTransform)
     {
-        Vector3 crossAxis = Vector3.Cross(axis, localTransform.up);
+        Vector3 crossAxis = Vector3.Cross(inputVal, localTransform.up);
         return crossAxis.normalized;
     }
 
-    private Vector3 FindYawDirection(Vector2 joystickInput)
-    {
-        //NOT FINISHED
-        return Vector3.zero;
-    }
 
     public static float Remap(float value, float originalMin, float originalMax, float newMin, float newMax)
     {
