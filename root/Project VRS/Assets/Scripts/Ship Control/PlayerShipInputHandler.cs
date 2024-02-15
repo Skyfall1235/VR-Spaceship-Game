@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Content.Interaction;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerShipInputHandler : BC_ShipInputHandler
 {
@@ -22,9 +23,9 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         get => m_secondaryShipJoystick;
     }
 
-    //TEMP
-    public float breakVal = 0;
+    [SerializeField] private ActionBasedController m_secondaryJoystickInteractor;
 
+    //TEMP
     public bool useKeyboardControls = true;
 
     [SerializeField] Logger logger;
@@ -42,10 +43,58 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
                 return new();  // Return an empty struct to indicate an error
             }
 
-            // Use a concise conditional expression for input selection
-            //return useKeyboardControls ? InputEncoder(m_primaryShipJoystick.value, m_secondaryShipJoystick.value, breakVal) : InputEncoder(KeyboardInputControls());
-            return InputEncoder(m_primaryShipJoystick.value, m_secondaryShipJoystick.value, breakVal);
+            // There are only 2 possible reasons for why this should not be true
+            // 1. Update on End select requests this input handlers value
+            // 2. if the register interactor Controller event somehow gets called first.
+            //therefore LEAVE THE DAMN RETURN AT THE BOTTOM ALONE
+            if(m_secondaryJoystickInteractor != null)
+            {
+                //get the input action property and store its value
+                InputActionProperty activateValueProperty = m_secondaryJoystickInteractor.activateActionValue;
+                float activateValue = activateValueProperty.action.ReadValue<float>();
+
+                //return the encoded joystick inputs with a break value if there is any
+                return InputEncoder(m_primaryShipJoystick.value, m_secondaryShipJoystick.value, activateValue);
+            }
+            //g
+            return InputEncoder(m_primaryShipJoystick.value, m_secondaryShipJoystick.value, 0);
         }
+    }
+
+    /// <summary>
+    /// Registers the secondary joysticks action based controller based on what selected the joystick
+    /// </summary>
+    /// <param name="e">the event args that contain the interactor and interactable associated with this unityevent</param>
+    public void RegisterInteractorController(SelectEnterEventArgs e)
+    {
+        if(m_secondaryJoystickInteractor == null)
+        {
+            m_secondaryJoystickInteractor = GrabActionBasedController(e.interactorObject);
+        }
+    }
+
+    /// <summary>
+    ///  Unregisters the secondary joysticks action based controller from what unselected the joystick
+    /// </summary>
+    public void UnregisterInteractorController()
+    {
+        if (m_secondaryJoystickInteractor != null)
+        {
+            m_secondaryJoystickInteractor = null;
+        }
+    }
+
+    /// <summary>
+    /// returns the action based controller from an interactor if it has one
+    /// </summary>
+    /// <param name="interactor">the interactor we want to search</param>
+    /// <returns>The action based controller from an interactor if it has one</returns>
+    private ActionBasedController GrabActionBasedController(IXRInteractor interactor)
+    {
+        GameObject interactorGO = interactor.transform.gameObject;
+        ActionBasedController ABController = interactorGO.GetComponent<ActionBasedController>();
+        //if the action based controller is null, then no interactor will be saved
+        return ABController;
     }
 
     private (Vector2, Vector2, float) KeyboardInputControls()

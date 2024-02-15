@@ -24,6 +24,8 @@ public class ShipMovementController : BC_ShipMovementController
     private Vector3 m_savedYawAxis;
     private float m_savedYawSpeed;
 
+    private bool m_toggleYawForStrafe;
+
     [SerializeField] Logger m_logger;
 
     #endregion
@@ -32,7 +34,6 @@ public class ShipMovementController : BC_ShipMovementController
     {
         //this will apply all current inputs
         ApplyAllCurrentForces();
-
     }
 
     #region Application of Motion
@@ -41,12 +42,21 @@ public class ShipMovementController : BC_ShipMovementController
     {
         //linear motion
         ApplyLinearMotionValue(m_savedForwardVector);
+
         //roll and pitch rotations
         ApplyRotationOnAxis(m_savedRotationAxis, m_savedRotationSpeed);
-        //yaw rotations
-        ApplyRotationOnAxis(m_savedYawAxis, m_savedYawSpeed);
-        //apply strafe movement
-        ApplyStrafe(m_savedStrafeVector);
+
+        if(m_toggleYawForStrafe == true) //true means we strafe, false means we rotate yaw
+        {
+            //apply strafe movement
+            ApplyStrafe(m_savedStrafeVector);
+        }
+        else
+        {
+            //yaw rotations
+            ApplyRotationOnAxis(m_savedYawAxis, m_savedYawSpeed);
+        }
+
         //finally, prevent the speed from breaching the speed cap
         ClampVelocityToMaxSpeed();
     }
