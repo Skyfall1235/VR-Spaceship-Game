@@ -168,12 +168,13 @@ namespace UnityEngine.XR.Content.Interaction
             m_Interactor = args.interactorObject;
         }
 
-        private void EndGrab(SelectExitEventArgs arts)
+        private void EndGrab(SelectExitEventArgs args)
         {
             UpdateValue();
 
             if (m_RecenterXOnRelease)
             {
+                Debug.Log("Setting the handle to center");
                 Vector2 centeredX = new Vector2(0, m_Value.y);
                 SetHandleAngle(centeredX);
                 SetValue(centeredX);
@@ -181,6 +182,7 @@ namespace UnityEngine.XR.Content.Interaction
 
             if (m_RecenterOnRelease)
             {
+                Debug.Log("recentering");
                 SetHandleAngle(Vector2.zero);
                 SetValue(Vector2.zero);
             }

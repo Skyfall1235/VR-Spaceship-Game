@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DisplayValue : MonoBehaviour
 {
     public TextMeshProUGUI displayText;
-    public JoystickWithYaw joystick;
+    public XRJoystick joystick;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +18,6 @@ public class DisplayValue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        displayText.text = $"JHyostick val - {joystick.JoystickValue} \nknob Val - {joystick.KnobValue}";
+        displayText.text = $"Joystick val - {joystick.value}";
     }
 }

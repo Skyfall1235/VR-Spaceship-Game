@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 22991312}
   - component: {fileID: 22991311}
   - component: {fileID: 22991310}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 22991308}
   serializedVersion: 2
   m_LocalRotation: {x: -0.044141725, y: -0, z: -0, w: 0.99902534}
-  m_LocalPosition: {x: 0.55200005, y: 0.15900004, z: 0.44199997}
+  m_LocalPosition: {x: 0.49, y: 0.15900004, z: 0.44199997}
   m_LocalScale: {x: 0.3116353, y: 0.04017166, z: 0.87320375}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 123189374}
   - component: {fileID: 123189373}
   - component: {fileID: 123189372}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 153647072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.024926662, y: 4.526527, z: -0.037610352}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -807,15 +807,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.474
+      value: 0.398
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1026001
+      value: 0.1543
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.20139998
+      value: 0.1949
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -845,9 +845,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4640650921596906464, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -115397445859483977, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_Name
       value: PrimaryFlightStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_IsActive
@@ -1044,14 +1056,38 @@ MonoBehaviour:
   m_Value: {x: 0, y: 0}
   m_RecenterOnRelease: 1
   m_RecenterXOnRelease: 0
-  m_MaxAngle: 34.1
+  m_MaxAngle: 42.1
   m_DeadZoneAngle: 4.6
   m_OnValueChangeX:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 258696089}
+        m_TargetAssemblyTypeName: ShipMovementController, Assembly-CSharp
+        m_MethodName: CallUpdateForRotation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
   m_OnValueChangeY:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 258696089}
+        m_TargetAssemblyTypeName: ShipMovementController, Assembly-CSharp
+        m_MethodName: CallUpdateForRotation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &225468267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,7 +1402,7 @@ GameObject:
   - component: {fileID: 258696088}
   - component: {fileID: 258696089}
   - component: {fileID: 258696090}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FauxCockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1386,6 +1422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1638505224}
   - {fileID: 157335322}
   - {fileID: 437738299}
   - {fileID: 1894828526}
@@ -1404,9 +1441,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b10d22ac9f5c418bc14fb77dfb49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useKeyboardControls: 1
-  logger: {fileID: 0}
+  m_primaryShipJoystick: {fileID: 157335328}
+  m_secondaryShipJoystick: {fileID: 437738305}
   breakVal: 0
+  useKeyboardControls: 0
+  logger: {fileID: 0}
 --- !u!114 &258696089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,18 +1460,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_shipInputHandler: {fileID: 258696088}
   m_shipRigidbody: {fileID: 258696090}
-  maxAcceleration: 7.42
-  maxDeceleration: 5.3
-  MaxBreakValue: 5
-  maxRateOfTurn: 10
-  DampeningMultiplier: 0.75
+  m_maxAcceleration: 20
+  m_maxDeceleration: -20
+  m_MaxBreakValue: 5
+  m_maxRateOfTurn: 1
+  m_toggleStrafe: 0
+  m_maxSpeed: 100
   m_OnRotationChangeEvent:
     m_PersistentCalls:
       m_Calls: []
   m_OnVelocityChangeEvent:
     m_PersistentCalls:
       m_Calls: []
-  logger: {fileID: 0}
+  m_logger: {fileID: 0}
 --- !u!54 &258696090
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1443,7 +1483,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 100
   m_Drag: 10
-  m_AngularDrag: 0.2
+  m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1885,15 +1925,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.443
+      value: -0.334
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1026001
+      value: 0.15429997
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.20139998
+      value: 0.19489998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1923,9 +1963,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4640650921596906464, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -115397445859483977, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_Name
       value: SecondaryFlightStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
       propertyPath: m_IsActive
@@ -2126,10 +2178,34 @@ MonoBehaviour:
   m_DeadZoneAngle: 4.6
   m_OnValueChangeX:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 258696089}
+        m_TargetAssemblyTypeName: ShipMovementController, Assembly-CSharp
+        m_MethodName: CallUpdateForStrafe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
   m_OnValueChangeY:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 258696089}
+        m_TargetAssemblyTypeName: ShipMovementController, Assembly-CSharp
+        m_MethodName: CallUpdateForLinearMotion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!20 &451720299 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1572709832819735099, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
@@ -2313,7 +2389,7 @@ GameObject:
   - component: {fileID: 666729520}
   - component: {fileID: 666729519}
   - component: {fileID: 666729518}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2674,7 +2750,7 @@ GameObject:
   - component: {fileID: 822914682}
   - component: {fileID: 822914681}
   - component: {fileID: 822914680}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: displayValue (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2708,13 +2784,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822914678}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 134810eb60624d54abc48b1a8f6a4da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: {fileID: 929559992}
-  joystick: {fileID: 0}
+  joystick: {fileID: 157335328}
 --- !u!114 &822914681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3004,7 +3080,7 @@ GameObject:
   - component: {fileID: 929559991}
   - component: {fileID: 929559993}
   - component: {fileID: 929559992}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3139,7 +3215,7 @@ GameObject:
   - component: {fileID: 963507250}
   - component: {fileID: 963507249}
   - component: {fileID: 963507248}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3883,7 +3959,7 @@ GameObject:
   - component: {fileID: 1434283818}
   - component: {fileID: 1434283817}
   - component: {fileID: 1434283816}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3899,7 +3975,7 @@ Transform:
   m_GameObject: {fileID: 1434283814}
   serializedVersion: 2
   m_LocalRotation: {x: -0.044141725, y: -0, z: -0, w: 0.99902534}
-  m_LocalPosition: {x: -0.471, y: 0.15900004, z: 0.44199997}
+  m_LocalPosition: {x: -0.428, y: 0.15900004, z: 0.44199997}
   m_LocalScale: {x: 0.3116353, y: 0.04017166, z: 0.87320375}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3988,7 +4064,7 @@ GameObject:
   - component: {fileID: 1463053422}
   - component: {fileID: 1463053421}
   - component: {fileID: 1463053420}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4395,6 +4471,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timeout: 10
   m_XROrigin: {fileID: 1638505220}
+--- !u!4 &1638505224 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+  m_PrefabInstance: {fileID: 4636607658419468551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1658779249
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,7 +5489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1893989281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5422,7 +5503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: {fileID: 225468269}
-  joystick: {fileID: 1537388161}
+  joystick: {fileID: 0}
 --- !u!114 &1893989282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5515,7 +5596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1894828526}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CockpitBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5531,7 +5612,7 @@ Transform:
   m_GameObject: {fileID: 1894828525}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.05099988, z: 0.059000015}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5556,7 +5637,7 @@ GameObject:
   - component: {fileID: 1971169973}
   - component: {fileID: 1971169972}
   - component: {fileID: 1971169971}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5919,7 +6000,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138617292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f25daf2e9affd2b4ea5333470932e15a, type: 3}
   m_Name: 
@@ -6047,19 +6128,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 258696087}
     m_Modifications:
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.645
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.385
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6067,15 +6148,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6192,7 +6273,6 @@ SceneRoots:
   - {fileID: 258696087}
   - {fileID: 1626333806}
   - {fileID: 1658779250}
-  - {fileID: 4636607658419468551}
-  - {fileID: 1834431210}
   - {fileID: 1054509267}
   - {fileID: 153647073}
+  - {fileID: 1834431210}
