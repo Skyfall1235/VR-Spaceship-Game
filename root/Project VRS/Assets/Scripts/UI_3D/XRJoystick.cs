@@ -92,6 +92,7 @@ namespace UnityEngine.XR.Content.Interaction
                 {
                     SetValue(value);
                     SetHandleAngle(value * m_MaxAngle);
+                    Debug.Log("VECTOR2 SET VALUE Setting the handle to center");
                 }
             }
         }
@@ -174,9 +175,9 @@ namespace UnityEngine.XR.Content.Interaction
 
             if (m_RecenterXOnRelease)
             {
-                Debug.Log("Setting the handle to center");
-                Vector2 centeredX = new Vector2(0, m_Value.y);
-                SetHandleAngle(centeredX);
+                Debug.Log("END GRAB Setting the handle to center");
+                Vector2 centeredX = new Vector2(0f, m_Value.y);
+                SetHandleAngle(new Vector2(0f, currentUpDownAngle));
                 SetValue(centeredX);
             }
 
@@ -221,6 +222,8 @@ namespace UnityEngine.XR.Content.Interaction
             return direction.normalized;
         }
 
+
+        float currentUpDownAngle;
         void UpdateValue()
         {
             var lookDirection = GetLookDirection();
@@ -268,8 +271,12 @@ namespace UnityEngine.XR.Content.Interaction
             stickValue.x *= signX;
             stickValue.y *= signY;
 
+            //injected
+            currentUpDownAngle = upDownAngle;
+
             SetHandleAngle(new Vector2(leftRightAngle, upDownAngle));
             SetValue(stickValue);
+            Debug.Log("UPDATE VALUE Setting the handle to center");
         }
 
         void SetValue(Vector2 value)

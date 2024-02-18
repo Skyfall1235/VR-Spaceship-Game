@@ -133,7 +133,15 @@ public class ShipMovementController : BC_ShipMovementController
     //Yaw
         //determine the direction based on the torque roation
         Vector3 TorqueVector;
-        if (rawYawInput > 0f) { TorqueVector = Vector3.up; } else { TorqueVector = Vector3.down; }
+        if (rawYawInput > 0f) 
+        { 
+            TorqueVector = Vector3.up; 
+        } 
+        else if (rawYawInput < 0f)
+        { 
+            TorqueVector = Vector3.down; 
+        }
+        else { TorqueVector = Vector3.zero; }
         //set the vector to be the speed of the rotation
         Vector3 yawAxisWithMappedSpeed = TorqueVector * newRotationSpeed;
     //Saving
