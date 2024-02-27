@@ -18,6 +18,18 @@ public interface ICoreSystemBehavior
     public void ShutDown();
 
     /// <summary>
+    /// Registers the specified CoreShipSystemManager with this system.
+    /// </summary>
+    /// <param name="currentManager">The CoreShipSystemManager to register.</param>
+    public void RegisterCoreSystemManager(CoreShipSystemManager currentManager);
+
+    /// <summary>
+    /// Deregisters the specified CoreShipSystemManager from this system.
+    /// </summary>
+    /// <param name="currentManager">The CoreShipSystemManager to deregister.</param>
+    public void DeregisterCoreSystemManager(CoreShipSystemManager currentManager);
+
+    /// <summary>
     /// Allocates the specified resources for the system.
     /// </summary>
     /// <param name="resources">The resources to allocate (Energy, Fuel, etc.).</param>
