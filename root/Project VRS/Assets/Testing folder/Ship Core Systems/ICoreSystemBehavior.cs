@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Defines the expected behavior for core systems.
+/// </summary>
 public interface ICoreSystemBehavior
 {
     #region Required Methods
