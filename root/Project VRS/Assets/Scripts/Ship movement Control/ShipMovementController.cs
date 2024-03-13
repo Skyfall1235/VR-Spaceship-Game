@@ -55,6 +55,7 @@ public class ShipMovementController : BC_ShipMovementController
         ClampVelocityToMaxSpeed();
     }
 
+    #region Called by unity Events
     public void CallUpdateForLinearMotion()
     {
         //get the current inputs
@@ -82,6 +83,7 @@ public class ShipMovementController : BC_ShipMovementController
         //save new strafe takes the raw yaw value and maps it, then saves it
         SaveNewStrafeVector(currentInput.yawValue);
     }
+    #endregion
 
     #endregion
 
@@ -178,5 +180,3 @@ public class ShipMovementController : BC_ShipMovementController
 
     #endregion
 }
-
-

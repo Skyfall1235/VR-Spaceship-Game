@@ -76,7 +76,6 @@ public class BC_CoreSystem : MonoBehaviour, ICoreSystem, ICoreSystemBehavior, IS
 
 }
 
-
 public class SystemResourceQueue
 {
     public int EngineVal
@@ -92,9 +91,9 @@ public class SystemResourceQueue
         get => Weapons.Count;
     }
 
-    List<int> Engines         = new List<int> {};
-    List<int> InternalSystems = new List<int> {};
-    List<int> Weapons         = new List<int> {};
+    Stack<int> Engines         = new(5);
+    Stack<int> InternalSystems = new(5);
+    Stack<int> Weapons         = new(5);
 
     Stack<int> Items = new(7);
 

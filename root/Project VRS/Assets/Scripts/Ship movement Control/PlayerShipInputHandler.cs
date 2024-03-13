@@ -20,6 +20,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         get => m_secondaryShipJoystick;
     }
 
+    [SerializeField] private ActionBasedController m_primaryJoystickInteractor;
     [SerializeField] private ActionBasedController m_secondaryJoystickInteractor;
 
     //TEMP
