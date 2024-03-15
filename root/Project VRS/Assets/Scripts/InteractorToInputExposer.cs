@@ -20,7 +20,7 @@ public class InteractorToInputExposer : MonoBehaviour
         {
             if (m_interactor != null)
             {
-                return RetrieveBoolFromAction(m_interactor.selectAction);
+                return RetrieveValueFromAction<bool>(m_interactor.selectAction);
             }
             else
             {
@@ -35,7 +35,7 @@ public class InteractorToInputExposer : MonoBehaviour
         {
             if (m_interactor != null)
             {
-                return RetrieveFloatFromAction(m_interactor.selectActionValue);
+                return RetrieveValueFromAction<float>(m_interactor.selectActionValue);
             }
             else
             {
@@ -52,7 +52,7 @@ public class InteractorToInputExposer : MonoBehaviour
         {
             if (m_interactor != null)
             {
-                return RetrieveBoolFromAction(m_interactor.activateAction);
+                return RetrieveValueFromAction<bool>(m_interactor.activateAction);
             }
             else
             {
@@ -67,7 +67,7 @@ public class InteractorToInputExposer : MonoBehaviour
         {
             if (m_interactor != null)
             {
-                return RetrieveFloatFromAction(m_interactor.activateActionValue);
+                return RetrieveValueFromAction<float>(m_interactor.activateActionValue);
             }
             else
             {
@@ -87,7 +87,7 @@ public class InteractorToInputExposer : MonoBehaviour
             if (m_interactor != null)
             {
                 //i had to map the vector2 of the joystick somehow
-                return RetrieveVector2FromAction(m_interactor.uiScrollAction);
+                return RetrieveValueFromAction<Vector2>(m_interactor.uiScrollAction);
             }
             else
             {
@@ -127,31 +127,26 @@ public class InteractorToInputExposer : MonoBehaviour
         }
     }
 
-    private float RetrieveFloatFromAction(InputActionProperty actionProperty)
+    /// <summary>
+    /// Retrieves a value of type `T` from a Unity `InputActionProperty`.
+    /// </summary>
+    /// <typeparam name="T">The type of the value to retrieve. Must be a struct.</typeparam>
+    /// <param name="actionProperty">The `InputActionProperty` object containing the value.</param>
+    /// <returns>The value of type `T` retrieved from the `InputActionProperty`.</returns>
+    private T RetrieveValueFromAction<T>(InputActionProperty actionProperty) where T : struct
     {
-        float actionValue = actionProperty.action.ReadValue<float>();
+        // retrive the value from the action map
+        T actionValue = actionProperty.action.ReadValue<T>();
+        //return the value
         return actionValue;
     }
 
-    private bool RetrieveBoolFromAction(InputActionProperty actionProperty)
-    {
-        bool actionValue = actionProperty.action.ReadValue<bool>();
-        return actionValue;
-    }
-
-    private Vector2 RetrieveVector2FromAction(InputActionProperty actionProperty)
-    {
-        Vector2 actionValue = actionProperty.action.ReadValue<Vector2>();
-        return actionValue;
-    }
-
-    //private T RetrieveValueFromAction<T>(InputActionProperty actionProperty) where T : struct
-    //{
-    //    T actionValue = actionProperty.action.ReadValue<T>();
-    //    return actionValue;
-    //}
-
-    private GameObject RetrieveGameObjectFromInteractor(IXRInteractor interactor)
+    /// <summary>
+    /// Sometimes, we need the gameobject from the interactor
+    /// </summary>
+    /// <param name="interactor">is the interactor that is currently registered</param>
+    /// <returns>the Game object currently interacting with the associated Interactable</returns>
+    static private GameObject RetrieveGameObjectFromInteractor(IXRInteractor interactor)
     {
         GameObject interactorGO = interactor.transform.gameObject;
         return interactorGO;
@@ -167,7 +162,7 @@ public class InteractorToInputExposer : MonoBehaviour
     /// </summary>
     /// <param name="interactor">the interactor we want to search</param>
     /// <returns>The action based controller from an interactor if it has one</returns>
-    private ActionBasedController GrabActionBasedController(IXRInteractor interactor)
+    static public ActionBasedController GrabActionBasedController(IXRInteractor interactor)
     {
         GameObject interactorGO = RetrieveGameObjectFromInteractor(interactor);
         ActionBasedController ABController = interactorGO.GetComponent<ActionBasedController>();

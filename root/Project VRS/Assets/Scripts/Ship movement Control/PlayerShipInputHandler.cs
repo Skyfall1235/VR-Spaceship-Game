@@ -60,14 +60,17 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     }
 
     /// <summary>
-    /// Registers the secondary joysticks action based controller based on what selected the joystick
+    /// Registers the secondary joysticks action based controller based on what selected the joystick.
+    /// this method does use <seealso cref="InteractorToInputExposer"/>'s <seealso cref="InteractorToInputExposer.GrabActionBasedController"/> to get the action map from the interactor.
     /// </summary>
     /// <param name="e">the event args that contain the interactor and interactable associated with this unityevent</param>
+    /// 
     public void RegisterInteractorController(SelectEnterEventArgs e)
     {
         if(m_secondaryJoystickInteractor == null)
         {
-            m_secondaryJoystickInteractor = GrabActionBasedController(e.interactorObject);
+            //
+            m_secondaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
         }
     }
 
@@ -80,19 +83,6 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         {
             m_secondaryJoystickInteractor = null;
         }
-    }
-
-    /// <summary>
-    /// returns the action based controller from an interactor if it has one
-    /// </summary>
-    /// <param name="interactor">the interactor we want to search</param>
-    /// <returns>The action based controller from an interactor if it has one</returns>
-    private ActionBasedController GrabActionBasedController(IXRInteractor interactor)
-    {
-        GameObject interactorGO = interactor.transform.gameObject;
-        ActionBasedController ABController = interactorGO.GetComponent<ActionBasedController>();
-        //if the action based controller is null, then no interactor will be saved
-        return ABController;
     }
 
     private (Vector2, Vector2, float) KeyboardInputControls()
