@@ -103,10 +103,16 @@ public interface ICoreModule
     }
 
     /// <summary>
-    /// A custom UnityEvent class specifically designed to handle OnCoreStateChange events.
+    /// A custom UnityEvent class specifically designed to handle OnCoreModuleStateChange events.
     /// </summary>
     [Serializable]
-    public class OnSystemOperationalStateChange : UnityEvent<ModuleOperationalState> { }
+    public class OnCoreModuleStateChange : UnityEvent<CoreModuleState> { }
+
+    /// <summary>
+    /// A custom UnityEvent class specifically designed to handle OnSystemOperationalStateChange events.
+    /// </summary>
+    [Serializable]
+    public class OnModuleOperationalStateChange : UnityEvent<ModuleOperationalState> { }
 
     #endregion
 }

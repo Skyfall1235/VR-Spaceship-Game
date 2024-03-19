@@ -36,7 +36,12 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     /// <summary>
     /// An event that is raised whenever the CoreState of the system changes.
     /// </summary>
-    public ICoreModule.OnSystemOperationalStateChange m_onSystemOperationalStateChange = new();
+    public ICoreModule.OnCoreModuleStateChange m_onCoreModuleStateChange = new();
+
+    /// <summary>
+    /// An event that is raised whenever the operational state of the system changes.
+    /// </summary>
+    public ICoreModule.OnModuleOperationalStateChange m_onModuleOperationalStateChange = new();
 
     public IModuleDamage.OnHealEvent OnHealEvent = new();
     public IModuleDamage.OnDamageEvent OnDamageEvent = new();
@@ -87,7 +92,7 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         if (currentManager != null)
         {
             //confirm manager link goes both ways
-            currentManager.AddModule(this);
+            currentManager.AddSingleModule(this);
             m_shipModuleManager = currentManager;
         }
     }
