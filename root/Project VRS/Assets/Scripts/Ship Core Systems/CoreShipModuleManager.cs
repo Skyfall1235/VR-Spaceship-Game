@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoreShipModuleManager : MonoBehaviour
 {
     //what does the manmager need to handle?
+    public List<BC_CoreModule> coreModules = new List<BC_CoreModule>();
 
     //a metohd that is able to grabthe health of oany singular core module
 
@@ -15,6 +16,16 @@ public class CoreShipModuleManager : MonoBehaviour
     public void AddModule(BC_CoreModule newSystem)
     {
         //needs to grab all the unity events and everything else it needs from the modules
+    }
+
+    internal void RegisterModules()
+    {
+        //go through the list of all modules and initialize them.
+    }
+
+    public void UnregisterModules()
+    {
+        //do the same but inverted
     }
 
     //method that assigns an operational state change method to all currently equipped modules

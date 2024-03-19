@@ -12,7 +12,7 @@ public interface ICoreModule
     /// <summary>
     /// Defines the core system state, which can be Operational, Standby, or Disabled.
     /// </summary>
-    public enum CoreSystemState
+    public enum CoreModuleState
     {
         /// <summary>
         /// The system is fully functional and ready to use.
@@ -33,7 +33,7 @@ public interface ICoreModule
     /// <summary>
     /// Defines the different operational states a system can be in, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
     /// </summary>
-    public enum SystemOperationalState
+    public enum ModuleOperationalState
     {
         /// <summary>
         /// The system is currently active and performing its primary function.
@@ -64,7 +64,7 @@ public interface ICoreModule
     /// <summary>
     /// Defines the type of resources required by the system, such as Energy, Fuel, Material, or combinations thereof.
     /// </summary>
-    public enum SystemResourceRequirement
+    public enum ModuleResourceRequirement
     {
         /// <summary>
         /// The system requires only Energy.
@@ -106,7 +106,7 @@ public interface ICoreModule
     /// A custom UnityEvent class specifically designed to handle OnCoreStateChange events.
     /// </summary>
     [Serializable]
-    public class OnSystemOperationalStateChange : UnityEvent<SystemOperationalState> { }
+    public class OnSystemOperationalStateChange : UnityEvent<ModuleOperationalState> { }
 
     #endregion
 }

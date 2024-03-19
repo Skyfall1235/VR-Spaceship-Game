@@ -1,71 +1,35 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 
 public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
 {
-    #region Virtual Methods for Setup and Usage
-    public virtual void ShutDown()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void StartUp()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void HealModule(int healAmount)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void TakeDamage(int damageAmount)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
-    {
-        AttemptToLinkManager(currentManager);
-    }
-
-    public virtual void DeregisterCoreSystemManager(CoreShipModuleManager currentManager)
-    {
-        m_shipModuleManager = null;
-    }
-
-    #endregion
+    [Header("Core States and Behavior Events")]
 
     /// <summary>
-    /// 
+    /// The ship module manager that is in charge of this module
     /// </summary>
     [SerializeField] private CoreShipModuleManager m_shipModuleManager;
     public CoreShipModuleManager ShipModuleManager
     { get => m_shipModuleManager; }
 
     /// <summary>
-    /// 
-    /// </summary>
-    [SerializeField] private SO_CoreModule m_coreModuleVariables;
-    public SO_CoreModule CoreModuleVariables
-    { get => m_coreModuleVariables; }
-
-    /// <summary>
-    /// Sets the current CoreSystemState of the system.
+    /// Sets the current CoreModuleState of the system.
     /// </summary>
     [SerializeField]
-    public ICoreModule.CoreSystemState m_coreState;
+    public ICoreModule.CoreModuleState m_coreState;
 
     /// <summary>
     /// Represents the current operational state of the system, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
     /// </summary>
     [SerializeField]
-    public ICoreModule.SystemOperationalState m_operationalState;
+    public ICoreModule.ModuleOperationalState m_operationalState;
+
+    /// <summary>
+    /// Represents the resource requirement that this module requires.
+    /// </summary>
+    [SerializeField]
+    public ICoreModule.ModuleResourceRequirement m_resourceRequirement;
 
     #region Base Class unity Events
 
@@ -127,5 +91,38 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
             m_shipModuleManager = currentManager;
         }
     }
+
+    #region Virtual Methods for Setup and Usage
+    public virtual void ShutDown()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void StartUp()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void HealModule(int healAmount)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void TakeDamage(int damageAmount)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
+    {
+        AttemptToLinkManager(currentManager);
+    }
+
+    public virtual void DeregisterCoreSystemManager(CoreShipModuleManager currentManager)
+    {
+        m_shipModuleManager = null;
+    }
+
+    #endregion
 
 }
