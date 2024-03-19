@@ -4,7 +4,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Defines the interface for core systems within the VR spaceship, providing common functionalities like startup, shutdown, resource management, and state management.
 /// </summary>
-public interface ICoreSystem
+public interface ICoreModule
 {
     #region Behavior Definition
 

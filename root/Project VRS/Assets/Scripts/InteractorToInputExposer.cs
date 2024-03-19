@@ -77,7 +77,7 @@ public class InteractorToInputExposer : MonoBehaviour
         }
     }
 
-    //buttons
+    //buttons?
 
     //joystick val
     public Vector2 JoystickVal
@@ -128,11 +128,11 @@ public class InteractorToInputExposer : MonoBehaviour
     }
 
     /// <summary>
-    /// Retrieves a value of type `T` from a Unity `InputActionProperty`.
+    /// Retrieves a value of type T from a Unity InputActionProperty.
     /// </summary>
     /// <typeparam name="T">The type of the value to retrieve. Must be a struct.</typeparam>
-    /// <param name="actionProperty">The `InputActionProperty` object containing the value.</param>
-    /// <returns>The value of type `T` retrieved from the `InputActionProperty`.</returns>
+    /// <param name="actionProperty">The InputActionProperty object containing the value.</param>
+    /// <returns>The value of type T retrieved from the InputActionProperty.</returns>
     private T RetrieveValueFromAction<T>(InputActionProperty actionProperty) where T : struct
     {
         // retrive the value from the action map
