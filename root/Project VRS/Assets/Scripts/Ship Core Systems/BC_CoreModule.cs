@@ -41,16 +41,43 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
 
     #endregion
 
+    /// <summary>
+    /// 
+    /// </summary>
     [SerializeField] private CoreShipModuleManager m_shipModuleManager;
     public CoreShipModuleManager ShipModuleManager
     { get => m_shipModuleManager; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [SerializeField] private SO_CoreModule m_coreModuleVariables;
     public SO_CoreModule CoreModuleVariables
     { get => m_coreModuleVariables; }
 
+    /// <summary>
+    /// Sets the current CoreSystemState of the system.
+    /// </summary>
+    [SerializeField]
+    public ICoreModule.CoreSystemState m_coreState;
+
+    /// <summary>
+    /// Represents the current operational state of the system, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
+    /// </summary>
+    [SerializeField]
+    public ICoreModule.SystemOperationalState m_operationalState;
+
+    #region Base Class unity Events
+
+    /// <summary>
+    /// An event that is raised whenever the CoreState of the system changes.
+    /// </summary>
+    public ICoreModule.OnSystemOperationalStateChange m_onSystemOperationalStateChange = new();
+
     public IModuleDamage.OnHealEvent OnHealEvent = new();
     public IModuleDamage.OnDamageEvent OnDamageEvent = new();
+
+    #endregion
 
     /// <summary>
     /// Attempts to initialize a connection between this module and a CoreShipModuleManager.

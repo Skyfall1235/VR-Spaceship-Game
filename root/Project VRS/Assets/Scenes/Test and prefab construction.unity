@@ -2168,7 +2168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1344231838}
-  - component: {fileID: 1344231837}
+  - component: {fileID: 1344231839}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -2176,26 +2176,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1344231837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344231836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03ffef1d7497bb4693d51c000d3b791, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_shipModuleManager: {fileID: 0}
-  m_coreSystemVariables: {fileID: 0}
-  OnHealEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1344231838
 Transform:
   m_ObjectHideFlags: 0
@@ -2211,6 +2191,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344231839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344231836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03ffef1d7497bb4693d51c000d3b791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_shipModuleManager: {fileID: 0}
+  m_coreModuleVariables: {fileID: 0}
+  m_coreState: 0
+  m_operationalState: 0
+  m_onSystemOperationalStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1348091248
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,28 +3,9 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Core System Object")]
 [Serializable]
-public class SO_CoreModule : ScriptableObject, ICoreModule
+public class SO_CoreModule : ScriptableObject
 {
     #region Current States
-
-    /// <summary>
-    /// Sets the current CoreSystemState of the system.
-    /// </summary>
-    [SerializeField]
-    public ICoreModule.CoreSystemState m_coreState;
-
-    /// <summary>
-    /// Represents the current operational state of the system, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
-    /// </summary>
-    [SerializeField]
-    public ICoreModule.SystemOperationalState m_operationalState;
-
-    /// <summary>
-    /// An event that is raised whenever the CoreState of the system changes.
-    /// </summary>
-    [SerializeField]
-    public ICoreModule.OnSystemOperationalStateChange m_onSystemOperationalStateChange;
-
     /// <summary>
     /// The current health of the system, ranging from 0 (destroyed) to 100 (fully functional).
     /// </summary>

@@ -27,7 +27,7 @@ public interface IModuleDamage
     ///  - `coreSystem`: A reference to the core system that received healing (of type SO_CoreSystem).
     /// </remarks>
     [Serializable]
-    public class OnHealEvent : UnityEvent<int, SO_CoreSystem> { }
+    public class OnHealEvent : UnityEvent<int, SO_CoreModule> { }
 
     /// <summary>
     /// This event is triggered when a core system within the game takes damage.
@@ -38,6 +38,6 @@ public interface IModuleDamage
     ///  - `coreSystem`: A reference to the core system that took damage (of type SO_CoreSystem).
     /// </remarks>
     [Serializable]
-    public class OnDamageEvent : UnityEvent<int, SO_CoreSystem> { }
+    public class OnDamageEvent : UnityEvent<int, SO_CoreModule> { }
     
 }

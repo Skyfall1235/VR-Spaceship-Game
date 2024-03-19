@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -104,6 +105,7 @@ public interface ICoreModule
     /// <summary>
     /// A custom UnityEvent class specifically designed to handle OnCoreStateChange events.
     /// </summary>
+    [Serializable]
     public class OnSystemOperationalStateChange : UnityEvent<SystemOperationalState> { }
 
     #endregion
