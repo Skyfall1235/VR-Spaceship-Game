@@ -14,6 +14,10 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
 
     //registers all the systems to it, and them store them
 
+
+    //we register and link, then we start up. once startup is complete, we should tell the manager.
+    //maybe have 2 lists, 1 of modules that are prepared and ready and 1 that is still getting ready?
+
     #region Adding, removing, and Registering modules
     public void AddSingleModule(BC_CoreModule module)
     {
@@ -39,7 +43,7 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
         //remove all references to any unity events
     }
 
-    internal void RegisterModules(bool register)
+    protected void RegisterModules(bool register)
     {
         //go through the list of all modules and register or deregester them based on the bool
         foreach (BC_CoreModule module in coreModules)
@@ -60,7 +64,7 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
     #region Module Affectors
 
 
-    //ALL EFFECTORS
+    //MULTI EFFECTORS
     private void RebootAllModules()
     {
         PerformActionOnModuleList(RebootSingleModule);
@@ -77,19 +81,20 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
     //SINGLE AFFECTORS
     private void RebootSingleModule(BC_CoreModule chosenModule)
     {
-
+        chosenModule.Reboot();
     }
     private void StartUpSingleModule(BC_CoreModule chosenModule)
     {
-
+        chosenModule.StartUp();
     }
     private void ShutDownSingleModule(BC_CoreModule chosenModule)
     { 
-    
+        chosenModule.ShutDown();
     }
 
     #endregion
 
+    //retrive health is not finished
     #region Data Retrieval
 
     //a method that is able to grabthe health of oany singular core module
@@ -111,7 +116,7 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
     /// A generic Statement that enacts a single method on every module in the list
     /// </summary>
     /// <param name="action"> is the method enacted on every module</param>
-    internal void PerformActionOnModuleList(Action<BC_CoreModule> action)
+    protected void PerformActionOnModuleList(Action<BC_CoreModule> action)
     {
         foreach (BC_CoreModule module in coreModules)
         {

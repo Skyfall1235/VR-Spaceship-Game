@@ -18,6 +18,11 @@ public interface ICoreModuleBehavior
     public void ShutDown();
 
     /// <summary>
+    /// Reboots the module. effectively calls the shutdown then start up methods in series
+    /// </summary>
+    public void Reboot();
+
+    /// <summary>
     /// Registers the specified CoreShipModuleManager with this system.
     /// </summary>
     /// <param name="currentManager">The CoreShipModuleManager to register.</param>

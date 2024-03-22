@@ -13,14 +13,14 @@ public class BC_ShipMovementController : MonoBehaviour
     /// </summary>
     [SerializeField]
     [Tooltip("Reference to the script handling ship input, such as joystick or keyboard input.")]
-    internal BC_ShipInputHandler m_shipInputHandler;
+    protected BC_ShipInputHandler m_shipInputHandler;
 
     /// <summary>
     /// the rigidbody component of the entire ship
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum acceleration speed the ship can reach (0-100, higher values mean faster acceleration).")]
-    internal Rigidbody m_shipRigidbody;
+    protected Rigidbody m_shipRigidbody;
 
     /// <summary>
     /// maximum acceleration force that the ship can use
@@ -28,7 +28,7 @@ public class BC_ShipMovementController : MonoBehaviour
     [Range(0f, 100f)]
     [SerializeField]
     [Tooltip("Maximum acceleration speed the ship can reach (0-100, higher values mean faster acceleration).")]
-    internal float m_maxAcceleration = 10f;
+    protected float m_maxAcceleration = 10f;
 
     /// <summary>
     /// maximum decceleration force that the ship can use
@@ -36,34 +36,34 @@ public class BC_ShipMovementController : MonoBehaviour
     [Range(-100f, 0f)]
     [SerializeField]
     [Tooltip("Maximum deceleration speed the ship can reach (-100-0, higher negative values mean faster deceleration).")]
-    internal float m_maxDeceleration = -10f;
+    protected float m_maxDeceleration = -10f;
 
     /// <summary>
     /// maxmimum breaking value for the rigidbody
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum value for applying brakes (higher values mean stronger braking)")]
-    internal float m_MaxBreakValue = 5f;
+    protected float m_MaxBreakValue = 5f;
 
     /// <summary>
     /// maximum amount of torque that can be allied to the rigidbody
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum rotation speed the ship can achieve")]
-    internal float m_maxRateOfTurn = 10f;
+    protected float m_maxRateOfTurn = 10f;
 
     /// <summary>
     /// the toggle between strafing and yaw rotation
     /// </summary>
     [SerializeField]
     [Tooltip("Toggle option for strafing movement")]
-    internal bool m_toggleStrafe;
+    protected bool m_toggleStrafe;
 
     /// <summary>
     /// the maximum amount of force that can be applied to strafe
     /// </summary>
     [SerializeField]
-    internal float m_maxStrafeSpeed
+    protected float m_maxStrafeSpeed
     {
         get
         {
@@ -75,7 +75,7 @@ public class BC_ShipMovementController : MonoBehaviour
     /// 
     /// </summary>
     [SerializeField]
-    internal float m_maxSpeed = 100f;
+    protected float m_maxSpeed = 100f;
 
     /// <summary>
     /// 
@@ -88,14 +88,14 @@ public class BC_ShipMovementController : MonoBehaviour
     /// </summary>
     [SerializeField]
     [Tooltip("Events to trigger when the ships rotational value changes")]
-    internal TransformChangeEvent m_OnRotationChangeEvent = new TransformChangeEvent();
+    protected TransformChangeEvent m_OnRotationChangeEvent = new TransformChangeEvent();
 
     /// <summary>
     /// 
     /// </summary>
     [SerializeField]
     [Tooltip("Events to trigger when the linear movement value changes")]
-    internal TransformChangeEvent m_OnVelocityChangeEvent = new TransformChangeEvent();
+    public TransformChangeEvent m_OnVelocityChangeEvent = new TransformChangeEvent();
 
     public TransformChangeEvent OnRotationChangeEvent => m_OnRotationChangeEvent;
     public TransformChangeEvent OnVelocityChangeEvent => m_OnVelocityChangeEvent;

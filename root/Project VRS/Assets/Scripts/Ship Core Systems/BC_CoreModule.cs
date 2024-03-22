@@ -82,7 +82,7 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     /// This is an internal call from the <see cref="RegisterCoreModuleManager(CoreShipModuleManager)"/> to couple the manager with the module on initialization
     /// </remarks>
     /// <param name="currentManager">The CoreShipModuleManager to link with.</param>
-    internal void AttemptToLinkManager(CoreShipModuleManager currentManager)
+    public void AttemptToLinkManager(CoreShipModuleManager currentManager)
     {
         //if it has a manager, we dont attempt to reassign
         if (m_shipModuleManager != null)
@@ -104,6 +104,11 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     }
 
     public virtual void StartUp()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void Reboot()
     {
         throw new System.NotImplementedException();
     }
