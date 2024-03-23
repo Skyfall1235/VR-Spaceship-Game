@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InternalModuleHealth : MonoBehaviour
+public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 {
     //health and armor is gonna be silly
     //light, medium, heavy, and super heavy armor type
@@ -11,22 +11,12 @@ public class InternalModuleHealth : MonoBehaviour
 
     public enum ArmorType
     {
-        None,
-        Light,
-        Medium,
-        Heavy,
-        SuperHeavy
-    }
-
-    public enum WeaponType
-    {
         energy,
         ArmorPenetrating,
         Standard,
         Explosive,
         Flak
     }
-
 
     public ArmorType armorType;
     public int health;
@@ -42,14 +32,8 @@ public class InternalModuleHealth : MonoBehaviour
     {
         throw new System.NotImplementedException();
     }
+    
 
-    //the info about the weaon that hit the ship, and the amount of damage it does and the armor pen type
-    public struct WeaponCollisionData
-    {
-        WeaponType weaponType;
-        int damageVal;
-        //what else can be put here? CALLS FOR SPECIFIC STATUS EFFECTS?
-    }
 
 
 }
