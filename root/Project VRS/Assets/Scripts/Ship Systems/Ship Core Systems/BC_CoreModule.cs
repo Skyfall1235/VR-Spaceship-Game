@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using static IModuleDamage;
 
 
 public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
@@ -43,7 +44,15 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     /// </summary>
     public ICoreModule.OnModuleOperationalStateChange m_onModuleOperationalStateChange = new();
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     public IModuleDamage.OnHealEvent OnHealEvent = new();
+
+    /// <summary>
+    /// 
+    /// </summary>
     public IModuleDamage.OnDamageEvent OnDamageEvent = new();
 
     #endregion
@@ -113,12 +122,20 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         throw new System.NotImplementedException();
     }
 
-    public virtual void HealModule(int healAmount)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="damageData"></param>
+    public void TakeDamage(IModuleDamage.WeaponCollisionData damageData)
     {
         throw new System.NotImplementedException();
     }
 
-    public virtual void TakeDamage(int damageAmount)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="healData"></param>
+    public void HealModule(IModuleDamage.HealModuleData healData)
     {
         throw new System.NotImplementedException();
     }
@@ -134,5 +151,5 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     }
 
     #endregion
-
+    //base class needs to init with a health module if its new, and ONLY when its new. then we can just store the asset files in a folder
 }

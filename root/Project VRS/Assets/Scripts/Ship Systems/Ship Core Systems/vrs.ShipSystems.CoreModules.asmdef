@@ -1,0 +1,16 @@
+{
+    "name": "vrs.ShipSystems.CoreModules",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f05e617a4d253b44d9bd94f5c0d745a1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

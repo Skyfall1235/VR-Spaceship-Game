@@ -11,12 +11,22 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 
     public enum ArmorType
     {
+        None,
+        Light,
+        Medium,
+        Heavy,
+        SuperHeavy
+    }
+
+    public enum WeaponType
+    {
         energy,
         ArmorPenetrating,
         Standard,
         Explosive,
         Flak
     }
+
 
     public ArmorType armorType;
     public int health;
@@ -32,7 +42,15 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     {
         throw new System.NotImplementedException();
     }
-    
+
+    //the info about the weaon that hit the ship, and the amount of damage it does and the armor pen type
+    public struct WeaponCollisionData
+    {
+        WeaponType weaponType;
+        int damageVal;
+        //what else can be put here? CALLS FOR SPECIFIC STATUS EFFECTS?
+    }
+
 
 
 

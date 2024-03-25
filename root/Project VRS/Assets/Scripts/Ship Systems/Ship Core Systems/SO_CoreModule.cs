@@ -1,17 +1,14 @@
 using System;
 using UnityEngine;
 
+//NOT SURE WHAT TO USE THIS FOR, PERHAPS WILL BE IN THE BASE CLASS SOMEWHERE?
+
 [CreateAssetMenu(menuName = "Core System Object")]
 [Serializable]
 public class SO_CoreModule : ScriptableObject
 {
-    #region Current States
-    /// <summary>
-    /// The current health of the system, ranging from 0 (destroyed) to 100 (fully functional).
-    /// </summary>
-    [SerializeField]
-    public int m_systemHealth = 100;
 
+    #region Current States
     /// <summary>
     /// Represents the maximum total amount of resources that can be allocated to the system.
     /// </summary>
