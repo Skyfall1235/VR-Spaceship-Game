@@ -305,18 +305,27 @@ namespace UnityEngine.XR.Content.Interaction
 
         void OnDrawGizmosSelected()
         {
+            //get the base of the line
             var angleStartPoint = transform.position;
 
-            if (m_Handle != null)
-                angleStartPoint = m_Handle.position;
-
+            //save our known angle length
             const float k_AngleLength = 0.25f;
 
+            //Null check before proceeding
+            if (m_Handle != null)
+            {
+                angleStartPoint = m_Handle.position;
+            }
+
+            //behavior for the LeftRight joystick type
+            //this only draws the lines for the left and right lines
             if (m_JoystickMotion != JoystickType.LeftRight)
             {
+                //green is the outer bounds of the joystick
                 Gizmos.color = Color.green;
                 DrawLines(new Vector3(m_MaxAngle, 0.0f, 0.0f));
 
+                //red is the deadzone angle, where inputs arent updated
                 if (m_DeadZoneAngle > 0.0f)
                 {
                     Gizmos.color = Color.red;
@@ -324,26 +333,29 @@ namespace UnityEngine.XR.Content.Interaction
                 }
             }
 
+            //behavior for the FrontBack joystick type
+            //this only draws the lines for the forward and backward lines
             if (m_JoystickMotion != JoystickType.FrontBack)
             {
+                //green is the outer bounds of the joystick
                 Gizmos.color = Color.green;
                 DrawLines(new Vector3(0.0f, 0.0f, m_MaxAngle));
 
+                //red is the deadzone angle, where inputs arent updated
                 if (m_DeadZoneAngle > 0.0f)
                 {
                     Gizmos.color = Color.red;
                     DrawLines(new Vector3(0.0f, 0.0f, m_DeadZoneAngle));  
                 }
             }
-
-            /// <summary>
-            /// Draws 2 lines relative to the up vector to show axis directions
-            /// </summary>
-            /// <param name="unit"> Is the representation of the angle we wish to show from the center</param>
+            
+            //method in method as a throwaway for complex logic that doesnt belong out of callback
             void DrawLines(Vector3 unit)
             {
+                //create the axis points
                 var axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(unit) * Vector3.up) * k_AngleLength;
                 var axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-unit) * Vector3.up) * k_AngleLength;
+                //draw the lines with whatever color the gizmo is currently
                 Gizmos.DrawLine(angleStartPoint, axisPoint1);
                 Gizmos.DrawLine(angleStartPoint, axisPoint2);
             }
