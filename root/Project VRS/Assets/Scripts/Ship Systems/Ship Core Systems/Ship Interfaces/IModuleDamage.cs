@@ -6,34 +6,51 @@ using UnityEngine.Events;
 /// </summary>
 public interface IModuleDamage : IDamageData
 {
+
     /// <summary>
-    /// This event is triggered when a core system within the game receives healing.
+    /// Represents a custom event that is invoked when a healing action occurs.
     /// </summary>
     /// <remarks>
-    /// This event uses the `UnityEvent` class with two arguments:
-    ///  - 
-    ///  - `coreSystem`: A reference to the core system that received healing (of type SO_CoreSystem).
+    /// Inherits from UnityEvent to provide a flexible way to subscribe to and trigger the event.
+    /// Requires two arguments when invoked:
+    ///   - HealModuleData: Contains information about the healing action.
+    ///   - BC_CoreModule: reference to the affected module.
     /// </remarks>
     [Serializable]
     public class OnHealEvent : UnityEvent<HealModuleData, BC_CoreModule> { }
 
+
     /// <summary>
-    /// This event is triggered when a core system within the game takes damage.
+    /// Represents a custom event that is triggered when damage is taken.
     /// </summary>
     /// <remarks>
-    /// This event uses the `UnityEvent` class with two arguments:
-    ///  - 
-    ///  - `coreSystem`: A reference to the core system that took damage (of type SO_CoreSystem).
+    /// Inherits from UnityEvent to allow for subscriptions and event triggering.
+    /// Requires two arguments when invoked:
+    ///   - WeaponCollisionData: Contains information about the damage event.
+    ///   - BC_CoreModule: reference to the affected module.
     /// </remarks>
     [Serializable]
     public class OnDamageEvent : UnityEvent<WeaponCollisionData, BC_CoreModule> { }
 
 
+    /// <summary>
+    /// Handles damage being inflicted on a module.
+    /// </summary>
+    /// <param name="damageData">Contains information about the damage event.</param>
+    /// <remarks>
+    /// updates module health or state based on the damage received.
+    /// Triggers the OnDamageEvent to notify other systems.
+    /// </remarks>
     public void TakeDamage(WeaponCollisionData damageData);
 
 
+    /// <summary>
+    /// Applies healing to a module.
+    /// </summary>
+    /// <param name="healData">Contains information about the healing action.</param>
+    /// <remarks>
+    /// restores module health or state based on the healing data.
+    /// triggers the OnHealEvent to notify other systems.
+    /// </remarks>
     public void HealModule(HealModuleData healData);
-
-    
-    
 }

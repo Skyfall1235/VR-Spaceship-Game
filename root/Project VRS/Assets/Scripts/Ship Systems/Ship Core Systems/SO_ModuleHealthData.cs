@@ -19,15 +19,6 @@ public class SO_ModuleHealthData : ScriptableObject
     [SerializeField]
     public int healthMax;
 
-    /// <summary>
-    /// Gets or sets an animation curve used for modifying damage dealt or received.
-    /// </summary>
-    /// <remarks>to work this properly, the value should be multiplied by like, 100 to 1000 to get the percent applicable.
-    /// chart should go from 0 to the multiple of 100% that the maximum should be allowed to have
-    /// </remarks>
-    [SerializeField]
-    public AnimationCurve damageApplicationCurve;
-
     [SerializeField]
     public List<DamageValue> damageApplicationCurveList = new List<DamageValue>()
     {
@@ -41,8 +32,10 @@ public class SO_ModuleHealthData : ScriptableObject
     {
         [SerializeField]
         string name;
+
         [SerializeField]
         public int value;
+
         public DamageValue(string name, int value)
         {
             this.name = name;

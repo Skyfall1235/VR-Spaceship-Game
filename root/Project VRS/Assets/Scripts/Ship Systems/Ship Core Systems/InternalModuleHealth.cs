@@ -20,6 +20,11 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     public int health;
     //use a scriptable object here?
 
+    public void InitializeHealth()
+    {
+        health = moduleHealthData.healthMax;
+    }
+
     public void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
     {
         throw new System.NotImplementedException();
@@ -30,12 +35,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         throw new System.NotImplementedException();
     }
 
-    public void InitializeHealth()
-    {
-        health = moduleHealthData.healthMax;
-    }
-
-    private int FindDamagePercentApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
+    private int FindDamageApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
     {
         IDamageData.WeaponType weaponType = weaponCollisionData.weaponType;
         IDamageData.ArmorType moduleType = moduleHealthData.armorType;
@@ -43,30 +43,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         int armorToPenetrationVal = (int)moduleType - (int)weaponType;
         int DamagePecentApplicable = 0;
         //now we handle the percent of damage application. the actual math to determine the damage value to be applied will be in a different math problem (sorry, shes not in this castle!)
-        switch (armorToPenetrationVal)
-        {
-            case -4:
-                break;
-            case -3:
-                break;
-            case -2:
-                break;
-            case -1:
-                break;
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                DamagePecentApplicable = 100;
-                break;
-        }
+        DamagePecentApplicable = EvaluateDamageApplicationCurve(armorToPenetrationVal);
         return DamagePecentApplicable;
         //ig the easiest way to do this would be to compare the (int)armor to the (int)weaponType. maybe just subtract the weapontype from the armor, and then multiply that number by 10.
         //do i want overpen?
@@ -74,17 +51,22 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 
     private int EvaluateDamageApplicationCurve(int caseVal)
     {
-        //THIS IS NOT DONE, THIS NEEDS TO BE WORKED ON 
-        int halfstep = caseVal;
-        //value between the lower bound and upper bound. not the beat but its what i can come up with :/
-        float animationCurveValue = moduleHealthData.damageApplicationCurve.Evaluate(halfstep); 
-        return 0;
+        //create the offset
+        caseVal += 5;
+        //0 case should be 5th object, and -4 whould be first object
+        int tableValue = moduleHealthData.damageApplicationCurveList[caseVal].value;
+        return tableValue;
     }
     
 
-    private int CalculateDamageAfterArmor(int damage, int damagePecent)
+    private int CalculateDamageAfterArmor(int damage, int damagePercent)
     {
-        throw new System.NotImplementedException ();
+        //convert our percent value to a float decimal
+        float intToPercent = damagePercent / 100;
+        //Needed to apply the damage percent as an int
+        float AppliedPercentValue = damage * intToPercent;
+        int newDamageValue = Mathf.RoundToInt(AppliedPercentValue);
+        return newDamageValue;
     }
     
 }

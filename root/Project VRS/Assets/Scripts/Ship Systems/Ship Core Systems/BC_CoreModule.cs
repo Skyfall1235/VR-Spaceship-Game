@@ -47,11 +47,13 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     /// </summary>
     public ICoreModule.OnModuleOperationalStateChange m_onModuleOperationalStateChange = new();
 
-    public IModuleDamage.OnHealEvent OnHealEvent = new();
+    public OnHealEvent OnHealEvent = new();
 
-    public IModuleDamage.OnDamageEvent OnDamageEvent = new();
+    public OnDamageEvent OnDamageEvent = new();
 
     #endregion
+
+    #region Intitialization to Manager
 
     /// <summary>
     /// Attempts to initialize a connection between this module and a CoreShipModuleManager.
@@ -102,6 +104,8 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         }
     }
 
+    #endregion
+
     #region Virtual Methods for Setup and Usage
 
     public virtual void InitializeModule()
@@ -124,18 +128,6 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         throw new System.NotImplementedException();
     }
 
-    public void TakeDamage(IDamageData.WeaponCollisionData damageData)
-    {
-        m_internalModuleHealth.TakeDamage(damageData);
-        OnDamageEvent.Invoke(damageData, this);
-    }
-
-    public void HealModule(IDamageData.HealModuleData healData)
-    {
-        m_internalModuleHealth.HealModule(healData);
-        OnHealEvent.Invoke(healData, this);
-    }
-
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
     {
         AttemptToLinkManager(currentManager);
@@ -148,5 +140,20 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
 
     #endregion
 
-    //base class needs to init with a health module if its new, and ONLY when its new. then we can just store the asset files in a folder
+    #region Health Management
+
+    public void TakeDamage(IDamageData.WeaponCollisionData damageData)
+    {
+        m_internalModuleHealth.TakeDamage(damageData);
+        OnDamageEvent.Invoke(damageData, this);
+    }
+
+    public void HealModule(IDamageData.HealModuleData healData)
+    {
+        m_internalModuleHealth.HealModule(healData);
+        OnHealEvent.Invoke(healData, this);
+    }
+
+    #endregion
+
 }

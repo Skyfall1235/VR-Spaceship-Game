@@ -2396,6 +2396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1344231838}
   - component: {fileID: 1344231839}
+  - component: {fileID: 1344231840}
   m_Layer: 0
   m_Name: Base class demo
   m_TagString: Untagged
@@ -2431,7 +2432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shipModuleManager: {fileID: 0}
-  m_internalModuleHealth: {fileID: 0}
+  m_internalModuleHealth: {fileID: 1344231840}
   m_coreState: 0
   m_operationalState: 0
   m_resourceRequirement: 0
@@ -2447,6 +2448,20 @@ MonoBehaviour:
   OnDamageEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1344231840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344231836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moduleHealthData: {fileID: 0}
+  health: 0
 --- !u!1 &1348091248
 GameObject:
   m_ObjectHideFlags: 0
