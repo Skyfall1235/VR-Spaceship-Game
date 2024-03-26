@@ -286,6 +286,10 @@ namespace UnityEngine.XR.Content.Interaction
             m_OnValueChangeY.Invoke(m_Value.y);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angles"></param>
         void SetHandleAngle(Vector2 angles)
         {
             if (m_Handle == null)
@@ -311,40 +315,40 @@ namespace UnityEngine.XR.Content.Interaction
             if (m_JoystickMotion != JoystickType.LeftRight)
             {
                 Gizmos.color = Color.green;
-                var axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(m_MaxAngle, 0.0f, 0.0f) * Vector3.up) * k_AngleLength;
-                var axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-m_MaxAngle, 0.0f, 0.0f) * Vector3.up) * k_AngleLength;
-                Gizmos.DrawLine(angleStartPoint, axisPoint1);
-                Gizmos.DrawLine(angleStartPoint, axisPoint2);
+                DrawLines(new Vector3(m_MaxAngle, 0.0f, 0.0f));
 
                 if (m_DeadZoneAngle > 0.0f)
                 {
                     Gizmos.color = Color.red;
-                    axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(m_DeadZoneAngle, 0.0f, 0.0f) * Vector3.up) * k_AngleLength;
-                    axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-m_DeadZoneAngle, 0.0f, 0.0f) * Vector3.up) * k_AngleLength;
-                    Gizmos.DrawLine(angleStartPoint, axisPoint1);
-                    Gizmos.DrawLine(angleStartPoint, axisPoint2);
+                    DrawLines(new Vector3(m_DeadZoneAngle, 0.0f, 0.0f));
                 }
             }
 
             if (m_JoystickMotion != JoystickType.FrontBack)
             {
                 Gizmos.color = Color.green;
-                var axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(0.0f, 0.0f, m_MaxAngle) * Vector3.up) * k_AngleLength;
-                var axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(0.0f, 0.0f, -m_MaxAngle) * Vector3.up) * k_AngleLength;
-                Gizmos.DrawLine(angleStartPoint, axisPoint1);
-                Gizmos.DrawLine(angleStartPoint, axisPoint2);
+                DrawLines(new Vector3(0.0f, 0.0f, m_MaxAngle));
 
                 if (m_DeadZoneAngle > 0.0f)
                 {
                     Gizmos.color = Color.red;
-                    axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(0.0f, 0.0f, m_DeadZoneAngle) * Vector3.up) * k_AngleLength;
-                    axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(0.0f, 0.0f, -m_DeadZoneAngle) * Vector3.up) * k_AngleLength;
-                    Gizmos.DrawLine(angleStartPoint, axisPoint1);
-                    Gizmos.DrawLine(angleStartPoint, axisPoint2);
+                    DrawLines(new Vector3(0.0f, 0.0f, m_DeadZoneAngle));  
                 }
             }
-        }
 
+            /// <summary>
+            /// Draws 2 lines relative to the up vector to show axis directions
+            /// </summary>
+            /// <param name="unit"> Is the representation of the angle we wish to show from the center</param>
+            void DrawLines(Vector3 unit)
+            {
+                var axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(unit) * Vector3.up) * k_AngleLength;
+                var axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-unit) * Vector3.up) * k_AngleLength;
+                Gizmos.DrawLine(angleStartPoint, axisPoint1);
+                Gizmos.DrawLine(angleStartPoint, axisPoint2);
+            }
+        }
+        
         void OnValidate()
         {
             m_DeadZoneAngle = Mathf.Min(m_DeadZoneAngle, m_MaxAngle * k_MaxDeadZonePercent);
