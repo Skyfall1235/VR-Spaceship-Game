@@ -14,6 +14,9 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     public CoreShipModuleManager ShipModuleManager
     { get => m_shipModuleManager; }
 
+    [SerializeField]
+    private InternalModuleHealth m_internalModuleHealth;
+
     /// <summary>
     /// Sets the current CoreModuleState of the system.
     /// </summary>
@@ -44,15 +47,8 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     /// </summary>
     public ICoreModule.OnModuleOperationalStateChange m_onModuleOperationalStateChange = new();
 
-
-    /// <summary>
-    /// 
-    /// </summary>
     public IModuleDamage.OnHealEvent OnHealEvent = new();
 
-    /// <summary>
-    /// 
-    /// </summary>
     public IModuleDamage.OnDamageEvent OnDamageEvent = new();
 
     #endregion
@@ -83,7 +79,7 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     }
 
     /// <summary>
-    /// Attempts to link this module with a provided CoreShipModuleManager.
+    /// Assumes the module is ready to initialize with a provided CoreShipModuleManager.
     /// If the module already has a manager assigned, no action is taken.
     /// Otherwise, it registers the module with the provided manager and stores the manager reference.
     /// </summary>
@@ -107,6 +103,12 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     }
 
     #region Virtual Methods for Setup and Usage
+
+    public virtual void InitializeModule()
+    {
+        m_internalModuleHealth.InitializeHealth();
+    }
+
     public virtual void ShutDown()
     {
         throw new System.NotImplementedException();
@@ -122,22 +124,16 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         throw new System.NotImplementedException();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="damageData"></param>
-    public void TakeDamage(IModuleDamage.WeaponCollisionData damageData)
+    public void TakeDamage(IDamageData.WeaponCollisionData damageData)
     {
-        throw new System.NotImplementedException();
+        m_internalModuleHealth.TakeDamage(damageData);
+        OnDamageEvent.Invoke(damageData, this);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="healData"></param>
-    public void HealModule(IModuleDamage.HealModuleData healData)
+    public void HealModule(IDamageData.HealModuleData healData)
     {
-        throw new System.NotImplementedException();
+        m_internalModuleHealth.HealModule(healData);
+        OnHealEvent.Invoke(healData, this);
     }
 
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
@@ -151,5 +147,6 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     }
 
     #endregion
+
     //base class needs to init with a health module if its new, and ONLY when its new. then we can just store the asset files in a folder
 }

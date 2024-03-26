@@ -17,6 +17,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     public BC_CoreModule moduleOwner { get; set; }
 
     public SO_ModuleHealthData moduleHealthData;
+    public int health;
     //use a scriptable object here?
 
     public void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
@@ -29,6 +30,10 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         throw new System.NotImplementedException();
     }
 
+    public void InitializeHealth()
+    {
+        health = moduleHealthData.healthMax;
+    }
 
     private int FindDamagePercentApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
     {
@@ -63,9 +68,19 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
                 break;
         }
         return DamagePecentApplicable;
-        //ig the easiest way to do this would e compare the (int)armor to the (int)weaponType. maybe just subtract the weapontype from the armor, and then multiply that number by 10.
+        //ig the easiest way to do this would be to compare the (int)armor to the (int)weaponType. maybe just subtract the weapontype from the armor, and then multiply that number by 10.
         //do i want overpen?
     }
+
+    private int EvaluateDamageApplicationCurve(int caseVal)
+    {
+        //THIS IS NOT DONE, THIS NEEDS TO BE WORKED ON 
+        int halfstep = caseVal;
+        //value between the lower bound and upper bound. not the beat but its what i can come up with :/
+        float animationCurveValue = moduleHealthData.damageApplicationCurve.Evaluate(halfstep); 
+        return 0;
+    }
+    
 
     private int CalculateDamageAfterArmor(int damage, int damagePecent)
     {
