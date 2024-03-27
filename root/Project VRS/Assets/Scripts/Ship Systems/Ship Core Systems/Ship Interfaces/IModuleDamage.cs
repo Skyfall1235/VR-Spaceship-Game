@@ -32,6 +32,21 @@ public interface IModuleDamage : IDamageData
     [Serializable]
     public class OnDamageEvent : UnityEvent<WeaponCollisionData, BC_CoreModule> { }
 
+    /// <summary>
+    /// A custom Unity Event that is triggered when the Modules health Script announces it is dead, and gives the module that died
+    /// </summary>
+    [Serializable]
+    public class OnDeathEvent : UnityEvent<BC_CoreModule> { }
+
+    /// <summary>
+    /// Applies healing to a module.
+    /// </summary>
+    /// <param name="healData">Contains information about the healing action.</param>
+    /// <remarks>
+    /// restores module health or state based on the healing data.
+    /// triggers the OnHealEvent to notify other systems.
+    /// </remarks>
+    public void HealModule(HealModuleData healData);
 
     /// <summary>
     /// Handles damage being inflicted on a module.
@@ -43,14 +58,4 @@ public interface IModuleDamage : IDamageData
     /// </remarks>
     public void TakeDamage(WeaponCollisionData damageData);
 
-
-    /// <summary>
-    /// Applies healing to a module.
-    /// </summary>
-    /// <param name="healData">Contains information about the healing action.</param>
-    /// <remarks>
-    /// restores module health or state based on the healing data.
-    /// triggers the OnHealEvent to notify other systems.
-    /// </remarks>
-    public void HealModule(HealModuleData healData);
 }

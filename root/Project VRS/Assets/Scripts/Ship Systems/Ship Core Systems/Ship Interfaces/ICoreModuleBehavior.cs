@@ -23,6 +23,11 @@ public interface ICoreModuleBehavior
     public void Reboot();
 
     /// <summary>
+    /// releases the module from the resources it was using as it no longer needs
+    /// </summary>
+    public void ReleaseResources();
+
+    /// <summary>
     /// Registers the specified CoreShipModuleManager with this system.
     /// </summary>
     /// <param name="currentManager">The CoreShipModuleManager to register.</param>

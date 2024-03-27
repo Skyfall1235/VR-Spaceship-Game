@@ -20,6 +20,10 @@ public class SO_ModuleHealthData : ScriptableObject
     public int healthMax;
 
     [SerializeField]
+    public int rateOfDamage;
+
+
+    [SerializeField]
     public List<DamageValue> damageApplicationCurveList = new List<DamageValue>()
     {
         new DamageValue("30%", 30), new DamageValue("50%", 50), new DamageValue("70%", 70), new DamageValue("90%", 90),
@@ -30,6 +34,7 @@ public class SO_ModuleHealthData : ScriptableObject
     [Serializable]
     public struct DamageValue
     {
+        //needed only to tell the values without opening the struct up
         [SerializeField]
         string name;
 

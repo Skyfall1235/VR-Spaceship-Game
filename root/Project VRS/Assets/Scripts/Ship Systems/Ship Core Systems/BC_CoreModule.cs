@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.Events;
-using static IModuleDamage;
-
 
 public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
 {
+
+    #region Variables
+
     [Header("Core States and Behavior Events")]
 
     /// <summary>
@@ -15,25 +15,36 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     { get => m_shipModuleManager; }
 
     [SerializeField]
-    private InternalModuleHealth m_internalModuleHealth;
+    protected InternalModuleHealth m_internalModuleHealth;
+
+
+    //I NEED TO FIND A WAY TO TRIGGER UNITY EVENTS WHEN THESE CHANGE, OR AT LEAST CHANGE THEM IN CODE SOMEWHERE ELSE
+    //bruh.
 
     /// <summary>
     /// Sets the current CoreModuleState of the system.
     /// </summary>
     [SerializeField]
-    public ICoreModule.CoreModuleState m_coreState;
+    protected ICoreModule.CoreModuleState m_coreState;
+    public ICoreModule.CoreModuleState CoreModuleState
+    { get => m_coreState; }
 
     /// <summary>
     /// Represents the current operational state of the system, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
     /// </summary>
     [SerializeField]
-    public ICoreModule.ModuleOperationalState m_operationalState;
+    protected ICoreModule.ModuleOperationalState m_operationalState;
+    public ICoreModule.ModuleOperationalState OperationalState
+    { get => m_operationalState; }
+
 
     /// <summary>
     /// Represents the resource requirement that this module requires.
     /// </summary>
     [SerializeField]
     public ICoreModule.ModuleResourceRequirement m_resourceRequirement;
+
+    #endregion
 
     #region Base Class unity Events
 
@@ -47,9 +58,20 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     /// </summary>
     public ICoreModule.OnModuleOperationalStateChange m_onModuleOperationalStateChange = new();
 
-    public OnHealEvent OnHealEvent = new();
+    /// <summary>
+    /// An event that is raised whenever the module recieves healing, along with information of how much it is healed by and at what rate.
+    /// </summary>
+    public IModuleDamage.OnHealEvent OnHealEvent = new();
 
-    public OnDamageEvent OnDamageEvent = new();
+    /// <summary>
+    /// An event that is raised whenever the module recieves damage, along with the information on how much damage it took.
+    /// </summary>
+    public IModuleDamage.OnDamageEvent OnDamageEvent = new();
+
+    /// <summary>
+    /// An event that is raised whenever the module dies due to a lack of health
+    /// </summary>
+    public IModuleDamage.OnDeathEvent OnDeathEvent = new();
 
     #endregion
 
@@ -127,6 +149,13 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     {
         throw new System.NotImplementedException();
     }
+    
+
+    //not in use yet so dont touch it
+    public void ReleaseResources()
+    {
+        throw new System.NotImplementedException();
+    }
 
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
     {
@@ -144,6 +173,7 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
 
     public void TakeDamage(IDamageData.WeaponCollisionData damageData)
     {
+        //allow the health script to handle the actual number stuff and then invoke the event
         m_internalModuleHealth.TakeDamage(damageData);
         OnDamageEvent.Invoke(damageData, this);
     }

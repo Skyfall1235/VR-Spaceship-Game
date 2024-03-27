@@ -116,14 +116,14 @@ public interface IDamageData
         /// <summary>
         /// The rate at which the healing should be applied (e.g., health per second).
         /// </summary>
-        public float rateOfApplication;
+        public int rateOfApplication;
 
         /// <summary>
         /// Creates a new HealModuleData instance with the specified properties.
         /// </summary>
         /// <param name="amountToHeal">The amount of health to heal.</param>
         /// <param name="rateOfApplication">The rate at which to apply the healing.</param>
-        public HealModuleData(int amountToHeal, float rateOfApplication)
+        public HealModuleData(int amountToHeal, int rateOfApplication)
         {
             this.amountToHeal = amountToHeal;
             this.rateOfApplication = rateOfApplication;

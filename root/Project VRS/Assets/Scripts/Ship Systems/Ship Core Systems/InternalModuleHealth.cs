@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static IDamageData;
 
 public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 {
@@ -17,23 +18,66 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     public BC_CoreModule moduleOwner { get; set; }
 
     public SO_ModuleHealthData moduleHealthData;
-    public int health;
+    public int moduleHealth;
     //use a scriptable object here?
 
     public void InitializeHealth()
     {
-        health = moduleHealthData.healthMax;
+        moduleHealth = moduleHealthData.healthMax;
     }
 
     public void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
     {
-        throw new System.NotImplementedException();
+        int dmgValFromDataPack = weaponCollisionData.damageVal;
+        StartCoroutine(DamageModuleAction(dmgValFromDataPack));
     }
 
     public void HealModule(IDamageData.HealModuleData healModuleData)
     {
-        throw new System.NotImplementedException();
+        StartCoroutine(HealModuleAction(healModuleData));
     }
+
+    //cuase rate is over time, we need it to stealily increase
+    private IEnumerator HealModuleAction(IDamageData.HealModuleData healModuleData)
+    {
+        //save some initial values so we dont forget where we are
+        int amountModuleHealedThisAction = 0;
+        int healRate = healModuleData.rateOfApplication;
+        int healValue = healModuleData.amountToHeal;
+
+        //i increment upwards because idk, cry about it
+        while (amountModuleHealedThisAction < healValue)
+        {
+            amountModuleHealedThisAction += healRate;
+            moduleHealth += healRate;
+            yield return null;
+        }
+    }
+    
+    private IEnumerator DamageModuleAction(int damageVal)
+    {
+        //save some initial values so we dont forget where we are
+        int amountModuleDamagedThisAction = 0;
+        int damageRate = moduleHealthData.rateOfDamage;
+
+        //i increment upwards because idk, cry about it
+        while (amountModuleDamagedThisAction < damageVal)
+        {
+            amountModuleDamagedThisAction += damageRate;
+            moduleHealth -= damageRate;
+            //check if damage can still be applied
+            if(moduleHealth <= 0)
+            {
+                //if the modules dead, we should cancel the rest of the application and call the unity event
+                moduleOwner.OnDeathEvent.Invoke(moduleOwner);
+                yield break;
+            }
+            yield return null;           
+        }
+    }
+    //time to create some corotuines
+
+    #region Calculate Damage Values
 
     private int FindDamageApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
     {
@@ -57,7 +101,6 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         int tableValue = moduleHealthData.damageApplicationCurveList[caseVal].value;
         return tableValue;
     }
-    
 
     private int CalculateDamageAfterArmor(int damage, int damagePercent)
     {
@@ -68,7 +111,8 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         int newDamageValue = Mathf.RoundToInt(AppliedPercentValue);
         return newDamageValue;
     }
-    
+
+    #endregion
 }
 
 
