@@ -1,16 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static IDamageData;
 
 public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 {
-    //health and armor is gonna be silly
-    //light, medium, heavy, and super heavy armor type
-    //armor do a reduction if within 1 move of type, pen on eqiv type, and overpen if normal type
+    
 
 
     //what else can be put here? CALLS FOR SPECIFIC STATUS EFFECTS?
+    //EDIT: 
 
     /// <summary>
     /// Gets or sets the reference to the module that owns this component.
@@ -20,6 +17,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     public SO_ModuleHealthData ModuleHealthData;
     public int ModuleHealth;
     //use a scriptable object here?
+    //EDIT: i did infact use a scriptable object :P
 
     #region public stuff
 
@@ -28,6 +26,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         ModuleHealth = ModuleHealthData.healthMax;
     }
 
+    //WE FOROGT TO DO THE ARMOR CALCUALTION YOU BUMBLING FOOL
     public void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
     {
         int dmgValFromDataPack = weaponCollisionData.damageVal;
@@ -85,7 +84,9 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     #endregion
 
     #region Calculate Damage Values
-
+    //GEN Comments:
+    //armor do a reduction if within 1 move of type, pen on eqiv type, and overpen if normal type
+    //EDIT: the scale has been set up in the SO_ModuleHealthData script, its a lil janky but it works
     private int FindDamageApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
     {
         IDamageData.WeaponType weaponType = weaponCollisionData.weaponType;

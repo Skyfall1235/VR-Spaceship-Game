@@ -1993,8 +1993,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleHealthData: {fileID: 0}
-  health: 0
+  ModuleHealthData: {fileID: 0}
+  ModuleHealth: 0
 --- !u!114 &921785199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2022,6 +2022,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeathEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &921785200
@@ -2264,7 +2267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1fa487bd7993c458f56a5b995537d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coreModules: []
+  coreModules:
+  - {fileID: 1344231839}
 --- !u!4 &1196831773
 Transform:
   m_ObjectHideFlags: 0
@@ -2448,6 +2452,9 @@ MonoBehaviour:
   OnDamageEvent:
     m_PersistentCalls:
       m_Calls: []
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1344231840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,8 +2467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleHealthData: {fileID: 0}
-  health: 0
+  ModuleHealthData: {fileID: 0}
+  ModuleHealth: 0
 --- !u!1 &1348091248
 GameObject:
   m_ObjectHideFlags: 0

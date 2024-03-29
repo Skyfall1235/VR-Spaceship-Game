@@ -94,13 +94,12 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
 
     #endregion
 
-    //retrive health is not finished
     #region Data Retrieval
 
-    //a method that is able to grabthe health of oany singular core module
+    //a method that is able to grab the health of any singular core module
     public int RetrieveHealthOfSelectedModule(BC_CoreModule module)
     {
-        return 0;
+        return module.InternalModuleHealth.ModuleHealth;
     }
 
     //method that checks the operational state of all objects whenever it is called
@@ -117,12 +116,39 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
 
     #endregion
 
+    //NON OF THIS IS PLANNED OR DONE YET
+
+    //what is the purpose of these? to pipe new data to where they need to go.
+    //these should bascially just be calling other events and providing those events with updated inforation
     #region Module Event Handlers
     
     //we need to get the operational state changes, he module states, the heals, the damages, and on death
 
 
+    public void ModuleCoreStateHasChanged(BC_CoreModule module)
+    {
 
+    }
+
+    public void ModuleOperationalstateHasChanged(BC_CoreModule module)
+    {
+
+    }
+
+    public void ModulehasBeenHealed(BC_CoreModule module)
+    {
+
+    }
+
+    public void ModuleHasbeenDamaged(BC_CoreModule module)
+    {
+
+    }
+
+    public void ModuleHasBeenDestroyed(BC_CoreModule module)
+    {
+
+    }
 
     #endregion
 

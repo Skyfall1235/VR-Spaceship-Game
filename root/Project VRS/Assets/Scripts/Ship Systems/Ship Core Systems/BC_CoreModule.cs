@@ -15,8 +15,21 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     public CoreShipModuleManager ShipModuleManager
     { get => m_shipModuleManager; }
 
-    [SerializeField]
     protected InternalModuleHealth m_internalModuleHealth;
+    public InternalModuleHealth InternalModuleHealth
+    {
+        get
+        {
+
+            if(m_internalModuleHealth != null)
+            {
+                return m_internalModuleHealth;
+                
+            }
+            m_internalModuleHealth = GetComponent<InternalModuleHealth>();
+            return m_internalModuleHealth;
+        }
+    }
 
 
     //I NEED TO FIND A WAY TO TRIGGER UNITY EVENTS WHEN THESE CHANGE, OR AT LEAST CHANGE THEM IN CODE SOMEWHERE ELSE
