@@ -107,8 +107,22 @@ public class CoreShipModuleManager : MonoBehaviour, ICoreModule
     //this needs to be able to retrieve any 1 state so we can use it in constructors
     public ICoreModule.CoreModuleState GetSingleCoreModuleState(BC_CoreModule selectedModule)
     {
-        return selectedModule.m_coreState;
+        return selectedModule.CoreModuleState;
     }
+
+    public ICoreModule.ModuleOperationalState GetSingleCoreModuleOperationalState(BC_CoreModule selectedModule)
+    {
+        return selectedModule.OperationalState;
+    }
+
+    #endregion
+
+    #region Module Event Handlers
+    
+    //we need to get the operational state changes, he module states, the heals, the damages, and on death
+
+
+
 
     #endregion
 

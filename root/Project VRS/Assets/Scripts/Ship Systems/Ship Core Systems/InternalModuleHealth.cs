@@ -17,13 +17,15 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     /// </summary>
     public BC_CoreModule moduleOwner { get; set; }
 
-    public SO_ModuleHealthData moduleHealthData;
-    public int moduleHealth;
+    public SO_ModuleHealthData ModuleHealthData;
+    public int ModuleHealth;
     //use a scriptable object here?
+
+    #region public stuff
 
     public void InitializeHealth()
     {
-        moduleHealth = moduleHealthData.healthMax;
+        ModuleHealth = ModuleHealthData.healthMax;
     }
 
     public void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
@@ -37,6 +39,10 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         StartCoroutine(HealModuleAction(healModuleData));
     }
 
+    #endregion
+
+    #region Coroutines
+
     //cuase rate is over time, we need it to stealily increase
     private IEnumerator HealModuleAction(IDamageData.HealModuleData healModuleData)
     {
@@ -49,7 +55,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         while (amountModuleHealedThisAction < healValue)
         {
             amountModuleHealedThisAction += healRate;
-            moduleHealth += healRate;
+            ModuleHealth += healRate;
             yield return null;
         }
     }
@@ -58,15 +64,15 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     {
         //save some initial values so we dont forget where we are
         int amountModuleDamagedThisAction = 0;
-        int damageRate = moduleHealthData.rateOfDamage;
+        int damageRate = ModuleHealthData.rateOfDamage;
 
         //i increment upwards because idk, cry about it
         while (amountModuleDamagedThisAction < damageVal)
         {
             amountModuleDamagedThisAction += damageRate;
-            moduleHealth -= damageRate;
+            ModuleHealth -= damageRate;
             //check if damage can still be applied
-            if(moduleHealth <= 0)
+            if(ModuleHealth <= 0)
             {
                 //if the modules dead, we should cancel the rest of the application and call the unity event
                 moduleOwner.OnDeathEvent.Invoke(moduleOwner);
@@ -75,14 +81,15 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
             yield return null;           
         }
     }
-    //time to create some corotuines
+
+    #endregion
 
     #region Calculate Damage Values
 
     private int FindDamageApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
     {
         IDamageData.WeaponType weaponType = weaponCollisionData.weaponType;
-        IDamageData.ArmorType moduleType = moduleHealthData.armorType;
+        IDamageData.ArmorType moduleType = ModuleHealthData.armorType;
         //compare the armor against the wepon by int casting and subtracting. positives mean less damage, negatives mean more
         int armorToPenetrationVal = (int)moduleType - (int)weaponType;
         int DamagePecentApplicable = 0;
@@ -98,7 +105,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
         //create the offset
         caseVal += 5;
         //0 case should be 5th object, and -4 whould be first object
-        int tableValue = moduleHealthData.damageApplicationCurveList[caseVal].value;
+        int tableValue = ModuleHealthData.damageApplicationCurveList[caseVal].value;
         return tableValue;
     }
 
@@ -114,5 +121,4 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 
     #endregion
 }
-
 

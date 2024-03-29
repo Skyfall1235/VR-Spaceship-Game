@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(InternalModuleHealth))]
 public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
 {
 
@@ -135,6 +136,12 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         m_internalModuleHealth.InitializeHealth();
     }
 
+    //not in use yet so dont touch it
+    public virtual void ReleaseResources()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public virtual void ShutDown()
     {
         throw new System.NotImplementedException();
@@ -150,13 +157,6 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         throw new System.NotImplementedException();
     }
     
-
-    //not in use yet so dont touch it
-    public void ReleaseResources()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
     {
         AttemptToLinkManager(currentManager);
@@ -171,6 +171,10 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
 
     #region Health Management
 
+    /// <summary>
+    /// Applies damage to this module based on the provided damage data.
+    /// </summary>
+    /// <param name="damageData">The weapon collision data containing damage information.</param>
     public void TakeDamage(IDamageData.WeaponCollisionData damageData)
     {
         //allow the health script to handle the actual number stuff and then invoke the event
@@ -178,6 +182,10 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
         OnDamageEvent.Invoke(damageData, this);
     }
 
+    /// <summary>
+    /// Heals this module based on the provided heal data.
+    /// </summary>
+    /// <param name="healData">The heal module data containing healing information.</param>
     public void HealModule(IDamageData.HealModuleData healData)
     {
         m_internalModuleHealth.HealModule(healData);
