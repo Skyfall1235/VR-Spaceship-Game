@@ -8,13 +8,13 @@ using UnityEngine;
 public class SO_ModuleHealthData : ScriptableObject
 {
     /// <summary>
-    /// Gets or sets the type of armor the entity is wearing.
+    /// the type of armor the entity is wearing.
     /// </summary>
     [SerializeField]
     public IDamageData.ArmorType armorType;
 
     /// <summary>
-    /// Gets or sets the maximum health points of the entity.
+    /// the maximum health points of the entity.
     /// </summary>
     [SerializeField]
     public int healthMax;

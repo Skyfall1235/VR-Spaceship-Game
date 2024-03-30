@@ -3,15 +3,6 @@ using UnityEngine;
 
 public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 {
-    
-
-
-    //what else can be put here? CALLS FOR SPECIFIC STATUS EFFECTS?
-    //EDIT: 
-
-    /// <summary>
-    /// Gets or sets the reference to the module that owns this component.
-    /// </summary>
     public BC_CoreModule moduleOwner { get; set; }
 
     public SO_ModuleHealthData ModuleHealthData;
@@ -27,10 +18,13 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     }
 
     //WE FOROGT TO DO THE ARMOR CALCUALTION YOU BUMBLING FOOL
+    //EDIT: Fixed, dont know how i managed to forget that but its there now, i didnt do all thart math for nothin
     public void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
     {
-        int dmgValFromDataPack = weaponCollisionData.damageVal;
-        StartCoroutine(DamageModuleAction(dmgValFromDataPack));
+        int damageValueFromDataPack = weaponCollisionData.damageVal;
+        int damagePercentApplicable = FindDamageApplicable(weaponCollisionData);
+        int damageAfterArmor = CalculateDamageAfterArmor(damageValueFromDataPack, damagePercentApplicable);
+        StartCoroutine(DamageModuleAction(damageAfterArmor));
     }
 
     public void HealModule(IDamageData.HealModuleData healModuleData)
@@ -42,7 +36,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 
     #region Coroutines
 
-    //cuase rate is over time, we need it to stealily increase
+    //cause rate is over time, we need it to stealily increase/decrease
     private IEnumerator HealModuleAction(IDamageData.HealModuleData healModuleData)
     {
         //save some initial values so we dont forget where we are
@@ -89,7 +83,9 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     //EDIT: the scale has been set up in the SO_ModuleHealthData script, its a lil janky but it works
     private int FindDamageApplicable(IDamageData.WeaponCollisionData weaponCollisionData)
     {
+        //incoming data
         IDamageData.WeaponType weaponType = weaponCollisionData.weaponType;
+        //internal data
         IDamageData.ArmorType moduleType = ModuleHealthData.armorType;
         //compare the armor against the wepon by int casting and subtracting. positives mean less damage, negatives mean more
         int armorToPenetrationVal = (int)moduleType - (int)weaponType;
