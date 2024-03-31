@@ -12,3 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d0568872b56664f807abe21e190f4c, type: 3}
   m_Name: New SO_Missile Behavior
   m_EditorClassIdentifier: 
+  launchProperties:
+    LaunchMode: 0
+    AutoMaticLaunch: 0
+    trackingTime: 0
+    LaunchSpeed: 0
+  stages:
+  - StageName: Stage 1
+    MotorType: 0
+    limitTime: 0
+    Speed: 0
+    UseGuidance: 0
+  interceptProperties:
+    HitRange: 0
+    StopGuidanceAfterIntercept: 0
+    DestroyMissileOnHit: 0
