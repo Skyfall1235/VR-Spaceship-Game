@@ -2,7 +2,8 @@
     "name": "vrs.ShipSystems.CoreModules",
     "rootNamespace": "",
     "references": [
-        "GUID:f05e617a4d253b44d9bd94f5c0d745a1"
+        "GUID:f05e617a4d253b44d9bd94f5c0d745a1",
+        "GUID:123a3d4b6916622409770533c4ecf412"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
