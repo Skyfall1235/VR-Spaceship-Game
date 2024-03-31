@@ -16,6 +16,7 @@ public class CStest : MonoBehaviour
         RenderTexture.Create();
 
         computeShader.SetTexture(0, "Result", RenderTexture);
+        computeShader.Set
         computeShader.Dispatch(0,RenderTexture.width /8, RenderTexture.height /8, 1);
         //buffer.GetData()
     }
