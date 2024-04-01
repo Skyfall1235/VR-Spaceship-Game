@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody))]
 public partial class MissileBehavior : MonoBehaviour
 {
     [Header("Target Data")]
-    [SerializeField] SO_MissileData behaviorParameters;
+    [SerializeField] SO_MissileData m_behaviorParameters;
     //the target, TARGET TYPE
+    [Serializable]
     public enum TargetType
     {
         Stationary,
@@ -29,7 +28,13 @@ public partial class MissileBehavior : MonoBehaviour
     public UnityEvent OnInterceptHit = new();
     public UnityEvent OnPassTarget = new();
 
+    private Rigidbody m_rigidbody;
+    private bool ObjectLifeTimeIsFinished = false;
 
+    private void Awake()
+    {
+        m_rigidbody = GetComponent<Rigidbody>();
+    }
     public void FireMissile(GameObject target, TargetType type)
     {
         m_target = target;
@@ -37,8 +42,35 @@ public partial class MissileBehavior : MonoBehaviour
         //start a coroutine for the flight path?
     }
 
+    protected void OnInterceptOfTarget()
+    {
+        KillGuidance();
+        OnInterceptHit.Invoke();
+    }
 
-    //AN INTERCEPT EVENT
-    //an event that gets called with each stage getting used up so we can do cool stuff with it down the road?
-    //also a passed target event
+    protected void OnPassOfTarget()
+    {
+        KillGuidance();
+        OnPassTarget.Invoke();
+    }
+
+    //is clled at the end of the corotuine to update the trajectory of the rigidbody
+    private void ApplyGuidanceCommand(Vector3 command)
+    {
+
+    }
+    //now we get to write the actual movement of the missile! yippee!
+
+    private void FixedUpdate()
+    {
+        if (!ObjectLifeTimeIsFinished)
+        {
+
+        }
+    }
+
+
+
+
+
 }
