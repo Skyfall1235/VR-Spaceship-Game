@@ -1,7 +1,8 @@
 {
   "dependencies": {
-    "com.unity.burst": "1.8.12",
+    "com.unity.burst": "1.8.13",
     "com.unity.collab-proxy": "2.2.0",
+    "com.unity.collections": "2.1.4",
     "com.unity.feature.development": "1.0.1",
     "com.unity.render-pipelines.universal": "14.0.10",
     "com.unity.textmeshpro": "3.0.7",
