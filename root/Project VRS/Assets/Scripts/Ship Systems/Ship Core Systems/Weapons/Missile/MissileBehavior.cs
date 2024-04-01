@@ -63,13 +63,23 @@ public partial class MissileBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!ObjectLifeTimeIsFinished)
+        //both checks to ensure the call should run and that the next calculation is *ready*
+        if (!ObjectLifeTimeIsFinished && m_CorotuineFinishFlag)
         {
-
+            m_CorotuineFinishFlag = false;
+            m_guidanceCommandLoop = StartCoroutine(ComputeAndExecuteGuidanceCommand());
         }
     }
 
 
+
+    private void OnDrawGizmos()
+    {
+        //draw a ray in direction of the guidnce command from the missile
+        Vector3 startPoint = transform.position;
+        Vector3 endPoint = guidanceVector;
+        //Debug.DrawLine(startPoint, endPoint, Color.green);
+    }
 
 
 

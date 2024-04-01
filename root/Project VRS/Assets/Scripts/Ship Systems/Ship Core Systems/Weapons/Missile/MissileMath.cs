@@ -8,9 +8,10 @@ using System.Collections;
 
 public partial class MissileBehavior 
 {
-    
     Coroutine m_guidanceCommandLoop;
+    bool m_CorotuineFinishFlag = true;
     JobHandle m_guidanceCommandJob;
+    Vector3 guidanceVector = Vector3.zero;
 
 
     private JobHandle ComputeGuidanceCommand(NativeArray<float3> NativeArrayReference)
@@ -37,31 +38,31 @@ public partial class MissileBehavior
 
         //start the job
         //wait for execution to finish
+        float startTime = Time.time;
         m_guidanceCommandJob = ComputeGuidanceCommand(memoryAllocation);
         if(!m_guidanceCommandJob.IsCompleted)
         {
             yield return null;
         }
+        //force completion
+        m_guidanceCommandJob.Complete();
         //if it is finished, pull the values out to a usable data form and start doing work with it
         output = memoryAllocation[0];
         memoryAllocation.Dispose();
-
+        float endTime = Time.time - startTime;
+        //Debug.Log($"completed job in {endTime} ms");
         //apply guidance to trajectory
-        ApplyGuidanceCommand(ComputeGuidanceCommandJob.Float3ToVector3(output));
-
-        //invoke self until destroyed
-        if(!ObjectLifeTimeIsFinished)
-        {
-            m_guidanceCommandLoop = StartCoroutine(ComputeAndExecuteGuidanceCommand());
-        }
-        
-
+        guidanceVector = ComputeGuidanceCommandJob.Float3ToVector3(output);
+        Debug.Log(output);
+        //notify the fixed update that the corotuine is finished and the next job can be scheduled
+        m_CorotuineFinishFlag = true;
+        //ApplyGuidanceCommand(ComputeGuidanceCommandJob.Float3ToVector3(output));
     }
 
     private void OnDestroy()
     {
         //Stop Coroutine the coroutine
-        if(m_guidanceCommandJob != null)
+        if(m_guidanceCommandLoop != null)
         {
             StopCoroutine(m_guidanceCommandLoop);
         }
@@ -113,11 +114,13 @@ public struct ComputeGuidanceCommandJob : IJob
         float3 computedCommand = CalculateGuidanceCommand();
         //save it to the output
         guidanceCommand[0] = Float3ToVector3(computedCommand);
+        Debug.Log($"{guidanceCommand}");
     }
 
     private float3 CalculateGuidanceCommand()
     {
         float3 relativePosition = targetPosition - missilePosition;
+        //fix in a moment
         float3 relativeVelovicity = targetVelocity - missileVelocity;
 
         // 3. Line-Of-Sight (LOS) calculations
@@ -130,9 +133,7 @@ public struct ComputeGuidanceCommandJob : IJob
         // 5. APN Guidance Command
         float3 propTerm = navGain * LOSRate;
         float3 guidanceCommand = propTerm; // No target acceleration estimation in this example
-
-        float3 convertedCommand = new(guidanceCommand.x, guidanceCommand.y, guidanceCommand.z);
-        return convertedCommand;
+        return guidanceCommand;
     }
 
     private Vector3 CalculateLOSRate(Vector3 relativePosition, Vector3 relativeVelocity)
