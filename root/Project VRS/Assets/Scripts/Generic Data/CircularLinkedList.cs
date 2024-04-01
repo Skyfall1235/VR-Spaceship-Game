@@ -1,34 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
-public class CircularLinkedList<T>
+public static class CircularLinkedList
 {
-    private Node<T> head = null;
-    private Node<T> tail = null;
-    public int Count { get; private set; }
-    public void Add(T item)
+    public static LinkedListNode<T> NextOrFirst<T>(this LinkedListNode<T> current)
     {
-
-    }
-    public bool Contains(T Item)
-    {
-        return false;
-    }
-    public void Remove(T Item) 
-    {
-
+        return current.Next ?? current.List.First;
     }
 
-}
-public class Node<T> 
-{
-    public T value;
-    public Node<T> _next;
-    public Node<T> _prev;
-    public Node(Node<T> next, Node<T> prev)
+    public static LinkedListNode<T> PreviousOrLast<T>(this LinkedListNode<T> current)
     {
-        _next = next;
-        _prev = prev;
+        return current.Previous ?? current.List.Last;
     }
 }

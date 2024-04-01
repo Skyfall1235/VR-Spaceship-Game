@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class WeaponManagerModule : BC_CoreModule
 {
-    CircularLinkedList<Weapon> _weapons = new CircularLinkedList<Weapon>();
-    public CircularLinkedList<Weapon> GetWeapons() { return _weapons; }
+    LinkedList<Weapon> _weapons = new LinkedList<Weapon>();
+    public LinkedList<Weapon> GetWeapons() { return _weapons; }
 
+    #region registration and deregistration of weapons 
     public void RegisterWeapons(params GameObject[] weapons)
     {
         foreach(GameObject weapon in weapons)
         {
             if(weapon.GetComponent<Weapon>() != null)
             {
-                _weapons.Add(weapon.gameObject.GetComponent<Weapon>());
+                _weapons.AddLast(weapon.gameObject.GetComponent<Weapon>());
             }
         }
     }
@@ -24,7 +25,7 @@ public class WeaponManagerModule : BC_CoreModule
         {
             if(weapon.gameObject != null)
             {
-                _weapons.Add(weapon);
+                _weapons.AddLast(weapon);
             }
         }
     }
@@ -48,35 +49,27 @@ public class WeaponManagerModule : BC_CoreModule
             }
         }
     }
-
-    int _index;
-    int WeaponIndex
+    #endregion
+    LinkedListNode<Weapon> _selectedWeapon;
+    void RotateSelectedWeaponForward()
     {
-        get 
-        { 
-            return _index; 
-        }
-        set 
+        if(_selectedWeapon != null)
         {
-            _index = value;
+            _selectedWeapon = CircularLinkedList.NextOrFirst( _selectedWeapon);
         }
     }
-
-    
-    public void IncrementThroughWeapons(int count = 1)
+    void RotateSelectedWeaponBackward()
     {
-        WeaponIndex += count;
+        if (_selectedWeapon != null)
+        {
+            _selectedWeapon = CircularLinkedList.PreviousOrLast(_selectedWeapon);
+        }
     }
-    public void DecrementThroughWeapons(int count = 1)
-    {
-        WeaponIndex -= count;
-    }
-    public Weapon SelectedWeapon { get; private set; } = null; 
     public void Fire()
     {
-        if(SelectedWeapon != null) 
+        if(_selectedWeapon != null) 
         {
-            SelectedWeapon.Fire();
+            _selectedWeapon.Value.Fire();
         }
     }
     private void Update()
@@ -87,7 +80,7 @@ public class WeaponManagerModule : BC_CoreModule
         }
         if (Input.GetMouseButtonDown(1))
         {
-
+            RotateSelectedWeaponForward();
         }
     }
     private void Awake()
@@ -99,6 +92,6 @@ public class WeaponManagerModule : BC_CoreModule
                 RegisterWeapons(transform.GetChild(i).gameObject);
             }
         }
-        WeaponIndex = 0;
+         _selectedWeapon = (_weapons.Count <= 0) ? null : _weapons.First;
     }
 }
