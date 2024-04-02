@@ -8,6 +8,22 @@ public class WeaponManagerModule : BC_CoreModule
     LinkedList<Weapon> _weapons = new LinkedList<Weapon>();
     public LinkedList<Weapon> GetWeapons() { return _weapons; }
     LinkedListNode<Weapon> _selectedWeapon;
+    bool _lastMouseDownStatus = false;
+    public bool LastMouseDownStatus
+    { 
+        get 
+        { 
+            return _lastMouseDownStatus; 
+        }
+        set 
+        {
+            _lastMouseDownStatus = value;
+            if (_selectedWeapon != null)
+            {
+                _selectedWeapon.Value.UpdateFireState(value);
+            }
+        }
+    }
     #region registration, deregistration, creation, and destruction of weapons 
     public void RegisterWeapons(params GameObject[] weapons)
     {
@@ -67,18 +83,15 @@ public class WeaponManagerModule : BC_CoreModule
         }
     }
     #endregion
-    public void Fire()
-    {
-        if(_selectedWeapon != null) 
-        {
-            _selectedWeapon.Value.TryFire();
-        }
-    }
     private void Update()
     {
-        if(Input.GetMouseButton(0)) 
+        if(Input.GetMouseButtonDown(0)) 
         {
-            Fire();
+            LastMouseDownStatus = true;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            LastMouseDownStatus = false;
         }
         if (Input.GetMouseButtonDown(1))
         {
