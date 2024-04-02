@@ -31,16 +31,66 @@ public partial class MissileBehavior : MonoBehaviour
     private Rigidbody m_rigidbody;
     private bool ObjectLifeTimeIsFinished = false;
 
+    #region Monobehavior Methods
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
     }
-    public void FireMissile(GameObject target, TargetType type)
+    //now we get to write the actual movement of the missile! yippee!
+
+    private void FixedUpdate()
     {
-        m_target = target;
-        m_targetType = type;
-        //start a coroutine for the flight path?
+        //both checks to ensure the call should run and that the next calculation is *ready*
+        if (!ObjectLifeTimeIsFinished && m_CorotuineFinishFlag)
+        {
+            m_CorotuineFinishFlag = false;
+            m_guidanceCommandLoop = StartCoroutine(ComputeAndExecuteGuidanceCommand());
+            m_rigidbody.AddRelativeForce(Vector3.forward * 100);
+            //now, add a rotational force 
+            m_rigidbody.AddRelativeTorque(-guidanceVector);
+            //reset the force so it doesnt get applied additively
+            guidanceVector = Vector3.zero;
+        }
     }
+
+    private void OnDrawGizmos()
+    {
+        //draw a ray in direction of the guidnce command from the missile
+        Vector3 startPoint = transform.position;
+        Vector3 endPoint = transform.position + (guidanceVector);
+        Debug.DrawLine(startPoint, endPoint, Color.green);
+    }
+
+    private void OnDestroy()
+    {
+        //Stop Coroutine the coroutine
+        if (m_guidanceCommandLoop != null)
+        {
+            StopCoroutine(m_guidanceCommandLoop);
+        }
+        //force a completion of the last step, then kill the native array AFTER. (i think this avoids a memory leak?)
+        m_guidanceCommandJob.Complete();
+        //memoryAllocation.Dispose();
+    }
+    #endregion
+
+    #region Launch control
+    public void StartLaunchSequence()
+    {
+
+    }
+
+    public void TrackTarget()
+    {
+
+    }
+    public void Launch()
+    {
+
+    }
+
+    #endregion
+
 
     protected void OnInterceptOfTarget()
     {
@@ -59,27 +109,7 @@ public partial class MissileBehavior : MonoBehaviour
     {
 
     }
-    //now we get to write the actual movement of the missile! yippee!
-
-    private void FixedUpdate()
-    {
-        //both checks to ensure the call should run and that the next calculation is *ready*
-        if (!ObjectLifeTimeIsFinished && m_CorotuineFinishFlag)
-        {
-            m_CorotuineFinishFlag = false;
-            m_guidanceCommandLoop = StartCoroutine(ComputeAndExecuteGuidanceCommand());
-        }
-    }
-
-
-
-    private void OnDrawGizmos()
-    {
-        //draw a ray in direction of the guidnce command from the missile
-        Vector3 startPoint = transform.position;
-        Vector3 endPoint = guidanceVector;
-        //Debug.DrawLine(startPoint, endPoint, Color.green);
-    }
+    
 
 
 

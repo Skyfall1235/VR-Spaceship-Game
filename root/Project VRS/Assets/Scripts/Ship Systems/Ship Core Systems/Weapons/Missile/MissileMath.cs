@@ -10,6 +10,7 @@ public partial class MissileBehavior
 {
     Coroutine m_guidanceCommandLoop;
     bool m_CorotuineFinishFlag = true;
+    NativeArray<float3> memoryAllocation;
     JobHandle m_guidanceCommandJob;
     Vector3 guidanceVector = Vector3.zero;
 
@@ -22,8 +23,6 @@ public partial class MissileBehavior
         Vector3 missileVelocity = transform.GetComponent<Rigidbody>().velocity;
         Vector3 targetVelocity = m_target.GetComponent<Rigidbody>().velocity;
 
-        float3[] m_guidanceCommandVector = new float3[1];
-
         //create the new job struct with the parameters
         ComputeGuidanceCommandJob job = new ComputeGuidanceCommandJob(missilePosition, targetPosition, missileVelocity, targetVelocity, NavigationGain, NativeArrayReference);
         return job.Schedule();
@@ -33,44 +32,32 @@ public partial class MissileBehavior
     private IEnumerator ComputeAndExecuteGuidanceCommand()
     {
         //setup
-        NativeArray<float3> memoryAllocation = new NativeArray<float3>(1, Allocator.TempJob);
         float3 output = float3.zero;
-
-        //start the job
+        memoryAllocation = new NativeArray<float3>(1, Allocator.TempJob);
         //wait for execution to finish
-        float startTime = Time.time;
-        m_guidanceCommandJob = ComputeGuidanceCommand(memoryAllocation);
-        if(!m_guidanceCommandJob.IsCompleted)
+        try
         {
-            yield return null;
+            m_guidanceCommandJob = ComputeGuidanceCommand(memoryAllocation);
+            yield return m_guidanceCommandJob;
         }
-        //force completion
-        m_guidanceCommandJob.Complete();
-        //if it is finished, pull the values out to a usable data form and start doing work with it
-        output = memoryAllocation[0];
-        memoryAllocation.Dispose();
-        float endTime = Time.time - startTime;
-        //Debug.Log($"completed job in {endTime} ms");
+        finally
+        {
+            //force completion
+            m_guidanceCommandJob.Complete();
+            //if it is finished, pull the values out to a usable data form and start doing work with it
+            output = memoryAllocation[0];
+            memoryAllocation.Dispose();
+        }
+
         //apply guidance to trajectory
         guidanceVector = ComputeGuidanceCommandJob.Float3ToVector3(output);
-        Debug.Log(output);
+        ApplyGuidanceCommand(guidanceVector);
+
         //notify the fixed update that the corotuine is finished and the next job can be scheduled
         m_CorotuineFinishFlag = true;
-        //ApplyGuidanceCommand(ComputeGuidanceCommandJob.Float3ToVector3(output));
     }
 
-    private void OnDestroy()
-    {
-        //Stop Coroutine the coroutine
-        if(m_guidanceCommandLoop != null)
-        {
-            StopCoroutine(m_guidanceCommandLoop);
-        }
-        //force a completion of the last step, then kill the native array AFTER. (i think this avoids a memory leak?)
-        m_guidanceCommandJob.Complete();
-
-        
-    }
+    
 
     private void KillGuidance()
     {
@@ -78,8 +65,6 @@ public partial class MissileBehavior
         //force a completion of the last step, then kill the native array AFTER. (i think this avoids a memory leak?)
         m_guidanceCommandJob.Complete();
     }
-
-    
 
 }
 
@@ -113,8 +98,7 @@ public struct ComputeGuidanceCommandJob : IJob
         //get the value
         float3 computedCommand = CalculateGuidanceCommand();
         //save it to the output
-        guidanceCommand[0] = Float3ToVector3(computedCommand);
-        Debug.Log($"{guidanceCommand}");
+        guidanceCommand[0] = computedCommand;
     }
 
     private float3 CalculateGuidanceCommand()
