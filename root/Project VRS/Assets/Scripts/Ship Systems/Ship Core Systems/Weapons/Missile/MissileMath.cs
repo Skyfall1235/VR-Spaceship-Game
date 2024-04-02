@@ -101,15 +101,13 @@ public struct ComputeGuidanceCommandJob : IJob
 
     public void Execute()
     {
-
+        float3 guidanceCommand = CalculateGuidanceCommand();
+        guidanceVariables[0] = guidanceCommand;
     }
 
     private float3 CalculateGuidanceCommand()
     {
-        //    Augmented Proportional Navigation(APN)
-
-        
-
+        //    Augmented Proportional Navigation(APN)\
 
         float3 LOS = targetPosition - missilePosition;
 
@@ -135,9 +133,11 @@ public struct ComputeGuidanceCommandJob : IJob
         //the LOS delta                                         new distance - old distance
         //LOS rate                                              delta magnitude
         //RTM IS DISTANCE FROM LOCATION TO LOCATION
+        //EDIT: some names have changed regarding the formula above
+
 
         //an = N*Vc*(dλ / dt)
-
+        //the original formula from the paper by L.M., for reference
     }
 
 
@@ -149,7 +149,6 @@ public struct ComputeGuidanceCommandJob : IJob
 
         // Calculate the component of acceleration perpendicular to LOS
         Vector3 Nt = targetAcceleration - projection;
-
         return Nt;
     }
 
@@ -157,7 +156,9 @@ public struct ComputeGuidanceCommandJob : IJob
 
     float3 CalculateAcceleration()
     {
+        //get the acceleration using he up to date velocity and previous velocity
         float3 acceleration = (targetVelocity - guidanceVariables[2]) / deltaTime;
+        //depricate the traget velocity so that it is now the old velocity
         guidanceVariables[2] = targetVelocity;
         return acceleration;
     }
