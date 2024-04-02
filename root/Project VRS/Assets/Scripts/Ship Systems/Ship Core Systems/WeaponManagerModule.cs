@@ -8,7 +8,7 @@ public class WeaponManagerModule : BC_CoreModule
     LinkedList<Weapon> _weapons = new LinkedList<Weapon>();
     public LinkedList<Weapon> GetWeapons() { return _weapons; }
     LinkedListNode<Weapon> _selectedWeapon;
-    #region registration and deregistration of weapons 
+    #region registration, deregistration, creation, and destruction of weapons 
     public void RegisterWeapons(params GameObject[] weapons)
     {
         foreach(GameObject weapon in weapons)
@@ -49,6 +49,7 @@ public class WeaponManagerModule : BC_CoreModule
             }
         }
     }
+
     #endregion
     #region weapon roatation
     void RotateSelectedWeaponForward()
@@ -70,12 +71,12 @@ public class WeaponManagerModule : BC_CoreModule
     {
         if(_selectedWeapon != null) 
         {
-            _selectedWeapon.Value.Fire();
+            _selectedWeapon.Value.TryFire();
         }
     }
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)) 
+        if(Input.GetMouseButton(0)) 
         {
             Fire();
         }

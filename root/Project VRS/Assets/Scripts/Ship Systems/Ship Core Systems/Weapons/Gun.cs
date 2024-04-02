@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Gun : Weapon
 {
-    public override void Fire()
+    
+    protected override void Fire()
     {
         Debug.Log(gameObject.name + " Fired");
     }
