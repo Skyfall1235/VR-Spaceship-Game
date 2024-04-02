@@ -35,6 +35,7 @@ public partial class MissileBehavior : MonoBehaviour
     private void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        OnStageFinish.Invoke(2);
     }
     //now we get to write the actual movement of the missile! yippee!
 
@@ -45,9 +46,25 @@ public partial class MissileBehavior : MonoBehaviour
         {
             m_CorotuineFinishFlag = false;
             m_guidanceCommandLoop = StartCoroutine(ComputeAndExecuteGuidanceCommand());
-            m_rigidbody.AddRelativeForce(Vector3.forward * 100);
+
+
+
+            //TESTING
+            //m_rigidbody.AddRelativeForce((transform.forward + guidanceVector) * 10);
+            //m_rigidbody.MovePosition(force);
+            m_rigidbody.AddRelativeForce(transform.forward * 10, ForceMode.Acceleration);
+
             //now, add a rotational force 
-            m_rigidbody.AddRelativeTorque(-guidanceVector);
+            // Define the desired turn axis (e.g., Vector3.up for yaw)
+            Vector3 turnAxis = Vector3.up;
+
+            // Calculate torque based on guidance command and desired turn axis
+            Vector3 torque = Vector3.Cross(Vector3.up, guidanceVector);
+            Vector3 torque2 = Vector3.Cross(Vector3.right, guidanceVector);
+
+            // Apply torque to the Rigidbody
+            m_rigidbody.AddTorque(torque);
+            m_rigidbody.AddTorque(torque2);
             //reset the force so it doesnt get applied additively
             guidanceVector = Vector3.zero;
         }
@@ -70,7 +87,7 @@ public partial class MissileBehavior : MonoBehaviour
         }
         //force a completion of the last step, then kill the native array AFTER. (i think this avoids a memory leak?)
         m_guidanceCommandJob.Complete();
-        //memoryAllocation.Dispose();
+        memoryAllocation.Dispose();
     }
     #endregion
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -20,38 +20,35 @@ public partial class MissileBehavior
         //get the values in advance from the target and the missile itself
         Vector3 missilePosition = transform.position;
         Vector3 targetPosition = m_target.transform.position;
-        Vector3 missileVelocity = transform.GetComponent<Rigidbody>().velocity;
-        Vector3 targetVelocity = m_target.GetComponent<Rigidbody>().velocity;
+        Rigidbody targetRB = m_target.GetComponent<Rigidbody>();
+        Vector3 targetVelocity = targetRB.velocity;
 
         //create the new job struct with the parameters
-        ComputeGuidanceCommandJob job = new ComputeGuidanceCommandJob(missilePosition, targetPosition, missileVelocity, targetVelocity, NavigationGain, NativeArrayReference);
+        ComputeGuidanceCommandJob job = new ComputeGuidanceCommandJob(targetPosition, missilePosition, targetVelocity, NavigationGain, Time.deltaTime, NativeArrayReference);
         return job.Schedule();
     }
 
     //we should try to run this in fixed update so it stays consistent across devices
     private IEnumerator ComputeAndExecuteGuidanceCommand()
     {
-        //setup
-        float3 output = float3.zero;
-        memoryAllocation = new NativeArray<float3>(1, Allocator.TempJob);
-        //wait for execution to finish
+        //setup!
+        //create the memory
+        memoryAllocation = new NativeArray<float3>(3, Allocator.Persistent);
+
         try
         {
+            //schedule the job
             m_guidanceCommandJob = ComputeGuidanceCommand(memoryAllocation);
             yield return m_guidanceCommandJob;
         }
         finally
         {
-            //force completion
+            //dispose and force completion
             m_guidanceCommandJob.Complete();
-            //if it is finished, pull the values out to a usable data form and start doing work with it
-            output = memoryAllocation[0];
-            memoryAllocation.Dispose();
         }
 
-        //apply guidance to trajectory
-        guidanceVector = ComputeGuidanceCommandJob.Float3ToVector3(output);
-        ApplyGuidanceCommand(guidanceVector);
+
+        guidanceVector = ComputeGuidanceCommandJob.Float3ToVector3(memoryAllocation[0]);
 
         //notify the fixed update that the corotuine is finished and the next job can be scheduled
         m_CorotuineFinishFlag = true;
@@ -71,70 +68,129 @@ public partial class MissileBehavior
 [BurstCompile]
 public struct ComputeGuidanceCommandJob : IJob
 {
-    //needed parameters for the mathematics
-    readonly float3 missilePosition;
-    readonly float3 targetPosition;
-    readonly float3 missileVelocity;
-    readonly float3 targetVelocity;
-    //the gain of the course correction
-    readonly float navGain;
+    float3 targetPosition;
+    float3 missilePosition;
+    float3 targetVelocity;
+    float navigationGain;
+    float deltaTime;
     //the location that we need to story the memory
-    [WriteOnly] NativeArray<float3> guidanceCommand;
+    //should write ap ersistant 2 slots.
+    //[0] is the guidance output;
+    //[1] is the old distance
+    //[2] is the previous target velocity
+    [WriteOnly] NativeArray<float3> guidanceVariables;
 
     //creation struct to setup the job
-    public ComputeGuidanceCommandJob(Vector3 mP, Vector3 tP, Vector3 mV, Vector3 tV, float nG, NativeArray<float3> nativeArrayReference)
+    public ComputeGuidanceCommandJob
+        (
+        Vector3 TargetPosition, 
+        Vector3 MissilePosition, 
+        Vector3 TargetVelocity, 
+        float NavigationalGain, 
+        float DeltaTime, 
+        NativeArray<float3> nativeArrayReference
+        )
     {
-        this.missilePosition = Vector3ToFloat3(mP);
-        this.targetPosition = Vector3ToFloat3(tP);
-        this.missileVelocity = Vector3ToFloat3(mV);
-        this.targetVelocity = Vector3ToFloat3(tV);
-        this.navGain = nG;
-        this.guidanceCommand = nativeArrayReference;
-        //we need the value, but we plan to fill it later so dont bother with it right now
+        this.targetPosition = Vector3ToFloat3(TargetPosition);
+        this.missilePosition = Vector3ToFloat3(MissilePosition);
+        this.targetVelocity = Vector3ToFloat3(TargetVelocity);
+        this.navigationGain = NavigationalGain;
+        this.deltaTime = DeltaTime;
+        this.guidanceVariables = nativeArrayReference;
     }
 
     public void Execute()
     {
-        //get the value
-        float3 computedCommand = CalculateGuidanceCommand();
-        //save it to the output
-        guidanceCommand[0] = computedCommand;
+
     }
 
     private float3 CalculateGuidanceCommand()
     {
-        float3 relativePosition = targetPosition - missilePosition;
-        //fix in a moment
-        float3 relativeVelovicity = targetVelocity - missileVelocity;
+        //    Augmented Proportional Navigation(APN)
 
-        // 3. Line-Of-Sight (LOS) calculations
+        
 
-        float3 LOSRate = CalculateLOSRate(relativePosition, relativeVelovicity);
 
-        // 4. Target Acceleration Estimation (omitted for simplicity)
-        //EDIT: this can be implemented, but doing so would hurt my brain, so we will continue t omit until nessicary
+        float3 LOS = targetPosition - missilePosition;
 
-        // 5. APN Guidance Command
-        float3 propTerm = navGain * LOSRate;
-        float3 guidanceCommand = propTerm; // No target acceleration estimation in this example
+        float3 LOSDelta = LOS - guidanceVariables[1];
+        float LOSRate = GetFloat3Magnitude(LOSDelta);
+        //needed
+        float invertedLOSRate = -LOSRate;
+        //this should be a non zero number?
+        float3 accelerationCompensation = CalculateAccelerationCompensation(LOS, CalculateAcceleration());
+
+        //THE SECRET FORMULA
+        //A_cmd = (N * Vc * LOS_Rate) + ((N * Nt) / 2)
+        
+        float3 guidanceCommand = (navigationGain * invertedLOSRate * LOSRate) + ((navigationGain * accelerationCompensation) * 0.5f);
         return guidanceCommand;
+
+        //current position of the target
+        //the missile                                           needed for new distance
+        //the navigation gain                                   N
+        //the old RTM                                           old distance 
+        //the acceleration (if 0 set to gravity / at least 1)   Nt
+        //the negative LOSRate                                  Vc
+        //the LOS delta                                         new distance - old distance
+        //LOS rate                                              delta magnitude
+        //RTM IS DISTANCE FROM LOCATION TO LOCATION
+
+        //an = N*Vc*(dλ / dt)
+
     }
 
-    private Vector3 CalculateLOSRate(Vector3 relativePosition, Vector3 relativeVelocity)
-    {
-        // This function needs to be implemented based on calculus or numerical differentiation 
-        //EDIT: we will use calculus because its more precise and generally avoids rounding errors
-        float3 LOS = relativePosition.normalized;
-        float3 LOSRate = Vector3.Cross(relativeVelocity, LOS) / Mathf.Pow(relativePosition.magnitude, 2);
 
-        //  to find the time derivative of the LOS vector.
-        return LOSRate;
+    float3 CalculateAccelerationCompensation(float3 LOS, float3 targetAcceleration)
+    {
+        // Project target's acceleration onto LOS vector
+        float projectionMagnitude = DotProduct(targetAcceleration, LOS);
+        float3 projection = projectionMagnitude * NormalizeVector(LOS);
+
+        // Calculate the component of acceleration perpendicular to LOS
+        Vector3 Nt = targetAcceleration - projection;
+
+        return Nt;
+    }
+
+
+
+    float3 CalculateAcceleration()
+    {
+        float3 acceleration = (targetVelocity - guidanceVariables[2]) / deltaTime;
+        guidanceVariables[2] = targetVelocity;
+        return acceleration;
+    }
+
+    float DotProduct(float3 a, float3 b)
+    {
+        float product = a.x * b.x + a.y * b.y + a.z * b.z;
+        return product;
+    }
+
+    float GetFloat3Magnitude(float3 floatVal)
+    {
+        return (float)Mathf.Sqrt(floatVal.x * floatVal.x + floatVal.y * floatVal.y + floatVal.z * floatVal.z);
+    }
+
+    float3 NormalizeVector(float3 vector)
+    {
+        float magnitude = GetFloat3Magnitude(vector);
+        if (magnitude > 0)
+        {
+            return new float3(vector.x / magnitude, vector.y / magnitude, vector.z / magnitude);
+        }
+        else
+        {
+            return float3.zero;
+        }
     }
 
     public static float3 Vector3ToFloat3(Vector3 from)
     {
         return new float3(from.x, from.y, from.z);
     }
+
     public static Vector3 Float3ToVector3(float3 from)
     {
         return new Vector3(from.x, from.y, from.z);
