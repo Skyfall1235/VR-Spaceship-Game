@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,15 +9,10 @@ public partial class MissileBehavior : MonoBehaviour
     [Header("Target Data")]
     [SerializeField] SO_MissileData m_behaviorParameters;
     //the target, TARGET TYPE
-    [Serializable]
-    public enum TargetType
-    {
-        Stationary,
-        Dynamic
-    }
+    
 
     [SerializeField]
-    private TargetType m_targetType;
+    private SO_MissileData.TargetType m_targetType;
     [SerializeField]
     private GameObject m_target;
 
@@ -28,13 +24,14 @@ public partial class MissileBehavior : MonoBehaviour
     public UnityEvent OnInterceptHit = new();
     public UnityEvent OnPassTarget = new();
 
-    private Rigidbody m_rigidbody;
+    private Rigidbody m_missileRigidbody;
     private bool ObjectLifeTimeIsFinished = false;
+    private int currentStage = 0;
 
     #region Monobehavior Methods
     private void Awake()
     {
-        m_rigidbody = GetComponent<Rigidbody>();
+        m_missileRigidbody = GetComponent<Rigidbody>();
         OnStageFinish.Invoke(2);
     }
     //now we get to write the actual movement of the missile! yippee!
@@ -50,9 +47,10 @@ public partial class MissileBehavior : MonoBehaviour
 
 
             //TESTING
+
             //m_rigidbody.AddRelativeForce((transform.forward + guidanceVector) * 10);
             //m_rigidbody.MovePosition(force);
-            m_rigidbody.AddRelativeForce(transform.forward * 10, ForceMode.Acceleration);
+            m_missileRigidbody.AddRelativeForce(transform.forward * 10, ForceMode.Acceleration);
 
             //now, add a rotational force 
             // Define the desired turn axis (e.g., Vector3.up for yaw)
@@ -63,8 +61,8 @@ public partial class MissileBehavior : MonoBehaviour
             Vector3 torque2 = Vector3.Cross(Vector3.right, guidanceVector);
 
             // Apply torque to the Rigidbody
-            m_rigidbody.AddTorque(torque);
-            m_rigidbody.AddTorque(torque2);
+            m_missileRigidbody.AddTorque(torque);
+            m_missileRigidbody.AddTorque(torque2);
             //reset the force so it doesnt get applied additively
             guidanceVector = Vector3.zero;
         }
@@ -92,6 +90,7 @@ public partial class MissileBehavior : MonoBehaviour
     #endregion
 
     #region Launch control
+
     public void StartLaunchSequence()
     {
 
@@ -101,9 +100,10 @@ public partial class MissileBehavior : MonoBehaviour
     {
 
     }
+
     public void Launch()
     {
-
+        StartCoroutine(MotorStage(0));
     }
 
     #endregion
@@ -121,12 +121,85 @@ public partial class MissileBehavior : MonoBehaviour
         OnPassTarget.Invoke();
     }
 
+    private IEnumerator StationaryLaunchSequence()
+    {
+        //stationary implovies a horizontal launch, so it has to fly up and turn
+        return null;
+    }
+
+    private IEnumerator DynamicLaunchSequence()
+    {
+        //dynamic means its forward facing and is likely already moving, like with a ship
+
+        return null;
+    }
+
+    private IEnumerator MotorStage(int stage)
+    {
+        //retrive the limit time
+        SO_MissileData.Stage currentStageData = m_behaviorParameters.stages[stage];
+        float limitTime = currentStageData.LimitTime;
+
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < limitTime)
+        {
+            // Simulate fixed update behavior 
+
+
+            //the speed based on the motor
+
+
+            //apply guidance if we use guidance
+            if(currentStageData.UseGuidance)
+            {
+
+            }
+
+
+
+            //add our time and wait for the next fixed update
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        //wneh finished, increment and call stage pass
+        OnStageFinish.Invoke(currentStage);
+        currentStage++;
+    }
+
+
     //is clled at the end of the corotuine to update the trajectory of the rigidbody
     private void ApplyGuidanceCommand(Vector3 command)
     {
 
     }
     
+    private void ApplyMotorForceByType(SO_MissileData.MotorType motorType, float speed)
+    {
+        ForceMode forceType = ForceMode.Force;
+
+        switch (motorType)
+        {
+            case SO_MissileData.MotorType.ConstantSpeed:
+                forceType = ForceMode.Force;
+
+
+                break;
+            case SO_MissileData.MotorType.Acceleration:
+                forceType = ForceMode.Acceleration;
+
+
+                break;
+            case SO_MissileData.MotorType.None:
+                //apply no force and end
+                return;
+        }
+        //calculate direction of force
+        Vector3 forwardSpeed = transform.forward * speed;
+        //application of the force
+        m_missileRigidbody.AddRelativeForce(forwardSpeed, forceType);
+    }
 
 
 

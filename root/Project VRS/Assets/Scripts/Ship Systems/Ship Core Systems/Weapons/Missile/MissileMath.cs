@@ -68,11 +68,11 @@ public partial class MissileBehavior
 [BurstCompile]
 public struct ComputeGuidanceCommandJob : IJob
 {
-    float3 targetPosition;
-    float3 missilePosition;
-    float3 targetVelocity;
-    float navigationGain;
-    float deltaTime;
+    readonly float3 targetPosition;
+    readonly float3 missilePosition;
+    readonly float3 targetVelocity;
+    readonly float navigationGain;
+    readonly float deltaTime;
     //the location that we need to story the memory
     //should write ap ersistant 2 slots.
     //[0] is the guidance output;
@@ -104,6 +104,7 @@ public struct ComputeGuidanceCommandJob : IJob
         float3 guidanceCommand = CalculateGuidanceCommand();
         guidanceVariables[0] = guidanceCommand;
     }
+
 
     private float3 CalculateGuidanceCommand()
     {
@@ -148,7 +149,7 @@ public struct ComputeGuidanceCommandJob : IJob
         float3 projection = projectionMagnitude * NormalizeVector(LOS);
 
         // Calculate the component of acceleration perpendicular to LOS
-        Vector3 Nt = targetAcceleration - projection;
+        float3 Nt = targetAcceleration - projection;
         return Nt;
     }
 
