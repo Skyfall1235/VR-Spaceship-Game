@@ -13,6 +13,7 @@ public partial class MissileBehavior
     NativeArray<float3> memoryAllocation;
     JobHandle m_guidanceCommandJob;
     Vector3 guidanceVector = Vector3.zero;
+    Rigidbody targetRB;
 
 
     private JobHandle ComputeGuidanceCommand(NativeArray<float3> NativeArrayReference)
@@ -20,7 +21,10 @@ public partial class MissileBehavior
         //get the values in advance from the target and the missile itself
         Vector3 missilePosition = transform.position;
         Vector3 targetPosition = m_target.transform.position;
-        Rigidbody targetRB = m_target.GetComponent<Rigidbody>();
+        if(targetRB == null)
+        {
+            targetRB = m_target.GetComponent<Rigidbody>();
+        }
         Vector3 targetVelocity = targetRB.velocity;
 
         //create the new job struct with the parameters
@@ -31,12 +35,12 @@ public partial class MissileBehavior
     //we should try to run this in fixed update so it stays consistent across devices
     private IEnumerator ComputeAndExecuteGuidanceCommand()
     {
-        //setup!
-        //create the memory
-        memoryAllocation = new NativeArray<float3>(3, Allocator.Persistent);
-
         try
         {
+            if(m_target == null)
+            {
+                yield break;
+            }
             //schedule the job
             m_guidanceCommandJob = ComputeGuidanceCommand(memoryAllocation);
             yield return m_guidanceCommandJob;
@@ -61,6 +65,7 @@ public partial class MissileBehavior
         StopCoroutine(m_guidanceCommandLoop);
         //force a completion of the last step, then kill the native array AFTER. (i think this avoids a memory leak?)
         m_guidanceCommandJob.Complete();
+        memoryAllocation.Dispose();
     }
 
 }
@@ -108,7 +113,7 @@ public struct ComputeGuidanceCommandJob : IJob
 
     private float3 CalculateGuidanceCommand()
     {
-        //    Augmented Proportional Navigation(APN)\
+        //Augmented Proportional Navigation(APN)
 
         float3 LOS = targetPosition - missilePosition;
 
@@ -153,8 +158,6 @@ public struct ComputeGuidanceCommandJob : IJob
         return Nt;
     }
 
-
-
     float3 CalculateAcceleration()
     {
         //get the acceleration using he up to date velocity and previous velocity
@@ -198,5 +201,3 @@ public struct ComputeGuidanceCommandJob : IJob
         return new Vector3(from.x, from.y, from.z);
     }
 }
-
-

@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using Unity.Collections;
+using Unity.Mathematics;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +23,7 @@ public partial class MissileBehavior : MonoBehaviour
     public float NavigationGain; // Adjust this value to tune guidance aggressiveness
 
     [Header("Events")]
+    public UnityEvent OnLaunch = new();
     public UnityEvent<int> OnStageFinish = new();
     public UnityEvent OnInterceptHit = new();
     public UnityEvent OnPassTarget = new();
@@ -27,19 +31,25 @@ public partial class MissileBehavior : MonoBehaviour
     private Rigidbody m_missileRigidbody;
     private bool ObjectLifeTimeIsFinished = false;
     private int currentStage = 0;
+    private float m_maxMissileLifeTime = 0f;
 
     #region Monobehavior Methods
     private void Awake()
     {
         m_missileRigidbody = GetComponent<Rigidbody>();
-        OnStageFinish.Invoke(2);
+        SetMaxMissileLifeTime();
+        memoryAllocation = new NativeArray<float3>(3, Allocator.Persistent);
     }
     //now we get to write the actual movement of the missile! yippee!
 
     private void FixedUpdate()
     {
+        if (memoryAllocation == null)
+        {
+            return;
+        }
         //both checks to ensure the call should run and that the next calculation is *ready*
-        if (!ObjectLifeTimeIsFinished && m_CorotuineFinishFlag)
+        if (!ObjectLifeTimeIsFinished && m_CorotuineFinishFlag )
         {
             m_CorotuineFinishFlag = false;
             m_guidanceCommandLoop = StartCoroutine(ComputeAndExecuteGuidanceCommand());
@@ -93,7 +103,22 @@ public partial class MissileBehavior : MonoBehaviour
 
     public void StartLaunchSequence()
     {
-
+        //starts traacking immed
+        if (m_behaviorParameters.stages[0].UseGuidance)
+        {
+            //start tracking now, launch after the delay is completed
+            ActionAfterDelay(TrackTarget, Launch, m_behaviorParameters.launchProperties.LaunchDelay);
+        }
+        else if(m_behaviorParameters.launchProperties.LaunchDelay >= 0f)
+        {
+            //launch after the delay
+            ActionAfterDelay(Launch, m_behaviorParameters.launchProperties.LaunchDelay);
+        }
+        else
+        {
+            //launch immediately
+            Launch();
+        }
     }
 
     public void TrackTarget()
@@ -201,6 +226,46 @@ public partial class MissileBehavior : MonoBehaviour
         m_missileRigidbody.AddRelativeForce(forwardSpeed, forceType);
     }
 
+    private void SetMaxMissileLifeTime()
+    {
+        float timeStorage = 0f;
+        foreach (SO_MissileData.Stage stage in m_behaviorParameters.stages)
+        {
+            timeStorage += stage.LimitTime;
+        }
+        m_maxMissileLifeTime = timeStorage;
+    }
 
+
+    #region delayed Actions
+
+    private void ActionAfterDelay(Action PostDelayAction, float delay)
+    {
+        StartCoroutine(DelayAction(PostDelayAction, delay));
+    }
+
+    private void ActionAfterDelay(Action ImmeadiateAction, Action PostDelayAction, float delay)
+    {
+        ImmeadiateAction();
+        ActionAfterDelay(PostDelayAction, delay);
+    }
+
+    IEnumerator DelayAction(Action PostDelayAction, float delay)
+    {
+        //create a delay
+        float elapsedTime = 0.0f;
+
+        //wait til finished
+        while (elapsedTime < delay)
+        {
+            //add our time and wait for the next fixed update
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        //call action
+        PostDelayAction();
+    }
+
+    #endregion
 
 }

@@ -21,6 +21,7 @@ public class WeaponManagerModule : BC_CoreModule
             if (_selectedWeapon != null)
             {
                 _selectedWeapon.Value.UpdateFireState(value);
+
             }
         }
     }

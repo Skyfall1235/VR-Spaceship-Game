@@ -14,13 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchProperties:
     LaunchMode: 0
-    AutoMaticLaunch: 0
-    trackingTime: 0
+    TrackingTime: 0
     LaunchSpeed: 0
+    LaunchDelay: 0
   stages:
   - StageName: Stage 1
+    MotorType: 1
+    LimitTime: 3
+    Speed: 200
+    UseGuidance: 0
+  - StageName: Stage 2
     MotorType: 0
-    limitTime: 0
+    LimitTime: 10
     Speed: 0
     UseGuidance: 0
   interceptProperties:
