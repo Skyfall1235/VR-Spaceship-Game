@@ -9,6 +9,7 @@ public class WeaponManagerModule : BC_CoreModule
     public LinkedList<Weapon> GetWeapons() { return _weapons; }
     LinkedListNode<Weapon> _selectedWeapon;
     bool _lastMouseDownStatus = false;
+
     public bool LastMouseDownStatus
     { 
         get 
@@ -25,7 +26,9 @@ public class WeaponManagerModule : BC_CoreModule
             }
         }
     }
+
     #region registration, deregistration, creation, and destruction of weapons 
+
     public void RegisterWeapons(params GameObject[] weapons)
     {
         foreach(GameObject weapon in weapons)
@@ -36,6 +39,7 @@ public class WeaponManagerModule : BC_CoreModule
             }
         }
     }
+
     public void RegisterWeapons(params Weapon[] weapons)
     {
         foreach(Weapon weapon in weapons)
@@ -46,6 +50,7 @@ public class WeaponManagerModule : BC_CoreModule
             }
         }
     }
+
     public void DeregisterWeapons(params GameObject[] weapons)
     {
         foreach (GameObject weapon in weapons)
@@ -56,6 +61,7 @@ public class WeaponManagerModule : BC_CoreModule
             }
         }
     }
+
     public void DeregisterWeapons(params Weapon[] weapons)
     {
         foreach (Weapon weapon in weapons)
@@ -68,7 +74,9 @@ public class WeaponManagerModule : BC_CoreModule
     }
 
     #endregion
+
     #region weapon roatation
+
     void RotateSelectedWeaponForward()
     {
         if(_selectedWeapon != null)
@@ -76,6 +84,7 @@ public class WeaponManagerModule : BC_CoreModule
             _selectedWeapon = _selectedWeapon.NextOrFirst();
         }
     }
+
     void RotateSelectedWeaponBackward()
     {
         if (_selectedWeapon != null)
@@ -83,9 +92,12 @@ public class WeaponManagerModule : BC_CoreModule
             _selectedWeapon = _selectedWeapon.PreviousOrLast();
         }
     }
+
     #endregion
+
     private void Update()
     {
+        //DEBUG
         if(Input.GetMouseButtonDown(0)) 
         {
             LastMouseDownStatus = true;
@@ -99,6 +111,7 @@ public class WeaponManagerModule : BC_CoreModule
             RotateSelectedWeaponForward();
         }
     }
+
     private void Awake()
     {
         if(transform.childCount > 0) 
