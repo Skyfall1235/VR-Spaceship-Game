@@ -27,8 +27,8 @@ MonoBehaviour:
     MotorType: 0
     LimitTime: 10
     Speed: 0
-    UseGuidance: 0
+    UseGuidance: 1
   interceptProperties:
-    HitRange: 0
-    StopGuidanceAfterIntercept: 0
-    DestroyMissileOnHit: 0
+    HitRange: 1
+    StopGuidanceAfterIntercept: 1
+    DestroyMissileOnHit: 1
