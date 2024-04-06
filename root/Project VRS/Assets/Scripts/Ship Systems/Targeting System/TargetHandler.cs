@@ -1,22 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//FOR THIS SCRIPT TO WORK, WE HAVE T START USING TAGS OR LAYERS.
+//LAYERS WILL BE USES FOR PHYSICS AND TAGS WILL BE USED TO DIFFERENCIATE OBJECTS IN SCENE
+
+[RequireComponent(typeof(Collider))]
 public class TargetHandler : MonoBehaviour
 {
     //list of all known targets
     public TargetData PriorityTarget;
-
+    public string EnemyTag = "Enemy";
     public List<TargetData> RegisteredTargets = new List<TargetData>();
 
     //register and deregister targets
 
     private void RegisterNewTarget(GameObject target)
     {
-        RegisteredTargets.Add(new TargetData(target, target.transform, target.GetComponent<Rigidbody>()));
+        RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>()));
     }
 
-    private void UnregisterNewTarget(GameObject target)
+    private void UnregisterTarget(GameObject target)
     {
         bool targetRemoved = false;  // Flag to track removal
 
@@ -40,7 +45,25 @@ public class TargetHandler : MonoBehaviour
         }
     }
 
+    private void CompareForEnemyAndRunAction(GameObject target, Action<GameObject> action)
+    {
+        if (target.CompareTag(EnemyTag))
+        {
+            action(target);
+        }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject target = other.gameObject;
+        CompareForEnemyAndRunAction(target, RegisterNewTarget);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        GameObject target = other.gameObject;
+        CompareForEnemyAndRunAction(target, UnregisterTarget);
+    } 
 }
 
 public struct TargetData
