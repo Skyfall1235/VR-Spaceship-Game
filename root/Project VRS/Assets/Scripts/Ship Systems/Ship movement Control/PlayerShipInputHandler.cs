@@ -54,7 +54,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
                 //return the encoded joystick inputs with a break value if there is any
                 return InputEncoder(m_primaryShipJoystick.value, m_secondaryShipJoystick.value, activateValue);
             }
-            //g
+
             return InputEncoder(m_primaryShipJoystick.value, m_secondaryShipJoystick.value, 0);
         }
     }
@@ -69,7 +69,6 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     {
         if(m_secondaryJoystickInteractor == null)
         {
-            //
             m_secondaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
         }
     }

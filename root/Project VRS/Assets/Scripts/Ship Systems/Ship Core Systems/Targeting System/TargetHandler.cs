@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 //FOR THIS SCRIPT TO WORK, WE HAVE T START USING TAGS OR LAYERS.
 //LAYERS WILL BE USES FOR PHYSICS AND TAGS WILL BE USED TO DIFFERENCIATE OBJECTS IN SCENE
@@ -10,9 +11,12 @@ using UnityEngine;
 public class TargetHandler : MonoBehaviour
 {
     //list of all known targets
-    public TargetData PriorityTarget;
+    public int PriorityTarget = 0;
     public string EnemyTag = "Enemy";
+    public Collider DetectionCollider;
     public List<TargetData> RegisteredTargets = new List<TargetData>();
+    public UnityEvent<TargetData> OverridePriorityTarget;
+
 
     //register and deregister targets
 
@@ -43,6 +47,11 @@ public class TargetHandler : MonoBehaviour
         {
             Debug.LogWarning($"Target {target.name} not found in RegisteredTargets");
         }
+    }
+
+    public void SetTargetAsPriority(int targetIndex)
+    {
+
     }
 
     private void CompareForEnemyAndRunAction(GameObject target, Action<GameObject> action)

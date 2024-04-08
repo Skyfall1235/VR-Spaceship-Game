@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StaticForce : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    public ForceMode forceMode;
+    public float speed;
+    public Vector3 Direction;
+    public Rigidbody rb;
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 dirNormalized = Vector3.Normalize(Direction);
+        rb.AddRelativeForce(dirNormalized * speed, forceMode);
     }
 }
