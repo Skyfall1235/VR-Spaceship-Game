@@ -5,33 +5,33 @@ using Unity.Jobs;
 using UnityEngine;
 using Unity.Mathematics;
 using System.Collections;
-using static UnityEngine.GraphicsBuffer;
-using System.Collections.Generic;
 
 public abstract class TargetingWeapon : Weapon
 {
-    protected Vector3 LeadPosition = Vector3.zero;
+    protected Coroutine TargetLeadCoroutine;
+    protected Vector3 LeadPosition = Vector3.forward;
     protected JobHandle ComputeTargetLeadJob;
-    //target leading algorithm
+    protected NativeArray<float3> targetLeadDataStorage;
+    protected bool CoroutineIsFinished = true;
 
-
-
-    //ideally, this is where a unity job would go to give the angle for the next frame projection.
-
-
-    //basically, we need a way for the turret to reach out to the targeter, get back a unity job, wiat for the job to finish , and then use the result.
-    //since only the targeting system knows the locationdf of the objects, the weapons will need to interact with it in a dynamic by a non modifying method
-
-    IEnumerator ComputeTargetLead(Vector3 gunPosition, TargetData targetData, float projectileSpeed)
+    /// <summary>
+    /// This coroutine calculates the lead position necessary to hit a moving target with a projectile,
+    /// utilizing a multithreaded job for efficient calculation.
+    /// </summary>
+    /// <param name="gunPosition">The position of the gun firing the projectile.</param>
+    /// <param name="targetData">An object containing information about the target, including its GameObject and Rigidbody.</param>
+    /// <param name="projectileSpeed">The speed of the projectile.</param>
+    /// <returns>An IEnumerator that can be used to yield and wait for job completion.</returns>
+    protected IEnumerator ComputeTargetLead(Vector3 gunPosition, TargetData targetData, float projectileSpeed)
     {
-        NativeArray<float3> dataStorage = new NativeArray<float3>(1, Allocator.TempJob);
+        CoroutineIsFinished = false;
         try
         {
             //schedule the job
             Vector3 targetPosition = targetData.TargetGameObject.transform.position;
             Vector3 targetVelocity = targetData.TargetRB.velocity;
 
-            ComputeTargetLeadJob = FindTargetLead(gunPosition, targetPosition, targetVelocity, projectileSpeed, dataStorage);
+            ComputeTargetLeadJob = FindTargetLead(gunPosition, targetPosition, targetVelocity, projectileSpeed, targetLeadDataStorage);
             yield return ComputeTargetLeadJob;
         }
         finally
@@ -39,28 +39,49 @@ public abstract class TargetingWeapon : Weapon
             //dispose and force completion
             ComputeTargetLeadJob.Complete();
         }
-        LeadPosition = CalculateTargetLeadJob.Float3ToVector3(dataStorage[0]);
-        dataStorage.Dispose();
+        //save and dispose of the ram
+        LeadPosition = CalculateTargetLeadJob.Float3ToVector3(targetLeadDataStorage[0]);
+        CoroutineIsFinished = true;
     }
 
+    /// <summary>
+    /// Instantly stops the coroutine and disposes of the memory and job in a safe fashion
+    /// </summary>
+    protected void KillTracking()
+    {
+        if(TargetLeadCoroutine != null)
+        {
+            StopCoroutine(TargetLeadCoroutine);
+        }
+        //force a completion of the last step, then kill the native array AFTER. (i think this avoids a memory leak?)
+        ComputeTargetLeadJob.Complete();
+        targetLeadDataStorage.Dispose();
+    }
 
-
-
-
-
+    /// <summary>
+    /// This method schedules a job to calculate the lead needed to hit a moving target with a projectile.
+    /// </summary>
+    /// <param name="playerPosition">The position of the player firing the projectile.</param>
+    /// <param name="targetPosition">The current position of the target.</param>
+    /// <param name="targetAcceleration">The acceleration of the target (optional, defaults to Vector3.zero).</param>
+    /// <param name="projectileSpeed">The speed of the projectile.</param>
+    /// <param name="nativeArrayRef">A reference to a pre-allocated NativeArray<float3> to store the calculated lead position (must have a length of 1).</param>
+    /// <returns>A JobHandle that can be used to check the job's completion status.</returns>
     protected JobHandle FindTargetLead(Vector3 playerPosition, Vector3 targetPosition, float3 targetAcceleration, float projectileSpeed, NativeArray<float3> nativeArrayRef)
     {
         CalculateTargetLeadJob job = new CalculateTargetLeadJob(playerPosition, targetPosition, targetAcceleration, projectileSpeed, nativeArrayRef);
         return job.Schedule();
     }
 
-
-
-
+    /// <summary>
+    /// Unity Job that calculates the target lead lneeded for a gun to hit its mark in 3d space.
+    /// </summary>
+    /// <remarks>
+    /// The native array inputted into the constructor is how you get an output. you will need to schedule this job with a coroutine
+    /// </remarks>
     [BurstCompile]
-    public struct CalculateTargetLeadJob : IJob
+    protected struct CalculateTargetLeadJob : IJob
     {
-
         readonly float3 PlayerPosition;
         readonly float3 TargetPosition;
         readonly float3 TargetAcceleration;
@@ -70,6 +91,7 @@ public abstract class TargetingWeapon : Weapon
 
         public CalculateTargetLeadJob(Vector3 playerPosition, Vector3 targetPosition,  float3 targetAcceleration, float projectileSpeed, NativeArray<float3> nativeArrayRef)
         {
+            //convert the vector3s to  floats
             this.PlayerPosition = Vector3ToFloat3(playerPosition);
             this.TargetPosition = Vector3ToFloat3(targetPosition);
             this.TargetAcceleration = Vector3ToFloat3(targetAcceleration);
@@ -79,14 +101,14 @@ public abstract class TargetingWeapon : Weapon
 
         public void Execute()
         {
-            float3 LeadPositionRelativeToPosition = CalulcateLeadPosition(TargetPosition, TargetAcceleration, ProjectileSpeed);
+            float3 LeadPositionRelativeToPosition = CalulcateLeadPosition(PlayerPosition, TargetPosition, TargetAcceleration, ProjectileSpeed);
             NativeArray[0] = LeadPositionRelativeToPosition;
         }
 
-        float3 CalulcateLeadPosition(float3 targetPosition, float3 targetAcceleration, float projectileSpeed)
+        float3 CalulcateLeadPosition(float3 playerPosition, float3 targetPosition, float3 targetAcceleration, float projectileSpeed)
         {
             // Calculate lead position
-            float distance = Distance(PlayerPosition, targetPosition);
+            float distance = Distance(playerPosition, targetPosition);
             float travelTime = distance / projectileSpeed;
             float3 leadPosition = targetPosition + targetAcceleration * (travelTime * travelTime) / 2; // Consider constant acceleration
             return leadPosition;
