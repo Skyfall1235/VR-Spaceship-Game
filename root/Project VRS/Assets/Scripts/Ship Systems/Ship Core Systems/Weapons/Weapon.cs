@@ -23,7 +23,7 @@ public abstract class Weapon : MonoBehaviour
             StartCoroutine(TryFire());
         }
         _currentFireState = newFireState;
-        Debug.Log(newFireState);
+        //Debug.Log(newFireState);
     }
     public abstract void Reload();
     protected virtual IEnumerator TryFire()
