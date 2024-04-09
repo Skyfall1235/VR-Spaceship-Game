@@ -101,6 +101,7 @@ public abstract class TargetingWeapon : Weapon
 
         public void Execute()
         {
+            //calclulate and save
             float3 LeadPositionRelativeToPosition = CalulcateLeadPosition(PlayerPosition, TargetPosition, TargetAcceleration, ProjectileSpeed);
             NativeArray[0] = LeadPositionRelativeToPosition;
         }
