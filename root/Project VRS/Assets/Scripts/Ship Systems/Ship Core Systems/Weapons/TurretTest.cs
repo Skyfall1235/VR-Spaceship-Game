@@ -9,12 +9,13 @@ public class TurretTest : TargetingWeapon
 {
     public GameObject TARGET;
     public Rigidbody targetRB;
-    public GameObject xAxis;
-    public GameObject yAxis;
-    public GameObject Barrel;
+    [SerializeField] GameObject xAxisRotator;
+    [SerializeField] GameObject yAxisRotator;
+    [SerializeField] GameObject barrel;
     TargetData newData;
     public float projectileSpeed = 100f;
-
+    [Tooltip("The maximum speed at which the turret rotates in degrees per second")]
+    [SerializeField] Vector2 turretRotationSpeed = new Vector2(20, 20);
     private void Awake()
     {
         targetLeadDataStorage = new NativeArray<float3>(1, Allocator.Persistent);
@@ -37,37 +38,22 @@ public class TurretTest : TargetingWeapon
 
         //Start job
 
-        StartCoroutine(ComputeTargetLead(Barrel.transform.position, newData, projectileSpeed));
+        StartCoroutine(ComputeTargetLead(barrel.transform.position, newData, projectileSpeed));
 
         TurnToLeadPosition(LeadPosition);
     }
 
-    private void TurnToLeadPosition(Vector3 position)
+    private void TurnToLeadPosition(Vector3 targetPosition)
     {
-        // Calculate target direction (excluding Y-axis)
-        Vector3 targetDirection = position;
-        targetDirection.y = 0; // Ignore Y-axis for horizontal rotation
+        Vector3 currentDirection = barrel.transform.up;
+        Debug.DrawRay(barrel.transform.position, currentDirection);
+        Vector3 desiredDirection = (targetPosition - barrel.transform.position).normalized;
+        Debug.DrawRay(barrel.transform.position, desiredDirection);
 
-        // Get forward direction of the turret base (normalized)
-        Vector3 baseForward = transform.forward;
-
-        // Calculate rotation for horizontal axis (turret base)
-        Quaternion baseRotation = Quaternion.FromToRotation(baseForward, targetDirection.normalized);
-
-        // Rotate the turret base
-        yAxis.transform.rotation = baseRotation;
-
-        // Now calculate rotation for vertical axis (gun barrel) relative to base
-        Vector3 relativeTargetDirection = transform.InverseTransformDirection(targetDirection);
-
-        // Get the up direction of the gun barrel (normalized)
-        Vector3 barrelUp = transform.up;
-
-        // Calculate rotation for vertical axis (gun barrel)
-        Quaternion barrelRotation = Quaternion.FromToRotation(barrelUp, relativeTargetDirection.normalized);
-
-        // Apply rotation to the gun barrel (child object)
-        xAxis.transform.localRotation = barrelRotation;
+        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection, xAxisRotator.transform.up).eulerAngles.x, xAxisRotator.transform.localRotation.eulerAngles.y, xAxisRotator.transform.localRotation.eulerAngles.z);
+        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotator.transform.localRotation.x, Quaternion.LookRotation(desiredDirection, yAxisRotator.transform.up).eulerAngles.y, yAxisRotator.transform.localRotation.eulerAngles.z);
+        xAxisRotator.transform.localRotation = Quaternion.RotateTowards(xAxisRotator.transform.localRotation, newXAxisRotation, turretRotationSpeed.x * Time.deltaTime);
+        yAxisRotator.transform.localRotation = Quaternion.RotateTowards(yAxisRotator.transform.localRotation, newYAxisRotation, turretRotationSpeed.y * Time.deltaTime);
     }
 
 
