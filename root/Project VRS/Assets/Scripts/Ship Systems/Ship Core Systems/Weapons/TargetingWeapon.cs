@@ -8,6 +8,80 @@ using System.Collections;
 
 public abstract class TargetingWeapon : Weapon
 {
+    [Header("Turret Axi")]
+    [SerializeField]
+    protected GameObject xAxisRotator;
+    [SerializeField]
+    protected GameObject yAxisRotator;
+    [SerializeField]
+    protected GameObject barrel;
+
+    public float projectileSpeed = 100f;//SHOULD BE PART OF THE SCRIPTABLE OBJECT FOR THE TURRET
+
+    [Header("Turret Constraints")]
+    [Tooltip("The maximum speed Fat which the turret rotates in degrees per second")]
+    [SerializeField] 
+    protected Vector2 turretRotationSpeed = new Vector2(20, 20);
+
+    [SerializeField]
+    protected bool useGimbalConstraints = false;
+    [SerializeField]
+    protected Vector2 maximumTurretAngles = new Vector2(15, 15);
+
+
+    #region Monobehavior Methods
+
+    private void OnDestroy()
+    {
+        KillTracking();
+    }
+
+    private void OnDrawGizmos()
+    {
+        //draw a ray in direction of the guidnce command from the missile
+        DrawLine(transform.position, LeadPosition, Color.green);
+        //DrawLine(transform.position, barrel.transform.up * 5, Color.red);
+
+        void DrawLine(Vector3 start, Vector3 end, Color color)
+        {
+            Debug.DrawLine(start, end, color);
+        }
+    }
+
+    #endregion
+
+    protected void RunInFixedUpdate(TargetData currentTarget)
+    {
+        if (!CoroutineIsFinished)
+        {
+            return;
+        }
+
+        //Start job
+        StartCoroutine(ComputeTargetLead(barrel.transform.position, currentTarget, projectileSpeed));
+        //do turning to point towards target
+        TurnToLeadPosition(LeadPosition);
+    }
+
+    private void TurnToLeadPosition(Vector3 targetPosition)
+    {
+
+        Vector3 currentDirection = barrel.transform.up;
+        Debug.DrawRay(barrel.transform.position, currentDirection);
+        Vector3 desiredDirection = (targetPosition - barrel.transform.position).normalized;
+        Debug.DrawRay(barrel.transform.position, desiredDirection);
+
+        Vector3 xAxisRotatorEulerAngles = xAxisRotator.transform.localRotation.eulerAngles;
+        Vector3 yAxisRotatorEulerAngles = yAxisRotator.transform.localRotation.eulerAngles;
+
+        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection, xAxisRotator.transform.up).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
+        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection, yAxisRotator.transform.up).eulerAngles.y, yAxisRotatorEulerAngles.z);
+        xAxisRotator.transform.localRotation = Quaternion.RotateTowards(xAxisRotator.transform.localRotation, newXAxisRotation, turretRotationSpeed.x * Time.deltaTime);
+        yAxisRotator.transform.localRotation = Quaternion.RotateTowards(yAxisRotator.transform.localRotation, newYAxisRotation, turretRotationSpeed.y * Time.deltaTime);
+    }
+
+    #region Target lead Calculation
+
     protected Coroutine TargetLeadCoroutine;
     protected Vector3 LeadPosition = Vector3.forward;
     protected JobHandle ComputeTargetLeadJob;
@@ -137,4 +211,7 @@ public abstract class TargetingWeapon : Weapon
 
         #endregion
     }
+
+    #endregion
+
 }

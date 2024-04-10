@@ -14,6 +14,7 @@ public class TargetHandler : MonoBehaviour
     public int PriorityTarget = 0;
     public string EnemyTag = "Enemy";
     public Collider DetectionCollider;
+    public float ColliderSize = 10f;
     public List<TargetData> RegisteredTargets = new List<TargetData>();
     public UnityEvent<TargetData> OverridePriorityTarget;
 

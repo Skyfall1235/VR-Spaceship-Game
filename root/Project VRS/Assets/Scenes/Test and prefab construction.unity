@@ -2302,13 +2302,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ca6d3a9caf3ed46bbd8cc224793501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TARGET: {fileID: 1067792837}
-  targetRB: {fileID: 1067792842}
   xAxisRotator: {fileID: 1162653510}
   yAxisRotator: {fileID: 1380029708}
   barrel: {fileID: 715304198}
   projectileSpeed: 50
-  turretRotationSpeed: {x: 20, y: 20}
+  turretRotationSpeed: {x: 45, y: 45}
+  useGimbalConstraints: 0
+  maximumTurretAngles: {x: 15, y: 15}
+  TARGET: {fileID: 1067792837}
+  targetRB: {fileID: 1067792842}
 --- !u!4 &860923497
 Transform:
   m_ObjectHideFlags: 0
@@ -5903,11 +5905,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7819190104186297756, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: speed
-      value: 60
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7819190104186297756, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: Direction.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
