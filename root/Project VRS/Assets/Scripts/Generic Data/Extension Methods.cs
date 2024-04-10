@@ -48,7 +48,7 @@ public static class ExtensionMethods
         }
     }
     #endregion
-    public static bool HasComponent<T>(this GameObject gameObject) where T : MonoBehaviour
+    public static bool HasComponent<T>(this GameObject gameObject)
     {
         return gameObject.GetComponent<T>() != null;
     }
