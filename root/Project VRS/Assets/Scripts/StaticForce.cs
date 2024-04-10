@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StaticForce : MonoBehaviour
 {
-    public ForceMode forceMode;
+    public ForceMode forceMode = ForceMode.Force;
     public float speed;
     public Vector3 Direction;
     public Rigidbody rb;
@@ -12,4 +12,5 @@ public class StaticForce : MonoBehaviour
         Vector3 dirNormalized = Vector3.Normalize(Direction);
         rb.AddRelativeForce(dirNormalized * speed, forceMode);
     }
+
 }

@@ -1955,7 +1955,8 @@ Transform:
   m_LocalPosition: {x: 0.7556423, y: 0, z: 1.5709407}
   m_LocalScale: {x: 1, y: 3.0113003, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1006221713}
   m_Father: {fileID: 1162653511}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &731285031
@@ -2311,6 +2312,7 @@ MonoBehaviour:
   maximumTurretAngles: {x: 15, y: 15}
   TARGET: {fileID: 1067792837}
   targetRB: {fileID: 1067792842}
+  prefabBullet: {fileID: 0}
 --- !u!4 &860923497
 Transform:
   m_ObjectHideFlags: 0
@@ -2571,6 +2573,37 @@ CapsuleCollider:
   m_Height: 0.22757286
   m_Direction: 1
   m_Center: {x: -0.001439685, y: 0.08473791, z: -0.00000024121255}
+--- !u!1 &1006221712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1006221713}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1006221713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006221712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.154, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 715304202}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1031858484
 GameObject:
   m_ObjectHideFlags: 0

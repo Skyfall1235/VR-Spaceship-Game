@@ -7,10 +7,18 @@ public class TurretTest : TargetingWeapon
     public GameObject TARGET;
     public Rigidbody targetRB;
     TargetData newData;
+    public GameObject prefabBullet;
+    public Transform firePoint;
     private void Awake()
     {
         targetLeadDataStorage = new NativeArray<float3>(1, Allocator.Persistent);
         newData = new TargetData(TARGET, targetRB);
+    }
+
+    protected override void Fire()
+    {
+        base.Fire();
+        Instantiate(prefabBullet, firePoint.position, firePoint.transform.rotation);
     }
 
     public override void Reload()
