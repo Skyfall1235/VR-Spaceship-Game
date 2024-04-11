@@ -13,7 +13,7 @@ public class TargetHandler : MonoBehaviour
     //list of all known targets
     public int PriorityTarget = 0;
     public string EnemyTag = "Enemy";
-    public Collider DetectionCollider;
+    public SphereCollider DetectionCollider;
     public float ColliderSize = 10f;
     public List<TargetData> RegisteredTargets = new List<TargetData>();
     public UnityEvent<TargetData> OverridePriorityTarget;
@@ -23,7 +23,7 @@ public class TargetHandler : MonoBehaviour
 
     private void RegisterNewTarget(GameObject target)
     {
-        RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>()));
+        RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>(), false));
     }
 
     private void UnregisterTarget(GameObject target)
@@ -50,9 +50,21 @@ public class TargetHandler : MonoBehaviour
         }
     }
 
-    public void SetTargetAsPriority(int targetIndex)
+    public int FindBestTargetForPriority(GameObject turretGO)
     {
+        //take into account the position of the turret
 
+        //comapare and see which targets are in the field of view
+
+        //see which targets are closest
+
+        //attempt to take the closest one that is in view relative to the turret
+
+        //if no target is in the FOV, target the one closest to entering the FOV
+
+        //we are retuning an int because that the index of he targe in the target list
+
+        return 0;
     }
 
     private void CompareForEnemyAndRunAction(GameObject target, Action<GameObject> action)
@@ -73,17 +85,24 @@ public class TargetHandler : MonoBehaviour
     {
         GameObject target = other.gameObject;
         CompareForEnemyAndRunAction(target, UnregisterTarget);
-    } 
+    }
+
+    private void OnValidate()
+    {
+        DetectionCollider.radius = ColliderSize;
+    }
 }
 
 public struct TargetData
 {
     public GameObject TargetGameObject;
     public Rigidbody TargetRB;
+    public bool isEmpty;
 
-    public TargetData(GameObject targetGameObject, Rigidbody targetRB)
+    public TargetData(GameObject targetGameObject, Rigidbody targetRB, bool isEmpty = true)
     {
         this.TargetGameObject = targetGameObject;
         this.TargetRB = targetRB;
+        this.isEmpty = isEmpty;
     }
 }

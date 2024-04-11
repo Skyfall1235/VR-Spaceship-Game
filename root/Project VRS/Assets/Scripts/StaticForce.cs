@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class StaticForce : MonoBehaviour
@@ -7,10 +8,9 @@ public class StaticForce : MonoBehaviour
     public Vector3 Direction;
     public Rigidbody rb;
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         Vector3 dirNormalized = Vector3.Normalize(Direction);
         rb.AddRelativeForce(dirNormalized * speed, forceMode);
     }
-
 }

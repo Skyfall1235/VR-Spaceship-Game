@@ -100,7 +100,6 @@ public class InteractorToInputExposer : MonoBehaviour
     public GameObject InteractorGameObject;
 
 
-
     /// <summary>
     /// Registers the action based controller based on what selected the associated item
     /// </summary>
