@@ -56,11 +56,12 @@ public abstract class TargetingWeapon : Weapon
         {
             return;
         }
+        //do turning to point towards target
+        TurnToLeadPosition(LeadPosition);
 
         //Start job
         StartCoroutine(ComputeTargetLead(barrel.transform.position, currentTarget, projectileSpeed));
-        //do turning to point towards target
-        TurnToLeadPosition(LeadPosition);
+        
     }
 
     private void TurnToLeadPosition(Vector3 targetPosition)

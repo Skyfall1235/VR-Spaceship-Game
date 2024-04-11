@@ -13,6 +13,11 @@ public class SO_TurretData : ScriptableObject
     public GameObject prefabBullet;
     [SerializeField]
     public ParticleSystem turretParticleSystem;
+    [SerializeField]
+    public AudioClip[] turretFireAudioClip;
+    [SerializeField]
+    public AudioClip[] turretEventSFX;
+
     [Header("Constraints")]
     [SerializeField]
     public Vector2 turretRotationSpeed = new Vector2(20, 20);

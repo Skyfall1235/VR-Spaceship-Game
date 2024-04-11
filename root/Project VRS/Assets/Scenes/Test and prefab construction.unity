@@ -2239,6 +2239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 860923497}
   - component: {fileID: 860923496}
+  - component: {fileID: 860923498}
   m_Layer: 0
   m_Name: TurretTest
   m_TagString: Untagged
@@ -2261,8 +2262,8 @@ MonoBehaviour:
   xAxisRotator: {fileID: 1162653510}
   yAxisRotator: {fileID: 1380029708}
   barrel: {fileID: 715304198}
-  projectileSpeed: 25
-  turretRotationSpeed: {x: 100, y: 100}
+  projectileSpeed: 50
+  turretRotationSpeed: {x: 1000, y: 1000}
   useGimbalConstraints: 0
   maximumTurretAngles: {x: 15, y: 15}
   TARGET: {fileID: 1067792837}
@@ -2286,6 +2287,22 @@ Transform:
   - {fileID: 1380029712}
   m_Father: {fileID: 433828277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &860923498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860923495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5f2937acfbb404497a82e05db8d64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_barrelInstantiationPoint: {fileID: 0}
+  m_weaponRef: {fileID: 0}
+  projectileSpeed: 0
+  m_leadPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &890828104
 GameObject:
   m_ObjectHideFlags: 0
@@ -5848,6 +5865,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 156984072}
     m_Modifications:
+    - target: {fileID: 3455485793611499167, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455485793611499167, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5904361696486201797, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_Name
       value: TARGET
@@ -5862,7 +5887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 43.8
+      value: 22.93
       objectReference: {fileID: 0}
     - target: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5894,11 +5919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7819190104186297756, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: speed
-      value: 200
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7819190104186297756, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: forceMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7819190104186297756, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: Direction.y
