@@ -6,11 +6,14 @@ using UnityEngine;
 public class SO_TurretData : ScriptableObject
 {
     //what else needs to go here, and what can we store in the SO?
-
+    [Header("Projectile and FX")]
     [SerializeField] 
-    public float projectileSpeed; // this can probably just be puleld from the actual bllet script when we decide to make that.
+    public float projectileSpeed; // this can probably just be puleld from the actual bullet script when we decide to make that.
     [SerializeField]
     public GameObject prefabBullet;
+    [SerializeField]
+    public ParticleSystem turretParticleSystem;
+    [Header("Constraints")]
     [SerializeField]
     public Vector2 turretRotationSpeed = new Vector2(20, 20);
     [SerializeField]
@@ -18,6 +21,7 @@ public class SO_TurretData : ScriptableObject
     [SerializeField]
     public Vector2 maximumTurretAngles = new Vector2(15, 15);
 
+    [Header("Targeting and Weapon Info")]
     [SerializeField]
     TurretTargetingType targetingType;
     [SerializeField]
