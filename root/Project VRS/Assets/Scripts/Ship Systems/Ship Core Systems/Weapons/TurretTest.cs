@@ -49,13 +49,13 @@ public class TurretTest : TargetingWeapon
         Vector3 desiredDirection = (targetPosition - barrel.transform.position).normalized;
         //Debug.DrawRay(barrel.transform.position, desiredDirection);
 
-        Vector3 xAxisRotatorEulerAngles = xAxisRotator.transform.localRotation.eulerAngles;
-        Vector3 yAxisRotatorEulerAngles = yAxisRotator.transform.localRotation.eulerAngles;
+        Vector3 xAxisRotatorEulerAngles = xAxisRotator.transform.rotation.eulerAngles;
+        Vector3 yAxisRotatorEulerAngles = yAxisRotator.transform.rotation.eulerAngles;
 
-        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection, xAxisRotator.transform.up).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
-        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection, yAxisRotator.transform.up).eulerAngles.y, yAxisRotatorEulerAngles.z);
-        xAxisRotator.transform.localRotation = Quaternion.RotateTowards(xAxisRotator.transform.localRotation, newXAxisRotation, turretRotationSpeed.x * Time.deltaTime);
-        yAxisRotator.transform.localRotation = Quaternion.RotateTowards(yAxisRotator.transform.localRotation, newYAxisRotation, turretRotationSpeed.y * Time.deltaTime);
+        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
+        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection).eulerAngles.y, yAxisRotatorEulerAngles.z);
+        xAxisRotator.transform.rotation = Quaternion.RotateTowards(xAxisRotator.transform.rotation, newXAxisRotation, turretRotationSpeed.x * Time.deltaTime);
+        yAxisRotator.transform.rotation = Quaternion.RotateTowards(yAxisRotator.transform.rotation, newYAxisRotation, turretRotationSpeed.y * Time.deltaTime);
     }
 
 
