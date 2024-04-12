@@ -2,41 +2,46 @@ using UnityEngine;
 
 public class TurretRotation : MonoBehaviour
 {
-    [SerializeField]
-    readonly SO_TurretData turretData;
-
+    private SO_TurretData m_turretData;
+    public SO_TurretData TurretData
+    {
+        set 
+        { 
+            m_turretData = value; 
+        }
+    }
 
     [Header("Turret Axi")]
     [SerializeField]
-    protected GameObject xAxisRotator;
+    protected GameObject m_xAxisRotator;
+
     [SerializeField]
-    protected GameObject yAxisRotator;
+    protected GameObject m_yAxisRotator;
+
     [SerializeField]
-    protected GameObject barrel;
-    [SerializeField]
-    protected GameObject projectileInstatiationPoint;
-    [Tooltip("The maximum speed Fat which the turret rotates in degrees per second")]
-    [SerializeField]
-    protected Vector2 turretRotationSpeed = new Vector2(20, 20);
+    protected GameObject m_barrel;
 
-
-
-
-
-    private void TurnToLeadPosition(Vector3 targetPosition)
+    private GameObject m_projectileInstatiationPoint;
+    public GameObject ProjectileInstatiationPoint
     {
+        set
+        {
+            m_projectileInstatiationPoint = value;
+        }
+    }
 
-        Vector3 currentDirection = barrel.transform.up;
-        Debug.DrawRay(barrel.transform.position, currentDirection);
-        Vector3 desiredDirection = (targetPosition - barrel.transform.position).normalized;
-        Debug.DrawRay(barrel.transform.position, desiredDirection);
+    public void TurnToLeadPosition(Vector3 targetPosition)
+    {
+        Vector3 currentDirection = m_barrel.transform.up;
+        Vector3 desiredDirection = (targetPosition - m_barrel.transform.position).normalized;
 
-        Vector3 xAxisRotatorEulerAngles = xAxisRotator.transform.localRotation.eulerAngles;
-        Vector3 yAxisRotatorEulerAngles = yAxisRotator.transform.localRotation.eulerAngles;
+        Vector3 xAxisRotatorEulerAngles = m_xAxisRotator.transform.rotation.eulerAngles;
+        Vector3 yAxisRotatorEulerAngles = m_yAxisRotator.transform.rotation.eulerAngles;
 
-        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection, xAxisRotator.transform.up).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
-        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection, yAxisRotator.transform.up).eulerAngles.y, yAxisRotatorEulerAngles.z);
-        xAxisRotator.transform.localRotation = Quaternion.RotateTowards(xAxisRotator.transform.localRotation, newXAxisRotation, turretRotationSpeed.x * Time.deltaTime);
-        yAxisRotator.transform.localRotation = Quaternion.RotateTowards(yAxisRotator.transform.localRotation, newYAxisRotation, turretRotationSpeed.y * Time.deltaTime);
+        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
+        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection).eulerAngles.y, yAxisRotatorEulerAngles.z);
+
+        m_xAxisRotator.transform.rotation = Quaternion.RotateTowards(m_xAxisRotator.transform.rotation, newXAxisRotation, m_turretData.TurretRotationSpeed.x * Time.deltaTime);
+        m_yAxisRotator.transform.rotation = Quaternion.RotateTowards(m_yAxisRotator.transform.rotation, newYAxisRotation, m_turretData.TurretRotationSpeed.y * Time.deltaTime);
     }
 }

@@ -39,24 +39,10 @@ public class TurretTest : TargetingWeapon
 
         StartCoroutine(ComputeTargetLead(barrel.transform.position, newData, projectileSpeed));
 
-        TurnToLeadPosition(LeadPosition);
+        //TurnToLeadPosition(LeadPosition);
     }
 
-    private void TurnToLeadPosition(Vector3 targetPosition)
-    {
-        Vector3 currentDirection = barrel.transform.up;
-        //Debug.DrawRay(barrel.transform.position, currentDirection);
-        Vector3 desiredDirection = (targetPosition - barrel.transform.position).normalized;
-        //Debug.DrawRay(barrel.transform.position, desiredDirection);
-
-        Vector3 xAxisRotatorEulerAngles = xAxisRotator.transform.rotation.eulerAngles;
-        Vector3 yAxisRotatorEulerAngles = yAxisRotator.transform.rotation.eulerAngles;
-
-        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
-        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection).eulerAngles.y, yAxisRotatorEulerAngles.z);
-        xAxisRotator.transform.rotation = Quaternion.RotateTowards(xAxisRotator.transform.rotation, newXAxisRotation, turretRotationSpeed.x * Time.deltaTime);
-        yAxisRotator.transform.rotation = Quaternion.RotateTowards(yAxisRotator.transform.rotation, newYAxisRotation, turretRotationSpeed.y * Time.deltaTime);
-    }
+    
 
 
 

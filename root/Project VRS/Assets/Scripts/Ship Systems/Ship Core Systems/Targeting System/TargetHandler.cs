@@ -97,6 +97,7 @@ public class TargetHandler : MonoBehaviour
     #endregion
 }
 
+[Serializable]
 public struct TargetData
 {
     public GameObject TargetGameObject;

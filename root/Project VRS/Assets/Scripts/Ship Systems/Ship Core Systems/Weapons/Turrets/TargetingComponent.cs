@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using System.Collections;
 
-public partial class TargetingComponent : MonoBehaviour
+public class TargetingComponent : MonoBehaviour
 {
     //so, what external things ddoes this script need?
     //1 - the projectile info. this can be gotten from the scriptable object on the turret
@@ -15,23 +15,14 @@ public partial class TargetingComponent : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Stores data about the currently targeted enemy.")]
-    private TargetData currentTargetData;
-
-    [SerializeField]
-    [Tooltip("The point from which projectiles are fired from the turret barrel.")]
-    private GameObject m_barrelInstantiationPoint;
-
-    [SerializeField]
-    [Tooltip("A reference to the weapon component associated with this turret. This is likely used to retrieve the projectile speed.")]
-    private Weapon m_weaponRef;
-
-    [SerializeField]
-    [Tooltip("A reference to the TurretRotation component or script that controls the turret's rotation.")]
-    private TurretRotation m_turretRotation;
-
-    [SerializeField]
-    [Tooltip("The speed of the projectiles fired by this turret. This value might be overridden based on the weapon reference.")]
-    private float projectileSpeed;
+    private TargetData m_currentTargetData;
+    public TargetData CurrentTargetData
+    {
+        set
+        {
+            m_currentTargetData = value;
+        }
+    }
 
     [SerializeField]
     [Tooltip("The calculated lead position for targeting enemies in motion. Defaults to Vector3.zero.")]
@@ -42,25 +33,51 @@ public partial class TargetingComponent : MonoBehaviour
         {
             return m_leadPosition;
         }
+    } 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private SO_WeaponData m_weaponData;
+    public SO_WeaponData WeaponData
+    {
+        set
+        {
+            m_weaponData = value;
+        }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private GameObject m_projectileInstantiationPoint;
+    public GameObject ProjectileInstantiationPoint
+    {
+        set
+        {
+            m_projectileInstantiationPoint = value;
+        }
+    }
+
 
     #region Monobehavior Methods
 
     private void FixedUpdate()
     {
+        //we dont want to schedule jobs on top of each other
         if (!CoroutineIsFinished)
         {
             return;
         }
         //NEEDS an if statement to only run if there is currently a target that is aquired
-        if(currentTargetData.isEmpty)
+        if(m_currentTargetData.isEmpty || m_weaponData == null)
         {
-            //return, there is no target data
+            //data is missing and cannot be ran, end now
             return; 
         }
 
-        //Start job
-        StartCoroutine(ComputeTargetLead(m_barrelInstantiationPoint.transform.position, currentTargetData, projectileSpeed));
+        //Start job if there are no obstructions
+        StartCoroutine(ComputeTargetLead(m_projectileInstantiationPoint.transform.position, m_currentTargetData, m_weaponData.ProjectileSpeed));
     }
 
     private void OnDestroy()
