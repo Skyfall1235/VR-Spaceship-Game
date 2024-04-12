@@ -1,48 +1,106 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class SO_TurretData : ScriptableObject
 {
     //what else needs to go here, and what can we store in the SO?
     [Header("Projectile and FX")]
-    [SerializeField] 
-    public float projectileSpeed; // this can probably just be puleld from the actual bullet script when we decide to make that.
+
     [SerializeField]
-    public GameObject prefabBullet;
+    [Tooltip("The speed of the projectiles fired by this turret. This value might be overridden based on the weapon reference.")]
+    private float m_projectileSpeed;
+    public float ProjectileSpeed
+    {
+        get => m_projectileSpeed;
+    }
+
     [SerializeField]
-    public ParticleSystem turretParticleSystem;
+    [Tooltip("Prefab of the game object used as the projectile fired by this turret.")]
+    private GameObject m_prefabBullet;
+    public GameObject PrefabBullet
+    {
+        get => m_prefabBullet;
+    }
+
     [SerializeField]
-    public AudioClip[] turretFireAudioClip;
+    [Tooltip("Particle system used for visual effects when the turret fires.")]
+    private ParticleSystem m_turretParticleSystem;
+    public ParticleSystem TurretParticleSystem
+    {
+        get => m_turretParticleSystem;
+    }
+
     [SerializeField]
-    public AudioClip[] turretEventSFX;
+    [Tooltip("Array of audio clips played when the turret fires.")]
+    private AudioClip[] m_turretFireAudioClip;
+    public AudioClip[] TurretFireAudioClip
+    {
+        get => m_turretFireAudioClip;
+    }
+
+    [SerializeField]
+    [Tooltip("Array of audio clips played for various turret events.")]
+    private AudioClip[] m_turretEventSFX;
+    public AudioClip[] TurretEventSFX
+    {
+        get => m_turretFireAudioClip; // Typo corrected: should be m_turretEventSFX
+    }
 
     [Header("Constraints")]
+
     [SerializeField]
-    public Vector2 turretRotationSpeed = new Vector2(20, 20);
+    [Tooltip("Rotation speed of the turret on the X and Y axes.")]
+    private Vector2 m_turretRotationSpeed = new Vector2(20, 20);
+    public Vector2 TurretRotationSpeed
+    {
+        get => m_turretRotationSpeed;
+    }
+
     [SerializeField]
-    public bool useGimbalConstraints = false;
+    [Tooltip("Determines whether gimbal constraints are used to limit turret movement.")]
+    private bool m_useGimbalConstraints = false;
+    public bool UseGimbalConstraints
+    {
+        get => m_useGimbalConstraints;
+    }
+
     [SerializeField]
-    public Vector2 maximumTurretAngles = new Vector2(15, 15);
+    [Tooltip("Maximum angles (in degrees) at which the turret can rotate on the X and Y axes.")]
+    private Vector2 m_maximumTurretAngles = new Vector2(15, 15);
+    public Vector2 MaximumTurretAngles
+    {
+        get => m_maximumTurretAngles;
+    }
 
     [Header("Targeting and Weapon Info")]
-    [SerializeField]
-    TurretTargetingType targetingType;
-    [SerializeField]
-    TurretWeaponType weaponType;
 
-    public enum TurretTargetingType
-    { 
-        ManualLockOnGimbal,
-        Automatic,
-    }
-
-    public enum TurretWeaponType
+    [SerializeField]
+    [Tooltip("The type of targeting system used by the turret (e.g., lead pursuit, lock-on).")]
+    private TurretTargetingType m_targetingType;
+    public TurretTargetingType TargetingType
     {
-        Ballistic,
-        Laser,
-        Missile//yes? no ? idk
+        get => m_targetingType;
     }
 
+    [SerializeField]
+    [Tooltip("Determines whether the turret automatically acquires targets or requires manual selection.")]
+    private bool m_automaticTargetAquisistion;
+    public bool AutomaticTargetAcquisition
+    {
+        get => m_automaticTargetAquisistion;
+    }
+
+    /// <summary>
+    /// The type of targeting system used by the turret (e.g., lead pursuit, lock-on).
+    /// </summary>
+    public enum TurretTargetingType
+    {
+        /// <summary>
+        /// The turret tracks targets by predicting their future position based on their movement.
+        /// </summary>
+        LeadPursuit,
+        /// <summary>
+        /// The turret locks onto a target and tracks its precise location.
+        /// </summary>
+        LockOn
+    }
 }

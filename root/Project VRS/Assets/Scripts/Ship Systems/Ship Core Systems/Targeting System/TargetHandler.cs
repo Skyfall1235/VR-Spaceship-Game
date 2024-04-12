@@ -75,6 +75,8 @@ public class TargetHandler : MonoBehaviour
         }
     }
 
+    #region Monobehavior Methods
+
     private void OnTriggerEnter(Collider other)
     {
         GameObject target = other.gameObject;
@@ -91,6 +93,8 @@ public class TargetHandler : MonoBehaviour
     {
         DetectionCollider.radius = ColliderSize;
     }
+
+    #endregion
 }
 
 public struct TargetData

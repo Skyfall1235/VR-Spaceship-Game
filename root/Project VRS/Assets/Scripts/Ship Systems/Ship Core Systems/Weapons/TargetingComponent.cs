@@ -1,25 +1,40 @@
-using System.Collections;
-using Unity.Burst;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
-using UnityEngine;
 using System;
+using Unity.Jobs;
+using Unity.Burst;
+using UnityEngine;
+using Unity.Collections;
+using Unity.Mathematics;
+using System.Collections;
 
-public class TargetingSubComponent : MonoBehaviour
+public partial class TargetingComponent : MonoBehaviour
 {
     //so, what external things ddoes this script need?
     //1 - the projectile info. this can be gotten from the scriptable object on the turret
     //2 - the barrels instatiation point. the calculations need the exact spawning position to be effective
     //3 - the target data from the target handler.
 
-    public TargetData currentTargetData;
-
-    [SerializeField] GameObject m_barrelInstantiationPoint;
-    [SerializeField] Weapon m_weaponRef; // for the projectile speed
-    [SerializeField] float projectileSpeed;
+    [SerializeField]
+    [Tooltip("Stores data about the currently targeted enemy.")]
+    private TargetData currentTargetData;
 
     [SerializeField]
+    [Tooltip("The point from which projectiles are fired from the turret barrel.")]
+    private GameObject m_barrelInstantiationPoint;
+
+    [SerializeField]
+    [Tooltip("A reference to the weapon component associated with this turret. This is likely used to retrieve the projectile speed.")]
+    private Weapon m_weaponRef;
+
+    [SerializeField]
+    [Tooltip("A reference to the TurretRotation component or script that controls the turret's rotation.")]
+    private TurretRotation m_turretRotation;
+
+    [SerializeField]
+    [Tooltip("The speed of the projectiles fired by this turret. This value might be overridden based on the weapon reference.")]
+    private float projectileSpeed;
+
+    [SerializeField]
+    [Tooltip("The calculated lead position for targeting enemies in motion. Defaults to Vector3.zero.")]
     private Vector3 m_leadPosition = Vector3.zero;
     public Vector3 LeadPositionToTarget
     {
@@ -28,8 +43,6 @@ public class TargetingSubComponent : MonoBehaviour
             return m_leadPosition;
         }
     }
-
-
 
     #region Monobehavior Methods
 
@@ -201,4 +214,5 @@ public class TargetingSubComponent : MonoBehaviour
     }
 
     #endregion
+
 }
