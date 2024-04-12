@@ -7,7 +7,7 @@ using UnityEngine;
 public class TurretCoordinator : MonoBehaviour
 {
     [SerializeField]
-    private SO_WeaponData m_weaponData;
+    private Weapon m_turretWeapon;
 
     [SerializeField] 
     private SO_TurretData m_turretData;
@@ -44,13 +44,18 @@ public class TurretCoordinator : MonoBehaviour
         {
             m_turretTargetingComponent = GetComponent<TargetingComponent>();
         }
-        //share the nessicary data across the sub components
-        m_turretTargetingComponent.WeaponData = m_weaponData;
-        m_turretRotationController.TurretData = m_turretData;
-        //check for instantiation point as its crucial for calculations and movement
+
         if(m_projectileInstantiationPoint == null)
         {
-            Debug.LogError($"TurretCoordinator {this.gameObject.name} missing projectile Instantiation point, stoppping functionality");
+            m_projectileInstantiationPoint = m_turretWeapon.InstantiationPoint;
+        }
+        //share the necessary data across the sub components
+        m_turretTargetingComponent.WeaponData = m_turretWeapon.WeaponData;
+        m_turretRotationController.TurretData = m_turretData;
+        //check for instantiation point as its crucial for calculations and movement
+        if(m_turretWeapon == null)
+        {
+            Debug.LogError($"TurretCoordinator {this.gameObject.name} missing turret Weapon reference, stoppping functionality");
             this.enabled = false;
             return;
         }
@@ -60,5 +65,5 @@ public class TurretCoordinator : MonoBehaviour
 
     #endregion
 
-
+    
 }

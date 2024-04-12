@@ -7,6 +7,26 @@ public abstract class Weapon : MonoBehaviour
     public bool IsAutomatic { get; protected set; } = false;
     protected float _minimumTimeBetweenFiring = 1;
     bool _currentFireState = false;
+
+    [SerializeField]
+    protected SO_WeaponData m_weaponData;
+    public SO_WeaponData WeaponData
+    {
+        get 
+        { 
+            return m_weaponData;
+        }
+    }
+
+    [SerializeField]
+    protected GameObject m_instantiationPoint;
+    public GameObject InstantiationPoint
+    {
+        get 
+        { 
+            return m_instantiationPoint; 
+        }
+    }
     public enum WeaponState
     {
         Preparing,

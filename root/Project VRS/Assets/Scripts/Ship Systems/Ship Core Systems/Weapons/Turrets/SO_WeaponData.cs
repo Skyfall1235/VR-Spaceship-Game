@@ -40,6 +40,17 @@ public class SO_WeaponData : ScriptableObject
     }
 
     /// <summary>
+    /// The required minimum hardpoint size for this weapon.
+    /// </summary>
+    [SerializeField]
+    [Tooltip("Specifies the minimum hardpoint size needed to house this weapon.")]
+    private WeaponSize m_requiredHardpointSize;
+    public WeaponSize RequiredHardpointSize
+    {
+        get => m_requiredHardpointSize;
+    }
+
+    /// <summary>
     /// Array of Audio clips for the SFX of the turret to use when firing.
     /// </summary>
     [SerializeField]
@@ -59,5 +70,17 @@ public class SO_WeaponData : ScriptableObject
     public AudioClip[] WeaponEventSFX
     {
         get => m_weaponEventSFX;
+    }
+
+    /// <summary>
+    /// The size of hardpoint required for the turret
+    /// </summary>
+    public enum WeaponSize
+    {
+        Small,
+        Medium,
+        Large,
+        XLarge,
+        XXLarge
     }
 }
