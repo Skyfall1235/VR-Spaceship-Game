@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f93e7f0401ae364094bebab0eb01b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_turretWeapon: {fileID: 0}
+  m_turretWeapon: {fileID: 4294037586097658261}
   m_turretData: {fileID: 11400000, guid: 80f363b9e83b46345aec1fe9fc39a724, type: 2}
   m_turretRotationController: {fileID: 8807881547368397111}
   m_turretTargetingComponent: {fileID: 6538664286930203418}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 7860168634272385700}
   - component: {fileID: 3041244716032090435}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: BASE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

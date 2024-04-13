@@ -6,20 +6,16 @@ using UnityEngine;
 [RequireComponent(typeof(TargetingComponent))]
 public class TurretCoordinator : MonoBehaviour
 {
+    [Header("Required References")]
     [SerializeField]
     private Weapon m_turretWeapon;
 
     [SerializeField] 
     private SO_TurretData m_turretData;
 
-    [SerializeField]
     private TurretRotation m_turretRotationController;
 
-    [SerializeField]
     private TargetingComponent m_turretTargetingComponent;
-
-    [SerializeField]
-    private GameObject m_projectileInstantiationPoint;
 
     #region Monobehavior Methods & their dependencies
 
@@ -44,23 +40,22 @@ public class TurretCoordinator : MonoBehaviour
         {
             m_turretTargetingComponent = GetComponent<TargetingComponent>();
         }
-
-        if(m_projectileInstantiationPoint == null)
-        {
-            m_projectileInstantiationPoint = m_turretWeapon.InstantiationPoint;
-        }
-        //share the necessary data across the sub components
-        m_turretTargetingComponent.WeaponData = m_turretWeapon.WeaponData;
-        m_turretRotationController.TurretData = m_turretData;
+        
         //check for instantiation point as its crucial for calculations and movement
-        if(m_turretWeapon == null)
+        if (m_turretWeapon == null)
         {
             Debug.LogError($"TurretCoordinator {this.gameObject.name} missing turret Weapon reference, stoppping functionality");
             this.enabled = false;
             return;
         }
-        m_turretTargetingComponent.ProjectileInstantiationPoint = m_projectileInstantiationPoint;
-        m_turretRotationController.ProjectileInstatiationPoint = m_projectileInstantiationPoint;
+
+        //share the necessary data across the sub components
+        m_turretTargetingComponent.WeaponData = m_turretWeapon.WeaponData;
+        m_turretRotationController.TurretData = m_turretData;
+
+        //setup instantiation points
+        m_turretTargetingComponent.ProjectileInstantiationPoint = m_turretWeapon.InstantiationPoint;
+        m_turretRotationController.ProjectileInstatiationPoint = m_turretWeapon.InstantiationPoint;
     }
 
     #endregion

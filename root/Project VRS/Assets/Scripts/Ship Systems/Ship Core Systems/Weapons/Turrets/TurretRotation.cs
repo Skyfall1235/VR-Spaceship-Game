@@ -11,7 +11,7 @@ public class TurretRotation : MonoBehaviour
         }
     }
 
-    [Header("Turret Axi")]
+    [Header("Turret Parts")]
     [SerializeField]
     protected GameObject m_xAxisRotator;
 
