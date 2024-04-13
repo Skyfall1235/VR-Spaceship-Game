@@ -103,8 +103,8 @@ public abstract class TargetingWeapon : Weapon
         try
         {
             //schedule the job
-            Vector3 targetPosition = targetData.targetGameObject.transform.position;
-            Vector3 targetVelocity = targetData.targetRB.velocity;
+            Vector3 targetPosition = targetData.TargetGameObject.transform.position;
+            Vector3 targetVelocity = targetData.TargetRB.velocity;
 
             ComputeTargetLeadJob = FindTargetLead(gunPosition, targetPosition, targetVelocity, projectileSpeed, targetLeadDataStorage);
             yield return ComputeTargetLeadJob;

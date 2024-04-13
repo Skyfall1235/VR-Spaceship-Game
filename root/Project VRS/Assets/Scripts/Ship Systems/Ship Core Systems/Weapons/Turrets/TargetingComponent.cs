@@ -72,7 +72,7 @@ public class TargetingComponent : MonoBehaviour
             return;
         }
         //NEEDS an if statement to only run if there is currently a target that is aquired
-        if(m_currentTargetData.isEmpty || m_weaponData == null)
+        if(m_currentTargetData.IsEmpty || m_weaponData == null)
         {
             //data is missing and cannot be ran, end now
             return; 
@@ -122,8 +122,8 @@ public class TargetingComponent : MonoBehaviour
         try
         {
             //schedule the job
-            Vector3 targetPosition = targetData.targetGameObject.transform.position;
-            Vector3 targetVelocity = targetData.targetRB.velocity;
+            Vector3 targetPosition = targetData.TargetGameObject.transform.position;
+            Vector3 targetVelocity = targetData.TargetRB.velocity;
 
             ComputeTargetLeadJob = FindTargetLead(gunPosition, targetPosition, targetVelocity, projectileSpeed, targetLeadDataStorage);
             yield return ComputeTargetLeadJob;

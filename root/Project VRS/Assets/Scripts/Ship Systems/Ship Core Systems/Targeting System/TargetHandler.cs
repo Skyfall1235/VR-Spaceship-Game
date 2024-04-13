@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Burst;
+using Unity.Mathematics;
 
 //FOR THIS SCRIPT TO WORK, WE HAVE T START USING TAGS OR LAYERS.
 //LAYERS WILL BE USES FOR PHYSICS AND TAGS WILL BE USED TO DIFFERENCIATE OBJECTS IN SCENE
@@ -30,34 +34,42 @@ public class TargetHandler : MonoBehaviour
     /// <param name="listToSort">The list of targets that will be sorted</param>
     private void SortPriorityTargets(ref List<TargetData> listToSort)
     {
-        //Calculate priority for each list entry
+        //create handle list and variable arrays to pass into the job system
+        NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(Allocator.Temp);
+        NativeArray<float> scoreResults = new NativeArray<float>(listToSort.Count, Allocator.TempJob);
+        NativeArray<float3> targetGameObjectPositions = new NativeArray<float3>(listToSort.Count, Allocator.TempJob);
+        NativeArray<float3> targetGameObjectVelocities = new NativeArray<float3>(listToSort.Count, Allocator.TempJob);
+        //fill out the incoming parameter lists
         for(int i = 0; i < listToSort.Count; i++)
         {
-            if (!listToSort[i].isEmpty)
-            {
-                listToSort[i] = new TargetData(listToSort[i].targetGameObject, listToSort[i].targetRB, false, CalculateScore(listToSort[i]));
-            }
+            targetGameObjectPositions[i] = listToSort[i].TargetGameObject.transform.position;
+            targetGameObjectVelocities[i] = listToSort[i].TargetRB.velocity;            
         }
+        //Create handles for jobs
+        for(int i = 0; i < Mathf.CeilToInt((float)listToSort.Count / (float)SystemInfo.processorCount); i++)
+        {
+            JobHandle jobHandle = CalculateScoreJob(scoreResults, transform.position, targetGameObjectPositions, targetGameObjectVelocities, ColliderRadius);
+            jobHandles.Add(jobHandle);
+        }
+        JobHandle.CompleteAll(jobHandles.AsArray());
+        for (int i = 0; i < listToSort.Count; i++)
+        {
+            listToSort[i] = new TargetData(listToSort[i].TargetGameObject, listToSort[i].TargetRB, listToSort[i].IsEmpty, scoreResults[i]);
+        }
+        //dispose of everything
+        jobHandles.Dispose();
+        scoreResults.Dispose();
+        targetGameObjectPositions.Dispose();
+        targetGameObjectVelocities.Dispose();
         //Look upon my sins. This is the easiest way I could find to sort the target priorites. TODO: Find a less jank looking solution
         listToSort.Sort(delegate (TargetData target1, TargetData target2)
         {
-            if(target1.targetScore == null && target2.targetScore == null)
-            {
-                return 0;
-            }
-            else if(target1.targetScore != null && target2.targetScore == null)
-            {
-                return 1;
-            }
-            else if (target1.targetScore == null && target2.targetScore != null)
+
+            if(target1.TargetScore < target2.TargetScore)
             {
                 return -1;
             }
-            else if(target1.targetScore < target2.targetScore)
-            {
-                return -1;
-            }
-            else if (target1.targetScore > target2.targetScore)
+            else if (target1.TargetScore > target2.TargetScore)
             {
                 return 1;
             }
@@ -68,20 +80,48 @@ public class TargetHandler : MonoBehaviour
         });
     }
     /// <summary>
-    /// Calculates the priority score of a given target
+    /// Schedules a CalculateScore job and returns the handle
     /// </summary>
-    /// <param name="targetToClaculateScoreFor">The target to calculate the score for</param>
-    /// <returns>The calculated score as an integer</returns>
-    private float CalculateScore(TargetData targetToCalculateScoreFor)
+    /// <param name="scores">Incoming NativeArray of scores</param>
+    /// <param name="shipPosition">The current position of the ship</param>
+    /// <param name="targetPositions">A NativeArray containing the positions of all the targets</param>
+    /// <param name="targetVelocities">A NativeArray containing the velocities of all the targets</param>
+    /// <param name="colliderRadius">The radius of the detection collider</param>
+    /// <returns></returns>
+    private JobHandle CalculateScoreJob(NativeArray<float> scores, Vector3 shipPosition, NativeArray<float3> targetPositions, NativeArray<float3> targetVelocities, float colliderRadius)
     {
-        float calculatedScore = 0;
-        Vector3 shipPosition = transform.root.position;
-        Vector3 targetPosition = targetToCalculateScoreFor.targetGameObject.transform.position;
-        //Adds a number between 1 and 0 representing how close the velocity of the target is to being aimed directly at the ship 
-        calculatedScore += Vector3.Dot(targetToCalculateScoreFor.targetRB.velocity.normalized, (targetPosition - shipPosition).normalized).Remap(-1, 1, 0, 1);
-        //Adds a number between 1 and 0 representing the distance from the ship
-        calculatedScore += Vector3.Distance(shipPosition, targetPosition).Remap(0, ColliderRadius, 0, 1);
-        return calculatedScore;
+        CalculateScore score =new CalculateScore(scores, shipPosition.Vector3ToFloat3(), targetPositions, targetVelocities, colliderRadius);
+        return score.Schedule(targetPositions.Length, Mathf.CeilToInt((float)targetPositions.Length / (float)SystemInfo.processorCount));
+    }
+
+    [BurstCompile]
+    public struct CalculateScore : IJobParallelFor
+    {
+        NativeArray<float> scores;
+
+        float3 shipPosition;
+        readonly NativeArray<float3> targetPosition;
+        readonly NativeArray<float3> targetVelocity;
+
+        float colliderRadius;
+        const int distanceHeuristicMultiplier = 1;
+        const int facingHeuristicMultiplier = 1;
+        public CalculateScore(NativeArray<float> scores, float3 shipPosition, NativeArray<float3> targetPosition, NativeArray<float3> targetVelocity, float colliderRadius)
+        {
+            this.shipPosition = shipPosition;
+            this.targetPosition = targetPosition;
+            this.targetVelocity = targetVelocity;
+            this.colliderRadius = colliderRadius;      
+            this.scores = scores;
+        }
+        public void Execute(int index)
+        {
+            //Adds a number between 1 and 0 representing how close the velocity of the target is to being aimed directly at the ship 
+            scores[index] += ExtensionMethods.DotProduct(targetVelocity[index].NormalizeVector(), (shipPosition - targetPosition[index] ).NormalizeVector()).Remap(-1, 1, 0, 1) * facingHeuristicMultiplier;
+            //Adds a number between 1 and 0 representing the distance from the ship
+            scores[index] += Vector3.Distance(shipPosition, targetPosition[index]).Remap(colliderRadius, 0, 0, 1) * distanceHeuristicMultiplier;
+        }
+        
     }
 
     private void UnregisterTarget(GameObject target)
@@ -92,7 +132,7 @@ public class TargetHandler : MonoBehaviour
         for (int i = RegisteredTargets.Count - 1; i >= 0; i--)
         {
             // Check if target GameObject matches the TargetData's transform
-            if (RegisteredTargets[i].targetGameObject == target)
+            if (RegisteredTargets[i].TargetGameObject == target)
             {
                 // Remove the TargetData from the list at the current index
                 RegisteredTargets.RemoveAt(i);
@@ -130,6 +170,7 @@ public class TargetHandler : MonoBehaviour
         if (target.CompareTag(EnemyTag))
         {
             action(target);
+            SortPriorityTargets(ref RegisteredTargets);
         }
     }
 
@@ -158,16 +199,16 @@ public class TargetHandler : MonoBehaviour
 [Serializable]
 public struct TargetData
 {
-    public GameObject targetGameObject;
-    public Rigidbody targetRB;
-    public bool isEmpty;
-    public float? targetScore;
+    public GameObject TargetGameObject;
+    public Rigidbody TargetRB;
+    public bool IsEmpty;
+    public float TargetScore;
 
-    public TargetData(GameObject targetGameObject, Rigidbody targetRB, bool isEmpty = true, float? targetScore = null)
+    public TargetData(GameObject targetGameObject, Rigidbody targetRB, bool isEmpty = true, float targetScore = 0)
     {
-        this.targetGameObject = targetGameObject;
-        this.targetRB = targetRB;
-        this.isEmpty = isEmpty;
-        this.targetScore = targetScore;
+        this.TargetGameObject = targetGameObject;
+        this.TargetRB = targetRB;
+        this.IsEmpty = isEmpty;
+        this.TargetScore = targetScore;
     }
 }
