@@ -13,6 +13,8 @@ public class TargetingComponent : MonoBehaviour
     //2 - the barrels instatiation point. the calculations need the exact spawning position to be effective
     //3 - the target data from the target handler.
 
+    [Header("Target Data")]
+
     [SerializeField]
     [Tooltip("Stores data about the currently targeted enemy.")]
     private TargetData m_currentTargetData;
