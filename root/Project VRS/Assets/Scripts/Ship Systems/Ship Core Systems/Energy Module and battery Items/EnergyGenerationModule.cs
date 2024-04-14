@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnergyGenerationModule : BC_CoreModule
 {
+
+
+
+
+    #region Base Class Methods
+
     public override void Reboot()
     {
         throw new System.NotImplementedException();
@@ -23,4 +29,7 @@ public class EnergyGenerationModule : BC_CoreModule
     {
         throw new System.NotImplementedException();
     }
+
+    #endregion
+
 }
