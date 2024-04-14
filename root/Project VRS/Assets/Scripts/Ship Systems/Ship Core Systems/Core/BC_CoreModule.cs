@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(InternalModuleHealth))]
-public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
+public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
 {
 
     #region Variables
@@ -150,25 +150,13 @@ public class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IM
     }
 
     //not in use yet so dont touch it
-    public virtual void ReleaseResources()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void ReleaseResources();
 
-    public virtual void ShutDown()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract  void ShutDown();
 
-    public virtual void StartUp()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void StartUp();
 
-    public virtual void Reboot()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void Reboot();
     
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
     {

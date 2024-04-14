@@ -149,6 +149,8 @@ public class WeaponManagerModule : BC_CoreModule
 
     #endregion
 
+    #region Monobehavior Methods 
+
     private void Update()
     {
         //DEBUG
@@ -186,4 +188,31 @@ public class WeaponManagerModule : BC_CoreModule
         }
          _selectedWeapon = (_weapons.Count <= 0) ? null : _weapons.First;
     }
+
+    #endregion
+
+    #region Base class Methods
+
+    public override void ReleaseResources()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void ShutDown()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void StartUp()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Reboot()
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
+
 }
