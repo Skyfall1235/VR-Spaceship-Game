@@ -32,4 +32,10 @@ public class EnergyGenerationModule : BC_CoreModule
 
     #endregion
 
+    public enum DepletionStatus
+    {
+        Full,
+        Partial,
+        Depleted
+    }
 }
