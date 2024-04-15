@@ -28,6 +28,30 @@ public class TargetHandler : MonoBehaviour
     {
         RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>(), false));
     }
+    private void UnregisterTarget(GameObject target)
+    {
+        bool targetRemoved = false;  // Flag to track removal
+
+        // Loop through the list
+        for (int i = RegisteredTargets.Count - 1; i >= 0; i--)
+        {
+            // Check if target GameObject matches the TargetData's transform
+            if (RegisteredTargets[i].TargetGameObject == target)
+            {
+                // Remove the TargetData from the list at the current index
+                RegisteredTargets.RemoveAt(i);
+                targetRemoved = true;
+                break;  // Exit the loop after removal
+            }
+        }
+
+        // Handle scenario where target wasn't found
+        if (!targetRemoved)
+        {
+            Debug.LogWarning($"Target {target.name} not found in RegisteredTargets");
+        }
+    }
+
     /// <summary>
     /// Sorts through a list of targets, determines the priority of that target then sort the list based on that priority. This is a multithreaded task
     /// </summary>
@@ -79,9 +103,10 @@ public class TargetHandler : MonoBehaviour
         //start completing all jobs and return control to the main thread until the jobs are completed
         JobHandle.CompleteAll(jobHandles.AsArray());
         yield return new WaitUntil(CheckCalculateScoreJobCompleted);
-        for (int i = 0; i < RegisteredTargets.Count; i++)
+        for (int i = 0; i < RegisteredTargets.Count -1 ; i++)
         {
-            RegisteredTargets[i] = new TargetData(RegisteredTargets[i].TargetGameObject, RegisteredTargets[i].TargetRB, RegisteredTargets[i].IsEmpty, scoreResults[i]);
+            TargetData dataCopy = new TargetData(RegisteredTargets[i].TargetGameObject, RegisteredTargets[i].TargetRB, RegisteredTargets[i].IsEmpty, RegisteredTargets[i].TargetScore);
+            RegisteredTargets[i] = new TargetData(dataCopy.TargetGameObject, dataCopy.TargetRB, dataCopy.IsEmpty, scoreResults[i]);
         }
         //dispose of everything
         scoreResults.Dispose();
@@ -150,29 +175,7 @@ public class TargetHandler : MonoBehaviour
         
     }
 
-    private void UnregisterTarget(GameObject target)
-    {
-        bool targetRemoved = false;  // Flag to track removal
 
-        // Loop through the list
-        for (int i = RegisteredTargets.Count - 1; i >= 0; i--)
-        {
-            // Check if target GameObject matches the TargetData's transform
-            if (RegisteredTargets[i].TargetGameObject == target)
-            {
-                // Remove the TargetData from the list at the current index
-                RegisteredTargets.RemoveAt(i);
-                targetRemoved = true;
-                break;  // Exit the loop after removal
-            }
-        }
-
-        // Handle scenario where target wasn't found
-        if (!targetRemoved)
-        {
-            Debug.LogWarning($"Target {target.name} not found in RegisteredTargets");
-        }
-    }
 
     public int FindBestTargetForPriority(GameObject turretGO)
     {
