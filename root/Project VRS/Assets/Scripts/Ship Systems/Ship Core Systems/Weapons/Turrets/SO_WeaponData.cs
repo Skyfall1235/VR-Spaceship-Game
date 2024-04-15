@@ -87,7 +87,7 @@ public class SO_WeaponData : ScriptableObject
     /// <summary>
     /// The minimum time between firing of the weapon
     /// </summary>
-    [SerializeField]
+    [field: SerializeField]
     [Tooltip("The minimum time between firing of the weapon")]
     private float m_minimumTimeBetweenFiring;
     public float MinimumTimeBetweenFiring

@@ -37,7 +37,7 @@ public abstract class Weapon : MonoBehaviour
     {
         if(m_weaponData != null) 
         {
-            _minimumTimeBetweenFiring = m_weaponData.minimumTimeBetweenFiring;
+            _minimumTimeBetweenFiring = m_weaponData.MinimumTimeBetweenFiring;
         }
         else
         {
