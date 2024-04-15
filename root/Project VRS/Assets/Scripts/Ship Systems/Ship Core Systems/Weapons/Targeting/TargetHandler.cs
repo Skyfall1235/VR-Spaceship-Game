@@ -29,40 +29,66 @@ public class TargetHandler : MonoBehaviour
         RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>(), false));
     }
     /// <summary>
-    /// Sorts through a list of targets, determines the priority of that target then sort the list based on that priority
+    /// Sorts through a list of targets, determines the priority of that target then sort the list based on that priority. This is a multithreaded task
     /// </summary>
-    /// <param name="listToSort">The list of targets that will be sorted</param>
-    private void SortPriorityTargets(ref List<TargetData> listToSort)
+    private IEnumerator SortPriorityTargets()
     {
+        if(RegisteredTargets.Count <= 0)
+        {
+            yield break;
+        }
         //create handle list and variable arrays to pass into the job system
         NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(Allocator.Temp);
-        NativeArray<float> scoreResults = new NativeArray<float>(listToSort.Count, Allocator.TempJob);
-        NativeArray<float3> targetGameObjectPositions = new NativeArray<float3>(listToSort.Count, Allocator.TempJob);
-        NativeArray<float3> targetGameObjectVelocities = new NativeArray<float3>(listToSort.Count, Allocator.TempJob);
-        //fill out the incoming parameter lists
-        for(int i = 0; i < listToSort.Count; i++)
+        NativeArray<float> scoreResults = new NativeArray<float>(RegisteredTargets.Count, Allocator.TempJob);
+        NativeArray<float3> targetGameObjectPositions = new NativeArray<float3>(RegisteredTargets.Count, Allocator.TempJob);
+        NativeArray<float3> targetGameObjectVelocities = new NativeArray<float3>(RegisteredTargets.Count, Allocator.TempJob);
+        //Define a delegate for checking whether all the jobs are complete
+        Func<bool> CheckCalculateScoreJobCompleted = delegate ()
         {
-            targetGameObjectPositions[i] = listToSort[i].TargetGameObject.transform.position;
-            targetGameObjectVelocities[i] = listToSort[i].TargetRB.velocity;            
+            int totalJobs = jobHandles.Length;
+            int currentJobs = 0;
+            foreach (JobHandle job in jobHandles)
+            {
+                if (job.IsCompleted)
+                {
+                    currentJobs++;
+                }
+            }
+            if (currentJobs >= totalJobs)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        };
+
+        //fill out the incoming parameter lists
+        for (int i = 0; i < RegisteredTargets.Count; i++)
+        {
+            targetGameObjectPositions[i] = RegisteredTargets[i].TargetGameObject.transform.position;
+            targetGameObjectVelocities[i] = RegisteredTargets[i].TargetRB.velocity;            
         }
         //Create handles for jobs
-        for(int i = 0; i < Mathf.CeilToInt((float)listToSort.Count / (float)SystemInfo.processorCount); i++)
+        for(int i = 0; i < Mathf.CeilToInt((float)RegisteredTargets.Count / (float)SystemInfo.processorCount); i++)
         {
             JobHandle jobHandle = CalculateScoreJob(scoreResults, transform.position, targetGameObjectPositions, targetGameObjectVelocities, ColliderRadius);
             jobHandles.Add(jobHandle);
         }
+        //start completing all jobs and return control to the main thread until the jobs are completed
         JobHandle.CompleteAll(jobHandles.AsArray());
-        for (int i = 0; i < listToSort.Count; i++)
+        yield return new WaitUntil(CheckCalculateScoreJobCompleted);
+        for (int i = 0; i < RegisteredTargets.Count; i++)
         {
-            listToSort[i] = new TargetData(listToSort[i].TargetGameObject, listToSort[i].TargetRB, listToSort[i].IsEmpty, scoreResults[i]);
+            RegisteredTargets[i] = new TargetData(RegisteredTargets[i].TargetGameObject, RegisteredTargets[i].TargetRB, RegisteredTargets[i].IsEmpty, scoreResults[i]);
         }
         //dispose of everything
-        jobHandles.Dispose();
         scoreResults.Dispose();
         targetGameObjectPositions.Dispose();
         targetGameObjectVelocities.Dispose();
         //Look upon my sins. This is the easiest way I could find to sort the target priorites. TODO: Find a less jank looking solution
-        listToSort.Sort(delegate (TargetData target1, TargetData target2)
+        RegisteredTargets.Sort(delegate (TargetData target1, TargetData target2)
         {
 
             if(target1.TargetScore < target2.TargetScore)
@@ -170,7 +196,7 @@ public class TargetHandler : MonoBehaviour
         if (target.CompareTag(EnemyTag))
         {
             action(target);
-            SortPriorityTargets(ref RegisteredTargets);
+            StartCoroutine(SortPriorityTargets());
         }
     }
 
