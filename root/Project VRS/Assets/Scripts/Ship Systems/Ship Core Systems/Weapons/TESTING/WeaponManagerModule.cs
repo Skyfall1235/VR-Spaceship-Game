@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class WeaponManagerModule : BC_CoreModule
@@ -42,7 +41,7 @@ public class WeaponManagerModule : BC_CoreModule
             _lastMouseDownStatus = value;
             if (_selectedWeapon != null)
             {
-                _selectedWeapon.Value.weapon.UpdateFireState(value);
+                _selectedWeapon.Value.weapon.UpdateFiringState(value);
 
             }
         }
@@ -174,17 +173,10 @@ public class WeaponManagerModule : BC_CoreModule
         {
             _weapons.AddLast(new WeaponSlot(transform));
         }
-        List<Weapon> foundWeapons = new List<Weapon>();
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if(transform.GetChild(i).GetComponent<Weapon>() != null)
-            {
-                foundWeapons.Add(transform.GetChild(i).GetComponent<Weapon>());
-            }
-        }
+        Weapon[] foundWeapons = transform.GetComponentsInChildren<Weapon>();
         foreach (Weapon weapon in foundWeapons)
         {
-            RegisterWeapon(weapon);
+            RegisterWeapon(weapon, null, false);
         }
          _selectedWeapon = (_weapons.Count <= 0) ? null : _weapons.First;
     }
