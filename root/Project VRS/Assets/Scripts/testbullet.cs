@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class testbullet : MonoBehaviour
 {
+    public Gun gunThatFiredProjectile;
     public ForceMode forceMode;
     public float speed;
     public Rigidbody rb;

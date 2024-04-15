@@ -6,7 +6,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public bool IsAutomatic { get; protected set; } = false;
     protected float _minimumTimeBetweenFiring = 1;
-    bool _currentFireState = false;
+    bool _currentFiringState = false;
 
     [SerializeField]
     protected SO_WeaponData m_weaponData;
@@ -17,7 +17,6 @@ public abstract class Weapon : MonoBehaviour
             return m_weaponData;
         }
     }
-
     [SerializeField]
     protected GameObject m_instantiationPoint;
     public GameObject InstantiationPoint
@@ -34,15 +33,25 @@ public abstract class Weapon : MonoBehaviour
         Ready,
         Disabled
     }
-    public WeaponState CurrentWeaponState {  get; protected set; } = WeaponState.Ready;
-
-    public void UpdateFireState(bool newFireState)
+    public virtual void Awake()
     {
-        if(newFireState == true && _currentFireState == false)
+        if(m_weaponData != null) 
+        {
+            _minimumTimeBetweenFiring = m_weaponData.minimumTimeBetweenFiring;
+        }
+        else
+        {
+            throw new System.Exception("No scriptable object found");
+        }
+    }
+    public WeaponState CurrentWeaponState {  get; protected set; } = WeaponState.Ready;
+    public void UpdateFiringState(bool newFiringState)
+    {
+        if(newFiringState == true && _currentFiringState == false)
         {
             StartCoroutine(TryFire());
         }
-        _currentFireState = newFireState;
+        _currentFiringState = newFiringState;
         //Debug.Log(newFireState);
     }
     public abstract void Reload();
@@ -51,9 +60,10 @@ public abstract class Weapon : MonoBehaviour
         if(CurrentWeaponState == WeaponState.Ready)
         {
             Fire();
+            CurrentWeaponState = WeaponState.Preparing;
             yield return new WaitForSeconds(_minimumTimeBetweenFiring);
             CurrentWeaponState = WeaponState.Ready;
-            if (IsAutomatic && _currentFireState == true)
+            if (IsAutomatic && _currentFiringState == true)
             {
                 StartCoroutine(TryFire());
             }
@@ -63,8 +73,5 @@ public abstract class Weapon : MonoBehaviour
             yield return null;
         }
     }
-    protected virtual void Fire()
-    {
-        CurrentWeaponState = WeaponState.Preparing;
-    }
+    protected abstract void Fire();
 }

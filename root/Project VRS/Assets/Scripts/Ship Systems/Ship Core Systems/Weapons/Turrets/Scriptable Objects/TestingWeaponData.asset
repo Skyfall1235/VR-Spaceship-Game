@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: TestingWeaponData
   m_EditorClassIdentifier: 
   m_projectileSpeed: 0
-  m_prefabBullet: {fileID: 0}
+  m_prefabBullet: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
   m_weaponParticleSystem: {fileID: 0}
+  m_requiredHardpointSize: 0
   m_weaponFireAudioClip: []
   m_weaponEventSFX: []
