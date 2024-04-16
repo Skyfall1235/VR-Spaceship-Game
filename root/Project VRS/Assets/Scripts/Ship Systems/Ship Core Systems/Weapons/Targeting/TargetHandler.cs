@@ -68,7 +68,7 @@ public class TargetHandler : MonoBehaviour
         for (int i = 0; i < RegisteredTargets.Count; i++)
         {
             targetGameObjectPositions[i] = RegisteredTargets[i].TargetGameObject.transform.position;
-            targetGameObjectVelocities[i] = RegisteredTargets[i].TargetRB.velocity;            
+            targetGameObjectVelocities[i] = RegisteredTargets[i].TargetRB.velocity;       
         }
         //Create handles for jobs
         for(int i = 0; i < Mathf.CeilToInt((float)RegisteredTargets.Count / (float)SystemInfo.processorCount); i++)
@@ -87,23 +87,8 @@ public class TargetHandler : MonoBehaviour
         scoreResults.Dispose();
         targetGameObjectPositions.Dispose();
         targetGameObjectVelocities.Dispose();
-        //Look upon my sins. This is the easiest way I could find to sort the target priorites. TODO: Find a less jank looking solution
-        RegisteredTargets.Sort(delegate (TargetData target1, TargetData target2)
-        {
-
-            if(target1.TargetScore < target2.TargetScore)
-            {
-                return -1;
-            }
-            else if (target1.TargetScore > target2.TargetScore)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        });
+        //Sort the list
+        RegisteredTargets.Sort((TargetData target1, TargetData target2) => target1.TargetScore.CompareTo(target2.TargetScore));
     }
     /// <summary>
     /// Schedules a CalculateScore job and returns the handle
@@ -196,7 +181,6 @@ public class TargetHandler : MonoBehaviour
         if (target.CompareTag(EnemyTag))
         {
             action(target);
-            StartCoroutine(SortPriorityTargets());
         }
     }
 
@@ -206,6 +190,10 @@ public class TargetHandler : MonoBehaviour
     {
         GameObject target = other.gameObject;
         CompareForEnemyAndRunAction(target, RegisterNewTarget);
+        if (target.CompareTag(EnemyTag))
+        {
+            StartCoroutine(SortPriorityTargets());
+        }
     }
 
     private void OnTriggerExit(Collider other)
