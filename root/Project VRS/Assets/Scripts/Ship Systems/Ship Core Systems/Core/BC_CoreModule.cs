@@ -55,13 +55,33 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     [Header("Energy Management")]
 
     [SerializeField]
-    int boostPercent = 0;
+    protected int m_boostPercent = 0;
+    public int BoostPercent
+    {
+        get => m_boostPercent;
+        set => m_boostPercent = value;
+    }
+
     [SerializeField]
-    int powerRequirement;
+    protected int m_powerRequirement;
+    public int PowerRequirements
+    {
+        get => m_powerRequirement;
+    }
+
     [SerializeField]
-    int moduleEnergyPriorty = 0;
+    protected int m_moduleEnergyPriorty = 0;
+    public int ModuleEnergyPriority
+    {
+        get => m_moduleEnergyPriorty;
+    }
+
     [SerializeField]
-    PipSelection systemType = PipSelection.internalSystems; 
+    protected PipSelection m_systemType = PipSelection.internalSystems; 
+    public PipSelection SystemType
+    {
+        get => m_systemType;
+    }
 
 
 
