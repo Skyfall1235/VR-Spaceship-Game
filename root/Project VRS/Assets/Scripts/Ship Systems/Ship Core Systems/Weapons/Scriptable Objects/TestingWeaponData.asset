@@ -18,3 +18,4 @@ MonoBehaviour:
   m_requiredHardpointSize: 0
   m_weaponFireAudioClip: []
   m_weaponEventSFX: []
+  m_minimumTimeBetweenFiring: 0

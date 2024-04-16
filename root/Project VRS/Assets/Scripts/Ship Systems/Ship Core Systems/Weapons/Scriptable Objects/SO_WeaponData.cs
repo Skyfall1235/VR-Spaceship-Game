@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "New Weapon Data")]
@@ -95,4 +97,100 @@ public class SO_WeaponData : ScriptableObject
         get => m_minimumTimeBetweenFiring;
     }
 
+    /// <summary>
+    /// Whether the weapon uses a magazine or not
+    /// </summary>
+    [Tooltip("Whether the weapon uses a magazine or not")]
+    [HideInInspector]
+    bool m_usesMag = true;
+    public bool UsesMag
+    {
+        get => m_usesMag;
+        set => m_usesMag = value;
+    }
+
+    /// <summary>
+    /// The amount of time it takes to reload a weapon
+    /// </summary>
+    [Tooltip("The amount of time it takes to reload a weapon")]
+    [HideInInspector]
+    float m_reloadTime = 0;
+    public float? ReloadTime
+    {
+        get
+        {
+            if (UsesMag)
+            {
+                return m_reloadTime;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        set
+        {
+            if(UsesMag && value != null)
+            {
+                m_reloadTime = Mathf.Clamp((float)value, 0, float.MaxValue);
+            }
+        }
+    }
+
+    /// <summary>
+    /// The total capacity of the magazine
+    /// </summary>
+    [Tooltip("The amount of time it takes to reload a weapon")]
+    [HideInInspector]
+    uint m_magazineCapacity = 0;
+    public uint? MagazineCapacity
+    {
+        get
+        {
+            if (UsesMag)
+            {
+                return m_magazineCapacity;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        set
+        {
+            if (UsesMag)
+            {
+                m_magazineCapacity = (uint)value;
+            }
+        }
+    }
+
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(SO_WeaponData))]
+public class SO_WeaponData_Editor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        SO_WeaponData scriptToDisplayDataFor = (SO_WeaponData)target;
+        EditorGUI.BeginChangeCheck();
+        int newMagazineCapacityValue = 0;
+        float newReloadTime = 0;
+        scriptToDisplayDataFor.UsesMag = EditorGUILayout.Toggle("Uses Mag", scriptToDisplayDataFor.UsesMag);
+        if (scriptToDisplayDataFor.UsesMag)
+        {
+            newReloadTime = EditorGUILayout.FloatField("Reload Time", (float)scriptToDisplayDataFor.ReloadTime);
+            newMagazineCapacityValue = EditorGUILayout.IntField("Magazine Capacity", (int)scriptToDisplayDataFor.MagazineCapacity);
+        }
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObjects(targets, "Changed Scriptable Object");
+            scriptToDisplayDataFor.MagazineCapacity = (uint)Mathf.Clamp(newMagazineCapacityValue, 0, uint.MaxValue);
+            scriptToDisplayDataFor.ReloadTime = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+        }
+    }
+
+}
+#endif
