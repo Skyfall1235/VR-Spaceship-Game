@@ -1,4 +1,5 @@
 using UnityEngine;
+using static SystemResourceQueue;
 
 [RequireComponent(typeof(InternalModuleHealth))]
 public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
@@ -51,12 +52,18 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public ICoreModule.ModuleOperationalState OperationalState
     { get => m_operationalState; }
 
+    [Header("Energy Management")]
 
-    /// <summary>
-    /// Represents the resource requirement that this module requires.
-    /// </summary>
     [SerializeField]
-    public ICoreModule.ModuleResourceRequirement m_resourceRequirement;
+    int boostPercent = 0;
+    [SerializeField]
+    int powerRequirement;
+    [SerializeField]
+    int moduleEnergyPriorty = 0;
+    [SerializeField]
+    PipSelection systemType = PipSelection.internalSystems; 
+
+
 
     #endregion
 

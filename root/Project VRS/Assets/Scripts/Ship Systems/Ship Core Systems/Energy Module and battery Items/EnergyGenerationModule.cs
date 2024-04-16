@@ -42,6 +42,10 @@ public class EnergyGenerationModule : BC_CoreModule
     }
 
     //som sort of corotuine that trickles down the plugged in fuel rods available fuel, and if the fuel rod hits zero, call the unity event
+
+    //we might everse this and require an energy amount needed and the energy system attempts to pull it.
+    //this way ,we can use the pip system to see where all available energy is directed
+    //
     IEnumerator ExpendFuelRod()
     {
         int totalAvailableEnergy = 0;
@@ -60,7 +64,7 @@ public class EnergyGenerationModule : BC_CoreModule
             //then check if object is depeleted
             if(isDepleted)
             {
-
+                OnDepletionOfFuelRod.Invoke(i);
             }
         }
         const float CycleDelay = 1f;

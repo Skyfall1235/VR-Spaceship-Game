@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreShipModuleManager : MonoBehaviour, ICoreModule
+public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
 {
     //what does the manmager need to handle?
     public List<BC_CoreModule> coreModules = new List<BC_CoreModule>();

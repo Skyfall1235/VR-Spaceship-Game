@@ -12,3 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
   m_Name: New Logger
   m_EditorClassIdentifier: 
+  m_logSettings:
+  - Category: 0
+    ShowLogs: 0
+  - Category: 1
+    ShowLogs: 0
+  - Category: 2
+    ShowLogs: 0
+  - Category: 3
+    ShowLogs: 0
+  - Category: 4
+    ShowLogs: 0
+  - Category: 5
+    ShowLogs: 0
+  - Category: 6
+    ShowLogs: 0
+  - Category: 7
+    ShowLogs: 0

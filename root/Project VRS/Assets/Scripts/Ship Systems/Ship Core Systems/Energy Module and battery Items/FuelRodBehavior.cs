@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
+using static ExtensionMethods;
 
 public class FuelRodBehavior : MonoBehaviour
 {
@@ -39,6 +41,19 @@ public class FuelRodBehavior : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// percent of the fuel that is currently remaining.
+    /// </summary>
+    public int UsagePercentRemaining
+    {
+        get
+        {
+            float convertedVal = (float)m_currentEnergyGenerationValue;
+            convertedVal.Remap(0f, (float)fuelData.MaxEnergyGenerationValue, 0f, 100f);
+            return (int)convertedVal;
+        }
+    }
+
     [SerializeField]
     [Tooltip("The current status of the fuel rod relative to how used it is.")]
     private EnergyGenerationModule.DepletionStatus m_depletionStatus = EnergyGenerationModule.DepletionStatus.Full;
@@ -61,7 +76,7 @@ public class FuelRodBehavior : MonoBehaviour
         m_currentEnergyGenerationValue = fuelData.MaxEnergyGenerationValue;
     }
 
-    public int SpendUpToFuelRate( out bool isDepleted)
+    public int SpendUpToFuelRate(out bool isDepleted)
     {
         int pullAmount = 0;
         // Check if current energy is enough for the full pull
