@@ -14,12 +14,12 @@ public class FuelRodBehavior : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("The current energy output per second that this fuel rod can produce.")]
+    [Tooltip("The current amount of energy that this fuel rod can produce.")]
     private int m_currentEnergyGenerationValue;
     /// <summary>
     /// The current energy output per second that this fuel rod can produce.
     /// </summary>
-    public int CurrentEnergygenerationValue
+    public int CurrentEnergyGenerationValue
     {
         get
         {
@@ -59,6 +59,26 @@ public class FuelRodBehavior : MonoBehaviour
     void InitializeFuelRod()
     {
         m_currentEnergyGenerationValue = fuelData.MaxEnergyGenerationValue;
+    }
+
+    public int SpendUpToFuelRate( out bool isDepleted)
+    {
+        int pullAmount = 0;
+        // Check if current energy is enough for the full pull
+        if (CurrentEnergyGenerationValue >= EnergyGenerationRate)
+        {
+            // Enough energy, pull at full rate
+            pullAmount = EnergyGenerationRate;
+            isDepleted = false;
+        }
+        else
+        {
+            // Not enough energy, pull all remaining energy
+            pullAmount = CurrentEnergyGenerationValue;
+            isDepleted = true;
+        }
+
+        return pullAmount;
     }
 
 }

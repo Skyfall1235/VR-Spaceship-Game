@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnergyGenerationModule : BC_CoreModule
 {
     EnergyGenSocketBehavior[] sockets = new EnergyGenSocketBehavior[2];//change later for actual value
 
+    public int EnergyPool;
+
+    public UnityEvent<int> OnDepletionOfFuelRod = new UnityEvent<int>();
+
     [SerializeField]
     Logger logger;
 
+    //note, thiss is for UI elements to know the status of an object. there may be expnasion to make this pass a tuple or struct
     public DepletionStatus GetFuelRodDepletionStatus(int index)
     {
         if (index < sockets.Length)
@@ -17,7 +23,7 @@ public class EnergyGenerationModule : BC_CoreModule
         }
         else
         {
-            Debug.LogError($"Invalid index {index} for sockets array");
+            logger.Log(LogType.Error, $"Invalid index {index} for sockets array", this.gameObject.name);
             return DepletionStatus.Nulled;
         }
     }
@@ -28,6 +34,37 @@ public class EnergyGenerationModule : BC_CoreModule
     public void UpdateCurrentSockets()
     {
 
+    }
+
+    public void UpdateEnergyPool()
+    {
+        //iterate through the sockets and add up the 
+    }
+
+    //som sort of corotuine that trickles down the plugged in fuel rods available fuel, and if the fuel rod hits zero, call the unity event
+    IEnumerator ExpendFuelRod()
+    {
+        int totalAvailableEnergy = 0;
+        //every second, cycle down
+        for(int i = 0; i < sockets.Length; i++)
+        {
+            bool isDepleted = false;
+            FuelRodBehavior fuelRod = sockets[i].CurrentlyPluggedFuelRod;
+            if (fuelRod.DepletionStatus != DepletionStatus.Depleted || fuelRod.DepletionStatus != DepletionStatus.Nulled)
+            {
+                
+                int fuelRodPullRate = fuelRod.SpendUpToFuelRate(out isDepleted);
+                
+                totalAvailableEnergy += fuelRodPullRate;
+            }
+            //then check if object is depeleted
+            if(isDepleted)
+            {
+
+            }
+        }
+        const float CycleDelay = 1f;
+        yield return new WaitForSeconds(CycleDelay);
     }
 
 
