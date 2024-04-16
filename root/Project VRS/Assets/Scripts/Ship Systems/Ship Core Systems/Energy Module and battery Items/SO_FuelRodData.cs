@@ -8,17 +8,6 @@ using UnityEngine;
 public class SO_FuelRodData : ScriptableObject
 {
     [SerializeField]
-    [Tooltip("The current status of the fuel rod relative to how used it is.")]
-    private EnergyGenerationModule.DepletionStatus m_depletionStatus;
-    /// <summary>
-    /// Gets the current depletion status of the energy generation module.
-    /// </summary>
-    public EnergyGenerationModule.DepletionStatus DepletionStatus
-    {
-        get { return m_depletionStatus; }
-    }
-
-    [SerializeField]
     [Tooltip("The maximum amount of total energy this fuel rod can provide before it is spent. This value affects the depletion status.")]
     private int m_maxEnergyGenerationValue;
     /// <summary>
