@@ -1,6 +1,50 @@
 using UnityEngine;
 using static SystemResourceQueue;
 
+/// <summary>
+/// Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module's state, health, and management.
+/// </summary>
+/// <remarks>
+/// <para>
+/// * **State Management:**
+///     * Tracks the module's overall state (e.g., Starting Up, Running, Shutting Down) through an interface (ICoreModule.CoreModuleState). This state can change and trigger the `OnCoreModuleStateChange` event.
+///     * Tracks the module's operational state (e.g., Active, Idle, Offline) through an interface (ICoreModule.ModuleOperationalState). This state can represent operational readiness and trigger the `OnModuleOperationalStateChange` event.
+/// </para>
+/// <para>
+/// * **Health Management:**
+///     * Provides an `InternalModuleHealth` component for handling health changes (damage and healing).
+///     * Exposes methods for taking damage (`TakeDamage`) and receiving healing (`HealModule`).
+///     * Triggers `OnDamageEvent` and `OnHealEvent` (with `ModuleStateChangeType.Health`) upon health changes.
+/// </para>
+/// <para>
+/// * **Manager Registration:**
+///     * Allows registering with a `CoreShipModuleManager` using `RegisterCoreModuleManager`. This establishes a link between the module and the manager for potential coordination.
+///     * Provides `AttemptToLinkManager` for internal use during initialization to link with a provided manager.
+///     * Offers virtual methods for `DeregisterCoreSystemManager` to break the link with the manager if needed.
+/// </para>
+/// <para>
+/// * **Initialization and Virtual Methods:**
+///     * Defines an `InitializeModule` method for potential module-specific initialization (currently calls `m_internalModuleHealth.InitializeHealth`).
+///     * Provides abstract methods for core functionalities:
+///         * `ReleaseResources`: Needs implementation for releasing resources when a module is no longer needed.
+///         * `ShutDown`: Requires implementation for handling module shutdown procedures.
+///         * `StartUp`: Requires implementation for handling module startup procedures.
+///         * `Reboot`: Requires implementation for handling module reboot procedures.
+/// </para>
+/// <para>
+/// * **Events:**
+///     * `OnCoreModuleStateChange`: Triggered when the module's overall state changes.
+///     * `OnModuleOperationalStateChange`: Triggered when the module's operational state changes.
+///     * `OnDamageEvent`: Triggered when the module takes damage.
+///     * `OnHealEvent`: Triggered when the module receives healing.
+///     * `OnDeathEvent`: Potentially intended to be triggered when the module is destroyed due to health depletion .
+/// </para>
+/// <para>
+/// **Inheritance:**
+/// This class is marked as abstract, meaning it cannot be directly instantiated. Concrete core module classes should inherit from `BC_CoreModule` and implement the abstract methods to provide specific functionalities.
+/// Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module's state, health, and management.
+/// </para>
+/// </remarks>
 [RequireComponent(typeof(InternalModuleHealth))]
 public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
 {
@@ -21,20 +65,14 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     {
         get
         {
-
             if(m_internalModuleHealth != null)
             {
                 return m_internalModuleHealth;
-                
             }
             m_internalModuleHealth = GetComponent<InternalModuleHealth>();
             return m_internalModuleHealth;
         }
     }
-
-
-    //I NEED TO FIND A WAY TO TRIGGER UNITY EVENTS WHEN THESE CHANGE, OR AT LEAST CHANGE THEM IN CODE SOMEWHERE ELSE
-    //bruh.
 
     /// <summary>
     /// Sets the current CoreModuleState of the system.
@@ -54,6 +92,9 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     [Header("Energy Management")]
 
+    /// <summary>
+    /// The percent boost this module gets to apply to its functions.
+    /// </summary>
     [SerializeField]
     protected int m_boostPercent = 0;
     public int BoostPercent
@@ -62,6 +103,9 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         set => m_boostPercent = value;
     }
 
+    /// <summary>
+    /// The power requirement for this module.
+    /// </summary>
     [SerializeField]
     protected int m_powerRequirement;
     public int PowerRequirements
@@ -69,6 +113,12 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         get => m_powerRequirement;
     }
 
+    ///<summary>
+    /// The priory of this module in the energy system.
+    /// </summary>
+    /// <remarks>
+    /// The lower the value, the higher the priority to keep power in the case of an outage.
+    /// </remarks>
     [SerializeField]
     protected int m_moduleEnergyPriorty = 0;
     public int ModuleEnergyPriority
@@ -77,13 +127,12 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     }
 
     [SerializeField]
+
     protected PipSelection m_systemType = PipSelection.internalSystems; 
     public PipSelection SystemType
     {
         get => m_systemType;
     }
-
-
 
     #endregion
 
@@ -92,12 +141,12 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     /// <summary>
     /// An event that is raised whenever the CoreState of the system changes.
     /// </summary>
-    public ICoreModule.OnCoreModuleStateChange m_onCoreModuleStateChange = new();
+    public ICoreModule.OnCoreModuleStateChange OnCoreModuleStateChange = new();
 
     /// <summary>
     /// An event that is raised whenever the operational state of the system changes.
     /// </summary>
-    public ICoreModule.OnModuleOperationalStateChange m_onModuleOperationalStateChange = new();
+    public ICoreModule.OnModuleOperationalStateChange OnModuleOperationalStateChange = new();
 
     /// <summary>
     /// An event that is raised whenever the module recieves healing, along with information of how much it is healed by and at what rate.
@@ -179,7 +228,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     //not in use yet so dont touch it
     public abstract void ReleaseResources();
 
-    public abstract  void ShutDown();
+    public abstract void ShutDown();
 
     public abstract void StartUp();
 
@@ -207,7 +256,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     {
         //allow the health script to handle the actual number stuff and then invoke the event
         m_internalModuleHealth.TakeDamage(damageData);
-        OnDamageEvent.Invoke(damageData, this);
+        OnDamageEvent.Invoke(damageData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
     /// <summary>
@@ -217,7 +266,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public void HealModule(IDamageData.HealModuleData healData)
     {
         m_internalModuleHealth.HealModule(healData);
-        OnHealEvent.Invoke(healData, this);
+        OnHealEvent.Invoke(healData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
     #endregion

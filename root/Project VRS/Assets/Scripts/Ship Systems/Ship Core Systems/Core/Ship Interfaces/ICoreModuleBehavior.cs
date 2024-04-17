@@ -18,12 +18,12 @@ public interface ICoreModuleBehavior
     public void ShutDown();
 
     /// <summary>
-    /// Reboots the module. effectively calls the shutdown then start up methods in series
+    /// Reboots the module. effectively calls the shutdown then start up methods in series.
     /// </summary>
     public void Reboot();
 
     /// <summary>
-    /// releases the module from the resources it was using as it no longer needs
+    /// releases the module from the resources it was using.
     /// </summary>
     public void ReleaseResources();
 

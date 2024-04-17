@@ -1,6 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Manages the health of a core module within a ship system. 
+/// This class is responsible for tracking the module's health, handling incoming damage and healing, and triggering health-related events.
+/// </summary>
 public class InternalModuleHealth : MonoBehaviour, IModuleDamage
 {
     public BC_CoreModule moduleOwner { get; set; }
@@ -68,7 +72,7 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
             if(ModuleHealth <= 0)
             {
                 //if the modules dead, we should cancel the rest of the application and call the unity event
-                moduleOwner.OnDeathEvent.Invoke(moduleOwner);
+                moduleOwner.OnDeathEvent.Invoke(moduleOwner, ICoreModule.ModuleStateChangeType.Destroyed);
                 yield break;
             }
             yield return null;           

@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
-using static ExtensionMethods;
 
+/// <summary>
+/// Represents the behavior of a single fuel rod within an energy generation module.
+/// This class manages the fuel rod's energy generation capabilities and depletion state.
+/// </summary>
 public class FuelRodBehavior : MonoBehaviour
 {
     [SerializeField]
