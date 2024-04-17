@@ -19,16 +19,13 @@ public class EnergyGenSocketBehavior : MonoBehaviour
         GameObject interactableGo = interactable.gameObject;
         FuelRodBehavior behavior = interactableGo.GetComponent<FuelRodBehavior>();
         m_currentlyPluggedFuelRod = behavior;
-        Debug.Log("registered an item");
-        Debug.Log(interactable);
-        Debug.Log(interactable);
-        Debug.Log(behavior);
+        Debug.Log($"registered an item : {interactable}");
     }
 
     public void DeRegisterFuelRod(SelectExitEventArgs args)
     {
+        Debug.Log($"deregistered an item : {m_currentlyPluggedFuelRod}");
         m_currentlyPluggedFuelRod = null;
-        Debug.Log("deregistered an item");
     }
 
 }

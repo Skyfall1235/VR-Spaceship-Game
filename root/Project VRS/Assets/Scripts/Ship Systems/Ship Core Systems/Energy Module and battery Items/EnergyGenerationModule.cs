@@ -29,18 +29,6 @@ public class EnergyGenerationModule : BC_CoreModule
     }
 
 
-    //a pool of total energy to be pulled
-
-    public void UpdateCurrentSockets()
-    {
-
-    }
-
-    public void UpdateEnergyPool()
-    {
-        //iterate through the sockets and add up the 
-    }
-
     //som sort of corotuine that trickles down the plugged in fuel rods available fuel, and if the fuel rod hits zero, call the unity event
 
     //we might everse this and require an energy amount needed and the energy system attempts to pull it.
