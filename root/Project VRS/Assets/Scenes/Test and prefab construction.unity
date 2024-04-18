@@ -1502,7 +1502,10 @@ MonoBehaviour:
   m_shipModuleManager: {fileID: 0}
   m_coreState: 0
   m_operationalState: 0
-  m_resourceRequirement: 0
+  m_boostPercent: 0
+  m_powerRequirement: 0
+  m_moduleEnergyPriorty: 0
+  m_systemType: 1
   m_onCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -2512,17 +2515,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890828104}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &907846668 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2137781229469907136, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-  m_PrefabInstance: {fileID: 5327764577572817486}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45479d3848f158f44bea889a19f86ef4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &935084732 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
@@ -4240,7 +4232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfa05b955751164b89ea7e76a798927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logger: {fileID: 907846668}
+  logger: {fileID: 0}
 --- !u!4 &1614057061
 Transform:
   m_ObjectHideFlags: 0
@@ -7211,63 +7203,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &5327764577572817486
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 462944613323288149, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864841554079538393, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
-      propertyPath: m_Name
-      value: Logging
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ea4bee6731be8714499fe88c660e0363, type: 3}
 --- !u!114 &5652076144704250637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7883,6 +7818,5 @@ SceneRoots:
   - {fileID: 156984072}
   - {fileID: 1658779250}
   - {fileID: 1543845912333860696}
-  - {fileID: 5327764577572817486}
   - {fileID: 1834431210}
   - {fileID: 1779956135}
