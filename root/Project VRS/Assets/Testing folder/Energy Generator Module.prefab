@@ -51,11 +51,14 @@ MonoBehaviour:
   m_shipModuleManager: {fileID: 0}
   m_coreState: 0
   m_operationalState: 0
-  m_resourceRequirement: 6
-  m_onCoreModuleStateChange:
+  m_boostPercent: 0
+  m_powerRequirement: 0
+  m_moduleEnergyPriorty: 0
+  m_systemType: 1
+  OnCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []
-  m_onModuleOperationalStateChange:
+  OnModuleOperationalStateChange:
     m_PersistentCalls:
       m_Calls: []
   OnHealEvent:
@@ -65,6 +68,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  EnergyPool: 0
+  OnDepletionOfFuelRod:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4780322614796531396
@@ -216,7 +223,7 @@ Transform:
   m_GameObject: {fileID: 4716922826913472831}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -0.205, y: 0.353, z: 0.088}
+  m_LocalPosition: {x: -0.205, y: 0.349, z: 0.14}
   m_LocalScale: {x: 0.21334, y: 0.21334, z: 0.21334}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -437,7 +444,7 @@ GameObject:
   - component: {fileID: 1425578634105748812}
   - component: {fileID: 6714214181607353174}
   m_Layer: 0
-  m_Name: InteractorSocket
+  m_Name: InteractorSocket SLIDER TEST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,7 +459,7 @@ Transform:
   m_GameObject: {fileID: 8772148057935066102}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0.261, y: 0.353, z: 0.088}
+  m_LocalPosition: {x: 0.261, y: 0.349, z: 0.14}
   m_LocalScale: {x: 0.21334, y: 0.21334, z: 0.21334}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -575,7 +582,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7599572283931026605}
+      - m_Target: {fileID: 1425578634105748812}
         m_TargetAssemblyTypeName: EnergyGenSocketBehavior, vrs.ShipSystems.EnergyManagement
         m_MethodName: RegisterFuelRod
         m_Mode: 0
@@ -590,7 +597,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7599572283931026605}
+      - m_Target: {fileID: 1425578634105748812}
         m_TargetAssemblyTypeName: EnergyGenSocketBehavior, vrs.ShipSystems.EnergyManagement
         m_MethodName: DeRegisterFuelRod
         m_Mode: 0
