@@ -76,23 +76,25 @@ public class FuelRodBehavior : MonoBehaviour
         m_currentEnergyGenerationValue = fuelData.MaxEnergyGenerationValue;
     }
 
-    public int SpendUpToFuelRate(out bool isDepleted)
+    public int SpendUpToFuelRate(int requestedOutput, out bool isDepleted)
     {
         int pullAmount = 0;
+        int requestedPullMin = Mathf.Min(requestedOutput, EnergyGenerationRate);
         // Check if current energy is enough for the full pull
-        if (CurrentEnergyGenerationValue >= EnergyGenerationRate)
+        if (CurrentEnergyGenerationValue >= requestedPullMin)
         {
             // Enough energy, pull at full rate
-            pullAmount = EnergyGenerationRate;
+            pullAmount = requestedPullMin;
             isDepleted = false;
         }
         else
         {
             // Not enough energy, pull all remaining energy
-            pullAmount = CurrentEnergyGenerationValue;
+            pullAmount = requestedPullMin;
             isDepleted = true;
         }
-
+        //reduce the current energy amount by whatever the end value is
+        CurrentEnergyGenerationValue -= pullAmount;
         return pullAmount;
     }
 
