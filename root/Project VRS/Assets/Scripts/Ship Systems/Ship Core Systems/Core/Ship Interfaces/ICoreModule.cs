@@ -12,6 +12,7 @@ public interface ICoreModule
     /// <summary>
     /// Defines the core system state, which can be Operational, Standby, or Disabled.
     /// </summary>
+    [Serializable]
     public enum CoreModuleState
     {
         /// <summary>
@@ -33,6 +34,7 @@ public interface ICoreModule
     /// <summary>
     /// Defines the different operational states a system can be in, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
     /// </summary>
+    [Serializable]
     public enum ModuleOperationalState
     {
         /// <summary>
@@ -61,58 +63,50 @@ public interface ICoreModule
         Rebooting
     }
 
+
     /// <summary>
-    /// Defines the type of resources required by the system, such as Energy, Fuel, Material, or combinations thereof.
+    /// Enumeration defining the different types of state changes that can occur for a core module.
     /// </summary>
-    public enum ModuleResourceRequirement
+    [Serializable]
+    public enum ModuleStateChangeType
     {
         /// <summary>
-        /// The system requires only Energy.
+        /// Indicates a change in the core module's overall state (e.g., Operational, On Standby, Disabled).
         /// </summary>
-        Energy,
+        CoreState,
 
         /// <summary>
-        /// The system requires only Fuel.
+        /// Indicates a change in the core module's operational state.
         /// </summary>
-        Fuel,
+        OperationalState,
 
         /// <summary>
-        /// The system requires only Material.
+        /// Indicates a change in the core module's health (damage taken or healing received).
         /// </summary>
-        Material,
+        Health,
 
         /// <summary>
-        /// The system requires both Energy and Material.
+        /// Indicates the core module has been destroyed.
         /// </summary>
-        MaterialAndEnergy,
-
-        /// <summary>
-        /// The system requires both Energy and Fuel.
-        /// </summary>
-        EnergyAndFuel,
-
-        /// <summary>
-        /// The system requires both Fuel and Material.
-        /// </summary>
-        FuelAndMaterial,
-
-        /// <summary>
-        /// The system does not require any resources.
-        /// </summary>
-        None
+        Destroyed
     }
 
-    /// <summary>
-    /// A custom UnityEvent class specifically designed to handle OnCoreModuleStateChange events.
-    /// </summary>
-    [Serializable]
-    public class OnCoreModuleStateChange : UnityEvent<CoreModuleState> { }
+
 
     /// <summary>
-    /// A custom UnityEvent class specifically designed to handle OnSystemOperationalStateChange events.
+    /// UnityEvent triggered when a core module's overall state changes.
     /// </summary>
     [Serializable]
-    public class OnModuleOperationalStateChange : UnityEvent<ModuleOperationalState> { }
+    public class OnCoreModuleStateChange : UnityEvent<CoreModuleState, BC_CoreModule, ModuleStateChangeType> { }
+
+
+
+    /// <summary>
+    /// UnityEvent triggered when a core module's operational state changes.
+    /// </summary>
+    [Serializable]
+    public class OnModuleOperationalStateChange : UnityEvent<ModuleOperationalState, BC_CoreModule, ModuleStateChangeType> { }
+
 
     #endregion
 }

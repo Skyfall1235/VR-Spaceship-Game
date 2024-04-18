@@ -1,23 +1,37 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+/// <summary>
+/// Manages a collection of core modules within a ship system.
+/// This class is responsible for registering core modules, applying various operations (start-up, shut-down, reboot) to them, 
+/// and retrieving information about their state and health.
+/// </summary>
 public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
 {
     //what does the manmager need to handle?
     public List<BC_CoreModule> coreModules = new List<BC_CoreModule>();
 
+    public ReportModuleEvent OnModuleEvent = new ReportModuleEvent();
+
+
     //what is registration?
     //its adding the item to the core modules list if it not already there, and adding it to the module script.
 
-
-    //registers all the systems to it, and them store them
-
-
-    //we register and link, then we start up. once startup is complete, we should tell the manager.
-    //maybe have 2 lists, 1 of modules that are prepared and ready and 1 that is still getting ready?
-
     #region Adding, removing, and Registering modules
+
+    /// <summary>
+    /// Adds a core module to the internal registry.
+    /// </summary>
+    /// <param name="module">The core module to be added.</param>
+    /// <remarks>
+    /// This method attempts to add the specified core module to the internal registry of modules managed by this class. 
+    /// If the module is already registered, no action is taken.
+    /// 
+    /// After successful registration, the method attempts to establish a link between the module and this manager. This may involve 
+    /// the module registering for events or accessing functionalities provided by this manager.
+    /// </remarks>
     public void AddSingleModule(BC_CoreModule module)
     {
         //if the module is already registered, we dont want to do it again
@@ -42,53 +56,53 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
         //remove all references to any unity events
     }
 
-    protected void RegisterModules(bool register)
-    {
-        //go through the list of all modules and register or deregester them based on the bool
-        foreach (BC_CoreModule module in coreModules)
-        {
-            if (register)
-            {
-                AddSingleModule(module);
-            }
-            else
-            {
-                RemoveSingleModule(module);
-            }
-        }
-    }
-
     #endregion
 
     #region Module Affectors
 
-
-    //MULTI EFFECTORS
-    private void RebootAllModules()
+    /// <summary>
+    /// Applies the specified affector to all registered core modules.
+    /// </summary>
+    /// <param name="affectorType">The type of affector to apply (StartUp, ShutDown, Reboot).</param>
+    private void ApplyAffectorOnAllModules(AffectorType affectorType)
     {
-        PerformActionOnModuleList(RebootSingleModule);
-    }
-    private void StartUpAllModules()
-    {
-        PerformActionOnModuleList(StartUpSingleModule);
-    }
-    private void ShutDownAllModules()
-    {
-        PerformActionOnModuleList(ShutDownSingleModule);
+        //apply the affector to all modules registered
+        ApplyAffectorOnSelectModules(affectorType, coreModules.ToArray());
     }
 
-    //SINGLE AFFECTORS
-    private void RebootSingleModule(BC_CoreModule chosenModule)
+    /// <summary>
+    /// Applies the specified affector to a selection of core modules.
+    /// </summary>
+    /// <param name="affectorType">The type of affector to apply (StartUp, ShutDown, Reboot).</param>
+    /// <param name="selectedModules">An array of core modules to which the affector will be applied.</param>
+    private void ApplyAffectorOnSelectModules(AffectorType affectorType, params BC_CoreModule[] selectedModules)
     {
-        chosenModule.Reboot();
+        foreach (BC_CoreModule module in selectedModules)
+        {
+            //cann the action with the module as the parameter
+            ApplyAffectorOnModule(affectorType, module);
+        }
     }
-    private void StartUpSingleModule(BC_CoreModule chosenModule)
+
+    /// <summary>
+    /// Applies a specific affector to a single core module.
+    /// </summary>
+    /// <param name="affectorType">The type of affector to apply (StartUp, ShutDown, Reboot).</param>
+    /// <param name="chosenModule">The core module to which the affector will be applied.</param>
+    private void ApplyAffectorOnModule(AffectorType affectorType, BC_CoreModule chosenModule)
     {
-        chosenModule.StartUp();
-    }
-    private void ShutDownSingleModule(BC_CoreModule chosenModule)
-    { 
-        chosenModule.ShutDown();
+        switch (affectorType)
+        {
+            case AffectorType.StartUp:
+                chosenModule.StartUp();
+                break;
+            case AffectorType.ShutDown:
+                chosenModule.ShutDown();
+                break;
+            case AffectorType.Reboot:
+                chosenModule.Reboot();
+                break;
+        }
     }
 
     #endregion
@@ -115,55 +129,47 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
 
     #endregion
 
-    //NON OF THIS IS PLANNED OR DONE YET
+    #region Module Event Handler
 
-    //what is the purpose of these? to pipe new data to where they need to go.
-    //these should bascially just be calling other events and providing those events with updated inforation
-    #region Module Event Handlers
-    
-    //we need to get the operational state changes, he module states, the heals, the damages, and on death
-
-
-    public void ModuleCoreStateHasChanged(BC_CoreModule module)
+    public void OnModuleEventRepeater(BC_CoreModule module, ICoreModule.ModuleStateChangeType changeType)
     {
-
-    }
-
-    public void ModuleOperationalstateHasChanged(BC_CoreModule module)
-    {
-
-    }
-
-    public void ModulehasBeenHealed(BC_CoreModule module)
-    {
-
-    }
-
-    public void ModuleHasbeenDamaged(BC_CoreModule module)
-    {
-
-    }
-
-    public void ModuleHasBeenDestroyed(BC_CoreModule module)
-    {
-
+        OnModuleEvent.Invoke(module, changeType);
     }
 
     #endregion
 
+    #region Custom DataTypes
+
     /// <summary>
-    /// A generic Statement that enacts a single method on every module in the list
+    /// Custom UnityEvent class specifically designed to report core module state changes.
+    /// This class inherits from UnityEvent and overrides its functionality to handle two arguments:
+    /// - BC_CoreModule: The core module that experienced the state change.
+    /// - ICoreModule.ModuleStateChangeType: The type of state change that occurred (e.g., Core State, OperationalState, Health, Destroyed).
     /// </summary>
-    /// <param name="action"> is the method enacted on every module</param>
-    protected void PerformActionOnModuleList(Action<BC_CoreModule> action)
+    [Serializable]
+    public class ReportModuleEvent : UnityEvent<BC_CoreModule, ICoreModule.ModuleStateChangeType> { }
+
+    /// <summary>
+    /// Defines the different types of operations that can be applied to core modules.
+    /// </summary>
+    [Serializable]
+    public enum AffectorType
     {
-        foreach (BC_CoreModule module in coreModules)
-        {
-            //cann the action with the module as the parameter
-            action(module);
-        }
+        /// <summary>
+        /// Initiates the startup process for a core module.
+        /// </summary>
+        StartUp,
+
+        /// <summary>
+        /// Initiates the shutdown process for a core module.
+        /// </summary>
+        ShutDown,
+
+        /// <summary>
+        /// Initiates a reboot process for a core module.
+        /// </summary>
+        Reboot
     }
 
-
-
+    #endregion
 }

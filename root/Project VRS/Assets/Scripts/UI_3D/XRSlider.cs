@@ -14,7 +14,7 @@ namespace UnityEngine.XR.Content.Interaction
 
         [SerializeField]
         [Tooltip("The object that is visually grabbed and manipulated")]
-        Transform m_Handle = null;
+        public Transform m_Handle = null;
 
         [SerializeField]
         [Tooltip("The value of the slider")]

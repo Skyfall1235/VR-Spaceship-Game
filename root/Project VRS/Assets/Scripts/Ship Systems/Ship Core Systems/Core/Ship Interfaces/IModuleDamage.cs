@@ -1,5 +1,6 @@
 using System;
 using UnityEngine.Events;
+using static ICoreModule;
 
 /// <summary>
 /// Defines a common set of methods for modules to accept and remove damage values.
@@ -8,35 +9,22 @@ public interface IModuleDamage : IDamageData
 {
 
     /// <summary>
-    /// Represents a custom event that is invoked when a healing action occurs.
+    /// UnityEvent triggered when a core module receives healing.
     /// </summary>
-    /// <remarks>
-    /// Inherits from UnityEvent to provide a flexible way to subscribe to and trigger the event.
-    /// Requires two arguments when invoked:
-    ///   - HealModuleData: Contains information about the healing action.
-    ///   - BC_CoreModule: reference to the affected module.
-    /// </remarks>
     [Serializable]
-    public class OnHealEvent : UnityEvent<HealModuleData, BC_CoreModule> { }
-
+    public class OnHealEvent : UnityEvent<HealModuleData, BC_CoreModule, ModuleStateChangeType> { }
 
     /// <summary>
-    /// Represents a custom event that is triggered when damage is taken.
+    /// UnityEvent triggered when a core module takes damage.
     /// </summary>
-    /// <remarks>
-    /// Inherits from UnityEvent to allow for subscriptions and event triggering.
-    /// Requires two arguments when invoked:
-    ///   - WeaponCollisionData: Contains information about the damage event.
-    ///   - BC_CoreModule: reference to the affected module.
-    /// </remarks>
     [Serializable]
-    public class OnDamageEvent : UnityEvent<WeaponCollisionData, BC_CoreModule> { }
+    public class OnDamageEvent : UnityEvent<WeaponCollisionData, BC_CoreModule, ModuleStateChangeType> { }
 
     /// <summary>
-    /// A custom Unity Event that is triggered when the Modules health Script announces it is dead, and gives the module that died
+    /// UnityEvent triggered when a core module is destroyed.
     /// </summary>
     [Serializable]
-    public class OnDeathEvent : UnityEvent<BC_CoreModule> { }
+    public class OnDeathEvent : UnityEvent<BC_CoreModule, ModuleStateChangeType> { }
 
     /// <summary>
     /// Applies healing to a module.

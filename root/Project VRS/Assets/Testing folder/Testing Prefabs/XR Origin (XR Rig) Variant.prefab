@@ -134,15 +134,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.409
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.115
+      value: 0.112
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.36199996
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1759852000309803162, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -172,9 +172,69 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3191256676938593049, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_UIScrollAction.m_Reference
+      value: 
+      objectReference: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 3191256676938593049, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_UIScrollAction.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4180151660189850070, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492012589301288753, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticHoverEnterDuration
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticHoverEnterIntensity
+      value: 0.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticSelectEnterDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_PlayHapticsOnHoverEntered
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticSelectEnterIntensity
+      value: 0.289
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_PlayHapticsOnSelectEntered
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898281699765233533, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticHoverEnterDuration
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898281699765233533, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticHoverEnterIntensity
+      value: 0.158
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898281699765233533, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticSelectEnterDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898281699765233533, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_PlayHapticsOnHoverEntered
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898281699765233533, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_HapticSelectEnterIntensity
+      value: 0.289
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898281699765233533, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
+      propertyPath: m_PlayHapticsOnSelectEntered
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
