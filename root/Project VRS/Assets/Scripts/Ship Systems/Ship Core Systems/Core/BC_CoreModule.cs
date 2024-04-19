@@ -165,6 +165,15 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     #endregion
 
+    #region Setup
+
+    public virtual void Awake()
+    {
+        InitializeModule();
+    }
+
+    #endregion
+
     #region Intitialization to Manager
 
     /// <summary>
@@ -222,6 +231,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     public virtual void InitializeModule()
     {
+        m_internalModuleHealth = GetComponent<InternalModuleHealth>();
         m_internalModuleHealth.InitializeHealth();
     }
 
@@ -230,6 +240,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     public abstract void ShutDown();
 
+    //this might need to be replaced with some sort of attempt to start up mewthod that takes into account the enertgy draw that it would need?
     public abstract void StartUp();
 
     public abstract void Reboot();

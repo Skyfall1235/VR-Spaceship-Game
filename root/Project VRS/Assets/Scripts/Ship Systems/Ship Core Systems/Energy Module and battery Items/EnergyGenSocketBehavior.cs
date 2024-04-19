@@ -6,11 +6,20 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(XRSocketInteractor))]
 public class EnergyGenSocketBehavior : MonoBehaviour
 {
+    XRSocketInteractor linkedSocket;
+
     [SerializeField]
     private FuelRodBehavior m_currentlyPluggedFuelRod;
     public FuelRodBehavior CurrentlyPluggedFuelRod
     {
         get => m_currentlyPluggedFuelRod;
+    }
+
+    private void Awake()
+    {
+        linkedSocket = GetComponent<XRSocketInteractor>();
+        linkedSocket.selectEntered.AddListener(RegisterFuelRod);
+        linkedSocket.selectExited.AddListener(DeRegisterFuelRod);
     }
 
     public void RegisterFuelRod(SelectEnterEventArgs args)
