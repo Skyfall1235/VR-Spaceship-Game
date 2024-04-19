@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "Custom Logger")]
 [Serializable]
-public class Logger : ScriptableObject
+public class CustomLogger : ScriptableObject
 {
     [SerializeField]
     LogSettings[] m_logSettings = new LogSettings[6];

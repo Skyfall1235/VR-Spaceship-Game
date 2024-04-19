@@ -2,7 +2,8 @@
     "name": "vrs.ShipSystems.Core.Base",
     "rootNamespace": "",
     "references": [
-        "GUID:6dd3ae6f17e739b469bd59cca48d7b70"
+        "GUID:6dd3ae6f17e739b469bd59cca48d7b70",
+        "GUID:9b7bd7a944f1e1b4cb0ed961def17e41"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -44,8 +44,8 @@ public class EnergyGenerationModule : BC_CoreModule
             FuelRodBehavior fuelRod = sockets[i].CurrentlyPluggedFuelRod;
             if (fuelRod.DepletionStatus != DepletionStatus.Depleted || fuelRod.DepletionStatus != DepletionStatus.Nulled)
             {
-                
-                int fuelRodPullRate = fuelRod.SpendUpToFuelRate(out isDepleted);
+                //this needs to be changed as it is nolonger corrected
+                int fuelRodPullRate = fuelRod.SpendUpToFuelRate(5, out isDepleted);
                 
                 totalAvailableEnergy += fuelRodPullRate;
             }

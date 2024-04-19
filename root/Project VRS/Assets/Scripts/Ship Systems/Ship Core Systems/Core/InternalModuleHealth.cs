@@ -13,11 +13,17 @@ public class InternalModuleHealth : MonoBehaviour, IModuleDamage
     public int ModuleHealth;
     //use a scriptable object here?
     //EDIT: i did infact use a scriptable object :P
+    [SerializeField]
+    CustomLogger logger;
 
     #region public stuff
 
     public void InitializeHealth()
     {
+        if(ModuleHealthData == null && logger != null)
+        {
+            logger.Log($"health Data scriptable object is missing on {this.gameObject.name}", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.Other, this);
+        }
         ModuleHealth = ModuleHealthData.healthMax;
     }
 
