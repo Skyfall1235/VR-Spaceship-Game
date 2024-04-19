@@ -22,6 +22,12 @@ public class TargetHandler : MonoBehaviour
     public List<TargetData> RegisteredTargets = new List<TargetData>();
     public UnityEvent<TargetData> OverridePriorityTarget;
 
+    NativeList<JobHandle> m_jobHandles = new NativeList<JobHandle>(Allocator.Persistent);
+    NativeList<float> m_scoreResults = new NativeList<float>(Allocator.Persistent);
+    NativeList<float3> m_targetGameObjectPositions = new NativeList<float3>(Allocator.Persistent);
+    NativeList<float3> m_targetGameObjectVelocities = new NativeList<float3>(Allocator.Persistent);
+    bool m_routineComplete = true;
+
     //register and deregister targets
 
     private void RegisterNewTarget(GameObject target)
@@ -57,21 +63,28 @@ public class TargetHandler : MonoBehaviour
     /// </summary>
     private IEnumerator SortPriorityTargets()
     {
-        if(RegisteredTargets.Count <= 0)
+        if(RegisteredTargets.Count <= 0 || m_routineComplete == false)
         {
             yield break;
         }
+        m_routineComplete = false;
+        m_scoreResults.Clear();
+        m_targetGameObjectPositions.Clear();
+        m_targetGameObjectVelocities.Clear();
+        m_scoreResults.Resize(RegisteredTargets.Count, NativeArrayOptions.ClearMemory);
+        m_targetGameObjectPositions.Resize(RegisteredTargets.Count, NativeArrayOptions.ClearMemory);
+        m_targetGameObjectVelocities.Resize(RegisteredTargets.Count, NativeArrayOptions.ClearMemory);
+        NativeArray<float> scoreResults = m_scoreResults.AsArray();
+        NativeArray<float3> targetGameObjectPositions = m_targetGameObjectPositions.AsArray();
+        NativeArray<float3> targetGameObjectVelocities = m_targetGameObjectVelocities.AsArray();
         //create handle list and variable arrays to pass into the job system
-        NativeList<JobHandle> jobHandles = new NativeList<JobHandle>(Allocator.Temp);
-        NativeArray<float> scoreResults = new NativeArray<float>(RegisteredTargets.Count, Allocator.TempJob);
-        NativeArray<float3> targetGameObjectPositions = new NativeArray<float3>(RegisteredTargets.Count, Allocator.TempJob);
-        NativeArray<float3> targetGameObjectVelocities = new NativeArray<float3>(RegisteredTargets.Count, Allocator.TempJob);
+
         //Define a delegate for checking whether all the jobs are complete
         Func<bool> CheckCalculateScoreJobCompleted = delegate ()
         {
-            int totalJobs = jobHandles.Length;
+            int totalJobs = m_jobHandles.Length;
             int currentJobs = 0;
-            foreach (JobHandle job in jobHandles)
+            foreach (JobHandle job in m_jobHandles)
             {
                 if (job.IsCompleted)
                 {
@@ -95,25 +108,23 @@ public class TargetHandler : MonoBehaviour
             targetGameObjectVelocities[i] = RegisteredTargets[i].TargetRB.velocity;       
         }
         //Create handles for jobs
-        for(int i = 0; i < Mathf.CeilToInt((float)RegisteredTargets.Count / (float)SystemInfo.processorCount); i++)
-        {
-            JobHandle jobHandle = CalculateScoreJob(scoreResults, transform.position, targetGameObjectPositions, targetGameObjectVelocities, ColliderRadius);
-            jobHandles.Add(jobHandle);
-        }
+
+        JobHandle jobHandle = CalculateScoreJob(scoreResults, transform.position, targetGameObjectPositions, targetGameObjectVelocities, ColliderRadius);
+        m_jobHandles.Add(jobHandle);
+
         //start completing all jobs and return control to the main thread until the jobs are completed
-        JobHandle.CompleteAll(jobHandles.AsArray());
+       
         yield return new WaitUntil(CheckCalculateScoreJobCompleted);
+        JobHandle.CompleteAll(m_jobHandles.AsArray());
         for (int i = 0; i < RegisteredTargets.Count -1 ; i++)
         {
             TargetData dataCopy = new TargetData(RegisteredTargets[i].TargetGameObject, RegisteredTargets[i].TargetRB, RegisteredTargets[i].IsEmpty, RegisteredTargets[i].TargetScore);
             RegisteredTargets[i] = new TargetData(dataCopy.TargetGameObject, dataCopy.TargetRB, dataCopy.IsEmpty, scoreResults[i]);
         }
-        //dispose of everything
-        scoreResults.Dispose();
-        targetGameObjectPositions.Dispose();
-        targetGameObjectVelocities.Dispose();
+
         //Sort the list
         RegisteredTargets.Sort((TargetData target1, TargetData target2) => target1.TargetScore.CompareTo(target2.TargetScore));
+        m_routineComplete = true;
     }
     /// <summary>
     /// Schedules a CalculateScore job and returns the handle
@@ -126,8 +137,9 @@ public class TargetHandler : MonoBehaviour
     /// <returns></returns>
     private JobHandle CalculateScoreJob(NativeArray<float> scores, Vector3 shipPosition, NativeArray<float3> targetPositions, NativeArray<float3> targetVelocities, float colliderRadius)
     {
+        const int batchSize = 32;
         CalculateScore score =new CalculateScore(scores, shipPosition.Vector3ToFloat3(), targetPositions, targetVelocities, colliderRadius);
-        return score.Schedule(targetPositions.Length, Mathf.CeilToInt((float)targetPositions.Length / (float)SystemInfo.processorCount));
+        return score.Schedule(targetPositions.Length, batchSize);
     }
 
     [BurstCompile]
@@ -195,10 +207,13 @@ public class TargetHandler : MonoBehaviour
         CompareForEnemyAndRunAction(target, RegisterNewTarget);
         if (target.CompareTag(EnemyTag))
         {
-            StartCoroutine(SortPriorityTargets());
+            //StartCoroutine(SortPriorityTargets());
         }
     }
-
+    private void Update()
+    {
+        StartCoroutine(SortPriorityTargets());
+    }
     private void OnTriggerExit(Collider other)
     {
         GameObject target = other.gameObject;
@@ -210,6 +225,14 @@ public class TargetHandler : MonoBehaviour
         DetectionCollider.radius = ColliderRadius;
     }
 
+    public void OnDestroy()
+    {
+        JobHandle.CompleteAll(m_jobHandles.AsArray());
+        m_jobHandles.Dispose();
+        m_scoreResults.Dispose();
+        m_targetGameObjectPositions.Dispose();
+        m_targetGameObjectVelocities.Dispose();
+    }
     #endregion
 }
 
@@ -229,3 +252,4 @@ public struct TargetData
         this.TargetScore = targetScore;
     }
 }
+
