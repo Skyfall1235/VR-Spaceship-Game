@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5d75d685c8f6ae9469e5b02d42218613, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.07200547, g: 0.0734384, b: 0.081499405, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: e0103fa8697a24042a5a2444fc33e0ec, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 617b8a568ac10764bade7c7b8bec2559, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -891,7 +891,6 @@ GameObject:
   m_Component:
   - component: {fileID: 291208997}
   - component: {fileID: 291209000}
-  - component: {fileID: 291208999}
   - component: {fileID: 291208998}
   m_Layer: 0
   m_Name: Avionics Module
@@ -908,12 +907,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291208996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.031000018, y: -4.0048695, z: -0.69709206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 517047270}
+  m_Father: {fileID: 1196831773}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &291208998
 MonoBehaviour:
@@ -930,18 +929,6 @@ MonoBehaviour:
   ModuleHealthData: {fileID: 0}
   ModuleHealth: 0
   logger: {fileID: 0}
---- !u!114 &291208999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291208996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a6b801db238a347bd17dc586aaca8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &291209000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,11 +1662,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8269509687026676401}
   - {fileID: 8443869872967011351}
   - {fileID: 172610056}
   - {fileID: 1196831773}
-  - {fileID: 291208997}
   m_Father: {fileID: 156984072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &542511897
@@ -3162,6 +3147,8 @@ Transform:
   m_Children:
   - {fileID: 433828277}
   - {fileID: 681085070}
+  - {fileID: 8269509687026676401}
+  - {fileID: 291208997}
   m_Father: {fileID: 517047270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1201038630 stripped
@@ -6481,6 +6468,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2065161621319791395, guid: cab806f1051cdca409f413c0b49681e9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5345841743299488424, guid: cab806f1051cdca409f413c0b49681e9, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -7779,7 +7770,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 517047270}
+    m_TransformParent: {fileID: 1196831773}
     m_Modifications:
     - target: {fileID: 1508486376708572376, guid: 2fa3202b568f3a64cbd72c5ee2bd9ba3, type: 3}
       propertyPath: m_Name
@@ -7803,15 +7794,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7136679473023098632, guid: 2fa3202b568f3a64cbd72c5ee2bd9ba3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.742
+      value: 0.71099997
       objectReference: {fileID: 0}
     - target: {fileID: 7136679473023098632, guid: 2fa3202b568f3a64cbd72c5ee2bd9ba3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.234
+      value: -3.7708695
       objectReference: {fileID: 0}
     - target: {fileID: 7136679473023098632, guid: 2fa3202b568f3a64cbd72c5ee2bd9ba3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.922
+      value: -3.619092
       objectReference: {fileID: 0}
     - target: {fileID: 7136679473023098632, guid: 2fa3202b568f3a64cbd72c5ee2bd9ba3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7969,6 +7960,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_OnVelocityChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUpdateInputs:
     m_PersistentCalls:
       m_Calls: []
 --- !u!54 &8762077600585629709
