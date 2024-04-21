@@ -60,6 +60,7 @@ public class ShipMovementController : BC_ShipMovementController
     {
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        OnUpdateInputs.Invoke(currentInput);
         float secondaryJoystickYVal = currentInput.ThrustValue;
 
         SaveNewLinearMotionVector(secondaryJoystickYVal);
@@ -70,6 +71,7 @@ public class ShipMovementController : BC_ShipMovementController
     {
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        OnUpdateInputs.Invoke(currentInput);
         float rotationSpeed = Vector2.Distance(Vector2.zero, currentInput.PrimaryFlightStick);
         Vector3 axisOfRotation = FindAxisForRotation(currentInput.PrimaryFlightStick);
         //apply all rotations - pitch, roll, and yaw
@@ -80,6 +82,7 @@ public class ShipMovementController : BC_ShipMovementController
     {
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        OnUpdateInputs.Invoke(currentInput);
         //save new strafe takes the raw yaw value and maps it, then saves it
         SaveNewStrafeVector(currentInput.yawValue);
     }

@@ -100,6 +100,8 @@ public class BC_ShipMovementController : MonoBehaviour
     public TransformChangeEvent OnRotationChangeEvent => m_OnRotationChangeEvent;
     public TransformChangeEvent OnVelocityChangeEvent => m_OnVelocityChangeEvent;
 
+    public UnityEvent<ShipJoystickInput> OnUpdateInputs = new UnityEvent<ShipJoystickInput>();
+
     #endregion
 
     private void OnValidate()
