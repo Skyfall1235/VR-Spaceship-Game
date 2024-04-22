@@ -4,7 +4,8 @@ using UnityEngine;
 
 public partial class AvionicsModule : BC_CoreModule
 {
-    
+    //this partial class focus goes to the handling of accepting inputs and applying them to the ships movement controller
+
 
 
 

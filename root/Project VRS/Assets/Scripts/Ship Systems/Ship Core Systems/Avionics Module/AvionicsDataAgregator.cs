@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Content.Interaction;
 
 public partial class AvionicsModule
 {
@@ -10,8 +9,9 @@ public partial class AvionicsModule
     Vector3 AngularVelocity;
     Vector3 Velocity;
     Vector3 LastVelocity;
-    float EngineThrust; // the speed of foward
+    float EngineThrust; // the speed of forward
     float Throttle;
+    float BreakingForce;
     float yawInput;
     float pitchInput;
     float RollInput;
@@ -32,9 +32,13 @@ public partial class AvionicsModule
 
     public void FixedUpdate()
     {
+        //this should probably be more optimised, but i will just come back to it later
         RetrievePosition();
         RetrieveRigidbodyInfo();
+        CalculateIntertialForce();
     }
+
+    #region Data aggregation
 
     void ParseInput(ShipJoystickInput input)
     {
@@ -42,6 +46,7 @@ public partial class AvionicsModule
         yawInput = input.yawValue;
         RollInput = input.PrimaryFlightStick.x;
         pitchInput = input.PrimaryFlightStick.y;
+        BreakingForce = input.BreakValue;
     }
 
     void RetrievePosition()
@@ -51,7 +56,15 @@ public partial class AvionicsModule
 
     void RetrieveRigidbodyInfo()
     {
+        //oV - old velocity, nV - new velocity, aV - angular velocity, mV - magnitude of velocity
+
+        //save oV
+        LastVelocity = Velocity;
+        //retrieve nV
         Velocity = ShipRigidbody.velocity;
+        //retrieve forward moventum
+        EngineThrust = Velocity.magnitude;
+        //retrieve aV
         AngularVelocity = ShipRigidbody.angularVelocity;
     }
 
@@ -59,9 +72,13 @@ public partial class AvionicsModule
     {
         //due later
         const float GravitationalConstant = 9.8f;
-        float accelleration = (Velocity - LastVelocity).magnitude;
-        float GeforceInt = accelleration / GravitationalConstant;
-        float GeforceFloat = accelleration % GravitationalConstant;
+        float acceleration = (Velocity - LastVelocity).magnitude;
+        float geforceInt = acceleration / GravitationalConstant; //gets the int value
+        float geforceFloat = acceleration % GravitationalConstant;//gets the remainder
+        float finalIForce = geforceInt + geforceFloat;
         //the accelleration per second divided by the gravitational const, negative is blood to head, positive is blood to feet
+        InertialForce = finalIForce;
     }
+
+    #endregion
 }
