@@ -1,3 +1,4 @@
+using Codice.Client.Common.GameUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -89,7 +90,7 @@ public class SO_WeaponData : ScriptableObject
     /// <summary>
     /// The minimum time between firing of the weapon
     /// </summary>
-    [field: SerializeField]
+    [SerializeField][HideInInspector]
     [Tooltip("The minimum time between firing of the weapon")]
     private float m_minimumTimeBetweenFiring;
     public float MinimumTimeBetweenFiring
@@ -101,19 +102,18 @@ public class SO_WeaponData : ScriptableObject
     /// Whether the weapon uses a magazine or not
     /// </summary>
     [Tooltip("Whether the weapon uses a magazine or not")]
-    [HideInInspector]
+    [HideInInspector] [SerializeField]
     bool m_usesMag = true;
     public bool UsesMag
     {
         get => m_usesMag;
-        set => m_usesMag = value;
     }
 
     /// <summary>
     /// The amount of time it takes to reload a weapon
     /// </summary>
     [Tooltip("The amount of time it takes to reload a weapon")]
-    [HideInInspector]
+    [SerializeField][HideInInspector]
     float m_reloadTime = 0;
     public float? ReloadTime
     {
@@ -128,7 +128,7 @@ public class SO_WeaponData : ScriptableObject
                 return null;
             }
         }
-        set
+        private set
         {
             if(UsesMag && value != null)
             {
@@ -141,7 +141,7 @@ public class SO_WeaponData : ScriptableObject
     /// The total capacity of the magazine
     /// </summary>
     [Tooltip("The amount of time it takes to reload a weapon")]
-    [HideInInspector]
+    [SerializeField][HideInInspector]
     uint m_magazineCapacity = 0;
     public uint? MagazineCapacity
     {
@@ -156,7 +156,7 @@ public class SO_WeaponData : ScriptableObject
                 return null;
             }
         }
-        set
+        private set
         {
             if (UsesMag)
             {
@@ -171,24 +171,40 @@ public class SO_WeaponData : ScriptableObject
 [CustomEditor(typeof(SO_WeaponData))]
 public class SO_WeaponData_Editor : Editor
 {
+    SerializedProperty m_magazineCapacity;
+    SerializedProperty m_reloadTime;
+    SerializedProperty m_minimumTimeBetweenFiring;
+    SerializedProperty m_usesMag;
+    private void OnEnable()
+    {
+        m_magazineCapacity = serializedObject.FindProperty(nameof(m_magazineCapacity));
+        m_reloadTime = serializedObject.FindProperty(nameof(m_reloadTime));
+        m_minimumTimeBetweenFiring = serializedObject.FindProperty(nameof(m_minimumTimeBetweenFiring));
+        m_usesMag = serializedObject.FindProperty(nameof(m_usesMag));
+    }
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
+        serializedObject.Update();
         SO_WeaponData scriptToDisplayDataFor = (SO_WeaponData)target;
         EditorGUI.BeginChangeCheck();
         int newMagazineCapacityValue = 0;
         float newReloadTime = 0;
-        scriptToDisplayDataFor.UsesMag = EditorGUILayout.Toggle("Uses Mag", scriptToDisplayDataFor.UsesMag);
+        float newMinimumTimeBetweenFiring = EditorGUILayout.FloatField("Minimum Time Between Shots", m_minimumTimeBetweenFiring.floatValue);
+        bool newUsesMag = EditorGUILayout.Toggle("Uses Mag", scriptToDisplayDataFor.UsesMag);
         if (scriptToDisplayDataFor.UsesMag)
         {
-            newReloadTime = EditorGUILayout.FloatField("Reload Time", (float)scriptToDisplayDataFor.ReloadTime);
-            newMagazineCapacityValue = EditorGUILayout.IntField("Magazine Capacity", (int)scriptToDisplayDataFor.MagazineCapacity);
+            newReloadTime = EditorGUILayout.FloatField("Reload Time", m_reloadTime.floatValue);
+            newMagazineCapacityValue = EditorGUILayout.IntField("Magazine Capacity", m_magazineCapacity.intValue);
         }
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObjects(targets, "Changed Scriptable Object");
-            scriptToDisplayDataFor.MagazineCapacity = (uint)Mathf.Clamp(newMagazineCapacityValue, 0, uint.MaxValue);
-            scriptToDisplayDataFor.ReloadTime = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            m_usesMag.boolValue = newUsesMag;
+            m_minimumTimeBetweenFiring.floatValue = Mathf.Clamp(newMinimumTimeBetweenFiring, 0 , float.MaxValue);
+            m_magazineCapacity.intValue = (int)Mathf.Clamp(newMagazineCapacityValue, 0, uint.MaxValue);
+            m_reloadTime.floatValue = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            serializedObject.ApplyModifiedProperties();
         }
     }
 

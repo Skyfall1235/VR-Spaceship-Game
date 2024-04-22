@@ -22,7 +22,7 @@ public class TargetHandler : MonoBehaviour
     public List<TargetData> RegisteredTargets = new List<TargetData>();
     public UnityEvent<TargetData> OverridePriorityTarget;
 
-    NativeList<JobHandle> m_jobHandles = new NativeList<JobHandle>(Allocator.Persistent);
+    JobHandle m_jobHandle;
     NativeList<float> m_scoreResults = new NativeList<float>(Allocator.Persistent);
     NativeList<float3> m_targetGameObjectPositions = new NativeList<float3>(Allocator.Persistent);
     NativeList<float3> m_targetGameObjectVelocities = new NativeList<float3>(Allocator.Persistent);
@@ -79,28 +79,6 @@ public class TargetHandler : MonoBehaviour
         NativeArray<float3> targetGameObjectVelocities = m_targetGameObjectVelocities.AsArray();
         //create handle list and variable arrays to pass into the job system
 
-        //Define a delegate for checking whether all the jobs are complete
-        Func<bool> CheckCalculateScoreJobCompleted = delegate ()
-        {
-            int totalJobs = m_jobHandles.Length;
-            int currentJobs = 0;
-            foreach (JobHandle job in m_jobHandles)
-            {
-                if (job.IsCompleted)
-                {
-                    currentJobs++;
-                }
-            }
-            if (currentJobs >= totalJobs)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        };
-
         //fill out the incoming parameter lists
         for (int i = 0; i < RegisteredTargets.Count; i++)
         {
@@ -109,13 +87,12 @@ public class TargetHandler : MonoBehaviour
         }
         //Create handles for jobs
 
-        JobHandle jobHandle = CalculateScoreJob(scoreResults, transform.position, targetGameObjectPositions, targetGameObjectVelocities, ColliderRadius);
-        m_jobHandles.Add(jobHandle);
+        m_jobHandle = CalculateScoreJob(scoreResults, transform.position, targetGameObjectPositions, targetGameObjectVelocities, ColliderRadius);
 
         //start completing all jobs and return control to the main thread until the jobs are completed
        
-        yield return new WaitUntil(CheckCalculateScoreJobCompleted);
-        JobHandle.CompleteAll(m_jobHandles.AsArray());
+        yield return new WaitUntil(() => m_jobHandle.IsCompleted);
+        m_jobHandle.Complete();
         for (int i = 0; i < RegisteredTargets.Count -1 ; i++)
         {
             TargetData dataCopy = new TargetData(RegisteredTargets[i].TargetGameObject, RegisteredTargets[i].TargetRB, RegisteredTargets[i].IsEmpty, RegisteredTargets[i].TargetScore);
@@ -227,8 +204,7 @@ public class TargetHandler : MonoBehaviour
 
     public void OnDestroy()
     {
-        JobHandle.CompleteAll(m_jobHandles.AsArray());
-        m_jobHandles.Dispose();
+        m_jobHandle.Complete();
         m_scoreResults.Dispose();
         m_targetGameObjectPositions.Dispose();
         m_targetGameObjectVelocities.Dispose();
