@@ -9,6 +9,7 @@ public partial class AvionicsModule
     Vector3 PositionInSpace;
     Vector3 AngularVelocity;
     Vector3 Velocity;
+    Vector3 LastVelocity;
     float EngineThrust; // the speed of foward
     float Throttle;
     float yawInput;
@@ -57,5 +58,10 @@ public partial class AvionicsModule
     void CalculateIntertialForce()
     {
         //due later
+        const float GravitationalConstant = 9.8f;
+        float accelleration = (Velocity - LastVelocity).magnitude;
+        float GeforceInt = accelleration / GravitationalConstant;
+        float GeforceFloat = accelleration % GravitationalConstant;
+        //the accelleration per second divided by the gravitational const, negative is blood to head, positive is blood to feet
     }
 }
