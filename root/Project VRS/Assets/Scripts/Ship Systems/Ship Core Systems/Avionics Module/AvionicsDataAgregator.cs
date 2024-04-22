@@ -17,7 +17,7 @@ public partial class AvionicsModule
     float RollInput;
     float InertialForce;
 
-    bool AreControlsResponsive = true;
+    protected bool AreControlsResponsive = true;
 
     BC_ShipMovementController movementController;
     Rigidbody ShipRigidbody;
@@ -25,9 +25,6 @@ public partial class AvionicsModule
     public override void Awake()
     {
         base.Awake();
-        ShipRigidbody = transform.root.GetComponent<Rigidbody>();
-        movementController.OnUpdateInputs.AddListener(ParseInput);
-        movementController.OnUpdateInputs.AddListener(ParseInput);
     }
 
     public void FixedUpdate()

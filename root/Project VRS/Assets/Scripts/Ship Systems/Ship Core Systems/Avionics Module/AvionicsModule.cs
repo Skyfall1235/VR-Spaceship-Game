@@ -1,32 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ICoreModule;
 
 public partial class AvionicsModule : BC_CoreModule
 {
-    //this partial class focus goes to the handling of accepting inputs and applying them to the ships movement controller
-
-
-
-
-    public override void Reboot()
+    #region Start up and Shut down logic
+    protected override void PreStartUpLogic()
     {
-        throw new System.NotImplementedException();
+        base.PreStartUpLogic();
+        ShipRigidbody = transform.root.GetComponent<Rigidbody>();
+        //setup for the inputs
+        movementController.OnUpdateInputs.AddListener(ParseInput);
+        movementController.OnUpdateInputs.AddListener(ParseInput);
     }
 
-    public override void ReleaseResources()
+    protected override void PostStartUpLogic()
     {
-        throw new System.NotImplementedException();
+        base.PostStartUpLogic();
+        AreControlsResponsive = true;
     }
 
-    public override void ShutDown()
+    protected override void PreShutDownLogic()
     {
-        throw new System.NotImplementedException();
+        base.PreShutDownLogic();
+        AreControlsResponsive = false;
+        ShipRigidbody = null;
+        //setup for the inputs
+        movementController.OnUpdateInputs.RemoveListener(ParseInput);
+        movementController.OnUpdateInputs.RemoveListener(ParseInput);
     }
 
-    public override void StartUp()
+    protected override void PostShutDownLogic()
     {
-        throw new System.NotImplementedException();
+        base.PostShutDownLogic();
     }
+
+    #endregion
 }
 

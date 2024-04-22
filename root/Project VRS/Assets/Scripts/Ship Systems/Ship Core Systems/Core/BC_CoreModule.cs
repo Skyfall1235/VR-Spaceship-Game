@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using static SystemResourceQueue;
 
 /// <summary>
@@ -134,6 +135,17 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         get => m_systemType;
     }
 
+    [Header("Delays for State Changes")]
+    [SerializeField]
+    protected float m_startUpDelay = 1f;
+
+    [SerializeField]
+    protected float m_shutDownDelay = 1f;
+
+    [SerializeField]
+    protected float m_rebootDelay = 1f;
+
+
     #endregion
 
     #region Base Class unity Events
@@ -239,16 +251,111 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         m_internalModuleHealth.InitializeHealth();
     }
 
-    //not in use yet so dont touch it
-    public abstract void ReleaseResources();
+    #region Start up, restart, and shut down logic
+    public virtual void ShutDown()
+    {
+        StartCoroutine(ShutDownRoutine(false));
+    }
 
-    public abstract void ShutDown();
+    public virtual void StartUp()
+    {
+        StartCoroutine(StartUpRoutine());
+    }
 
-    //this might need to be replaced with some sort of attempt to start up mewthod that takes into account the enertgy draw that it would need?
-    public abstract void StartUp();
+    public virtual void Reboot()
+    {
+        StartCoroutine(RebootRoutine());
+    }
 
-    public abstract void Reboot();
-    
+    #region pre and post logic for state changes
+
+    protected virtual void PreStartUpLogic()
+    {
+
+    }
+
+    protected virtual void PostStartUpLogic()
+    {
+
+    }
+
+    protected virtual void PreShutDownLogic()
+    {
+
+    }
+
+    protected virtual void PostShutDownLogic()
+    {
+
+    }
+
+    #endregion
+
+    IEnumerator StartUpRoutine()
+    {
+        //do any logic before the module turns on
+        PreStartUpLogic();
+
+        //set as preparing for both the core module state and the operational state
+        m_operationalState = ICoreModule.ModuleOperationalState.Preparing;
+        OnModuleOperationalStateChange.Invoke(m_operationalState, this, ICoreModule.ModuleStateChangeType.OperationalState);
+
+        m_coreState = ICoreModule.CoreModuleState.Disabled;
+        OnCoreModuleStateChange.Invoke(m_coreState, this, ICoreModule.ModuleStateChangeType.CoreState);
+
+        //wait
+        yield return new WaitForSeconds(m_startUpDelay);
+
+        //do post start up logic
+        PostStartUpLogic();
+
+        m_coreState = ICoreModule.CoreModuleState.Operational;
+        OnCoreModuleStateChange.Invoke(m_coreState, this, ICoreModule.ModuleStateChangeType.CoreState);
+
+        m_operationalState = ICoreModule.ModuleOperationalState.Active;
+        OnModuleOperationalStateChange.Invoke(m_operationalState, this, ICoreModule.ModuleStateChangeType.OperationalState);
+    }
+
+    IEnumerator ShutDownRoutine(bool isRebooting)
+    {
+        //logic before the shut down
+        PreShutDownLogic();
+
+        //set as preparing for both the core module state and the operational state
+        m_operationalState = ICoreModule.ModuleOperationalState.Preparing;
+        OnModuleOperationalStateChange.Invoke(m_operationalState, this, ICoreModule.ModuleStateChangeType.OperationalState);
+
+        m_coreState = ICoreModule.CoreModuleState.Standby;
+        OnCoreModuleStateChange.Invoke(m_coreState, this, ICoreModule.ModuleStateChangeType.CoreState);
+
+        //wait
+        yield return new WaitForSeconds(m_shutDownDelay);
+
+        //call post process logic
+        PostShutDownLogic();
+
+        m_coreState = ICoreModule.CoreModuleState.Disabled;
+        OnCoreModuleStateChange.Invoke(m_coreState, this, ICoreModule.ModuleStateChangeType.CoreState);
+
+        //reboot notifiers
+        if (isRebooting)
+        {
+            m_operationalState = ICoreModule.ModuleOperationalState.Rebooting;
+            OnModuleOperationalStateChange.Invoke(m_operationalState, this, ICoreModule.ModuleStateChangeType.OperationalState);
+        }
+    }
+
+    IEnumerator RebootRoutine()
+    {
+        //shutdowm then start up
+        StartCoroutine(ShutDownRoutine(true));
+        yield return new WaitForSeconds(m_rebootDelay);
+        StartCoroutine(StartUpRoutine());
+    }
+
+
+    #endregion
+
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
     {
         AttemptToLinkManager(currentManager);

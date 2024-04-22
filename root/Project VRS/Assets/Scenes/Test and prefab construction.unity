@@ -942,12 +942,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shipModuleManager: {fileID: 0}
-  m_coreState: 0
+  m_coreState: 2
   m_operationalState: 0
   m_boostPercent: 0
   m_powerRequirement: 0
   m_moduleEnergyPriorty: 0
   m_systemType: 1
+  m_startUpDelay: 1
+  m_shutDownDelay: 1
+  m_rebootDelay: 1
   OnCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -1490,6 +1493,9 @@ MonoBehaviour:
   m_powerRequirement: 0
   m_moduleEnergyPriorty: 0
   m_systemType: 1
+  m_startUpDelay: 1
+  m_shutDownDelay: 1
+  m_rebootDelay: 1
   OnCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []

@@ -167,8 +167,9 @@ public class WeaponManagerModule : BC_CoreModule
         }
     }
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         foreach(Transform transform in _weaponSlotPositions)
         {
             _weapons.AddLast(new WeaponSlot(transform));
@@ -183,26 +184,26 @@ public class WeaponManagerModule : BC_CoreModule
 
     #endregion
 
-    #region Base class Methods
+    #region Start up and Shutdown Logic
 
-    public override void ReleaseResources()
+    protected override void PreStartUpLogic()
     {
-        throw new NotImplementedException();
+
     }
 
-    public override void ShutDown()
+    protected override void PostStartUpLogic()
     {
-        throw new NotImplementedException();
+
     }
 
-    public override void StartUp()
+    protected override void PreShutDownLogic()
     {
-        throw new NotImplementedException();
+
     }
 
-    public override void Reboot()
+    protected override void PostShutDownLogic()
     {
-        throw new NotImplementedException();
+
     }
 
     #endregion

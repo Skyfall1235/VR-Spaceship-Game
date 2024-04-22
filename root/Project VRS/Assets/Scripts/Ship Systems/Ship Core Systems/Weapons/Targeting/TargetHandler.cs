@@ -149,25 +149,6 @@ public class TargetHandler : MonoBehaviour
         
     }
 
-
-
-    public int FindBestTargetForPriority(GameObject turretGO)
-    {
-        //take into account the position of the turret
-
-        //comapare and see which targets are in the field of view
-
-        //see which targets are closest
-
-        //attempt to take the closest one that is in view relative to the turret
-
-        //if no target is in the FOV, target the one closest to entering the FOV
-
-        //we are retuning an int because that the index of he targe in the target list
-
-        return 0;
-    }
-
     private void CompareForEnemyAndRunAction(GameObject target, Action<GameObject> action)
     {
         if (target.CompareTag(EnemyTag))

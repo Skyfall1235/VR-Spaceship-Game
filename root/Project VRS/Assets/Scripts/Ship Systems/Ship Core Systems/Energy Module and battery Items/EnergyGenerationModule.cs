@@ -62,24 +62,29 @@ public class EnergyGenerationModule : BC_CoreModule
 
     #region Base Class Methods
 
-    public override void Reboot()
+    public override void Awake()
     {
-        throw new System.NotImplementedException();
+        base.Awake();
     }
 
-    public override void ReleaseResources()
+    protected override void PreStartUpLogic()
     {
-        throw new System.NotImplementedException();
+
     }
 
-    public override void ShutDown()
+    protected override void PostStartUpLogic()
     {
-        throw new System.NotImplementedException();
+
     }
 
-    public override void StartUp()
+    protected override void PreShutDownLogic()
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    protected override void PostShutDownLogic()
+    {
+
     }
 
     #endregion
