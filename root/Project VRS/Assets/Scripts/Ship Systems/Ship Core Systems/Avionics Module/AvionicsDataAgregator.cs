@@ -31,7 +31,7 @@ public partial class AvionicsModule
     {
         //this should probably be more optimised, but i will just come back to it later
         RetrievePosition();
-        RetrieveRigidbodyInfo();
+        //RetrieveRigidbodyInfo();
         CalculateIntertialForce();
     }
 
