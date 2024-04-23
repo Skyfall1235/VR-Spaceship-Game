@@ -18,6 +18,7 @@ public class FOVSensor : MonoBehaviour
     [SerializeField][HideInInspector] int m_xSize = 2;
     [SerializeField][HideInInspector] int m_ySize = 2;
     [SerializeField] LayerMask m_fovCollisionMask;
+    Vector3[] preCollisionVertexPositions;
     private void OnTriggerEnter(Collider other)
     {
         if (!m_objectsInSight.Contains(other.gameObject))
@@ -36,12 +37,7 @@ public class FOVSensor : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        CheckComponents();
-        if (m_fovMesh.vertices != null)
-        {
-            CreateShape();
-        }
-        UpdateVerticies();
+        CreateShape();
     }
     private void Awake()
     {
@@ -62,38 +58,31 @@ public class FOVSensor : MonoBehaviour
             m_collider.convex = true;
             m_collider.isTrigger = true;
         }
-        m_fovMesh = new Mesh();
-        m_filter.mesh = m_fovMesh;
-        m_fovMesh.MarkDynamic();
-        m_collider.sharedMesh = m_fovMesh;
+        if(m_fovMesh == null)
+        {
+            m_fovMesh = new Mesh();
+            m_filter.mesh = m_fovMesh;
+            m_collider.sharedMesh = m_fovMesh;
+            m_fovMesh.MarkDynamic();
+        }
     }
     public void CreateShape()
     {
-        Vector3 startingpoint = Vector3.zero;
-        Vector3 farFOVCenter = startingpoint + Vector3.forward * m_sightDistance;
-
-
-        Vector3 topRight = CalculateTopRightPoint(farFOVCenter);
-        Vector3 topLeft = CalculateTopLeftPoint(farFOVCenter);
-        Vector3 bottomRight = CalculateBottomRightPoint(farFOVCenter);
-        Vector3 bottomLeft = CalculateBottomLeftPoint(farFOVCenter);
-
-        float distanceOnX = Vector3.Distance(topLeft, topRight) / m_xSize;
-        float distanceOnY = Vector3.Distance(bottomRight, topRight) / (m_ySize);
-
-        Vector3[] verts = new Vector3[((m_xSize + 1) * (m_ySize + 1)) + 1];
-        verts[0] = startingpoint;
-        for (int x = 0, i = 1; x <= m_xSize; x++)
-        {
-            for (int y = 0; y <= m_ySize; y++)
-            {
-                verts[i] = new Vector3(bottomLeft.x + (distanceOnX * x), bottomLeft.y + (distanceOnY * y), farFOVCenter.z);
-                i++;
-            }
-        }
+        Vector3[] verts;
         int[] tris = new int[m_xSize * m_ySize * 6 + (6 * m_xSize) + (6 * m_ySize)];
-        //Debug.Log(newTris.Length);
-
+        if (preCollisionVertexPositions == null || preCollisionVertexPositions.Length <= 0) 
+        {
+            PrecalculateVertexPositions();
+        }
+        verts = UpdateVerticies();
+        DrawTriangles(ref tris);
+        m_fovMesh.Clear();
+        m_fovMesh.vertices = verts;
+        m_fovMesh.triangles = tris;
+        m_fovMesh.RecalculateNormals();
+    }
+    void DrawTriangles(ref int[] tris)
+    {
         int currentVert = 1;
         int currentTri = 0;
         //Create the front wall
@@ -149,26 +138,43 @@ public class FOVSensor : MonoBehaviour
             currentTri += 3;
             vertexNum += 1;
         }
-        m_fovMesh.Clear();
-        m_fovMesh.vertices = verts;
-        m_fovMesh.triangles = tris;
-        m_fovMesh.RecalculateNormals();
-        UpdateVerticies();
     }
-    public void UpdateVerticies()
+    void PrecalculateVertexPositions()
     {
-        Vector3[] currentMesh = new Vector3[m_fovMesh.vertices.Length];
-        Array.Copy(m_fovMesh.vertices, currentMesh, m_fovMesh.vertices.Length);
-        for (int i = 1; i < currentMesh.Length; i++)
+        Vector3 startingpoint = Vector3.zero;
+        Vector3 farFOVCenter = startingpoint + Vector3.forward * m_sightDistance;
+
+
+        Vector3 topRight = CalculateTopRightPoint(farFOVCenter);
+        Vector3 topLeft = CalculateTopLeftPoint(farFOVCenter);
+        Vector3 bottomRight = CalculateBottomRightPoint(farFOVCenter);
+        Vector3 bottomLeft = CalculateBottomLeftPoint(farFOVCenter);
+
+        float distanceOnX = Vector3.Distance(topLeft, topRight) / m_xSize;
+        float distanceOnY = Vector3.Distance(bottomRight, topRight) / (m_ySize);
+        preCollisionVertexPositions = new Vector3[((m_xSize + 1) * (m_ySize + 1)) + 1];
+        preCollisionVertexPositions[0] = startingpoint;
+        for (int x = 0, i = 1; x <= m_xSize; x++)
         {
-            if (Physics.Linecast(transform.rotation * currentMesh[0] + transform.position, transform.rotation * currentMesh[i] + transform.position, out RaycastHit hitInfo, m_fovCollisionMask))
+            for (int y = 0; y <= m_ySize; y++)
             {
-                currentMesh[i] = Quaternion.Inverse(transform.rotation) * (hitInfo.point - transform.position);
+                preCollisionVertexPositions[i] = new Vector3(bottomLeft.x + (distanceOnX * x), bottomLeft.y + (distanceOnY * y), farFOVCenter.z);
+                i++;
             }
         }
-        m_fovMesh.vertices = currentMesh;
-        m_fovMesh.MarkModified();
-
+    }
+    public Vector3[] UpdateVerticies()
+    {
+        Vector3[] currentVerticies = new Vector3[preCollisionVertexPositions.Length];
+        Array.Copy(preCollisionVertexPositions, currentVerticies, preCollisionVertexPositions.Length);
+        for (int i = 1; i < currentVerticies.Length; i++)
+        {
+            if (Physics.Linecast(transform.rotation * preCollisionVertexPositions[0] + transform.position, transform.rotation * preCollisionVertexPositions[i] + transform.position, out RaycastHit hitInfo, m_fovCollisionMask))
+            {
+                currentVerticies[i] = Quaternion.Inverse(transform.rotation) * (hitInfo.point - transform.position);
+            }
+        }
+        return currentVerticies;
     }
     private void OnDrawGizmos()
     {
@@ -261,7 +267,6 @@ public class AISensorInspector : Editor
             m_ySize.intValue = Mathf.Clamp(newYSize, 1, int.MaxValue);
             serializedObject.ApplyModifiedProperties();
             scriptToUpdate.CheckComponents();
-            scriptToUpdate.CreateShape();
         }
     }
 }
