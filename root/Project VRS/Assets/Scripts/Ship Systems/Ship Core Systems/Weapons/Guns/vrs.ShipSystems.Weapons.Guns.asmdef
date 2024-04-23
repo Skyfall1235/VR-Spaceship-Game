@@ -1,0 +1,17 @@
+{
+    "name": "vrs.ShipSystems.Weapons.Guns",
+    "rootNamespace": "",
+    "references": [
+        "GUID:abb0239e6ec62eb48b0d3693e7e2f53f",
+        "GUID:123a3d4b6916622409770533c4ecf412"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

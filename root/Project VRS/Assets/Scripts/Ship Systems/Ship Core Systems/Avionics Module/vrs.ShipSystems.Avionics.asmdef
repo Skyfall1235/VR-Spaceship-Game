@@ -1,0 +1,17 @@
+{
+    "name": "vrs.ShipSystems.Avionics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:600487aca8c3f3f43b3caf5badfda3c4",
+        "GUID:ce64cf24d39ee6c4e80f3fe15465d037"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

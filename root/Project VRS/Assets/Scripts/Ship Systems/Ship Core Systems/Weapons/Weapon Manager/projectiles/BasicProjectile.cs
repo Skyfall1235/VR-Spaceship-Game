@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [RequireComponent(typeof(TrailRenderer))]
 public class BasicProjectile : MonoBehaviour
 {
-    public Gun gunThatFiredProjectile;
+    public Weapon gunThatFiredProjectile;
     [SerializeField] float timeToDestroyAfter;
     [SerializeField] ForceMode forceMode;
     [SerializeField] float speed;
@@ -21,7 +22,7 @@ public class BasicProjectile : MonoBehaviour
         yield return new WaitForSeconds(timeToDestroyAfter);
         if(gunThatFiredProjectile != null)
         {
-            gunThatFiredProjectile.Pool.Release(gameObject);
+            //gunThatFiredProjectile.Pool.Release(gameObject);
         }
     }
     public void Setup(Vector3 startingPosition, Quaternion startingRotation)
