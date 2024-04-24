@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6492012589301288753, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_RequestedTrackingOriginMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7259132296497624453, guid: c0f66a20c10510f47809972f8b931ed9, type: 3}
       propertyPath: m_HapticHoverEnterDuration

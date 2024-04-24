@@ -55,6 +55,9 @@ MonoBehaviour:
   m_powerRequirement: 0
   m_moduleEnergyPriorty: 0
   m_systemType: 1
+  m_startUpDelay: 1
+  m_shutDownDelay: 1
+  m_rebootDelay: 1
   OnCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -86,8 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleHealthData: {fileID: 0}
+  ModuleHealthData: {fileID: 11400000, guid: dfa0e5ad79be6a9479e4002ddcda3cf7, type: 2}
   ModuleHealth: 0
+  logger: {fileID: 0}
 --- !u!1 &3178963775437942314
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +154,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -258,7 +262,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -444,7 +448,7 @@ GameObject:
   - component: {fileID: 1425578634105748812}
   - component: {fileID: 6714214181607353174}
   m_Layer: 0
-  m_Name: InteractorSocket SLIDER TEST
+  m_Name: InteractorSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,7 +498,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -581,34 +585,10 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425578634105748812}
-        m_TargetAssemblyTypeName: EnergyGenSocketBehavior, vrs.ShipSystems.EnergyManagement
-        m_MethodName: RegisterFuelRod
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1425578634105748812}
-        m_TargetAssemblyTypeName: EnergyGenSocketBehavior, vrs.ShipSystems.EnergyManagement
-        m_MethodName: DeRegisterFuelRod
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_OnHoverEntered:

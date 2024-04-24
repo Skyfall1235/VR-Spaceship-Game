@@ -266,7 +266,8 @@ public class AISensorInspector : Editor
             m_xSize.intValue = Mathf.Clamp(newXSize, 1, int.MaxValue);
             m_ySize.intValue = Mathf.Clamp(newYSize, 1, int.MaxValue);
             serializedObject.ApplyModifiedProperties();
-            scriptToUpdate.CheckComponents();
+            //scriptToUpdate.CheckComponents();
+            //scriptToUpdate.CreateShape();
         }
     }
 }
