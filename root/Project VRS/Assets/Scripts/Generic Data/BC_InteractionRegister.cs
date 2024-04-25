@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 /// <summary>
@@ -14,8 +15,20 @@ public class BC_InteractionRegister : MonoBehaviour
     {
         get { return m_registeredInteractor; }
     }
-    [SerializeField]
+
+    [SerializeField] [HideInInspector]
     protected XRBaseInteractable m_associatedInteractable;
+
+    ///<summary>
+    ///Registers event listeners for interaction registration and de-registration.
+    ///</summary>
+    ///<param name="registerEvent">The event to listen to for interaction registration.</param>
+    ///<param name = "deRegegisterEvent" > The event to listen to for interaction de-registration.</param>
+    protected void RegisterListeners(UnityEvent<BaseInteractionEventArgs> registerEvent, UnityEvent<BaseInteractionEventArgs> deRegegisterEvent)
+    {
+        registerEvent.AddListener(RegisterInteractor);
+        deRegegisterEvent.AddListener(DeRegisterInteractor);
+    }
 
     /// <summary>
     /// Registers an XRBaseInteractor with the current object.

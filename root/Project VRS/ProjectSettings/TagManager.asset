@@ -12,18 +12,18 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
+  - PlayerBody
+  - PlayerHands
   - PlayerShip
+  - HUD UI
+  - 
+  - 
+  - 
+  - 
+  - 
   - Ship
   - Shield
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 
