@@ -8,6 +8,7 @@ public class HelmetDisplayInteractable : BC_InteractionRegister
     private void Awake()
     {
         m_associatedInteractable = GetComponent<XRBaseInteractable>();
-        //RegisterListeners(m_associatedInteractable.selectEntered, m_associatedInteractable.selectExited);
+        m_associatedInteractable.selectEntered.AddListener(RegisterInteractor);
+        m_associatedInteractable.selectExited.AddListener(DeRegisterInteractor);
     }
 }
