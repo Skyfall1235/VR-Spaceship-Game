@@ -1,0 +1,16 @@
+{
+    "name": "vrs.ShipSystems.PlayerMovement",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9b7bd7a944f1e1b4cb0ed961def17e41"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
