@@ -12,7 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3373cd1eab17eeb4abe0b3d015028a26, type: 3}
   m_Name: TestingNodeData
   m_EditorClassIdentifier: 
-  m_nodes: []
+  m_nodes:
+  - m_nodePosition: {x: 0.87, y: 0, z: 0.59}
+    m_subNode:
+    - subNodePosition: {x: 0, y: 0, z: 0}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 1.7, y: 0, z: -0.15}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 1.12, y: 0, z: -1.67}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 0.88, y: 0, z: 1.31}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: -1.64, y: 0, z: 0.33}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: -2.99, y: 0, z: -0.9}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+  - m_nodePosition: {x: 0.87, y: 0, z: 0.59}
+    m_subNode:
+    - subNodePosition: {x: 0, y: 0, z: 0}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 1.7, y: 0, z: -0.15}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 1.12, y: 0, z: -1.67}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 0.88, y: 0, z: 1.31}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: -1.64, y: 0, z: 0.33}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: -2.99, y: 0, z: -0.9}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
   m_currentNode:
-    CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
-    SeatRotationAdjustment: 0
+    m_nodePosition: {x: 0.87, y: 0, z: 0.59}
+    m_subNode:
+    - subNodePosition: {x: 0, y: 0, z: 0}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 1.7, y: 0, z: -0.15}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 1.12, y: 0, z: -1.67}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: 0.88, y: 0, z: 1.31}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: -1.64, y: 0, z: 0.33}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0
+    - subNodePosition: {x: -2.99, y: 0, z: -0.9}
+      CustomSeatPositionAdjustment: {x: 0, y: 0, z: 0}
+      SeatRotationAdjustment: 0

@@ -2229,11 +2229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197a411187cb55240ab8147310159b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObjectPositions:
-  - Node: {fileID: 0}
-    subNode:
-    - {fileID: 0}
-  m_savedNodeData: {fileID: 0}
+  gameObjectPositions: []
+  m_savedNodeData: {fileID: 11400000, guid: 3f49c6cf735cb574dbe8d6228dec9b22, type: 2}
+  logger: {fileID: 11400000, guid: eed22bf2e31e57b479b1d13377fcbcfc, type: 2}
 --- !u!1 &612321958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4640650921596906464, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
