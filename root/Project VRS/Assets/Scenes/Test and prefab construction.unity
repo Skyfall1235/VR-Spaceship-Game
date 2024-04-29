@@ -586,6 +586,8 @@ Transform:
   - {fileID: 1620390967}
   - {fileID: 517047270}
   - {fileID: 1684872923}
+  - {fileID: 723997379}
+  - {fileID: 608959381}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &165270269
@@ -2183,6 +2185,55 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &608959380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 608959381}
+  - component: {fileID: 608959382}
+  m_Layer: 0
+  m_Name: Player Movement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &608959381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608959380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 156984072}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &608959382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608959380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 197a411187cb55240ab8147310159b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectPositions:
+  - Node: {fileID: 0}
+    subNode:
+    - {fileID: 0}
+  m_savedNodeData: {fileID: 0}
 --- !u!1 &612321958 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4640650921596906464, guid: dafdaf0447c1da64dadf0c5ec156533d, type: 3}
@@ -2412,7 +2463,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 459160817}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 156984072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7703,6 +7754,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5208961963939047695, guid: fe5e5f340e961214981a7c03d345bf75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7815105244893764480, guid: fe5e5f340e961214981a7c03d345bf75, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
@@ -8097,7 +8152,6 @@ SceneRoots:
   - {fileID: 2018565911}
   - {fileID: 156984072}
   - {fileID: 1658779250}
-  - {fileID: 723997379}
   - {fileID: 1543845912333860696}
   - {fileID: 1834431210}
   - {fileID: 597200725}
