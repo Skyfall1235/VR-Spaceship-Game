@@ -19,6 +19,7 @@ public class SO_ModuleHealthData : ScriptableObject
     [SerializeField]
     public int healthMax;
 
+
     [SerializeField]
     public int rateOfDamage;
 
