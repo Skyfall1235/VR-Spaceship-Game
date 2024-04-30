@@ -47,7 +47,7 @@ public class SO_WeaponData : ScriptableObject
     /// </summary>
     [SerializeField]
     [Tooltip("Specifies the minimum hardpoint size needed to house this weapon.")]
-    private WeaponSize m_requiredHardpointSize;
+    public WeaponSize m_requiredHardpointSize;
     public WeaponSize RequiredHardpointSize
     {
         get => m_requiredHardpointSize;
@@ -80,11 +80,11 @@ public class SO_WeaponData : ScriptableObject
     /// </summary>
     public enum WeaponSize
     {
-        Small,
-        Medium,
-        Large,
-        XLarge,
-        XXLarge
+        Small = 1,
+        Medium = 2,
+        Large = 3,
+        XLarge = 4,
+        XXLarge = 5
     }
 
     /// <summary>

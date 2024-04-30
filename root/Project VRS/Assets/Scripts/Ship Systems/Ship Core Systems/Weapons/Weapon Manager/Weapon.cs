@@ -7,6 +7,7 @@ public abstract class Weapon : MonoBehaviour
     public bool IsAutomatic { get; protected set; } = false;
     protected float _minimumTimeBetweenFiring = 1;
     bool _currentFiringState = false;
+    [field: SerializeField] public Transform WeaponBase { get; protected set; }
 
     [SerializeField]
     protected SO_WeaponData m_weaponData;

@@ -13,7 +13,7 @@ public class WeaponManagerModule : BC_CoreModule
         List<Weapon> listToReturn = new List<Weapon>();
         foreach(WeaponSlot weaponSlot in _weapons)
         {
-            listToReturn.Add(weaponSlot.weapon);
+            listToReturn.Add(weaponSlot.Weapon);
         } 
         return listToReturn;
     }
@@ -22,12 +22,14 @@ public class WeaponManagerModule : BC_CoreModule
 
     public struct WeaponSlot
     {
-        public Weapon weapon;
-        public Transform transform;
-        public WeaponSlot(Transform newPosition, Weapon newWeapon = null)
+        public Weapon Weapon;
+        public Transform Transform;
+        public SO_WeaponData.WeaponSize WeaponSize;
+        public WeaponSlot(Transform newPosition, SO_WeaponData.WeaponSize weaponSize,Weapon newWeapon = null)
         {
-            weapon = newWeapon;
-            transform = newPosition;
+            Weapon = newWeapon;
+            Transform = newPosition;
+            WeaponSize = weaponSize;
         }
     }
 
@@ -40,9 +42,9 @@ public class WeaponManagerModule : BC_CoreModule
         set 
         {
             _lastMouseDownStatus = value;
-            if (_selectedWeapon.Value.weapon != null)
+            if (_selectedWeapon.Value.Weapon != null)
             {
-                _selectedWeapon.Value.weapon.UpdateFiringState(value);
+                _selectedWeapon.Value.Weapon.UpdateFiringState(value);
 
             }
         }
@@ -56,13 +58,13 @@ public class WeaponManagerModule : BC_CoreModule
         {
             for(LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
             {
-                if(node.Value.weapon == null)
+                if(node.Value.Weapon == null && (int)node.Value.WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
                 {
-                    node.Value = new WeaponSlot(node.Value.transform, weaponToAdd);
-                    if(node.Value.weapon.transform != null && autoManageWeapon)
+                    node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize, weaponToAdd);
+                    if(node.Value.Weapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.weapon.transform.position = node.Value.transform.position;
-                        node.Value.weapon.transform.parent = node.Value.transform;
+                        node.Value.Weapon.WeaponBase.position = node.Value.Transform.position;
+                        node.Value.Weapon.WeaponBase.parent = node.Value.Transform;
                     }
                     return true;
                 }
@@ -73,13 +75,13 @@ public class WeaponManagerModule : BC_CoreModule
         {
             for (LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
             {
-                if( node.Value.transform == transform && node.Value.weapon != null)
+                if( node.Value.Transform == transform && node.Value.Weapon == null && (int)node.Value.WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
                 {
-                    node.Value = new WeaponSlot(node.Value.transform, weaponToAdd);
-                    if (node.Value.weapon.transform != null && autoManageWeapon)
+                    node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize,weaponToAdd);
+                    if (node.Value.Weapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.weapon.transform.position = node.Value.transform.position;
-                        node.Value.weapon.transform.parent = node.Value.transform;
+                        node.Value.Weapon.WeaponBase.position = node.Value.Transform.position;
+                        node.Value.Weapon.WeaponBase.parent = node.Value.Transform;
                     }
                     return true;
                 }
@@ -94,13 +96,13 @@ public class WeaponManagerModule : BC_CoreModule
         {
             for(LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
             {
-                if(node.Value.transform == position)
+                if(node.Value.Transform == position)
                 {
-                    Weapon removedWeapon = node.Value.weapon;
-                    node.Value = new WeaponSlot(node.Value.transform, null);
-                    if(removedWeapon.transform != null && autoManageWeapon)
+                    Weapon removedWeapon = node.Value.Weapon;
+                    node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize, null);
+                    if(removedWeapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.weapon.transform.parent = transform;
+                        node.Value.Weapon.WeaponBase.parent = transform;
                     }
                     return true;
                 }
@@ -111,13 +113,13 @@ public class WeaponManagerModule : BC_CoreModule
         {
             for(LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
             {
-                if(node.Value.weapon == weaponToRemove)
+                if(node.Value.Weapon == weaponToRemove)
                 {
-                    Weapon removedWeapon = node.Value.weapon;
-                    node.Value = new WeaponSlot(position, null);
-                    if (removedWeapon.transform != null && autoManageWeapon)
+                    Weapon removedWeapon = node.Value.Weapon;
+                    node.Value = new WeaponSlot(position, node.Value.WeaponSize, null);
+                    if (removedWeapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.weapon.transform.parent = transform;
+                        node.Value.Weapon.WeaponBase.parent = transform;
                     }
                     return true;
                 }
@@ -173,12 +175,12 @@ public class WeaponManagerModule : BC_CoreModule
         base.Awake();
         foreach(Transform transform in _weaponSlotPositions)
         {
-            _weapons.AddLast(new WeaponSlot(transform));
+            _weapons.AddLast(new WeaponSlot(transform, SO_WeaponData.WeaponSize.Large));
         }
         Weapon[] foundWeapons = transform.GetComponentsInChildren<Weapon>();
         foreach (Weapon weapon in foundWeapons)
         {
-            RegisterWeapon(weapon, null, false);
+            RegisterWeapon(weapon);
         }
          _selectedWeapon = (_weapons.Count <= 0) ? null : _weapons.First;
     }

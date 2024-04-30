@@ -44,25 +44,25 @@ public class FOVSensor : MonoBehaviour
         CheckComponents();
     }
     Mesh m_fovMesh;
-    MeshFilter m_filter;
-    MeshCollider m_collider;
+    public MeshFilter m_Filter { get; private set; }
+    public MeshCollider m_Collider {  get; private set; }
     public void CheckComponents()
     {
-        if (m_filter == null)
+        if (m_Filter == null)
         {
-            m_filter = transform.GetComponent<MeshFilter>();
+            m_Filter = transform.GetComponent<MeshFilter>();
         }
-        if (m_collider == null)
+        if (m_Collider == null)
         {
-            m_collider = transform.GetComponent<MeshCollider>();
-            m_collider.convex = true;
-            m_collider.isTrigger = true;
+            m_Collider = transform.GetComponent<MeshCollider>();
+            m_Collider.convex = true;
+            m_Collider.isTrigger = true;
         }
         if(m_fovMesh == null)
         {
             m_fovMesh = new Mesh();
-            m_filter.mesh = m_fovMesh;
-            m_collider.sharedMesh = m_fovMesh;
+            m_Filter.mesh = m_fovMesh;
+            m_Collider.sharedMesh = m_fovMesh;
             m_fovMesh.MarkDynamic();
         }
     }
@@ -76,7 +76,6 @@ public class FOVSensor : MonoBehaviour
         }
         verts = UpdateVerticies();
         DrawTriangles(ref tris);
-        m_fovMesh.Clear();
         m_fovMesh.vertices = verts;
         m_fovMesh.triangles = tris;
         m_fovMesh.RecalculateNormals();
@@ -139,7 +138,7 @@ public class FOVSensor : MonoBehaviour
             vertexNum += 1;
         }
     }
-    void PrecalculateVertexPositions()
+    public void PrecalculateVertexPositions()
     {
         Vector3 startingpoint = Vector3.zero;
         Vector3 farFOVCenter = startingpoint + Vector3.forward * m_sightDistance;
@@ -181,9 +180,7 @@ public class FOVSensor : MonoBehaviour
         if (m_shouldDrawGizmos)
         {
             CheckComponents();
-            //Gizmos.color = Color.green;
             Gizmos.matrix = transform.localToWorldMatrix;
-            //Gizmos.DrawMesh(m_fovMesh);
             Vector3 startingpoint = Vector3.zero;
             Vector3 farFOVCenter = startingpoint + Vector3.forward * m_sightDistance;
             Vector3 topRight = CalculateTopRightPoint(farFOVCenter);
@@ -225,7 +222,6 @@ public class FOVSensor : MonoBehaviour
     {
         return farFOVCenter + ((Mathf.Sin(m_horizontalSightAngle / 2 * Mathf.Deg2Rad) * m_sightDistance) * Vector3.left) + ((Mathf.Sin(m_verticalSightAngle / 2 * Mathf.Deg2Rad) * m_sightDistance) * Vector3.down);
     }
-
 }
 [CustomEditor(typeof(FOVSensor))]
 public class AISensorInspector : Editor
@@ -265,10 +261,11 @@ public class AISensorInspector : Editor
             m_verticalSightAngle.floatValue = newVerticalSightAngle;
             m_xSize.intValue = Mathf.Clamp(newXSize, 1, int.MaxValue);
             m_ySize.intValue = Mathf.Clamp(newYSize, 1, int.MaxValue);
-            serializedObject.ApplyModifiedProperties();
-            //scriptToUpdate.CheckComponents();
-            //scriptToUpdate.CreateShape();
         }
+        scriptToUpdate.CheckComponents();
+        scriptToUpdate.PrecalculateVertexPositions();
+        scriptToUpdate.CreateShape();
+        serializedObject.ApplyModifiedProperties();
     }
 }
 

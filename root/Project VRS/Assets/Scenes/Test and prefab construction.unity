@@ -2231,6 +2231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObjectPositions: []
   m_savedNodeData: {fileID: 11400000, guid: 3f49c6cf735cb574dbe8d6228dec9b22, type: 2}
+  PlayerGroup: {fileID: 0}
   logger: {fileID: 11400000, guid: eed22bf2e31e57b479b1d13377fcbcfc, type: 2}
 --- !u!1 &612321958 stripped
 GameObject:
@@ -7604,6 +7605,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
+    - target: {fileID: 4294037586097658261, guid: 4465e27aaed8d834ea185f1c189cb6a6, type: 3}
+      propertyPath: <WeaponBase>k__BackingField
+      value: 
+      objectReference: {fileID: 1420254669}
     - target: {fileID: 5775410788062646703, guid: 4465e27aaed8d834ea185f1c189cb6a6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
