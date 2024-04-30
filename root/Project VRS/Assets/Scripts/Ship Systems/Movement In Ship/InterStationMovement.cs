@@ -31,6 +31,9 @@ public class InterStationMovement : MonoBehaviour
     }
 
     [SerializeField]
+    GameObject PlayerGroup;
+
+    [SerializeField]
     CustomLogger logger;
 
     
