@@ -34,6 +34,7 @@ public class TargetHandler : MonoBehaviour
     {
         RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>(), false));
     }
+
     private void UnregisterTarget(GameObject target)
     {
         bool targetRemoved = false;  // Flag to track removal
@@ -103,6 +104,7 @@ public class TargetHandler : MonoBehaviour
         RegisteredTargets.Sort((TargetData target1, TargetData target2) => target1.TargetScore.CompareTo(target2.TargetScore));
         m_routineComplete = true;
     }
+
     /// <summary>
     /// Schedules a CalculateScore job and returns the handle
     /// </summary>
@@ -168,10 +170,12 @@ public class TargetHandler : MonoBehaviour
             //StartCoroutine(SortPriorityTargets());
         }
     }
+
     private void Update()
     {
         StartCoroutine(SortPriorityTargets());
     }
+
     private void OnTriggerExit(Collider other)
     {
         GameObject target = other.gameObject;
@@ -190,7 +194,9 @@ public class TargetHandler : MonoBehaviour
         m_targetGameObjectPositions.Dispose();
         m_targetGameObjectVelocities.Dispose();
     }
+
     #endregion
+
 }
 
 [Serializable]

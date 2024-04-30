@@ -7,6 +7,7 @@ using UnityEngine;
 // oh this one is gonna be funny
 public class InterStationMovement : MonoBehaviour
 {
+    [Header("Overview and Data Management")]
     //struct of the nodes and sub nodes, as well as a settings struct inside it
     //seat adsjustment data can just be a vector3 from the local origin
     public List<SO_NodeData.RawGameobjectPositions> gameObjectPositions;
@@ -30,8 +31,20 @@ public class InterStationMovement : MonoBehaviour
         }
     }
 
+    [Header("Movement Data")]
+
     [SerializeField]
-    GameObject PlayerGroup;
+    private GameObject PlayerGroup;//the chair and all of the player related things
+
+    [SerializeField]
+    private float seatMovementSpeed;
+    //animation curse for a speed curve?
+
+
+
+    //we will need some unity event to fire things off when we get to a node
+
+
 
     [SerializeField]
     CustomLogger logger;

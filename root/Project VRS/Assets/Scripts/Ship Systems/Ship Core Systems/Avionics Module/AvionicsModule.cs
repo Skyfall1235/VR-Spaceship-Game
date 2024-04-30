@@ -6,7 +6,9 @@ using static ICoreModule;
 
 public partial class AvionicsModule : BC_CoreModule
 {
+
     #region Start up and Shut down logic
+
     protected override void PreStartUpLogic()
     {
         base.PreStartUpLogic();
@@ -38,5 +40,6 @@ public partial class AvionicsModule : BC_CoreModule
     }
 
     #endregion
+
 }
 
