@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshCollider))]
+[RequireComponent(typeof(MeshFilter))]
 public class FOVSensor : MonoBehaviour
 {
     public UnityEvent<GameObject> FoundNewObject = new UnityEvent<GameObject>();
@@ -17,24 +17,11 @@ public class FOVSensor : MonoBehaviour
 
     [SerializeField][HideInInspector] int m_xSize = 2;
     [SerializeField][HideInInspector] int m_ySize = 2;
+    [SerializeField] bool m_filterByTags = false;
+    [SerializeField] List<string> m_tagsToLookFor = new List<string>();
     [SerializeField] LayerMask m_fovCollisionMask;
     Vector3[] preCollisionVertexPositions;
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!m_objectsInSight.Contains(other.gameObject))
-        {
-            FoundNewObject.Invoke(other.gameObject);
-            m_objectsInSight.Add(other.gameObject);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (m_objectsInSight.Contains(other.gameObject))
-        {
-            LostObject.Invoke(other.gameObject);
-            m_objectsInSight.Remove(other.gameObject);
-        }
-    }
+
     private void FixedUpdate()
     {
         CreateShape();
@@ -44,25 +31,17 @@ public class FOVSensor : MonoBehaviour
         CheckComponents();
     }
     Mesh m_fovMesh;
-    public MeshFilter m_Filter { get; private set; }
-    public MeshCollider m_Collider {  get; private set; }
+    MeshFilter m_filter;
     public void CheckComponents()
     {
-        if (m_Filter == null)
+        if (m_filter == null)
         {
-            m_Filter = transform.GetComponent<MeshFilter>();
+            m_filter = transform.GetComponent<MeshFilter>();
         }
-        if (m_Collider == null)
-        {
-            m_Collider = transform.GetComponent<MeshCollider>();
-            m_Collider.convex = true;
-            m_Collider.isTrigger = true;
-        }
-        if(m_fovMesh == null)
+        if (m_fovMesh == null)
         {
             m_fovMesh = new Mesh();
-            m_Filter.mesh = m_fovMesh;
-            m_Collider.sharedMesh = m_fovMesh;
+            m_filter.mesh = m_fovMesh;
             m_fovMesh.MarkDynamic();
         }
     }
@@ -70,7 +49,7 @@ public class FOVSensor : MonoBehaviour
     {
         Vector3[] verts;
         int[] tris = new int[m_xSize * m_ySize * 6 + (6 * m_xSize) + (6 * m_ySize)];
-        if (preCollisionVertexPositions == null || preCollisionVertexPositions.Length <= 0) 
+        if (preCollisionVertexPositions == null || preCollisionVertexPositions.Length <= 0)
         {
             PrecalculateVertexPositions();
         }
@@ -79,6 +58,7 @@ public class FOVSensor : MonoBehaviour
         m_fovMesh.vertices = verts;
         m_fovMesh.triangles = tris;
         m_fovMesh.RecalculateNormals();
+        m_fovMesh.MarkModified();
     }
     void DrawTriangles(ref int[] tris)
     {
@@ -166,11 +146,58 @@ public class FOVSensor : MonoBehaviour
     {
         Vector3[] currentVerticies = new Vector3[preCollisionVertexPositions.Length];
         Array.Copy(preCollisionVertexPositions, currentVerticies, preCollisionVertexPositions.Length);
+        List<GameObject> foundGameObjects = new List<GameObject>();
         for (int i = 1; i < currentVerticies.Length; i++)
         {
             if (Physics.Linecast(transform.rotation * preCollisionVertexPositions[0] + transform.position, transform.rotation * preCollisionVertexPositions[i] + transform.position, out RaycastHit hitInfo, m_fovCollisionMask))
             {
+                if (!foundGameObjects.Contains(hitInfo.collider.gameObject))
+                {
+                    foundGameObjects.Add(hitInfo.collider.gameObject);
+                }
                 currentVerticies[i] = Quaternion.Inverse(transform.rotation) * (hitInfo.point - transform.position);
+            }
+        }
+        List<GameObject> objectsToRemove = new List<GameObject>();
+        foreach (GameObject gameObject in m_objectsInSight)
+        {
+            if (!foundGameObjects.Contains(gameObject) && gameObject != null)
+            {
+                if (m_filterByTags)
+                {
+                    if (m_tagsToLookFor.Contains(gameObject.tag))
+                    {
+                        LostObject.Invoke(gameObject);
+                        objectsToRemove.Add(gameObject);
+                    }
+                }
+                else
+                {
+                    LostObject.Invoke(gameObject);
+                    objectsToRemove.Add(gameObject);
+                }
+            }
+        }
+        foreach (GameObject gameObject in objectsToRemove)
+        {
+            m_objectsInSight.Remove(gameObject);
+        }
+        foreach (GameObject gameObject in foundGameObjects)
+        {
+            if (!m_objectsInSight.Contains(gameObject))
+            {
+                if (m_filterByTags)
+                {
+                    if (m_tagsToLookFor.Contains(gameObject.tag))
+                    {
+                        FoundNewObject.Invoke(gameObject);
+                    }
+                }
+                else
+                {
+                    FoundNewObject.Invoke(gameObject);
+                }
+                m_objectsInSight.Add(gameObject);
             }
         }
         return currentVerticies;
@@ -180,7 +207,9 @@ public class FOVSensor : MonoBehaviour
         if (m_shouldDrawGizmos)
         {
             CheckComponents();
+            //Gizmos.color = Color.green;
             Gizmos.matrix = transform.localToWorldMatrix;
+            //Gizmos.DrawMesh(m_fovMesh);
             Vector3 startingpoint = Vector3.zero;
             Vector3 farFOVCenter = startingpoint + Vector3.forward * m_sightDistance;
             Vector3 topRight = CalculateTopRightPoint(farFOVCenter);
@@ -222,6 +251,7 @@ public class FOVSensor : MonoBehaviour
     {
         return farFOVCenter + ((Mathf.Sin(m_horizontalSightAngle / 2 * Mathf.Deg2Rad) * m_sightDistance) * Vector3.left) + ((Mathf.Sin(m_verticalSightAngle / 2 * Mathf.Deg2Rad) * m_sightDistance) * Vector3.down);
     }
+
 }
 [CustomEditor(typeof(FOVSensor))]
 public class AISensorInspector : Editor
@@ -240,6 +270,7 @@ public class AISensorInspector : Editor
         m_verticalSightAngle = serializedObject.FindProperty(nameof(m_verticalSightAngle));
         m_xSize = serializedObject.FindProperty(nameof(m_xSize));
         m_ySize = serializedObject.FindProperty(nameof(m_ySize));
+
     }
     public override void OnInspectorGUI()
     {
@@ -261,11 +292,11 @@ public class AISensorInspector : Editor
             m_verticalSightAngle.floatValue = newVerticalSightAngle;
             m_xSize.intValue = Mathf.Clamp(newXSize, 1, int.MaxValue);
             m_ySize.intValue = Mathf.Clamp(newYSize, 1, int.MaxValue);
+
+            serializedObject.ApplyModifiedProperties();
         }
-        scriptToUpdate.CheckComponents();
         scriptToUpdate.PrecalculateVertexPositions();
+        scriptToUpdate.CheckComponents();
         scriptToUpdate.CreateShape();
-        serializedObject.ApplyModifiedProperties();
     }
 }
-
