@@ -11,13 +11,12 @@ public class ED_NodeBake : Editor
         DrawDefaultInspector();
 
         InterStationMovement myScript = (InterStationMovement)target;
-        if (GUILayout.Button("Build Object"))
+        if (GUILayout.Button("Bake Nodes"))
         {
             if (myScript.SavedNodeData != null)
             {
                 myScript.SavedNodeData.BakeNodeData(myScript.gameObjectPositions);
             }
-
         }
         if (GUILayout.Button("Clear Nodes"))
         {
@@ -25,7 +24,13 @@ public class ED_NodeBake : Editor
             {
                 myScript.SavedNodeData.ClearNodeData();
             }
-
+        }
+        if (GUILayout.Button("Clear Game Object List"))
+        {
+            if (myScript.gameObjectPositions != null)
+            {
+                myScript.ClearGameObjectList();
+            }
         }
     }
 }

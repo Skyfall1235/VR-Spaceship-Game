@@ -97,7 +97,6 @@ public class SO_NodeData : ScriptableObject
             this.m_nodePosition = nodePositionDatum;
             this.m_subNode = subNodeData;
         }
-
     }
 
     [Serializable]

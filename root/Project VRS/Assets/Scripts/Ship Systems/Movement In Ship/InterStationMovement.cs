@@ -49,11 +49,36 @@ public class InterStationMovement : MonoBehaviour
     [SerializeField]
     CustomLogger logger;
 
-    
+
 
     //space for future actual stuff
 
+    #region Input Handling
 
+
+
+    #endregion
+
+    #region Control over Movement
+
+
+
+    #endregion
+
+    #region Movement between Nodes
+
+
+
+    #endregion
+
+    #region Custom Editor Items
+
+    public void ClearGameObjectList()
+    {
+        gameObjectPositions.Clear();
+    }
+
+    #endregion
 
 
 
