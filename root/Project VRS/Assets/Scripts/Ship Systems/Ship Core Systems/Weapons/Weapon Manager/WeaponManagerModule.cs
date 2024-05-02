@@ -8,9 +8,9 @@ public class WeaponManagerModule : BC_CoreModule
 {
     [SerializeField]List<Transform> _weaponSlotPositions = new List<Transform>();
     public LinkedList<WeaponSlot> _weapons { get; private set; } = new LinkedList<WeaponSlot>();
-    public List<Weapon> GetWeapons() 
+    public List<BC_Weapon> GetWeapons() 
     {
-        List<Weapon> listToReturn = new List<Weapon>();
+        List<BC_Weapon> listToReturn = new List<BC_Weapon>();
         foreach(WeaponSlot weaponSlot in _weapons)
         {
             listToReturn.Add(weaponSlot.Weapon);
@@ -22,10 +22,10 @@ public class WeaponManagerModule : BC_CoreModule
 
     public struct WeaponSlot
     {
-        public Weapon Weapon;
+        public BC_Weapon Weapon;
         public Transform Transform;
         public SO_WeaponData.WeaponSize WeaponSize;
-        public WeaponSlot(Transform newPosition, SO_WeaponData.WeaponSize weaponSize,Weapon newWeapon = null)
+        public WeaponSlot(Transform newPosition, SO_WeaponData.WeaponSize weaponSize, BC_Weapon newWeapon = null)
         {
             Weapon = newWeapon;
             Transform = newPosition;
@@ -52,7 +52,7 @@ public class WeaponManagerModule : BC_CoreModule
 
     #region registration, deregistration, creation, and destruction of weapons 
 
-    public bool RegisterWeapon(Weapon weaponToAdd,Transform transform = null, bool autoManageWeapon = true)
+    public bool RegisterWeapon(BC_Weapon weaponToAdd,Transform transform = null, bool autoManageWeapon = true)
     {
         if(transform == null)
         {
@@ -90,7 +90,7 @@ public class WeaponManagerModule : BC_CoreModule
         }
     }
 
-    public bool DeregisterWeapon(Weapon weaponToRemove = null, Transform position = null, bool autoManageWeapon = true)
+    public bool DeregisterWeapon(BC_Weapon weaponToRemove = null, Transform position = null, bool autoManageWeapon = true)
     {
         if (position != null)
         {
@@ -98,7 +98,7 @@ public class WeaponManagerModule : BC_CoreModule
             {
                 if(node.Value.Transform == position)
                 {
-                    Weapon removedWeapon = node.Value.Weapon;
+                    BC_Weapon removedWeapon = node.Value.Weapon;
                     node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize, null);
                     if(removedWeapon.WeaponBase != null && autoManageWeapon)
                     {
@@ -115,7 +115,7 @@ public class WeaponManagerModule : BC_CoreModule
             {
                 if(node.Value.Weapon == weaponToRemove)
                 {
-                    Weapon removedWeapon = node.Value.Weapon;
+                    BC_Weapon removedWeapon = node.Value.Weapon;
                     node.Value = new WeaponSlot(position, node.Value.WeaponSize, null);
                     if (removedWeapon.WeaponBase != null && autoManageWeapon)
                     {
@@ -177,8 +177,8 @@ public class WeaponManagerModule : BC_CoreModule
         {
             _weapons.AddLast(new WeaponSlot(transform, SO_WeaponData.WeaponSize.Large));
         }
-        Weapon[] foundWeapons = transform.GetComponentsInChildren<Weapon>();
-        foreach (Weapon weapon in foundWeapons)
+        BC_Weapon[] foundWeapons = transform.GetComponentsInChildren<BC_Weapon>();
+        foreach (BC_Weapon weapon in foundWeapons)
         {
             RegisterWeapon(weapon);
         }

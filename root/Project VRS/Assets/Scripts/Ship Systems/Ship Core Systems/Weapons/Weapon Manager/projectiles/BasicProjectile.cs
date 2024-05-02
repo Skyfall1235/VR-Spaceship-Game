@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(TrailRenderer))]
 public class BasicProjectile : MonoBehaviour
 {
-    public Weapon gunThatFiredProjectile;
+    public BC_Weapon gunThatFiredProjectile;
     [SerializeField] float timeToDestroyAfter;
     [SerializeField] ForceMode forceMode;
     [SerializeField] float speed;

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Gun : Weapon
+public class TestingGun : BC_Weapon
 {
     public ObjectPool<GameObject> Pool;
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         Pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
@@ -15,7 +15,7 @@ public class Gun : Weapon
     {
         Pool.Get();
     }
-    public override void Reload()
+    protected override void Reload()
     {
         Debug.Log("Reload");
     }
