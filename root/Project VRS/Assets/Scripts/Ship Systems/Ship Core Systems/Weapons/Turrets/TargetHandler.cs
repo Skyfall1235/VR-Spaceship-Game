@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Unity.Burst;
 using Unity.Mathematics;
+using static UnityEngine.GraphicsBuffer;
 
 //FOR THIS SCRIPT TO WORK, WE HAVE T START USING TAGS OR LAYERS.
 //LAYERS WILL BE USES FOR PHYSICS AND TAGS WILL BE USED TO DIFFERENCIATE OBJECTS IN SCENE
@@ -23,9 +24,9 @@ public class TargetHandler : MonoBehaviour
     public UnityEvent<TargetData> OverridePriorityTarget;
 
     JobHandle m_jobHandle;
-    NativeList<float> m_scoreResults = new NativeList<float>(Allocator.Persistent);
-    NativeList<float3> m_targetGameObjectPositions = new NativeList<float3>(Allocator.Persistent);
-    NativeList<float3> m_targetGameObjectVelocities = new NativeList<float3>(Allocator.Persistent);
+    NativeList<float> m_scoreResults;
+    NativeList<float3> m_targetGameObjectPositions;
+    NativeList<float3> m_targetGameObjectVelocities;
     bool m_routineComplete = true;
 
     //register and deregister targets
@@ -64,7 +65,7 @@ public class TargetHandler : MonoBehaviour
     /// </summary>
     private IEnumerator SortPriorityTargets()
     {
-        if(RegisteredTargets.Count <= 0 || m_routineComplete == false)
+        if(RegisteredTargets == null || RegisteredTargets.Count <= 0 || m_routineComplete == false)
         {
             yield break;
         }
@@ -159,7 +160,26 @@ public class TargetHandler : MonoBehaviour
         }
     }
 
+    private void KillTargetingJob()
+    {
+        m_jobHandle.Complete();
+        m_scoreResults.Dispose();
+        m_scoreResults = default;
+        m_targetGameObjectPositions.Dispose();
+        m_targetGameObjectPositions = default;
+        m_targetGameObjectVelocities.Dispose();
+        m_targetGameObjectVelocities = default;
+
+    }
+
     #region Monobehavior Methods
+
+    private void Awake()
+    {
+        m_scoreResults = new NativeList<float>(Allocator.Persistent);
+        m_targetGameObjectPositions = new NativeList<float3>(Allocator.Persistent);
+        m_targetGameObjectVelocities = new NativeList<float3>(Allocator.Persistent);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -167,13 +187,17 @@ public class TargetHandler : MonoBehaviour
         CompareForEnemyAndRunAction(target, RegisterNewTarget);
         if (target.CompareTag(EnemyTag))
         {
-            //StartCoroutine(SortPriorityTargets());
+            StartCoroutine(SortPriorityTargets());
         }
     }
 
-    private void Update()
+    private void OnTriggerStay(Collider other)
     {
-        StartCoroutine(SortPriorityTargets());
+        GameObject target = other.gameObject;
+        if (target.CompareTag(EnemyTag))
+        {
+            StartCoroutine(SortPriorityTargets());
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -189,10 +213,12 @@ public class TargetHandler : MonoBehaviour
 
     public void OnDestroy()
     {
-        m_jobHandle.Complete();
-        m_scoreResults.Dispose();
-        m_targetGameObjectPositions.Dispose();
-        m_targetGameObjectVelocities.Dispose();
+        KillTargetingJob();
+    }
+
+    private void OnApplicationQuit()
+    {
+        KillTargetingJob();
     }
 
     #endregion

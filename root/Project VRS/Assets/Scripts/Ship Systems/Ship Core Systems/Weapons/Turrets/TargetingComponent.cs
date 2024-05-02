@@ -87,6 +87,11 @@ public class TargetingComponent : MonoBehaviour
         KillTracking();
     }
 
+    private void OnApplicationQuit()
+    {
+        KillTracking();
+    }
+
     private void OnDrawGizmosSelected()
     {
         //draw a ray in direction of the guidnce command from the missile

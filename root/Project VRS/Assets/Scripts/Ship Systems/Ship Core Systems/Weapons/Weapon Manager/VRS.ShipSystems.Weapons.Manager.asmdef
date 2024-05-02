@@ -1,12 +1,10 @@
 {
-    "name": "vrs.ShipSystems.Weapons.Turrets",
+    "name": "vrs.ShipSystems.Weapons.Manager",
     "rootNamespace": "",
     "references": [
-        "GUID:2665a8d13d1b3f18800f46e256720795",
-        "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:e0cd26848372d4e5c891c569017e11f1",
-        "GUID:123a3d4b6916622409770533c4ecf412",
-        "GUID:10e5bfa24514bda4f9f5fff8a37dd632"
+        "GUID:10e5bfa24514bda4f9f5fff8a37dd632",
+        "GUID:600487aca8c3f3f43b3caf5badfda3c4",
+        "GUID:123a3d4b6916622409770533c4ecf412"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4258845e8fde4fd439e5bb29e2aa401d, type: 3}
   m_Name: TestingTurretData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 0
-  m_prefabBullet: {fileID: 0}
-  m_turretParticleSystem: {fileID: 0}
-  m_turretFireAudioClip: []
-  m_turretEventSFX: []
   m_turretRotationSpeed: {x: 20, y: 20}
   m_isGimballed: 0
   m_maximumTurretAngles: {x: 15, y: 15}

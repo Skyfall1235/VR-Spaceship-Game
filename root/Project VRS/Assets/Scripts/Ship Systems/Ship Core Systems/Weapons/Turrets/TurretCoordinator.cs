@@ -8,7 +8,7 @@ public class TurretCoordinator : MonoBehaviour
 {
     [Header("Required References")]
     [SerializeField]
-    private Weapon m_turretWeapon;
+    private BC_Weapon m_turretWeapon;
 
     [SerializeField] 
     private SO_TurretData m_turretData;
