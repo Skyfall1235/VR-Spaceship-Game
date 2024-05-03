@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+using static SO_NodeData;
 
 // oh this one is gonna be funny
 public class InterStationMovement : MonoBehaviour
@@ -17,6 +17,11 @@ public class InterStationMovement : MonoBehaviour
     private SO_NodeData m_savedNodeData;
     public SO_NodeData SavedNodeData
     { get { return m_savedNodeData; } }
+
+    [SerializeField]
+    private NodeData m_currentNode;
+    public NodeData currentNode
+    { get { return m_currentNode; } }
 
     //this is used internally and externally to confirm if we can act on the data within
     public bool UseNodeData

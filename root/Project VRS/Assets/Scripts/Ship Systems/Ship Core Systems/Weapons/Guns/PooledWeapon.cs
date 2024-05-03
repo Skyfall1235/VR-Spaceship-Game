@@ -1,18 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class PooledWeapon : MonoBehaviour
+public abstract class PooledWeapon : BC_Weapon
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    protected ObjectPool<GameObject> Pool;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+        Pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected GameObject OnCreatePooledObject()
     {
-        
+        return Instantiate(WeaponData.PrefabBullet, m_instantiationPoint.transform.position, gameObject.transform.rotation);
     }
+    protected void OnPulledFromPool(GameObject objectPulled)
+    {
+        objectPulled.SetActive(true);
+        if (objectPulled.HasComponent<BasicProjectile>())
+        {
+            BasicProjectile projectileScript = objectPulled.GetComponent<BasicProjectile>();
+            projectileScript.gunThatFiredProjectile = this;
+            projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation);
+        }
+    }
+    protected void OnReturnedToPool(GameObject objectReturned)
+    {
+        objectReturned.SetActive(false);
+    }
+    protected void DestroyPooledObject(GameObject objectToDestroy)
+    {
+        Destroy(objectToDestroy);
+    }
+
 }

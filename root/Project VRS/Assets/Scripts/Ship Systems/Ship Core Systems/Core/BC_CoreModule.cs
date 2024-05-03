@@ -244,10 +244,6 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public virtual void InitializeModule()
     {
         m_internalModuleHealth = GetComponent<InternalModuleHealth>();
-        if(m_internalModuleHealth != null)
-        {
-            Debug.Log(m_internalModuleHealth);
-        }
         m_internalModuleHealth.InitializeHealth();
     }
 

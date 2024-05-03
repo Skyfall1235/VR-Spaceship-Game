@@ -22,10 +22,7 @@ public class SO_NodeData : ScriptableObject
 
     }
 
-    [SerializeField]
-    private NodeData m_currentNode;
-    public NodeData currentNode
-    { get { return m_currentNode; } }
+    
 
     public void BakeNodeData(List<RawGameobjectPositions> rawData)
     {
@@ -41,14 +38,12 @@ public class SO_NodeData : ScriptableObject
 
         //finally, save the data to the SO.
         m_nodes = newNodeList;
-        m_currentNode = m_nodes[0];
         Debug.Log($"Baking Finished");
     }
 
     public void ClearNodeData()
     {
         m_nodes = null;
-        m_currentNode = null;
     }
 
     NodeData CreateNodesFromList(RawGameobjectPositions rawData)
