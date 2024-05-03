@@ -20,8 +20,15 @@ public class InterStationMovement : MonoBehaviour
 
     [SerializeField]
     private NodeData m_currentNode;
-    public NodeData currentNode
+    public NodeData CurrentNode
     { get { return m_currentNode; } }
+    public int CurrentNodeIndex
+    {
+        get
+        {
+            return Array.IndexOf(m_savedNodeData.Nodes, CurrentNode);
+        }
+    }
 
     //this is used internally and externally to confirm if we can act on the data within
     public bool UseNodeData
@@ -60,19 +67,37 @@ public class InterStationMovement : MonoBehaviour
 
     #region Input Handling
 
+    private void InitializeNode()
+    {
+        m_currentNode = m_savedNodeData.Nodes[0];
+    }
+
+
 
 
     #endregion
 
     #region Control over Movement
 
+    IEnumerator MovementSequence(NodeData currentNode, NodeData SelectedNode)
+    {
+        yield return null;
+    }
 
 
     #endregion
 
     #region Movement between Nodes
 
+    IEnumerator MoveToPrimaryNode(int PrimaryNodePosition)
+    {
+        yield return null;
+    }
 
+    IEnumerator MoveToSubNode(int subNodePosition)
+    {
+        yield return null;
+    }
 
     #endregion
 
