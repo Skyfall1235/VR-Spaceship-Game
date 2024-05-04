@@ -83,7 +83,9 @@ public class SO_NodeData : ScriptableObject
         [SerializeField]
         private Vector3 m_nodePosition;
         [SerializeField]
-        private List<SubNode> m_subNode; 
+        private List<SubNode> m_subNode;
+        [SerializeField]
+        public int currentSubNodeIndex;
         //unity event here? maybe somewhere else?? idk
 
         public NodeData(Vector3 nodePositionDatum, List<SubNode> subNodeData)
