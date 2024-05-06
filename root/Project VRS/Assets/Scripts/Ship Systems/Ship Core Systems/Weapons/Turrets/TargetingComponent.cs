@@ -66,6 +66,10 @@ public class TargetingComponent : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_currentTargetData.IsEmpty)
+        {
+            return;
+        }
         //we dont want to schedule jobs on top of each other
         if (!CoroutineIsFinished)
         {

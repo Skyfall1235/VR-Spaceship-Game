@@ -21,18 +21,8 @@ public class TurretRotation : MonoBehaviour
     [SerializeField]
     protected GameObject m_barrel;
 
-    private GameObject m_projectileInstatiationPoint;
-    public GameObject ProjectileInstatiationPoint
-    {
-        set
-        {
-            m_projectileInstatiationPoint = value;
-        }
-    }
-
     public void TurnToLeadPosition(Vector3 targetPosition)
     {
-        Vector3 currentDirection = m_barrel.transform.up;
         Vector3 desiredDirection = (targetPosition - m_barrel.transform.position).normalized;
 
         Vector3 xAxisRotatorEulerAngles = m_xAxisRotator.transform.rotation.eulerAngles;

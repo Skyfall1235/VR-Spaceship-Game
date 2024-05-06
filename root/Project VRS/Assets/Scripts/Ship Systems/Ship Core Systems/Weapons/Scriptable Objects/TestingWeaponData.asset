@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: TestingWeaponData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 0
+  m_projectileSpeed: 50
   m_prefabBullet: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 1
@@ -22,3 +22,4 @@ MonoBehaviour:
   m_usesMag: 0
   m_reloadTime: 0
   m_magazineCapacity: 0
+  m_AutoFiring: 0

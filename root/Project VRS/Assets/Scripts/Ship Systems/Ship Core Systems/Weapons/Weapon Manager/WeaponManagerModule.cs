@@ -46,7 +46,7 @@ public class WeaponManagerModule : BC_CoreModule
         set 
         {
             _lastMouseDownStatus = value;
-            if (_selectedWeapon.Value.Weapon != null)
+            if (_selectedWeapon != null && _selectedWeapon.Value.Weapon != null)
             {
                 _selectedWeapon.Value.Weapon.UpdateFiringState(value);
 

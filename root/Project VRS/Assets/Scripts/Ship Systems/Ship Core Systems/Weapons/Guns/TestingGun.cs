@@ -10,12 +10,13 @@ public class TestingGun : PooledWeapon
         base.Awake();
         m_pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
     }
-    protected override void Fire()
-    {
-        //m_pool.Get();
-    }
     protected override void Reload()
     {
         Debug.Log("Reload");
+    }
+
+    protected override void Fire()
+    {
+        m_pool.Get();
     }
 }

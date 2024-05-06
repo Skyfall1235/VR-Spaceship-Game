@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df672b459e4a4a4dbf136645995851b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunThatFiredProjectile: {fileID: 0}
-  timeToDestroyAfter: 5
-  forceMode: 2
-  speed: 50
-  rb: {fileID: 8670963942546944563}
+  m_gunThatFiredProjectile: {fileID: 0}
+  m_timeToDestroyAfter: 5
+  m_forceMode: 1
+  m_projectileSpeed: 0
+  m_projectileRigidBody: {fileID: 8670963942546944563}

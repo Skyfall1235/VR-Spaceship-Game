@@ -6,7 +6,7 @@ public class BasicProjectile : MonoBehaviour
 {
     public PooledWeapon m_gunThatFiredProjectile;
     [SerializeField] float m_timeToDestroyAfter;
-    [SerializeField] ForceMode m_forceMode;
+    [SerializeField] ForceMode m_forceMode = ForceMode.Impulse;
     [SerializeField] float m_projectileSpeed;
     [SerializeField] Rigidbody m_projectileRigidBody;
     TrailRenderer m_trailRender;
@@ -16,8 +16,7 @@ public class BasicProjectile : MonoBehaviour
         //setup trail renderer
         m_trailRender = GetComponent<TrailRenderer>();
 
-        //now, set the speed to what the scriptable object says it should be
-        m_projectileSpeed = m_gunThatFiredProjectile.WeaponData.ProjectileSpeed;
+        
     }
     private IEnumerator DestroyAfterTime()
     {
@@ -33,6 +32,9 @@ public class BasicProjectile : MonoBehaviour
         m_projectileRigidBody.velocity = Vector3.zero;
         transform.position = startingPosition;
         transform.rotation = startingRotation;
+
+        //now, set the speed to what the scriptable object says it should be
+        m_projectileSpeed = m_gunThatFiredProjectile.WeaponData.ProjectileSpeed;
 
         //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();

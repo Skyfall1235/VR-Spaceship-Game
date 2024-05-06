@@ -53,10 +53,27 @@ public class TurretCoordinator : MonoBehaviour
         m_turretTargetingComponent.WeaponData = m_turretWeapon.WeaponData;
         m_turretRotationController.TurretData = m_turretData;
 
-        //setup instantiation points
+        //setup instantiation point
         m_turretTargetingComponent.ProjectileInstantiationPoint = m_turretWeapon.InstantiationPoint;
-        m_turretRotationController.ProjectileInstatiationPoint = m_turretWeapon.InstantiationPoint;
     }
+
+
+
+    //see if the rotation is within our gimbal limits
+    private bool CheckIfTargetIsWithinGimbalLimits(GameObject targetGameObject)
+    {
+        return false;
+    }
+
+    //retrive info from target handler, and be able to handle if theres nothing in the handler and respond accordingly
+    bool ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets, out TargetData bestTarget)
+    {
+        bestTarget = new TargetData();
+        return false;
+    }
+
+
+    //set the rotation for the target if it is within the gimbal limits and we have a target, and also how often should we call it??
 
     #endregion
 
