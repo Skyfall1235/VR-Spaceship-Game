@@ -1,37 +1,42 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class BasicProjectile : MonoBehaviour
 {
-    public BC_Weapon gunThatFiredProjectile;
-    [SerializeField] float timeToDestroyAfter;
-    [SerializeField] ForceMode forceMode;
-    [SerializeField] float speed;
-    [SerializeField] Rigidbody rb;
+    public PooledWeapon m_gunThatFiredProjectile;
+    [SerializeField] float m_timeToDestroyAfter;
+    [SerializeField] ForceMode m_forceMode;
+    [SerializeField] float m_projectileSpeed;
+    [SerializeField] Rigidbody m_projectileRigidBody;
     TrailRenderer m_trailRender;
-    // Update is called once per frame
 
     private void Awake()
     {
+        //setup trail renderer
         m_trailRender = GetComponent<TrailRenderer>();
+
+        //now, set the speed to what the scriptable object says it should be
+        m_projectileSpeed = m_gunThatFiredProjectile.WeaponData.ProjectileSpeed;
     }
-    IEnumerator DestroyAfterTime()
+    private IEnumerator DestroyAfterTime()
     {
-        yield return new WaitForSeconds(timeToDestroyAfter);
-        if(gunThatFiredProjectile != null)
+        yield return new WaitForSeconds(m_timeToDestroyAfter);
+        if(m_gunThatFiredProjectile != null)
         {
-            //gunThatFiredProjectile.Pool.Release(gameObject);
+            m_gunThatFiredProjectile.Pool.Release(gameObject);
         }
     }
     public void Setup(Vector3 startingPosition, Quaternion startingRotation)
     {
-        rb.velocity = Vector3.zero;
+        //setup the position and rotation
+        m_projectileRigidBody.velocity = Vector3.zero;
         transform.position = startingPosition;
         transform.rotation = startingRotation;
+
+        //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();
-        rb.AddForce(transform.up * speed, forceMode);
+        m_projectileRigidBody.AddForce(transform.up * m_projectileSpeed, m_forceMode);
         StartCoroutine(DestroyAfterTime());
     }
 }

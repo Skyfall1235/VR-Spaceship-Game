@@ -1,17 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public abstract class PooledWeapon : BC_Weapon
 {
     [SerializeField]
-    protected ObjectPool<GameObject> Pool;
+    protected ObjectPool<GameObject> m_pool;
+    public ObjectPool<GameObject> Pool
+    {
+        get { return m_pool; }
+        //set { m_pool = value; }
+    }
+
+    protected override void Fire()
+    {
+        m_pool.Get();
+    }
 
     protected override void Awake()
     {
         base.Awake();
-        Pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
+        m_pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
     }
 
     /// <summary>
@@ -38,7 +47,7 @@ public abstract class PooledWeapon : BC_Weapon
         if (objectPulled.HasComponent<BasicProjectile>())
         {
             BasicProjectile projectileScript = objectPulled.GetComponent<BasicProjectile>();
-            projectileScript.gunThatFiredProjectile = this;
+            projectileScript.m_gunThatFiredProjectile = this;
             projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation);
         }
     }

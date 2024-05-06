@@ -6,9 +6,10 @@ using UnityEngine.Pool;
 public class GatlingGun : PooledWeapon
 {
 
+
     protected override void Fire()
     {
-        Pool.Get();
+        base.Fire();
     }
 
     protected override void Reload()
