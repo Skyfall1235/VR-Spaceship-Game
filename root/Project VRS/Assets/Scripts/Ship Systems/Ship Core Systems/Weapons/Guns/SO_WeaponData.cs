@@ -1,8 +1,6 @@
-using Codice.Client.Common.GameUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEditor;
 using UnityEngine;
 
@@ -164,7 +162,11 @@ public class SO_WeaponData : ScriptableObject
             }
         }
     }
-
+    [SerializeField] bool m_AutoFiring = false;
+    public bool AutoFiring
+    {
+        get => m_AutoFiring;
+    }
 }
 
 #if UNITY_EDITOR

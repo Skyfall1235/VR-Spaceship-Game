@@ -1,25 +1,29 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class WeaponManagerModule : BC_CoreModule
 {
-    [SerializeField]List<Transform> _weaponSlotPositions = new List<Transform>();
-    public LinkedList<WeaponSlot> _weapons { get; private set; } = new LinkedList<WeaponSlot>();
+    [field:SerializeField] public List<WeaponSlot> WeaponSlots { get; private set; } = new List<WeaponSlot>();
+    public LinkedList<WeaponSlot> PlayerWeapons { get; private set; } = new LinkedList<WeaponSlot>();
     public List<BC_Weapon> GetWeapons() 
     {
         List<BC_Weapon> listToReturn = new List<BC_Weapon>();
-        foreach(WeaponSlot weaponSlot in _weapons)
+        foreach(WeaponSlot weaponSlot in WeaponSlots)
         {
-            listToReturn.Add(weaponSlot.Weapon);
+            if(weaponSlot.Weapon != null)
+            {
+                listToReturn.Add(weaponSlot.Weapon);
+            }
         } 
         return listToReturn;
     }
     LinkedListNode<WeaponSlot> _selectedWeapon;
     bool _lastMouseDownStatus = false;
 
+    [System.Serializable]
     public struct WeaponSlot
     {
         public BC_Weapon Weapon;
@@ -56,15 +60,19 @@ public class WeaponManagerModule : BC_CoreModule
     {
         if(transform == null)
         {
-            for(LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
+            for(int i = 0; i < WeaponSlots.Count; i++)
             {
-                if(node.Value.Weapon == null && (int)node.Value.WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
+                if ((int)WeaponSlots[i].WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
                 {
-                    node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize, weaponToAdd);
-                    if(node.Value.Weapon.WeaponBase != null && autoManageWeapon)
+                    WeaponSlots[i] = new WeaponSlot(WeaponSlots[i].Transform, WeaponSlots[i].WeaponSize, weaponToAdd);
+                    if(WeaponSlots[i].Weapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.Weapon.WeaponBase.position = node.Value.Transform.position;
-                        node.Value.Weapon.WeaponBase.parent = node.Value.Transform;
+                        WeaponSlots[i].Weapon.WeaponBase.position = WeaponSlots[i].Transform.position;
+                        WeaponSlots[i].Weapon.WeaponBase.parent = WeaponSlots[i].Transform;
+                    }
+                    if (WeaponSlots[i].Weapon.WeaponData.AutoFiring == false)
+                    {
+                        PlayerWeapons.AddLast(WeaponSlots[i]);
                     }
                     return true;
                 }
@@ -73,15 +81,19 @@ public class WeaponManagerModule : BC_CoreModule
         }
         else
         {
-            for (LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
+            for (int i = 0; i < WeaponSlots.Count; i++)
             {
-                if( node.Value.Transform == transform && node.Value.Weapon == null && (int)node.Value.WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
+                if(WeaponSlots[i].Transform == transform && WeaponSlots[i].Weapon == null && (int)WeaponSlots[i].WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
                 {
-                    node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize,weaponToAdd);
-                    if (node.Value.Weapon.WeaponBase != null && autoManageWeapon)
+                    WeaponSlots[i] = new WeaponSlot(WeaponSlots[i].Transform, WeaponSlots[i].WeaponSize,weaponToAdd);
+                    if (WeaponSlots[i].Weapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.Weapon.WeaponBase.position = node.Value.Transform.position;
-                        node.Value.Weapon.WeaponBase.parent = node.Value.Transform;
+                        WeaponSlots[i].Weapon.WeaponBase.position = WeaponSlots[i].Transform.position;
+                        WeaponSlots[i].Weapon.WeaponBase.parent = WeaponSlots[i].Transform;
+                    }
+                    if (WeaponSlots[i].Weapon.WeaponData.AutoFiring == false)
+                    {
+                        PlayerWeapons.AddLast(WeaponSlots[i]);
                     }
                     return true;
                 }
@@ -94,15 +106,19 @@ public class WeaponManagerModule : BC_CoreModule
     {
         if (position != null)
         {
-            for(LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
+            for(int i = 0; i < WeaponSlots.Count; i++)
             {
-                if(node.Value.Transform == position)
+                if(WeaponSlots[i].Transform == position)
                 {
-                    BC_Weapon removedWeapon = node.Value.Weapon;
-                    node.Value = new WeaponSlot(node.Value.Transform, node.Value.WeaponSize, null);
+                    BC_Weapon removedWeapon = WeaponSlots[i].Weapon;
+                    if (!removedWeapon.WeaponData.AutoFiring)
+                    {
+                        PlayerWeapons.Remove(PlayerWeapons.Find(WeaponSlots[i]));
+                    }
+                    WeaponSlots[i] = new WeaponSlot(WeaponSlots[i].Transform, WeaponSlots[i].WeaponSize, null);
                     if(removedWeapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.Weapon.WeaponBase.parent = transform;
+                        WeaponSlots[i].Weapon.WeaponBase.parent = transform;
                     }
                     return true;
                 }
@@ -111,15 +127,19 @@ public class WeaponManagerModule : BC_CoreModule
         }
         if(weaponToRemove != null)
         {
-            for(LinkedListNode<WeaponSlot> node = _weapons.First; node != null; node = node.Next)
+            for(int i = 0; i < WeaponSlots.Count; i++)
             {
-                if(node.Value.Weapon == weaponToRemove)
+                if (WeaponSlots[i].Weapon == weaponToRemove)
                 {
-                    BC_Weapon removedWeapon = node.Value.Weapon;
-                    node.Value = new WeaponSlot(position, node.Value.WeaponSize, null);
+                    BC_Weapon removedWeapon = WeaponSlots[i].Weapon;
+                    if (!removedWeapon.WeaponData.AutoFiring)
+                    {
+                        PlayerWeapons.Remove(PlayerWeapons.Find(WeaponSlots[i]));
+                    }
+                    WeaponSlots[i] = new WeaponSlot(position, WeaponSlots[i].WeaponSize, null);
                     if (removedWeapon.WeaponBase != null && autoManageWeapon)
                     {
-                        node.Value.Weapon.WeaponBase.parent = transform;
+                        WeaponSlots[i].Weapon.WeaponBase.parent = transform;
                     }
                     return true;
                 }
@@ -173,16 +193,12 @@ public class WeaponManagerModule : BC_CoreModule
     public override void Awake()
     {
         base.Awake();
-        foreach(Transform transform in _weaponSlotPositions)
-        {
-            _weapons.AddLast(new WeaponSlot(transform, SO_WeaponData.WeaponSize.Large));
-        }
         BC_Weapon[] foundWeapons = transform.GetComponentsInChildren<BC_Weapon>();
         foreach (BC_Weapon weapon in foundWeapons)
         {
             RegisterWeapon(weapon);
         }
-         _selectedWeapon = (_weapons.Count <= 0) ? null : _weapons.First;
+         _selectedWeapon = (PlayerWeapons.Count <= 0) ? null : PlayerWeapons.First;
     }
 
     #endregion
