@@ -1,0 +1,47 @@
+<mxfile host="Electron" modified="2024-05-06T18:22:19.858Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="98fJvmHMbhT6mingDbb0" version="24.2.5" type="device">
+  <diagram name="Page-1" id="8_J7piVF5y4eJpDfqvaG">
+    <mxGraphModel dx="1728" dy="997" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sQud84w-PcEJbTQpwIR2-6" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="280" y="140" width="340" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-4" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="sQud84w-PcEJbTQpwIR2-6">
+          <mxGeometry x="10" width="340" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-5" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Turret coordinator&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="sQud84w-PcEJbTQpwIR2-6">
+          <mxGeometry x="10" width="170" height="204.88" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-1" value="TurretRotator" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="sQud84w-PcEJbTQpwIR2-6">
+          <mxGeometry x="210" y="230" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-3" value="Targeting&lt;div&gt;Comp&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="sQud84w-PcEJbTQpwIR2-6">
+          <mxGeometry x="100" y="230" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-7" value="turretData" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="sQud84w-PcEJbTQpwIR2-6">
+          <mxGeometry x="130" y="90" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-8" value="The&lt;div&gt;Weapon&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="sQud84w-PcEJbTQpwIR2-6">
+          <mxGeometry x="20" y="90" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="sQud84w-PcEJbTQpwIR2-6" source="sQud84w-PcEJbTQpwIR2-7" target="sQud84w-PcEJbTQpwIR2-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-12" value="Setting data for use" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sQud84w-PcEJbTQpwIR2-9">
+          <mxGeometry x="0.2179" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="sQud84w-PcEJbTQpwIR2-6" source="sQud84w-PcEJbTQpwIR2-8" target="sQud84w-PcEJbTQpwIR2-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sQud84w-PcEJbTQpwIR2-11" value="Instantiation Point&lt;div&gt;and weapon data&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sQud84w-PcEJbTQpwIR2-10">
+          <mxGeometry x="-0.0474" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
