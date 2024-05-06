@@ -128,9 +128,22 @@ public abstract class BC_Weapon : MonoBehaviour
     {
         if(CurrentWeaponState == WeaponState.Ready)
         {
-            Fire();
+            //setup for the preparation check
+            float optionalDelay = 0f;
+            bool preparedToFire = IsPreparedToFire(out optionalDelay);
+            //if we can fire and we are ready, we can go ahead and do it
+            if (preparedToFire)
+            {
+                Fire();
+            }
+            
+            //after we do or dont fire, we need to see if there is a delay left or if we should cycle to the next shot
             CurrentWeaponState = WeaponState.Preparing;
-            yield return new WaitForSeconds(m_minimumTimeBetweenFiring);
+            //if we are prepared to fire,
+            float delay = optionalDelay == 0f ? m_minimumTimeBetweenFiring : optionalDelay;
+
+            yield return new WaitForSeconds(delay);
+
             CurrentWeaponState = WeaponState.Ready;
             if (IsAutomatic && m_currentFiringState == true)
             {
@@ -147,6 +160,19 @@ public abstract class BC_Weapon : MonoBehaviour
     /// This method fires the weapon.
     /// </summary>
     protected abstract void Fire();
+
+    /// <summary>
+    /// Checks if the object is prepared to fire.
+    /// </summary>
+    /// <param name="timeNeededForPrep">
+    /// [out] The optional time needed for preparation before firing. 
+    /// This value will be greater than 0 if the object is reloading and cannot fire again until the delay elapses.
+    /// </param>
+    /// <returns>
+    /// True if the object is ready to fire, false otherwise.
+    /// </returns>
+    protected abstract bool IsPreparedToFire(out float timeNeededForPrep);
+
 
     #endregion
 
