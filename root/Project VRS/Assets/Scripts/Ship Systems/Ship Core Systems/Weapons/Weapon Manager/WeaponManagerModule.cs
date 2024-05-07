@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class WeaponManagerModule : BC_CoreModule
@@ -187,6 +186,10 @@ public class WeaponManagerModule : BC_CoreModule
         if (Input.GetMouseButtonDown(1))
         {
             RotateSelectedWeaponForward();
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            _selectedWeapon.Value.Weapon.UpdateReloadState(true);
         }
     }
 
