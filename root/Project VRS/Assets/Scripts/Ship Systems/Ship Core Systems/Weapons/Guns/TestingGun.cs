@@ -12,7 +12,7 @@ public class TestingGun : PooledWeapon
     }
     protected override void Reload()
     {
-        Debug.Log("Reload");
+        base.Reload();
     }
 
     protected override void Fire()
