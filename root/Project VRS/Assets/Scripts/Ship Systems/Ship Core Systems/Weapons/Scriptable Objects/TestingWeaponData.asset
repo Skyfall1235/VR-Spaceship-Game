@@ -15,7 +15,7 @@ MonoBehaviour:
   m_projectileSpeed: 50
   m_prefabBullet: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
   m_weaponParticleSystem: {fileID: 0}
-  m_requiredHardpointSize: 1
+  m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []
   m_weaponEventSFX: []
   m_minimumTimeBetweenFiring: 0
