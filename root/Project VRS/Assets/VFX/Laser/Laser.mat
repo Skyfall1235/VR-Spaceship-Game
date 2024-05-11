@@ -27,6 +27,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: d87f949c52943044ab987a4fe0f8d9ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: 1733d4a3a58f7ec4d8276c1ef4aa09ab, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Triplanar_87e779df97194d10b0b11960ac8d0f5e_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -41,11 +49,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Dissolve_Amount: 0.61
+    - _Noise_Amount: 0.135
+    - _Noise_Power: 2
+    - _Noise_Scale: 25
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Rotation: 0
     m_Colors:
-    - _Color: {r: 4, g: 4, b: 4, a: 1}
-    - _Main_Speed: {r: -0.5, g: 0, b: 0, a: 0}
+    - _Color: {r: 21.361254, g: 21.361254, b: 21.361254, a: 1}
+    - _Main_Speed: {r: -4, g: 0, b: 0, a: 0}
+    - _Noise_Speed: {r: -3, g: 0, b: 0, a: 0}
+    - _Offset: {r: 0, g: 0.06, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1369915031892231300
 MonoBehaviour:
