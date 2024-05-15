@@ -12,7 +12,7 @@ public abstract class PooledWeapon : BC_Weapon
         //set { m_pool = value; }
     }
 
-    protected override void Fire()
+    public override void OnFire()
     {
         m_pool.Get();
     }

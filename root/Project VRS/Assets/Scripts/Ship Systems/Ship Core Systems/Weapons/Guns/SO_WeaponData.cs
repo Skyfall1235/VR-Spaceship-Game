@@ -8,6 +8,40 @@ using UnityEngine;
 [Serializable]
 public class SO_WeaponData : ScriptableObject
 {
+    #region Data Structures
+    public enum ReloadMode
+    {
+        /// <summary>
+        /// The weapon heat up when firing and cools off when not firing
+        /// </summary>
+        Heat,
+        /// <summary>
+        /// the weapon can fire a certain amount of times before having to reload
+        /// </summary>
+        Ammo,
+        /// <summary>
+        /// The weapon does not reload
+        /// </summary>
+        None
+    }
+
+    public enum FiringMode
+    {
+        /// <summary>
+        /// Fires repeatedly until the command is given to stop or the weapon needs to reload
+        /// </summary>
+        Auto,
+        /// <summary>
+        /// Fires once per command
+        /// </summary>
+        SemiAuto,
+        /// <summary>
+        /// holds a singular fire until told to stop
+        /// </summary>
+        Beam
+    }
+    #endregion
+
     [Header("Projectile and FX")]
 
     [SerializeField]
@@ -162,10 +196,19 @@ public class SO_WeaponData : ScriptableObject
             }
         }
     }
-    [SerializeField] bool m_AutoFiring = false;
+    [SerializeField] FiringMode m_firingMode = FiringMode.SemiAuto;
+    public FiringMode WeaponFiringMode
+    {
+        get => m_firingMode;
+    }
+
+    [SerializeField] bool m_autoFiring;
     public bool AutoFiring
     {
-        get => m_AutoFiring;
+        get
+        {
+            return m_autoFiring;
+        }
     }
 }
 
@@ -193,7 +236,7 @@ public class SO_WeaponData_Editor : Editor
         int newMagazineCapacityValue = 0;
         float newReloadTime = 0;
         float newMinimumTimeBetweenFiring = EditorGUILayout.FloatField("Minimum Time Between Shots", m_minimumTimeBetweenFiring.floatValue);
-        bool newUsesMag = EditorGUILayout.Toggle("Uses Mag", scriptToDisplayDataFor.UsesMag);
+        bool newUsesMag = EditorGUILayout.Toggle("Uses a Magazine", m_usesMag.boolValue);
         if (scriptToDisplayDataFor.UsesMag)
         {
             newReloadTime = EditorGUILayout.FloatField("Reload Time", m_reloadTime.floatValue);

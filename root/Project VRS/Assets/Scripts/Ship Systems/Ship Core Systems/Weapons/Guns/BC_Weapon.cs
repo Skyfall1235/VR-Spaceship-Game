@@ -6,19 +6,10 @@ public abstract class BC_Weapon : MonoBehaviour
 {
 
     #region Variables
-
-    /// <summary>
-    /// Gets or sets whether the weapon fires automatically.
-    /// </summary>
-    public bool IsAutomatic { get; protected set; } = false;
     /// <summary>
     /// Minimum time in seconds between firing the weapon.
     /// </summary>
-    protected float m_minimumTimeBetweenFiring = 1;
-    /// <summary>
-    /// Internal flag indicating if the weapon is currently firing.
-    /// </summary>
-    bool m_currentFiringState = false;
+    public float m_minimumTimeBetweenFiring { get; protected set; } = 1;
 
     /// <summary>
     /// If the guns scriptable object uses a magazine, this represents the amount of ammo currently in the magazine.
@@ -84,7 +75,7 @@ public abstract class BC_Weapon : MonoBehaviour
     /// <summary>
     /// Gets or sets the current weapon state.
     /// </summary>
-    public WeaponState CurrentWeaponState { get; protected set; } = WeaponState.Ready;
+    public WeaponState CurrentWeaponState = WeaponState.Ready;
 
     /// <summary>
     /// UnityEvent triggered whenever the weapon's state changes.
@@ -98,6 +89,7 @@ public abstract class BC_Weapon : MonoBehaviour
     /// </summary>
     public UnityEvent<WeaponAction> OnWeaponAction = new UnityEvent<WeaponAction>();
 
+    private BC_FireType m_FireType;
 
     #endregion
 
@@ -147,7 +139,6 @@ public abstract class BC_Weapon : MonoBehaviour
         Reloading
     }
 
-
     #endregion
 
     #region Methods
@@ -165,6 +156,18 @@ public abstract class BC_Weapon : MonoBehaviour
         {
             throw new System.Exception("No scriptable object found");
         }
+
+        switch (m_weaponData.WeaponFiringMode)
+        {
+            case (SO_WeaponData.FiringMode.Auto):
+                m_FireType = new AutomaticFire(() => OnFire(), this);
+                break;
+            case (SO_WeaponData.FiringMode.SemiAuto):
+                m_FireType = new SemiAutomaticFire(() => OnFire(), this);
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -173,16 +176,8 @@ public abstract class BC_Weapon : MonoBehaviour
     /// <param name="newFiringState">The new firing state (true for firing, false for not firing).</param>
     public void UpdateFiringState(bool newFiringState)
     {
-        if(newFiringState == true && m_currentFiringState == false)
-        {
-            StartCoroutine(TryFire());
-        }
-        m_currentFiringState = newFiringState;
+        m_FireType.UpdateFiringState(newFiringState);
     }
-
-
-
-
     public void UpdateReloadState(bool newReloadState)
     {
         Debug.Log("updating reload state");
@@ -249,47 +244,21 @@ public abstract class BC_Weapon : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Attempts to fire the weapon if it is ready.
-    /// </summary>
-    /// <returns>An IEnumerator object for controlling the firing sequence.</returns>
-    protected virtual IEnumerator TryFire()
-    {
-        if(CurrentWeaponState == WeaponState.Ready)
-        {
-            Fire();
-
-            //Firing event
-            OnWeaponAction.Invoke(WeaponAction.Firing);
-            CurrentWeaponState = WeaponState.Preparing;
-
-            //announce we are now preparing
-            OnChangeWeaponState.Invoke(CurrentWeaponState);
-            //now, simulate delay
-            yield return new WaitForSeconds(m_minimumTimeBetweenFiring);
-
-            //now, ready to fire
-            CurrentWeaponState = WeaponState.Ready;
-            OnChangeWeaponState.Invoke(CurrentWeaponState);
-
-            //if automatic and we are still firing, fire again
-            if (IsAutomatic && m_currentFiringState == true)
-            {
-                StartCoroutine(TryFire());
-            }
-        }
-        else
-        {
-            yield return null;
-        }
-    }
-
     /// <summary>
     /// This method fires the weapon.
-    /// </summary>
-    protected abstract void Fire();
+    /// </summary> 
+
+    public virtual void OnStartFire()
+    {
+
+    }
+    public virtual void OnEndFire()
+    {
+
+    }
+    public abstract void OnFire();
 
     #endregion
+
 
 }
