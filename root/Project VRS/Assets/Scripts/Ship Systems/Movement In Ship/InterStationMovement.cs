@@ -92,10 +92,12 @@ public class InterStationMovement : MonoBehaviour
         if(CheckIfPrimaryNode(SelectedNode))
         {
             //iff its the same node, we only need to move to the new sub index
+            StartCoroutine(MoveToSubNode(SelectedNode.currentSubNodeIndex));
         }
         else if (CheckIfSubNode(SelectedNode))
         {
             //if its not in the same node, we move out, then move to the new node primary index, and then move to the new sub index
+            //StartCoroutine(MoveToPrimaryNode(SelectedNode));
         }
 
         yield return null;
