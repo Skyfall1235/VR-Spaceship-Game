@@ -55,9 +55,10 @@ public class InterStationMovement : MonoBehaviour
     private float m_seatMaxMovementSpeed; // the maxspeed of the seat adjustment
 
     [SerializeField]
-    private float m_chairMovementSpeed;
+    private float m_chairSmoothTIme;
     //animation curse for a speed curve?
 
+    Coroutine movementCoroutine;
 
 
     //we will need some unity event to fire things off when we get to a node
@@ -79,9 +80,6 @@ public class InterStationMovement : MonoBehaviour
         m_currentNode = m_savedNodeData.Nodes[0];
     }
 
-
-
-
     #endregion
 
     #region Control over Movement
@@ -92,12 +90,19 @@ public class InterStationMovement : MonoBehaviour
         if(CheckIfPrimaryNode(SelectedNode))
         {
             //iff its the same node, we only need to move to the new sub index
-            StartCoroutine(MoveToSubNode(SelectedNode.currentSubNodeIndex));
+            MoveToSubNode(SelectedNode.currentSubNodeIndex);
+            
         }
         else if (CheckIfSubNode(SelectedNode))
         {
             //if its not in the same node, we move out, then move to the new node primary index, and then move to the new sub index
-            //StartCoroutine(MoveToPrimaryNode(SelectedNode));
+            IEnumerator CrossNodeMovement()
+            {
+                //mpve to the primary Nodes poisition
+                //move to the new primary nodes position
+                //move to the new subnode position
+                yield return null;
+            }
         }
 
         yield return null;
@@ -154,14 +159,58 @@ public class InterStationMovement : MonoBehaviour
 
     #region Movement between Nodes
 
-    IEnumerator MoveToPrimaryNode(int PrimaryNodePosition)
+    /// <summary>
+    /// Initiates a coroutine to move the player group to the specified primary node position.
+    /// </summary>
+    /// <param name="PrimaryNodePosition">The index of the primary node in the SavedNodeData.Nodes array.</param>
+    void MoveToPrimaryNode(int PrimaryNodePosition)
     {
-        yield return null;
+        // Get the position of the primary node from the SavedNodeData
+        Vector3 targetPosition = SavedNodeData.Nodes[PrimaryNodePosition].m_nodePosition;
+
+        // Start a coroutine to move towards the target position
+        movementCoroutine = StartCoroutine(MoveToPosition(targetPosition));
     }
 
-    IEnumerator MoveToSubNode(int subNodePosition)
+    /// <summary>
+    /// Initiates a coroutine to move the player group to the specified sub-node position.
+    /// </summary>
+    /// <param name="subNodePosition">The index of the sub-node within the current node's sub-nodes array.</param>
+    void MoveToSubNode(int subNodePosition)
     {
-        yield return null;
+        // Get the position of the sub-node from the current node
+        Vector3 targetPosition = CurrentNode.m_subNode[subNodePosition].subNodePosition;
+
+        // Start a coroutine to move towards the target position
+        movementCoroutine = StartCoroutine(MoveToPosition(targetPosition));
+    }
+
+    // Stores the player's current velocity (used for smooth movement)
+    Vector3 playerVelocity = Vector3.zero;
+
+    /// <summary>
+    /// Coroutine that smoothly moves the player group towards a target position.
+    /// </summary>
+    /// <param name="newPosition">The target position to move towards.</param>
+    /// <returns>An IEnumerator object for coroutine execution.</returns>
+    IEnumerator MoveToPosition(Vector3 newPosition)
+    {
+        // Minimum distance threshold for considering arrival
+        const float minimumDistance = 0.01f;
+
+        // Loop until we reach the target position within the minimum distance
+        while (Vector3.Distance(transform.position, newPosition) > minimumDistance)
+        {
+            // Calculate the distance to the target position
+            float distanceToNewPosition = Vector3.Distance(transform.position, newPosition);
+
+            // Smoothly move the player group towards the target
+            m_playerGroup.transform.position = Vector3.SmoothDamp(m_playerGroup.transform.position, newPosition, ref playerVelocity, m_chairSmoothTIme);
+
+            // Wait for the next fixed update before continuing
+            yield return new WaitForFixedUpdate();
+        }
+        OnArrivalToNewPosition.Invoke();
     }
 
     #endregion

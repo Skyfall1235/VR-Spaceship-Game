@@ -17,6 +17,8 @@ public class TurretCoordinator : MonoBehaviour
 
     private TargetingComponent m_turretTargetingComponent;
 
+    public TargetData? m_priorityTarget;
+
     #region Monobehavior Methods & their dependencies
 
     private void Awake()
@@ -60,16 +62,41 @@ public class TurretCoordinator : MonoBehaviour
 
 
     //see if the rotation is within our gimbal limits
-    private bool CheckIfTargetIsWithinGimbalLimits(GameObject targetGameObject)
+    private bool CheckIfTargetIsWithinGimbalLimits(TargetData data)
     {
         return false;
     }
 
     //retrive info from target handler, and be able to handle if theres nothing in the handler and respond accordingly
-    bool ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets, out TargetData bestTarget)
+    private bool ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets, out TargetData bestTarget)
     {
-        bestTarget = new TargetData();
-        return false;
+        if (sortedPriorityTargets == null)
+        {
+            bestTarget = new TargetData();
+            return false;
+        }
+        else if(m_priorityTarget == null)
+        {
+            bestTarget = new TargetData();
+            return false;
+        }
+        else
+        {
+            foreach(TargetData currentTarget in sortedPriorityTargets)
+            {
+                //check to see if the target is within the gimbal limits, if it is we set it out. if its not then say False anywayyyyyyyyyyyy
+                if (CheckIfTargetIsWithinGimbalLimits(currentTarget))
+                {
+                    bestTarget = currentTarget;
+                    return true;
+                }
+            }
+            //if the foreach loop goes through and no targets are within the gimbal limits, default to false and nothing
+            bestTarget = new TargetData();
+            return false;
+        }
+
+
     }
 
 

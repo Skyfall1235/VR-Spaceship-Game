@@ -28,8 +28,16 @@ public class TurretRotation : MonoBehaviour
         Vector3 xAxisRotatorEulerAngles = m_xAxisRotator.transform.rotation.eulerAngles;
         Vector3 yAxisRotatorEulerAngles = m_yAxisRotator.transform.rotation.eulerAngles;
 
-        Quaternion newXAxisRotation = Quaternion.Euler(Quaternion.LookRotation(desiredDirection).eulerAngles.x, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
-        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, Quaternion.LookRotation(desiredDirection).eulerAngles.y, yAxisRotatorEulerAngles.z);
+        // Clamp desired direction angles within limits
+        float desiredXRotation = Mathf.Clamp(Quaternion.LookRotation(desiredDirection).eulerAngles.x, 
+                                                                     m_turretData.ConstraintsOfXTurretAngles.x, 
+                                                                     m_turretData.ConstraintsOfXTurretAngles.y);
+        float desiredYRotation = Mathf.Clamp(Quaternion.LookRotation(desiredDirection).eulerAngles.y, 
+                                                                     m_turretData.ConstraintsOfYTurretAngles.x, 
+                                                                     m_turretData.ConstraintsOfYTurretAngles.y);
+
+        Quaternion newXAxisRotation = Quaternion.Euler(desiredXRotation, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
+        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, desiredYRotation, yAxisRotatorEulerAngles.z);
 
         m_xAxisRotator.transform.rotation = Quaternion.RotateTowards(m_xAxisRotator.transform.rotation, newXAxisRotation, m_turretData.TurretRotationSpeed.x * Time.deltaTime);
         m_yAxisRotator.transform.rotation = Quaternion.RotateTowards(m_yAxisRotator.transform.rotation, newYAxisRotation, m_turretData.TurretRotationSpeed.y * Time.deltaTime);
