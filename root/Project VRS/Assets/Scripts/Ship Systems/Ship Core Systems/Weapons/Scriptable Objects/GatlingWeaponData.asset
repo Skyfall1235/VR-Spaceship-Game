@@ -22,4 +22,5 @@ MonoBehaviour:
   m_usesMag: 1
   m_reloadTime: 3
   m_magazineCapacity: 200
-  m_AutoFiring: 1
+  m_firingMode: 0
+  m_autoFiring: 1

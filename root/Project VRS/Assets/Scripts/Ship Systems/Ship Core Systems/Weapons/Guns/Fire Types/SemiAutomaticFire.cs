@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SemiAutomaticFire : BC_FireType
+{
+    /// <summary>
+    /// Creates a new AutomaticFire
+    /// </summary>
+    /// <param name="fireAction">Void methods fired when the weapon starts firing</param>
+    /// <param name="weapon">Monobehavior that the coroutines will run on</param>
+    /// <param name="startFireAction">Void methods fired when the weapon stops firing</param>
+    /// <param name="stopFireAction">Void methods fired when the weapon stops firing</param> 
+
+    public SemiAutomaticFire
+        (
+            Fire fireAction,
+            BC_Weapon weapon,
+            StartFire startFireAction = null,
+            StopFire stopFireAction = null
+        ) : base(fireAction, weapon, startFireAction, stopFireAction)
+    {
+        m_startFireMethods += StartTryFire;
+    }
+    void StartTryFire()
+    {
+        m_weapon.StartCoroutine(TryFireLogicAsync());
+    }
+    IEnumerator TryFireLogicAsync()
+    {
+        if (m_weapon.CurrentWeaponState == BC_Weapon.WeaponState.Ready)
+        {
+            m_weapon.OnFire();
+            m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Preparing;
+            yield return new WaitForSeconds(m_weapon.m_minimumTimeBetweenFiring);
+            m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Ready;
+        }
+    }
+}

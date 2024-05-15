@@ -15,7 +15,7 @@ public class TestingGun : PooledWeapon
         base.Reload();
     }
 
-    protected override void Fire()
+    public override void OnFire()
     {
         m_pool.Get();
     }

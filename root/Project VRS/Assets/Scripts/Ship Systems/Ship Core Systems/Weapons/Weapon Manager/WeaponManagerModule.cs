@@ -61,7 +61,7 @@ public class WeaponManagerModule : BC_CoreModule
         {
             for(int i = 0; i < WeaponSlots.Count; i++)
             {
-                if ((int)WeaponSlots[i].WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
+                if ((int)WeaponSlots[i].WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize && WeaponSlots[i].Weapon == null)
                 {
                     WeaponSlots[i] = new WeaponSlot(WeaponSlots[i].Transform, WeaponSlots[i].WeaponSize, weaponToAdd);
                     if(WeaponSlots[i].Weapon.WeaponBase != null && autoManageWeapon)
@@ -69,7 +69,7 @@ public class WeaponManagerModule : BC_CoreModule
                         WeaponSlots[i].Weapon.WeaponBase.position = WeaponSlots[i].Transform.position;
                         WeaponSlots[i].Weapon.WeaponBase.parent = WeaponSlots[i].Transform;
                     }
-                    if (WeaponSlots[i].Weapon.WeaponData.AutoFiring == false)
+                    if (!WeaponSlots[i].Weapon.WeaponData.AutoFiring)
                     {
                         PlayerWeapons.AddLast(WeaponSlots[i]);
                     }
@@ -90,7 +90,7 @@ public class WeaponManagerModule : BC_CoreModule
                         WeaponSlots[i].Weapon.WeaponBase.position = WeaponSlots[i].Transform.position;
                         WeaponSlots[i].Weapon.WeaponBase.parent = WeaponSlots[i].Transform;
                     }
-                    if (WeaponSlots[i].Weapon.WeaponData.AutoFiring == false)
+                    if (!WeaponSlots[i].Weapon.WeaponData.AutoFiring)
                     {
                         PlayerWeapons.AddLast(WeaponSlots[i]);
                     }
