@@ -160,10 +160,13 @@ public abstract class BC_Weapon : MonoBehaviour
         switch (m_weaponData.WeaponFiringMode)
         {
             case (SO_WeaponData.FiringMode.Auto):
-                m_FireType = new AutomaticFire(() => OnFire(), this);
+                m_FireType = new AutomaticFire(() => OnFire(), this, () => OnStartFire(), () => OnEndFire());
                 break;
             case (SO_WeaponData.FiringMode.SemiAuto):
-                m_FireType = new SemiAutomaticFire(() => OnFire(), this);
+                m_FireType = new SemiAutomaticFire(() => OnFire(), this, () => OnStartFire(), () => OnEndFire());
+                break;
+            case(SO_WeaponData.FiringMode.Beam):
+                m_FireType = new BeamFire(() => OnFire(), this, () => OnStartFire(), ()=> OnEndFire());
                 break;
             default:
                 break;

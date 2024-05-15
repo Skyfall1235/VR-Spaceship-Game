@@ -14,10 +14,6 @@ public class BeamFire : BC_FireType
     {
 
     }
-    void OnStartFire()
-    {
-
-    }
     IEnumerator TryFireLogicAsync()
     {
         if (m_weapon.CurrentWeaponState == BC_Weapon.WeaponState.Ready)
