@@ -19,6 +19,8 @@ public class TurretCoordinator : MonoBehaviour
 
     public TargetData? m_priorityTarget;
 
+    bool shouldRotate;
+
     #region Monobehavior Methods & their dependencies
 
     private void Awake()
@@ -29,6 +31,16 @@ public class TurretCoordinator : MonoBehaviour
     private void OnValidate()
     {
         LinkRequiredComponents();
+    }
+
+    private void FixedUpdate()
+    {
+        if(shouldRotate) 
+        {
+            
+        }
+
+
     }
 
     private void LinkRequiredComponents()
@@ -46,7 +58,7 @@ public class TurretCoordinator : MonoBehaviour
         //check for instantiation point as its crucial for calculations and movement
         if (m_turretWeapon == null)
         {
-            Debug.LogError($"TurretCoordinator {this.gameObject.name} missing turret Weapon reference, stoppping functionality");
+            Debug.LogError($"TurretCoordinator {this.gameObject.name} missing turret Weapon reference, stopping functionality");
             this.enabled = false;
             return;
         }
@@ -67,40 +79,51 @@ public class TurretCoordinator : MonoBehaviour
         return false;
     }
 
-    //retrive info from target handler, and be able to handle if theres nothing in the handler and respond accordingly
+    /// <summary>
+    /// Chooses the best target from the provided list if one is available within gimbal limits.
+    /// </summary>
+    /// <param name="sortedPriorityTargets">A list of target data sorted by priority (highest first).</param>
+    /// <param name="bestTarget">The chosen target data (output).</param>
+    /// <returns>True if a target was found within gimbal limits, false otherwise.</returns>
     private bool ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets, out TargetData bestTarget)
     {
         if (sortedPriorityTargets == null)
         {
+            // No targets provided, set bestTarget to default and return false
             bestTarget = new TargetData();
             return false;
         }
-        else if(m_priorityTarget == null)
+
+        // Check pre-selected target first (if any)
+        if (m_priorityTarget != null)
         {
-            bestTarget = new TargetData();
-            return false;
+            bestTarget = (TargetData)m_priorityTarget;
+            return true;
         }
-        else
+
+        // Loop through sorted targets
+        foreach (TargetData currentTarget in sortedPriorityTargets)
         {
-            foreach(TargetData currentTarget in sortedPriorityTargets)
+            // Check if target is within gimbal limits
+            if (CheckIfTargetIsWithinGimbalLimits(currentTarget))
             {
-                //check to see if the target is within the gimbal limits, if it is we set it out. if its not then say False anywayyyyyyyyyyyy
-                if (CheckIfTargetIsWithinGimbalLimits(currentTarget))
-                {
-                    bestTarget = currentTarget;
-                    return true;
-                }
+                bestTarget = currentTarget;
+                return true;
             }
-            //if the foreach loop goes through and no targets are within the gimbal limits, default to false and nothing
-            bestTarget = new TargetData();
-            return false;
         }
 
-
+        // No target within gimbal limits, set bestTarget to default and return false
+        bestTarget = new TargetData();
+        return false;
     }
 
 
     //set the rotation for the target if it is within the gimbal limits and we have a target, and also how often should we call it??
+
+    private void RotateToBestTargetIfApplicable(TargetData bestTarget)
+    {
+
+    }
 
     #endregion
 
