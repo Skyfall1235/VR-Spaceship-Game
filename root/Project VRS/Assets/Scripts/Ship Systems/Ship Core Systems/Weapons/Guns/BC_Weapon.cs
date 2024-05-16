@@ -163,7 +163,7 @@ public abstract class BC_Weapon : MonoBehaviour
 
                 if (m_weaponData.UsesMag)
                 {
-                    m_FireType = new AutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine -= 1, () => Debug.Log("should call this param"));
+                    m_FireType = new AutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine -= 1);
                 }
                 else
                 {

@@ -18,7 +18,7 @@ public class BeamFire : BC_FireType
     {
         if (m_weapon.CurrentWeaponState == BC_Weapon.WeaponState.Ready)
         {
-            m_weapon.OnFire();
+            m_fireMethods?.Invoke();
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Preparing;
             yield return new WaitForFixedUpdate();
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Ready;
