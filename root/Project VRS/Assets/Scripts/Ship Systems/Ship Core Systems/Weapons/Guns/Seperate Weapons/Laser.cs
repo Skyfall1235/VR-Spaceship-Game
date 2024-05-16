@@ -9,12 +9,13 @@ public class Laser : BC_Weapon
     protected override void Awake()
     {
         base.Awake();
-        beamInstance = Instantiate(beamPrefab, InstantiationPoint.transform, false);
+        beamInstance = Instantiate(beamPrefab, InstantiationPoint.transform.position, InstantiationPoint.transform.rotation);
         beamInstance.SetActive(false);
     }
     public override void OnFire()
     {
-        
+        beamInstance.transform.position = InstantiationPoint.transform.position;
+        beamInstance.transform.rotation = InstantiationPoint.transform.rotation;
     }
     public override void OnStartFire()
     {

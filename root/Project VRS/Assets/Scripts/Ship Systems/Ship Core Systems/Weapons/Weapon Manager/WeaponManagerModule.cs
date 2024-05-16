@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class WeaponManagerModule : BC_CoreModule
@@ -156,7 +157,9 @@ public class WeaponManagerModule : BC_CoreModule
     {
         if(_selectedWeapon != null)
         {
+            _selectedWeapon.Value.Weapon.UpdateFiringState(false);
             _selectedWeapon = _selectedWeapon.NextOrFirst();
+            _selectedWeapon.Value.Weapon.UpdateFiringState(_lastMouseDownStatus);
         }
     }
 
@@ -164,7 +167,9 @@ public class WeaponManagerModule : BC_CoreModule
     {
         if (_selectedWeapon != null)
         {
+            _selectedWeapon.Value.Weapon.UpdateFiringState(false);
             _selectedWeapon = _selectedWeapon.PreviousOrLast();
+            _selectedWeapon.Value.Weapon.UpdateFiringState(_lastMouseDownStatus);
         }
     }
 
