@@ -21,7 +21,7 @@ public class Laser : BC_Weapon
     {
         beamInstance.SetActive(true);
     }
-    public override void OnEndFire()
+    public override void OnStopFire()
     {
         beamInstance.SetActive(false);
     }

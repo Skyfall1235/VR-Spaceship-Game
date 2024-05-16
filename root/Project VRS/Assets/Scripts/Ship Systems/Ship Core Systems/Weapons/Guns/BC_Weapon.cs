@@ -15,31 +15,32 @@ public abstract class BC_Weapon : MonoBehaviour
     /// If the guns scriptable object uses a magazine, this represents the amount of ammo currently in the magazine.
     /// </summary>
     [SerializeField]
-    int m_currentAmountInMagazine = 0;
-    public int CurrentAmountInMagazine
+    uint m_currentMag = 0;
+    int CurrentMag
     {
-        get
+        get 
         {
-            return m_currentAmountInMagazine;
+            return (int) m_currentMag; 
         }
-        set
+        set 
         {
-            if(m_weaponData.MagazineCapacity != null)
+            if(value <= 0)
             {
-                m_currentAmountInMagazine = Mathf.Clamp(value, 0, (int)m_weaponData.MagazineCapacity);
-                if(m_currentAmountInMagazine <= 0 && reloadCoroutine == null)
+                m_currentMag = 0;
+                if(CurrentWeaponState != WeaponState.Reloading)
                 {
-                    Reload();
+                    TryReload();
                 }
             }
             else
             {
-                m_currentAmountInMagazine = 0;
-                Debug.LogError($"attempting to write to current amount in magazine with null in object: {this.gameObject.name}");
-            } 
+                m_currentMag = (uint)value;
+            }
         }
     }
+    uint m_magCapacity = 0;
 
+    bool m_currentWeaponFiringState = false;
     /// <summary>
     /// Transform representing the base of the weapon where projectiles are instantiated.
     /// </summary>
@@ -90,8 +91,6 @@ public abstract class BC_Weapon : MonoBehaviour
     public UnityEvent<WeaponAction> OnWeaponAction = new UnityEvent<WeaponAction>();
 
     private BC_FireType m_FireType;
-
-    public Coroutine reloadCoroutine;
 
     #endregion
 
@@ -150,53 +149,58 @@ public abstract class BC_Weapon : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
+        //setup weapon data
         if (m_weaponData != null)
         {
             m_minimumTimeBetweenFiring = m_weaponData.MinimumTimeBetweenFiring;
+            if (WeaponData.UsesMag)
+            {
+                m_magCapacity = (uint)WeaponData.MagazineCapacity;
+                m_currentMag = m_magCapacity;
+            }
         }
         else
         {
             throw new System.Exception("No scriptable object found");
         }
-
+        //setup the firing mode
         switch (m_weaponData.WeaponFiringMode)
         {
             case (SO_WeaponData.FiringMode.Auto):
-
-                if (m_weaponData.UsesMag)
-                {
-                    m_FireType = new AutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine -= 1);
-                }
-                else
-                {
-                    m_FireType = new AutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire());
-                }
-                
+                m_FireType = new AutomaticFire
+                    (
+                        this,
+                        OnFire,
+                        OnStartFire,
+                        OnStopFire,
+                        (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (()=> CurrentMag--) : OnPostFire,
+                        OnPreFire
+                    );
                 break;
             case (SO_WeaponData.FiringMode.SemiAuto):
-
-                if (m_weaponData.UsesMag)
-                {
-                    m_FireType = new SemiAutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine--);
-                }
-                else
-                {
-                    m_FireType = new SemiAutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire());
-                }
+                m_FireType = new SemiAutomaticFire
+                    (
+                        this,
+                        OnFire,
+                        OnStartFire,
+                        OnStopFire,
+                        (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (() => CurrentMag--) : OnPostFire,
+                        OnPreFire
+                    );
                 break;
             case(SO_WeaponData.FiringMode.Beam):
-
-                if (m_weaponData.UsesMag)
-                {
-                    m_FireType = new BeamFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine--);
-                }
-                else
-                {
-                    m_FireType = new BeamFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire());
-                }
+                m_FireType = new BeamFire
+                    (
+                        this,
+                        OnFire,
+                        OnStartFire,
+                        OnStopFire,
+                        (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (() => CurrentMag--) : OnPostFire,
+                        OnPreFire
+                    );
                 break;
             default:
-                break;
+                throw new System.Exception("Firing mode not implemented");
         }
     }
 
@@ -206,96 +210,56 @@ public abstract class BC_Weapon : MonoBehaviour
     /// <param name="newFiringState">The new firing state (true for firing, false for not firing).</param>
     public void UpdateFiringState(bool newFiringState)
     {
-        m_FireType.UpdateFiringState(newFiringState);
-    }
-
-    public virtual void Reload()
-    {
-        if (m_weaponData.UsesMag == false)
+        if(CurrentWeaponState != WeaponState.Reloading)
         {
-            Debug.Log($"{this.gameObject.name} does not use a magazine");
-            return;
+            m_FireType.UpdateFiringState(newFiringState);
         }
-        Debug.Log("called reload");
-        if (reloadCoroutine == null)
-        {
-            reloadCoroutine = StartCoroutine(OnReload());
-        }
-        else
-        {
-            Debug.Log("you are attempting to start a corutine already in progress, only 1 can be active at a time.");
-        }
-    }
-
-    /// <summary>
-    /// Attempts to reload the weapon if it's currently in the Ready state.
-    /// </summary>
-    /// 
-
-    //DOES NOT WORK CURRENTLY.
-    //WE HAVE NARROWED IT DOW TO THE AUTOMATIC PORTION.
-    //THE STATE STAYS ARE READY EVEN WHEN ATTEMPTING TO CANCEL THE COROUTINE
-    //perhaps need to attemp to set coroutine to null to fix?
-    protected virtual IEnumerator OnReload()
-    {
-        // Check if the weapon is ready to be reloaded
-        if (CurrentWeaponState == WeaponState.Ready || CurrentWeaponState == WeaponState.Preparing && CurrentWeaponState != WeaponState.Reloading)
-        {
-            Debug.Log("Reload seq 1");
-
-            //kill the firing coroutine if its running
-            StopCoroutine(m_FireType.m_fireCoroutine);
-
-            // Initiate reload sequence
-            CurrentWeaponState = WeaponState.Reloading;
-            Debug.Log(CurrentWeaponState.ToString());
-            OnChangeWeaponState.Invoke(CurrentWeaponState); // Announce reloading state change
-
-            // Calculate amount to reload (magazine capacity - current ammo)
-            int amountToReload = (int)m_weaponData.MagazineCapacity - CurrentAmountInMagazine;
-            Debug.Log("Reload seq 2");
-            if (amountToReload > 0)
-            {
-                Debug.Log("there is ammo to reload");
-                Debug.Log($"reloading {amountToReload}");
-                // Notify of reload action (optional for visual/sound cues)
-                OnWeaponAction.Invoke(WeaponAction.Reloading);
-
-                // Simulate reload delay
-                yield return new WaitForSeconds((float)m_weaponData.ReloadTime);
-
-                // Update ammo and state
-                CurrentAmountInMagazine += amountToReload;
-            }
-            Debug.Log("Reload seq 3");
-
-            // Revert to ready state and announce
-            CurrentWeaponState = WeaponState.Ready;
-            OnChangeWeaponState.Invoke(CurrentWeaponState);
-        }
-        else
-        {
-            // Do nothing if not in Ready state
-            yield return null;
-        }
-    }
-
-    public virtual void UseSingleAmmo()
-    {
-        
+        m_currentWeaponFiringState = newFiringState;
     }
 
     public virtual void OnStartFire()
     {
 
     }
-    public virtual void OnEndFire()
+    public virtual void OnStopFire()
     {
 
+    }
+    public virtual void OnPreFire()
+    {
+
+    }
+    public virtual void OnPostFire()
+    {
+        
     }
     public abstract void OnFire();
 
     #endregion
-
-
+    /// <summary>
+    /// checks if the weapon uses a magazine and reloads tries to run the reload coroutine if it does
+    /// </summary>
+    public virtual void TryReload()
+    {
+        if (WeaponData.UsesMag)
+        {
+            StartCoroutine(ReloadAsync());
+        }
+    }
+    /// <summary>
+    /// Changes the firing state of the weapon then reloads it and resets the firing state to the desired value from input
+    /// </summary>
+    /// <returns>Nothing</returns>
+    IEnumerator ReloadAsync()
+    {
+        m_FireType.UpdateFiringState(false);
+        CurrentWeaponState = WeaponState.Reloading;
+        yield return new WaitForSeconds((float)WeaponData.ReloadTime);
+        m_currentMag = m_magCapacity;
+        CurrentWeaponState = WeaponState.Ready;
+        if (m_currentWeaponFiringState)
+        {
+            m_FireType.UpdateFiringState(m_currentWeaponFiringState);
+        }
+    }
 }

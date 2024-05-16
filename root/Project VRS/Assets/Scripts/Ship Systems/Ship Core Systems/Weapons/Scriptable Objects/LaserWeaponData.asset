@@ -19,7 +19,7 @@ MonoBehaviour:
   m_weaponFireAudioClip: []
   m_weaponEventSFX: []
   m_minimumTimeBetweenFiring: 0
-  m_usesMag: 1
+  m_usesMag: 0
   m_reloadTime: 0
   m_magazineCapacity: 0
   m_firingMode: 1

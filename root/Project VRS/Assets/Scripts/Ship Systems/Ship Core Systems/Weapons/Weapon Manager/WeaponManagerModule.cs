@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class WeaponManagerModule : BC_CoreModule
@@ -20,8 +19,8 @@ public class WeaponManagerModule : BC_CoreModule
         } 
         return listToReturn;
     }
-    LinkedListNode<WeaponSlot> _selectedWeapon;
-    bool _lastMouseDownStatus = false;
+    LinkedListNode<WeaponSlot> m_selectedWeapon;
+    bool m_lastMouseDownStatus = false;
 
     [System.Serializable]
     public struct WeaponSlot
@@ -41,14 +40,14 @@ public class WeaponManagerModule : BC_CoreModule
     { 
         get 
         { 
-            return _lastMouseDownStatus; 
+            return m_lastMouseDownStatus; 
         }
         set 
         {
-            _lastMouseDownStatus = value;
-            if (_selectedWeapon != null && _selectedWeapon.Value.Weapon != null)
+            m_lastMouseDownStatus = value;
+            if (m_selectedWeapon != null && m_selectedWeapon.Value.Weapon != null)
             {
-                _selectedWeapon.Value.Weapon.UpdateFiringState(value);
+                m_selectedWeapon.Value.Weapon.UpdateFiringState(value);
 
             }
         }
@@ -155,21 +154,21 @@ public class WeaponManagerModule : BC_CoreModule
 
     void RotateSelectedWeaponForward()
     {
-        if(_selectedWeapon != null)
+        if(m_selectedWeapon != null)
         {
-            _selectedWeapon.Value.Weapon.UpdateFiringState(false);
-            _selectedWeapon = _selectedWeapon.NextOrFirst();
-            _selectedWeapon.Value.Weapon.UpdateFiringState(_lastMouseDownStatus);
+            m_selectedWeapon.Value.Weapon.UpdateFiringState(false);
+            m_selectedWeapon = m_selectedWeapon.NextOrFirst();
+            m_selectedWeapon.Value.Weapon.UpdateFiringState(m_lastMouseDownStatus);
         }
     }
 
     void RotateSelectedWeaponBackward()
     {
-        if (_selectedWeapon != null)
+        if (m_selectedWeapon != null)
         {
-            _selectedWeapon.Value.Weapon.UpdateFiringState(false);
-            _selectedWeapon = _selectedWeapon.PreviousOrLast();
-            _selectedWeapon.Value.Weapon.UpdateFiringState(_lastMouseDownStatus);
+            m_selectedWeapon.Value.Weapon.UpdateFiringState(false);
+            m_selectedWeapon = m_selectedWeapon.PreviousOrLast();
+            m_selectedWeapon.Value.Weapon.UpdateFiringState(m_lastMouseDownStatus);
         }
     }
 
@@ -194,7 +193,7 @@ public class WeaponManagerModule : BC_CoreModule
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
-            _selectedWeapon.Value.Weapon.Reload();
+            m_selectedWeapon.Value.Weapon.TryReload();
         }
     }
 
@@ -206,7 +205,7 @@ public class WeaponManagerModule : BC_CoreModule
         {
             RegisterWeapon(weapon);
         }
-         _selectedWeapon = (PlayerWeapons.Count <= 0) ? null : PlayerWeapons.First;
+         m_selectedWeapon = (PlayerWeapons.Count <= 0) ? null : PlayerWeapons.First;
     }
 
     #endregion

@@ -14,25 +14,29 @@ public class SemiAutomaticFire : BC_FireType
     public SemiAutomaticFire
         (
             BC_Weapon weapon,
+            Fire fireAction,
             StartFire startFireAction = null,
             StopFire stopFireAction = null,
-            params Fire[] fireActions
-        ) : base(weapon, startFireAction, stopFireAction, fireActions)
+            PostFire postFireAction = null,
+            PreFire preFireAction = null
+        ) : base(weapon, fireAction, startFireAction, stopFireAction, postFireAction, preFireAction)
     {
         m_startFireMethods += StartTryFire;
     }
     void StartTryFire()
     {
-        m_fireCoroutine = m_weapon.StartCoroutine(TryFireLogicAsync());
+        m_weapon.StartCoroutine(TryFireLogicAsync());
     }
     IEnumerator TryFireLogicAsync()
     {
         if (m_weapon.CurrentWeaponState == BC_Weapon.WeaponState.Ready)
         {
+            m_preFireMethods?.Invoke();
             m_fireMethods?.Invoke();
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Preparing;
             yield return new WaitForSeconds(m_weapon.m_minimumTimeBetweenFiring);
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Ready;
+            m_postFireMethods?.Invoke();
         }
     }
 }
