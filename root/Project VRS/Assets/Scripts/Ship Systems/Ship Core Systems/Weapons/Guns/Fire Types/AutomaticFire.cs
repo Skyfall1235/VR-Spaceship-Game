@@ -32,6 +32,10 @@ public class AutomaticFire : BC_FireType
             m_fireMethods?.Invoke();
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Preparing;
             yield return new WaitForSeconds(m_weapon.m_minimumTimeBetweenFiring);
+            if(m_weapon.CurrentWeaponState == BC_Weapon.WeaponState.Reloading)
+            {
+                yield break;
+            }
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Ready;
             if(m_currentFiringState == true) 
             {
