@@ -23,7 +23,7 @@ public class AutomaticFire : BC_FireType
     }
     void StartTryFire()
     {
-        m_weapon.StartCoroutine(TryFireLogicAsync());
+        m_fireCoroutine = m_weapon.StartCoroutine(TryFireLogicAsync());
     }
     IEnumerator TryFireLogicAsync()
     {
@@ -39,7 +39,7 @@ public class AutomaticFire : BC_FireType
             m_weapon.CurrentWeaponState = BC_Weapon.WeaponState.Ready;
             if(m_currentFiringState == true) 
             {
-                m_weapon.StartCoroutine(TryFireLogicAsync());
+                m_fireCoroutine = m_weapon.StartCoroutine(TryFireLogicAsync());
             }
         }
     }

@@ -23,7 +23,7 @@ public class SemiAutomaticFire : BC_FireType
     }
     void StartTryFire()
     {
-        m_weapon.StartCoroutine(TryFireLogicAsync());
+        m_fireCoroutine = m_weapon.StartCoroutine(TryFireLogicAsync());
     }
     IEnumerator TryFireLogicAsync()
     {

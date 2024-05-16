@@ -21,6 +21,8 @@ public abstract class BC_FireType
     protected Fire m_fireMethods;
     protected BC_Weapon m_weapon;
 
+    public Coroutine m_fireCoroutine;
+
     protected bool m_currentFiringState = false;
     /// <summary>
     /// Method updates the underlying fire state of the weapon

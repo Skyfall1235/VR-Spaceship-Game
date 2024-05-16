@@ -27,7 +27,7 @@ public abstract class BC_Weapon : MonoBehaviour
             if(m_weaponData.MagazineCapacity != null)
             {
                 m_currentAmountInMagazine = Mathf.Clamp(value, 0, (int)m_weaponData.MagazineCapacity);
-                if(m_currentAmountInMagazine <= 0)
+                if(m_currentAmountInMagazine <= 0 && reloadCoroutine == null)
                 {
                     Reload();
                 }
@@ -90,6 +90,8 @@ public abstract class BC_Weapon : MonoBehaviour
     public UnityEvent<WeaponAction> OnWeaponAction = new UnityEvent<WeaponAction>();
 
     private BC_FireType m_FireType;
+
+    public Coroutine reloadCoroutine;
 
     #endregion
 
@@ -215,20 +217,38 @@ public abstract class BC_Weapon : MonoBehaviour
             return;
         }
         Debug.Log("called reload");
-        StartCoroutine(OnReload());
+        if (reloadCoroutine == null)
+        {
+            reloadCoroutine = StartCoroutine(OnReload());
+        }
+        else
+        {
+            Debug.Log("you are attempting to start a corutine already in progress, only 1 can be active at a time.");
+        }
     }
 
     /// <summary>
     /// Attempts to reload the weapon if it's currently in the Ready state.
     /// </summary>
+    /// 
+
+    //DOES NOT WORK CURRENTLY.
+    //WE HAVE NARROWED IT DOW TO THE AUTOMATIC PORTION.
+    //THE STATE STAYS ARE READY EVEN WHEN ATTEMPTING TO CANCEL THE COROUTINE
+    //perhaps need to attemp to set coroutine to null to fix?
     protected virtual IEnumerator OnReload()
     {
         // Check if the weapon is ready to be reloaded
-        if (CurrentWeaponState == WeaponState.Ready)
+        if (CurrentWeaponState == WeaponState.Ready || CurrentWeaponState == WeaponState.Preparing && CurrentWeaponState != WeaponState.Reloading)
         {
             Debug.Log("Reload seq 1");
+
+            //kill the firing coroutine if its running
+            StopCoroutine(m_FireType.m_fireCoroutine);
+
             // Initiate reload sequence
             CurrentWeaponState = WeaponState.Reloading;
+            Debug.Log(CurrentWeaponState.ToString());
             OnChangeWeaponState.Invoke(CurrentWeaponState); // Announce reloading state change
 
             // Calculate amount to reload (magazine capacity - current ammo)
