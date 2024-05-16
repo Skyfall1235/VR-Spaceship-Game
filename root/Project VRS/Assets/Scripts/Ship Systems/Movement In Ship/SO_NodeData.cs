@@ -81,9 +81,9 @@ public class SO_NodeData : ScriptableObject
     {
         //baked before hand
         [SerializeField]
-        private Vector3 m_nodePosition;
+        public Vector3 m_nodePosition;
         [SerializeField]
-        private List<SubNode> m_subNode;
+        public List<SubNode> m_subNode;
         [SerializeField]
         public int currentSubNodeIndex;
         //unity event here? maybe somewhere else?? idk
@@ -100,7 +100,7 @@ public class SO_NodeData : ScriptableObject
     public class SubNode
     {
         [SerializeField]
-        private Vector3 subNodePosition;
+        public Vector3 subNodePosition;
 
         public Vector3 CustomSeatPositionAdjustment;
         public float SeatRotationAdjustment;

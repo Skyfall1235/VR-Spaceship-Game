@@ -31,10 +31,21 @@ public class SO_TurretData : ScriptableObject
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum angles (in degrees) at which the turret can rotate on the X and Y axes.")]
-    private Vector2 m_maximumTurretAngles = new Vector2(15, 15);
-    public Vector2 MaximumTurretAngles
+    private Vector2 m_constraintsOfXTurretAngles = new Vector2(15, 15);
+    public Vector2 ConstraintsOfXTurretAngles
     {
-        get => m_maximumTurretAngles;
+        get => m_constraintsOfXTurretAngles;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [SerializeField]
+    [Tooltip("Maximum angles (in degrees) at which the turret can rotate on the X and Y axes.")]
+    private Vector2 m_constraintsOfYTurretAngles = new Vector2(15, 15);
+    public Vector2 ConstraintsOfYTurretAngles
+    {
+        get => m_constraintsOfYTurretAngles;
     }
 
     [Header("Targeting and Weapon Info")]

@@ -19,7 +19,7 @@ public partial class AvionicsModule
 
     protected bool AreControlsResponsive = true;
 
-    BC_ShipMovementController movementController;
+    //BC_ShipMovementController movementController;
     Rigidbody ShipRigidbody;
 
     public override void Awake()
