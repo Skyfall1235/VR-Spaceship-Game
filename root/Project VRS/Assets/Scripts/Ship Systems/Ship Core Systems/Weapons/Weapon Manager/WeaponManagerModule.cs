@@ -194,7 +194,7 @@ public class WeaponManagerModule : BC_CoreModule
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
-            _selectedWeapon.Value.Weapon.UpdateReloadState(true);
+            _selectedWeapon.Value.Weapon.Reload();
         }
     }
 

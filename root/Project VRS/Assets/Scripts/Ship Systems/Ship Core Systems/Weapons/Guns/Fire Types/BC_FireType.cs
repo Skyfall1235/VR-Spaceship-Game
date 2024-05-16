@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class BC_FireType
@@ -44,9 +45,12 @@ public abstract class BC_FireType
     /// <param name="weapon">Monobehavior that the coroutines will run on</param>
     /// <param name="startFireAction">Void methods fired when the weapon stops firing</param>
     /// <param name="stopFireAction">Void methods fired when the weapon stops firing</param>
-    public BC_FireType(Fire fireAction, BC_Weapon weapon, StartFire startFireAction = null, StopFire stopFireAction = null) 
+    public BC_FireType(BC_Weapon weapon, StartFire startFireAction = null, StopFire stopFireAction = null, Fire[] fireActions = null) 
     {
-        m_fireMethods += fireAction;
+        foreach (Fire fireAction in fireActions)
+        {
+            m_fireMethods += fireAction;
+        }
         m_startFireMethods += startFireAction;
         m_stopFireMethods += stopFireAction;
         m_weapon = weapon;

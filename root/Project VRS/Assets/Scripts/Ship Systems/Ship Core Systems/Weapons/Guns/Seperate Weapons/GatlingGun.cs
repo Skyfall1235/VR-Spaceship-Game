@@ -10,9 +10,9 @@ public class GatlingGun : PooledWeapon
         base.OnFire();
     }
 
-    protected override void Reload()
+    public override void Reload()
     {
-        throw new System.NotImplementedException();
+        base.Reload();
     }
 
     protected override void Awake()

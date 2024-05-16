@@ -11,14 +11,13 @@ public class SemiAutomaticFire : BC_FireType
     /// <param name="weapon">Monobehavior that the coroutines will run on</param>
     /// <param name="startFireAction">Void methods fired when the weapon stops firing</param>
     /// <param name="stopFireAction">Void methods fired when the weapon stops firing</param> 
-
     public SemiAutomaticFire
         (
-            Fire fireAction,
             BC_Weapon weapon,
             StartFire startFireAction = null,
-            StopFire stopFireAction = null
-        ) : base(fireAction, weapon, startFireAction, stopFireAction)
+            StopFire stopFireAction = null,
+            params Fire[] fireActions
+        ) : base(weapon, startFireAction, stopFireAction, fireActions)
     {
         m_startFireMethods += StartTryFire;
     }

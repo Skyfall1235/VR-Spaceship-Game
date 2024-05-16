@@ -6,11 +6,11 @@ public class BeamFire : BC_FireType
 {
     public BeamFire
         (
-            Fire fireAction,
             BC_Weapon weapon,
             StartFire startFireAction = null,
-            StopFire stopFireAction = null
-        ) : base(fireAction, weapon, startFireAction, stopFireAction)
+            StopFire stopFireAction = null,
+            params Fire[] fireActions
+        ) : base(weapon, startFireAction, stopFireAction, fireActions)
     {
 
     }

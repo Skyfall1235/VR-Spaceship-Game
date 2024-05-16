@@ -160,13 +160,38 @@ public abstract class BC_Weapon : MonoBehaviour
         switch (m_weaponData.WeaponFiringMode)
         {
             case (SO_WeaponData.FiringMode.Auto):
-                m_FireType = new AutomaticFire(() => OnFire(), this, () => OnStartFire(), () => OnEndFire());
+
+                if (m_weaponData.UsesMag)
+                {
+                    m_FireType = new AutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine -= 1, () => Debug.Log("should call this param"));
+                }
+                else
+                {
+                    m_FireType = new AutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire());
+                }
+                
                 break;
             case (SO_WeaponData.FiringMode.SemiAuto):
-                m_FireType = new SemiAutomaticFire(() => OnFire(), this, () => OnStartFire(), () => OnEndFire());
+
+                if (m_weaponData.UsesMag)
+                {
+                    m_FireType = new SemiAutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine--);
+                }
+                else
+                {
+                    m_FireType = new SemiAutomaticFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire());
+                }
                 break;
             case(SO_WeaponData.FiringMode.Beam):
-                m_FireType = new BeamFire(() => OnFire(), this, () => OnStartFire(), ()=> OnEndFire());
+
+                if (m_weaponData.UsesMag)
+                {
+                    m_FireType = new BeamFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire(), () => CurrentAmountInMagazine--);
+                }
+                else
+                {
+                    m_FireType = new BeamFire(this, () => OnStartFire(), () => OnEndFire(), () => OnFire());
+                }
                 break;
             default:
                 break;
@@ -181,36 +206,22 @@ public abstract class BC_Weapon : MonoBehaviour
     {
         m_FireType.UpdateFiringState(newFiringState);
     }
-    public void UpdateReloadState(bool newReloadState)
-    {
-        Debug.Log("updating reload state");
-        Reload();
-        if (newReloadState == true)
-        {
-            
-        }
-    }
 
-    /// <summary>
-    /// This method reloads the weapon. 
-    /// </summary>
-    protected virtual void Reload()
+    public virtual void Reload()
     {
-        
         if (m_weaponData.UsesMag == false)
         {
             Debug.Log($"{this.gameObject.name} does not use a magazine");
             return;
         }
         Debug.Log("called reload");
-        StartCoroutine(TryReload());
-
+        StartCoroutine(OnReload());
     }
 
     /// <summary>
     /// Attempts to reload the weapon if it's currently in the Ready state.
     /// </summary>
-    protected virtual IEnumerator TryReload()
+    protected virtual IEnumerator OnReload()
     {
         // Check if the weapon is ready to be reloaded
         if (CurrentWeaponState == WeaponState.Ready)
@@ -223,8 +234,10 @@ public abstract class BC_Weapon : MonoBehaviour
             // Calculate amount to reload (magazine capacity - current ammo)
             int amountToReload = (int)m_weaponData.MagazineCapacity - CurrentAmountInMagazine;
             Debug.Log("Reload seq 2");
-            if (amountToReload >= 0)
+            if (amountToReload > 0)
             {
+                Debug.Log("there is ammo to reload");
+                Debug.Log($"reloading {amountToReload}");
                 // Notify of reload action (optional for visual/sound cues)
                 OnWeaponAction.Invoke(WeaponAction.Reloading);
 
@@ -247,9 +260,10 @@ public abstract class BC_Weapon : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// This method fires the weapon.
-    /// </summary> 
+    public virtual void UseSingleAmmo()
+    {
+        
+    }
 
     public virtual void OnStartFire()
     {
