@@ -48,7 +48,28 @@ public abstract class PooledWeapon : BC_Weapon
         {
             BasicProjectile projectileScript = objectPulled.GetComponent<BasicProjectile>();
             projectileScript.m_gunThatFiredProjectile = this;
-            projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation);
+            if (WeaponData.UseSpread)
+            {
+                Quaternion bulletForward = transform.rotation;
+                bulletForward *= Quaternion.Euler(
+                    new Vector3(
+                        Random.Range(
+                            -((Vector2)WeaponData.SpreadValues).x,
+                            ((Vector2)WeaponData.SpreadValues).x
+                        ),
+                        0,
+                        Random.Range(
+                            -((Vector2)WeaponData.SpreadValues).y,
+                            ((Vector2)WeaponData.SpreadValues).y
+                        )
+                    )
+                );
+                projectileScript.Setup(m_instantiationPoint.transform.position, bulletForward);
+            }
+            else
+            {
+                projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation);
+            }
         }
     }
 

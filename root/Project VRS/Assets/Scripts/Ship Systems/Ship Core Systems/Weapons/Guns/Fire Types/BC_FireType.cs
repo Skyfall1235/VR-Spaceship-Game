@@ -59,5 +59,4 @@ public abstract class BC_FireType
         m_stopFireMethods += stopFireAction;
         m_weapon = weapon;
     }
-
 }
