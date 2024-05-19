@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -12,73 +10,140 @@ public class InteractorToInputExposer : MonoBehaviour
     [SerializeField] private ActionBasedController m_interactor;
 
     //list all possible inputs
+
+    #region Select
     //grip
-    public bool select
+    [Header("Select Action and Value")]
+    [SerializeField]
+    private bool m_select;
+    public bool Select
     {
         get
         {
             if (m_interactor != null)
             {
-                return RetrieveValueFromAction<bool>(m_interactor.selectAction);
+                m_select = RetrieveValueFromAction<bool>(m_interactor.selectAction);
+                return m_select;
             }
             else
             {
                 StateLackOfAction("Select Bool");
+                m_select = false;
                 return false;
             }
         }
     }
-    public float selectValue
+    [SerializeField]
+    private float m_selectValue;
+    public float SelectValue
     {
         get
         {
             if (m_interactor != null)
             {
-                return RetrieveValueFromAction<float>(m_interactor.selectActionValue);
+                m_selectValue = RetrieveValueFromAction<float>(m_interactor.selectActionValue);
+                return m_selectValue;
             }
             else
             {
                 StateLackOfAction("Select Value");
+                m_selectValue = 0f;
                 return 0f;
             }
         }
     }
 
+    #endregion
+
+    #region Activate
+
+    [Header("Activate Action and Value")]
     //trigger
-    public bool activate
+    [SerializeField]
+    private bool m_activate;
+    public bool Activate
     {
         get
         {
             if (m_interactor != null)
             {
-                return RetrieveValueFromAction<bool>(m_interactor.activateAction);
+                m_activate = RetrieveValueFromAction<bool>(m_interactor.activateAction);
+                return m_activate;
             }
             else
             {
                 StateLackOfAction("Activate Bool");
+                m_activate = false;
                 return false;
             }
         }
     }
-    public float activateValue
+    [SerializeField]
+    private float m_activateValue;
+    public float ActivateValue
     {
         get
         {
             if (m_interactor != null)
             {
-                return RetrieveValueFromAction<float>(m_interactor.activateActionValue);
+                m_activateValue = RetrieveValueFromAction<float>(m_interactor.activateActionValue);
+                return m_activateValue;
             }
             else
             {
                 StateLackOfAction("Activate Value");
+                m_activateValue = 0f;
                 return 0f;
             }
         }
     }
 
+    #endregion
+
+    #region buttons and joystick
+
+    [Header("Button and Joystick Action and Value")]
     //buttons?
+    [SerializeField]
+    private bool m_primaryButton;
+    public bool PrimaryButton
+    {
+        get
+        {
+            if(m_interactor != null)
+            {
+                //return RetrieveValueFromAction<bool>(m_interactor.)
+                return false;
+            }
+            m_primaryButton = false;
+            return false;
+        }
+    }
 
     //joystick val
+
+    [SerializeField]
+    private bool m_joystickClick;
+    public bool JoystickClick
+    {
+        get
+        {
+            if (m_interactor != null)
+            {
+                //m_joystickClick = RetrieveValueFromAction<bool>(m_interactor.)
+                return false;
+            }
+            else
+            {
+                StateLackOfAction("Joystick Bool");
+                m_joystickClick = false;
+                return m_joystickClick;
+            }
+        }
+    }
+
+    [SerializeField]
+    private Vector2 m_joystickVal;
     public Vector2 JoystickVal
     {
         get
@@ -86,19 +151,35 @@ public class InteractorToInputExposer : MonoBehaviour
             if (m_interactor != null)
             {
                 //i had to map the vector2 of the joystick somehow
-                return RetrieveValueFromAction<Vector2>(m_interactor.uiScrollAction);
+                m_joystickVal = RetrieveValueFromAction<Vector2>(m_interactor.uiScrollAction);
+                return m_joystickVal;
             }
             else
             {
                 StateLackOfAction("Joystick Value");
+                m_joystickVal = Vector2.zero;
                 return Vector2.zero;
             }
         }
     }
 
-    //gameobject
-    public GameObject InteractorGameObject;
+    #endregion
 
+
+    [Header("Interactor GameObject")]
+    //gameobject
+    [SerializeField]
+    private GameObject m_interactorGameObject;
+
+    public GameObject InteractorGameObject
+    {
+        get
+        {
+            return m_interactorGameObject;
+        }
+    }    
+
+    #region Interactor Registration
 
     /// <summary>
     /// Registers the action based controller based on what selected the associated item
@@ -109,7 +190,7 @@ public class InteractorToInputExposer : MonoBehaviour
         if (m_interactor == null)
         {
             m_interactor = GrabActionBasedController(e.interactorObject);
-            InteractorGameObject = m_interactor.gameObject;
+            m_interactorGameObject = m_interactor.gameObject;
         }
     }
 
@@ -121,9 +202,13 @@ public class InteractorToInputExposer : MonoBehaviour
         if (m_interactor != null)
         {
             m_interactor = null;
-            InteractorGameObject = null;
+            m_interactorGameObject = null;
         }
     }
+
+    #endregion
+
+    #region State retrival and warnings
 
     /// <summary>
     /// Retrieves a value of type T from a Unity InputActionProperty.
@@ -167,5 +252,15 @@ public class InteractorToInputExposer : MonoBehaviour
         //if the action based controller is null, then no interactor will be saved
         return ABController;
     }
+
+    static public AdditionalInputForActionBasedController GrabOptionalAdditionalInputfromController(IXRInteractor interactor)
+    {
+        GameObject interactorGO = RetrieveGameObjectFromInteractor(interactor);
+        AdditionalInputForActionBasedController AdditionalInputController = interactorGO.GetComponent<AdditionalInputForActionBasedController>();
+        //if the action based controller is null, then no interactor will be saved
+        return AdditionalInputController;
+    }
+
+    #endregion
 
 }

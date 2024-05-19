@@ -62,7 +62,7 @@ public class TargetingComponent : MonoBehaviour
     }
 
 
-#region Monobehavior Methods
+    #region Monobehavior Methods
 
     private void FixedUpdate()
     {

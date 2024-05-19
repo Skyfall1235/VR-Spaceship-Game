@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using static SystemResourceQueue;
+using static IModuleDamage;
 
 /// <summary>
 /// Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module's state, health, and management.
@@ -47,7 +48,7 @@ using static SystemResourceQueue;
 /// </para>
 /// </remarks>
 [RequireComponent(typeof(InternalModuleHealth))]
-public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IModuleDamage
+public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IHealthEvents
 {
 
     #region Variables
@@ -160,20 +161,50 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     /// </summary>
     public ICoreModule.OnModuleOperationalStateChange OnModuleOperationalStateChange = new();
 
-    /// <summary>
-    /// An event that is raised whenever the module recieves healing, along with information of how much it is healed by and at what rate.
-    /// </summary>
-    public IModuleDamage.OnHealEvent OnHealEvent = new();
+    [SerializeField]
+    protected OnHealEvent m_onHealEvent = new();
 
-    /// <summary>
-    /// An event that is raised whenever the module recieves damage, along with the information on how much damage it took.
-    /// </summary>
-    public IModuleDamage.OnDamageEvent OnDamageEvent = new();
+    [SerializeField]
+    protected OnDamageEvent m_onDamageEvent = new();
 
-    /// <summary>
-    /// An event that is raised whenever the module dies due to a lack of health
-    /// </summary>
-    public IModuleDamage.OnDeathEvent OnDeathEvent = new();
+    [SerializeField]
+    protected OnDeathEvent m_onDeathEvent = new();
+
+    public OnHealEvent onHealEvent
+    {
+        get
+        {
+            return m_onHealEvent;
+        }
+        set
+        {
+            m_onHealEvent = value;
+        }
+    }
+
+    public OnDamageEvent onDamageEvent
+    {
+        get
+        {
+            return m_onDamageEvent;
+        }
+        set
+        {
+            m_onDamageEvent = value;
+        }
+    }
+
+    public OnDeathEvent onDeathEvent
+    {
+        get
+        {
+            return m_onDeathEvent;
+        }
+        set
+        {
+            m_onDeathEvent = value;
+        }
+    }
 
     #endregion
 
@@ -374,7 +405,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     {
         //allow the health script to handle the actual number stuff and then invoke the event
         m_internalModuleHealth.TakeDamage(damageData);
-        OnDamageEvent.Invoke(damageData, this, ICoreModule.ModuleStateChangeType.Health);
+        m_onDamageEvent.Invoke(damageData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
     /// <summary>
@@ -384,7 +415,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public void HealModule(IDamageData.HealModuleData healData)
     {
         m_internalModuleHealth.HealModule(healData);
-        OnHealEvent.Invoke(healData, this, ICoreModule.ModuleStateChangeType.Health);
+        m_onHealEvent.Invoke(healData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
     #endregion

@@ -12,19 +12,19 @@ public interface IModuleDamage : IDamageData
     /// UnityEvent triggered when a core module receives healing.
     /// </summary>
     [Serializable]
-    public class OnHealEvent : UnityEvent<HealModuleData, BC_CoreModule, ModuleStateChangeType> { }
+    public class OnHealEvent : UnityEvent<HealModuleData, IHealthEvents, ModuleStateChangeType> { }
 
     /// <summary>
     /// UnityEvent triggered when a core module takes damage.
     /// </summary>
     [Serializable]
-    public class OnDamageEvent : UnityEvent<WeaponCollisionData, BC_CoreModule, ModuleStateChangeType> { }
+    public class OnDamageEvent : UnityEvent<WeaponCollisionData, IHealthEvents, ModuleStateChangeType> { }
 
     /// <summary>
     /// UnityEvent triggered when a core module is destroyed.
     /// </summary>
     [Serializable]
-    public class OnDeathEvent : UnityEvent<BC_CoreModule, ModuleStateChangeType> { }
+    public class OnDeathEvent : UnityEvent<IHealthEvents, ModuleStateChangeType> { }
 
     /// <summary>
     /// Applies healing to a module.
@@ -45,5 +45,4 @@ public interface IModuleDamage : IDamageData
     /// Triggers the OnDamageEvent to notify other systems.
     /// </remarks>
     public void TakeDamage(WeaponCollisionData damageData);
-
 }
