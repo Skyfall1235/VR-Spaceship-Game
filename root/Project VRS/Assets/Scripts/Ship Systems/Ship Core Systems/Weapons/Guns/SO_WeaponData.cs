@@ -196,18 +196,50 @@ public class SO_WeaponData : ScriptableObject
             }
         }
     }
+    /// <summary>
+    /// the type of firing that will be performed by the weapon
+    /// </summary>
     [SerializeField] FiringMode m_firingMode = FiringMode.SemiAuto;
     public FiringMode WeaponFiringMode
     {
         get => m_firingMode;
     }
-
+    /// <summary>
+    /// Whether the weapon is in charge of firing itself or takes commands from the wepon manager
+    /// </summary>
     [SerializeField] bool m_autoFiring;
     public bool AutoFiring
     {
         get
         {
             return m_autoFiring;
+        }
+    }
+
+    /// <summary>
+    /// Whether the weapon should use the spread values
+    /// </summary>
+    [SerializeField][HideInInspector] bool m_useSpread;
+    public bool UseSpread
+    {
+        get
+        {
+            return m_useSpread;
+        }
+    }
+    [SerializeField][HideInInspector]Vector2 m_spreadValues;
+    public Vector2? SpreadValues
+    {
+        get
+        {
+            if (UseSpread)
+            {
+                return (Vector2?)m_spreadValues;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
@@ -220,12 +252,16 @@ public class SO_WeaponData_Editor : Editor
     SerializedProperty m_reloadTime;
     SerializedProperty m_minimumTimeBetweenFiring;
     SerializedProperty m_usesMag;
+    SerializedProperty m_useSpread;
+    SerializedProperty m_spreadValues;
     private void OnEnable()
     {
         m_magazineCapacity = serializedObject.FindProperty(nameof(m_magazineCapacity));
         m_reloadTime = serializedObject.FindProperty(nameof(m_reloadTime));
         m_minimumTimeBetweenFiring = serializedObject.FindProperty(nameof(m_minimumTimeBetweenFiring));
         m_usesMag = serializedObject.FindProperty(nameof(m_usesMag));
+        m_useSpread = serializedObject.FindProperty(nameof(m_useSpread));
+        m_spreadValues = serializedObject.FindProperty(nameof(m_spreadValues));
     }
     public override void OnInspectorGUI()
     {
@@ -235,13 +271,36 @@ public class SO_WeaponData_Editor : Editor
         EditorGUI.BeginChangeCheck();
         int newMagazineCapacityValue = 0;
         float newReloadTime = 0;
+        Vector2 newSpreadValues = new Vector2(0, 0);
         float newMinimumTimeBetweenFiring = EditorGUILayout.FloatField("Minimum Time Between Shots", m_minimumTimeBetweenFiring.floatValue);
-        bool newUsesMag = EditorGUILayout.Toggle("Uses a Magazine", m_usesMag.boolValue);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Magazine");
+        bool newUsesMag = EditorGUILayout.Toggle(m_usesMag.boolValue);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space(.1f);
+        EditorGUILayout.BeginVertical();
         if (scriptToDisplayDataFor.UsesMag)
         {
             newReloadTime = EditorGUILayout.FloatField("Reload Time", m_reloadTime.floatValue);
             newMagazineCapacityValue = EditorGUILayout.IntField("Magazine Capacity", m_magazineCapacity.intValue);
         }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Spread");
+        bool newUseSpred = EditorGUILayout.Toggle(m_useSpread.boolValue);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.Space(.1f);
+        EditorGUILayout.BeginVertical();
+        if (scriptToDisplayDataFor.UseSpread)
+        {
+            newSpreadValues = EditorGUILayout.Vector2Field("Spread Max Values", m_spreadValues.vector2Value);
+        }
+        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndHorizontal();
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObjects(targets, "Changed Scriptable Object");
@@ -249,6 +308,8 @@ public class SO_WeaponData_Editor : Editor
             m_minimumTimeBetweenFiring.floatValue = Mathf.Clamp(newMinimumTimeBetweenFiring, 0 , float.MaxValue);
             m_magazineCapacity.intValue = (int)Mathf.Clamp(newMagazineCapacityValue, 0, uint.MaxValue);
             m_reloadTime.floatValue = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            m_useSpread.boolValue = newUseSpred;
+            m_spreadValues.vector2Value = newSpreadValues;
             serializedObject.ApplyModifiedProperties();
         }
     }

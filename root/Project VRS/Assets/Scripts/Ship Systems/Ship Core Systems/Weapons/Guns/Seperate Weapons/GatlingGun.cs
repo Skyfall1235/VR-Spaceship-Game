@@ -10,10 +10,6 @@ public class GatlingGun : PooledWeapon
         base.OnFire();
     }
 
-    //public override void Reload()
-    //{
-    //    base.Reload();
-    //}
 
     protected override void Awake()
     {

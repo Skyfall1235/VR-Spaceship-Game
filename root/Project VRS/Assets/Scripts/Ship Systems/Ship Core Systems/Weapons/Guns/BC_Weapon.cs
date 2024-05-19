@@ -217,6 +217,8 @@ public abstract class BC_Weapon : MonoBehaviour
         m_currentWeaponFiringState = newFiringState;
     }
 
+    
+
     public virtual void OnStartFire()
     {
 
