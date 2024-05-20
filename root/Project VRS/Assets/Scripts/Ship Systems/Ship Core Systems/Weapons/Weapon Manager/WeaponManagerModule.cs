@@ -66,8 +66,9 @@ public class WeaponManagerModule : BC_CoreModule
                     WeaponSlots[i] = new WeaponSlot(WeaponSlots[i].Transform, WeaponSlots[i].WeaponSize, weaponToAdd);
                     if(WeaponSlots[i].Weapon.WeaponBase != null && autoManageWeapon)
                     {
-                        WeaponSlots[i].Weapon.WeaponBase.position = WeaponSlots[i].Transform.position;
                         WeaponSlots[i].Weapon.WeaponBase.parent = WeaponSlots[i].Transform;
+                        WeaponSlots[i].Weapon.WeaponBase.localPosition = Vector3.zero;
+                        WeaponSlots[i].Weapon.WeaponBase.localRotation = Quaternion.identity;
                     }
                     if (!WeaponSlots[i].Weapon.WeaponData.AutoFiring)
                     {
@@ -87,8 +88,9 @@ public class WeaponManagerModule : BC_CoreModule
                     WeaponSlots[i] = new WeaponSlot(WeaponSlots[i].Transform, WeaponSlots[i].WeaponSize,weaponToAdd);
                     if (WeaponSlots[i].Weapon.WeaponBase != null && autoManageWeapon)
                     {
-                        WeaponSlots[i].Weapon.WeaponBase.position = WeaponSlots[i].Transform.position;
                         WeaponSlots[i].Weapon.WeaponBase.parent = WeaponSlots[i].Transform;
+                        WeaponSlots[i].Weapon.WeaponBase.localPosition = Vector3.zero;
+                        WeaponSlots[i].Weapon.WeaponBase.localRotation = Quaternion.identity;
                     }
                     if (!WeaponSlots[i].Weapon.WeaponData.AutoFiring)
                     {

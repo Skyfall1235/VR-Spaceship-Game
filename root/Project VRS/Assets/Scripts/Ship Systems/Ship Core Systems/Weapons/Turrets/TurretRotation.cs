@@ -28,18 +28,33 @@ public class TurretRotation : MonoBehaviour
         Vector3 xAxisRotatorEulerAngles = m_xAxisRotator.transform.rotation.eulerAngles;
         Vector3 yAxisRotatorEulerAngles = m_yAxisRotator.transform.rotation.eulerAngles;
 
-        // Clamp desired direction angles within limits
-        float desiredXRotation = Mathf.Clamp(Quaternion.LookRotation(desiredDirection).eulerAngles.x, 
-                                                                     m_turretData.ConstraintsOfXTurretAngles.x, 
-                                                                     m_turretData.ConstraintsOfXTurretAngles.y);
-        float desiredYRotation = Mathf.Clamp(Quaternion.LookRotation(desiredDirection).eulerAngles.y, 
-                                                                     m_turretData.ConstraintsOfYTurretAngles.x, 
-                                                                     m_turretData.ConstraintsOfYTurretAngles.y);
-
+        float desiredXRotation = Quaternion.LookRotation(desiredDirection).eulerAngles.x;
+        float desiredYRotation = Quaternion.LookRotation(desiredDirection).eulerAngles.y;
         Quaternion newXAxisRotation = Quaternion.Euler(desiredXRotation, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
         Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, desiredYRotation, yAxisRotatorEulerAngles.z);
+        if (CheckInGimbalLimits(targetPosition))
+        {
+            m_xAxisRotator.transform.rotation = Quaternion.RotateTowards(m_xAxisRotator.transform.rotation, newXAxisRotation, m_turretData.TurretRotationSpeed.x * Time.deltaTime);
+            m_yAxisRotator.transform.rotation = Quaternion.RotateTowards(m_yAxisRotator.transform.rotation, newYAxisRotation, m_turretData.TurretRotationSpeed.y * Time.deltaTime);
+        }
+    }
 
-        m_xAxisRotator.transform.rotation = Quaternion.RotateTowards(m_xAxisRotator.transform.rotation, newXAxisRotation, m_turretData.TurretRotationSpeed.x * Time.deltaTime);
-        m_yAxisRotator.transform.rotation = Quaternion.RotateTowards(m_yAxisRotator.transform.rotation, newYAxisRotation, m_turretData.TurretRotationSpeed.y * Time.deltaTime);
+    public bool CheckInGimbalLimits(Vector3 targetPosition)
+    {
+        Vector3 desiredDirection = (targetPosition - m_barrel.transform.position).normalized;
+
+        Vector3 xAxisRotatorEulerAngles = m_xAxisRotator.transform.rotation.eulerAngles;
+        Vector3 yAxisRotatorEulerAngles = m_yAxisRotator.transform.rotation.eulerAngles;
+        float desiredXRotation = Quaternion.LookRotation(desiredDirection).eulerAngles.x;
+        float desiredYRotation = Quaternion.LookRotation(desiredDirection).eulerAngles.y;
+        Quaternion xForward = Quaternion.Euler(transform.rotation.eulerAngles.x, m_xAxisRotator.transform.rotation.eulerAngles.y, m_xAxisRotator.transform.rotation.eulerAngles.z);
+        Quaternion yForward = Quaternion.Euler(m_yAxisRotator.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, m_yAxisRotator.transform.rotation.eulerAngles.z);
+        Quaternion newXAxisRotation = Quaternion.Euler(desiredXRotation, xAxisRotatorEulerAngles.y, xAxisRotatorEulerAngles.z);
+        Quaternion newYAxisRotation = Quaternion.Euler(yAxisRotatorEulerAngles.x, desiredYRotation, yAxisRotatorEulerAngles.z);
+        if (Quaternion.Angle(xForward, newXAxisRotation) <= m_turretData.ConstraintsOfXTurretAngles.y && Quaternion.Angle(yForward, newYAxisRotation) <= m_turretData.ConstraintsOfYTurretAngles.y)
+        {
+            return true;
+        }
+        return false;
     }
 }

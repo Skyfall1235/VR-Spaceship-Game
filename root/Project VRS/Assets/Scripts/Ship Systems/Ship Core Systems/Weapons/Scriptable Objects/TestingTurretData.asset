@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_turretRotationSpeed: {x: 20, y: 20}
   m_isGimballed: 0
-  m_maximumTurretAngles: {x: 15, y: 15}
+  m_constraintsOfXTurretAngles: {x: 15, y: 15}
+  m_constraintsOfYTurretAngles: {x: 15, y: 15}
   m_targetingType: 0

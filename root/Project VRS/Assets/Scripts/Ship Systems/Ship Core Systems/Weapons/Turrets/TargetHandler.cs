@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using Unity.Burst;
 using Unity.Mathematics;
-using static UnityEngine.GraphicsBuffer;
 
 //FOR THIS SCRIPT TO WORK, WE HAVE T START USING TAGS OR LAYERS.
 //LAYERS WILL BE USES FOR PHYSICS AND TAGS WILL BE USED TO DIFFERENCIATE OBJECTS IN SCENE
@@ -20,7 +19,29 @@ public class TargetHandler : MonoBehaviour
     public string EnemyTag = "Enemy";
     public SphereCollider DetectionCollider;
     public float ColliderRadius = 10f;
-    public List<TargetData> RegisteredTargets = new List<TargetData>();
+    public List<TargetData> RegisteredTargetsExcludingOverride { get; private set; } = new List<TargetData>();
+    public List<TargetData> RegisteredTargetsIncludingOverride 
+    {
+        get 
+        {
+            if (targetOverride.IsEmpty)
+            {
+                return RegisteredTargetsExcludingOverride;
+            }
+            else
+            {
+                List<TargetData> currentTargetData = new List<TargetData>(RegisteredTargetsIncludingOverride);
+                if(currentTargetData.Contains(targetOverride))
+                {
+                    currentTargetData.Remove(targetOverride);
+                }
+                List<TargetData> returnList = new List<TargetData>() { targetOverride };
+                returnList.AddRange(currentTargetData);
+                return returnList;
+            }
+        }
+    }
+    public TargetData targetOverride;
     public UnityEvent<TargetData> OverridePriorityTarget;
 
     JobHandle m_jobHandle;
@@ -33,7 +54,7 @@ public class TargetHandler : MonoBehaviour
 
     private void RegisterNewTarget(GameObject target)
     {
-        RegisteredTargets.Add(new TargetData(target, target.GetComponent<Rigidbody>(), false));
+        RegisteredTargetsExcludingOverride.Add(new TargetData(target, target.GetComponent<Rigidbody>(), false));
     }
 
     private void UnregisterTarget(GameObject target)
@@ -41,13 +62,13 @@ public class TargetHandler : MonoBehaviour
         bool targetRemoved = false;  // Flag to track removal
 
         // Loop through the list
-        for (int i = RegisteredTargets.Count - 1; i >= 0; i--)
+        for (int i = RegisteredTargetsExcludingOverride.Count - 1; i >= 0; i--)
         {
             // Check if target GameObject matches the TargetData's transform
-            if (RegisteredTargets[i].TargetGameObject == target)
+            if (RegisteredTargetsExcludingOverride[i].TargetGameObject == target)
             {
                 // Remove the TargetData from the list at the current index
-                RegisteredTargets.RemoveAt(i);
+                RegisteredTargetsExcludingOverride.RemoveAt(i);
                 targetRemoved = true;
                 break;  // Exit the loop after removal
             }
@@ -65,7 +86,7 @@ public class TargetHandler : MonoBehaviour
     /// </summary>
     private IEnumerator SortPriorityTargets()
     {
-        if(RegisteredTargets == null || RegisteredTargets.Count <= 0 || m_routineComplete == false)
+        if(RegisteredTargetsExcludingOverride == null || RegisteredTargetsExcludingOverride.Count <= 0 || m_routineComplete == false)
         {
             yield break;
         }
@@ -73,19 +94,19 @@ public class TargetHandler : MonoBehaviour
         m_scoreResults.Clear();
         m_targetGameObjectPositions.Clear();
         m_targetGameObjectVelocities.Clear();
-        m_scoreResults.Resize(RegisteredTargets.Count, NativeArrayOptions.ClearMemory);
-        m_targetGameObjectPositions.Resize(RegisteredTargets.Count, NativeArrayOptions.ClearMemory);
-        m_targetGameObjectVelocities.Resize(RegisteredTargets.Count, NativeArrayOptions.ClearMemory);
+        m_scoreResults.Resize(RegisteredTargetsExcludingOverride.Count, NativeArrayOptions.ClearMemory);
+        m_targetGameObjectPositions.Resize(RegisteredTargetsExcludingOverride.Count, NativeArrayOptions.ClearMemory);
+        m_targetGameObjectVelocities.Resize(RegisteredTargetsExcludingOverride.Count, NativeArrayOptions.ClearMemory);
         NativeArray<float> scoreResults = m_scoreResults.AsArray();
         NativeArray<float3> targetGameObjectPositions = m_targetGameObjectPositions.AsArray();
         NativeArray<float3> targetGameObjectVelocities = m_targetGameObjectVelocities.AsArray();
         //create handle list and variable arrays to pass into the job system
 
         //fill out the incoming parameter lists
-        for (int i = 0; i < RegisteredTargets.Count; i++)
+        for (int i = 0; i < RegisteredTargetsExcludingOverride.Count; i++)
         {
-            targetGameObjectPositions[i] = RegisteredTargets[i].TargetGameObject.transform.position;
-            targetGameObjectVelocities[i] = RegisteredTargets[i].TargetRB.velocity;       
+            targetGameObjectPositions[i] = RegisteredTargetsExcludingOverride[i].TargetGameObject.transform.position;
+            targetGameObjectVelocities[i] = RegisteredTargetsExcludingOverride[i].TargetRB.velocity;       
         }
         //Create handles for jobs
 
@@ -95,14 +116,14 @@ public class TargetHandler : MonoBehaviour
        
         yield return new WaitUntil(() => m_jobHandle.IsCompleted);
         m_jobHandle.Complete();
-        for (int i = 0; i < RegisteredTargets.Count -1 ; i++)
+        for (int i = 0; i < RegisteredTargetsExcludingOverride.Count -1 ; i++)
         {
-            TargetData dataCopy = new TargetData(RegisteredTargets[i].TargetGameObject, RegisteredTargets[i].TargetRB, RegisteredTargets[i].IsEmpty, RegisteredTargets[i].TargetScore);
-            RegisteredTargets[i] = new TargetData(dataCopy.TargetGameObject, dataCopy.TargetRB, dataCopy.IsEmpty, scoreResults[i]);
+            TargetData dataCopy = new TargetData(RegisteredTargetsExcludingOverride[i].TargetGameObject, RegisteredTargetsExcludingOverride[i].TargetRB, RegisteredTargetsExcludingOverride[i].IsEmpty, RegisteredTargetsExcludingOverride[i].TargetScore);
+            RegisteredTargetsExcludingOverride[i] = new TargetData(dataCopy.TargetGameObject, dataCopy.TargetRB, dataCopy.IsEmpty, scoreResults[i]);
         }
 
         //Sort the list
-        RegisteredTargets.Sort((TargetData target1, TargetData target2) => target1.TargetScore.CompareTo(target2.TargetScore));
+        RegisteredTargetsExcludingOverride.Sort((TargetData target1, TargetData target2) => target1.TargetScore.CompareTo(target2.TargetScore));
         m_routineComplete = true;
     }
 
