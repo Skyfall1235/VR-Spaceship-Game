@@ -29,7 +29,7 @@ public class InternalModuleHealth : BC_UniversalEntityHealth
         StartCoroutine(DamageModuleAction(damageAfterArmor));
     }
 
-    public override void HealModule(IDamageData.HealModuleData healModuleData)
+    public override void HealObject(IDamageData.HealModuleData healModuleData)
     {
         StartCoroutine(HealModuleAction(healModuleData));
     }

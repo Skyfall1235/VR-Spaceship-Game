@@ -24,7 +24,7 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
 
     public virtual void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData) { }
 
-    public virtual void HealModule(IDamageData.HealModuleData healModuleData) { }
+    public virtual void HealObject(IDamageData.HealModuleData healModuleData) { }
 
     #endregion
 
