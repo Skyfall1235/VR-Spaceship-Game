@@ -34,7 +34,7 @@ public interface IModuleDamage : IDamageData
     /// restores module health or state based on the healing data.
     /// triggers the OnHealEvent to notify other systems.
     /// </remarks>
-    public void HealModule(HealModuleData healData);
+    public void HealObject(HealModuleData healData);
 
     /// <summary>
     /// Handles damage being inflicted on a module.

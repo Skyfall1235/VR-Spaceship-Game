@@ -15,7 +15,7 @@ using static IModuleDamage;
 /// <para>
 /// * **Health Management:**
 ///     * Provides an `InternalModuleHealth` component for handling health changes (damage and healing).
-///     * Exposes methods for taking damage (`TakeDamage`) and receiving healing (`HealModule`).
+///     * Exposes methods for taking damage (`TakeDamage`) and receiving healing (`HealObject`).
 ///     * Triggers `OnDamageEvent` and `OnHealEvent` (with `ModuleStateChangeType.Health`) upon health changes.
 /// </para>
 /// <para>
@@ -412,9 +412,9 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     /// Heals this module based on the provided heal data.
     /// </summary>
     /// <param name="healData">The heal module data containing healing information.</param>
-    public void HealModule(IDamageData.HealModuleData healData)
+    public void HealObject(IDamageData.HealModuleData healData)
     {
-        m_internalModuleHealth.HealModule(healData);
+        m_internalModuleHealth.HealObject(healData);
         m_onHealEvent.Invoke(healData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
