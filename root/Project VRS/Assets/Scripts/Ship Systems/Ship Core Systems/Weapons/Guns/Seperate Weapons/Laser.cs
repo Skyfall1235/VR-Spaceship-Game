@@ -15,7 +15,7 @@ public class Laser : BC_Weapon
     public override void OnFire()
     {
         beamInstance.transform.position = InstantiationPoint.transform.position;
-        beamInstance.transform.rotation = InstantiationPoint.transform.rotation;
+        beamInstance.transform.rotation = InstantiationPoint.transform.rotation;;
     }
     public override void OnStartFire()
     {
