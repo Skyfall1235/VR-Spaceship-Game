@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using static IBeacon;
-using static IBroadcastingProtocol;
 
 public class BroadcasterData
 {
@@ -15,22 +14,20 @@ public class BroadcasterData
             DriveFailure,
             CriticalDamage,
             Derelict,
-            Unknown,
+            Unknown
         }
 
         //is used to trigger false flag events like starting meteor swarms or a pirate attack
         public bool FalseFlag;
         public UnityEvent FalseFlagEvent;
-
-
     }
     public class InterceptionBeaconData : BeaconData
     {
-
+        //to be done at a later date when encryption becomes an added feature
     }
     public class AntennaData : BeaconData
     {
-
+        
     }
 
 }
