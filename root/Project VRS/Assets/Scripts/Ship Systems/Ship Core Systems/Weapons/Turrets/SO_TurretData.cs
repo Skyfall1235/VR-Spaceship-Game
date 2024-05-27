@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "New Turret Data")]
+[CreateAssetMenu(menuName = "Project VRS/New Turret Data")]
 [Serializable]
 public class SO_TurretData : ScriptableObject
 {

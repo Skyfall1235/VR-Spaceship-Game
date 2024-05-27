@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "New Weapon Data")]
+[CreateAssetMenu(menuName = "Project VRS/New Weapon Data")]
 [Serializable]
 public class SO_WeaponData : ScriptableObject
 {

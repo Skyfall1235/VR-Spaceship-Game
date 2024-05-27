@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "New Fuel Rod Data")]
+[CreateAssetMenu(menuName = "Project VRS/New Fuel Rod Data")]
 [Serializable]
 public class SO_FuelRodData : ScriptableObject
 {
