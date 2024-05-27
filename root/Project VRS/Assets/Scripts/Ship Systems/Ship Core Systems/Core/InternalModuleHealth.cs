@@ -26,12 +26,12 @@ public class InternalModuleHealth : BC_UniversalEntityHealth
         int damageValueFromDataPack = weaponCollisionData.damageVal;
         int damagePercentApplicable = FindDamageApplicable(weaponCollisionData);
         int damageAfterArmor = CalculateDamageAfterArmor(damageValueFromDataPack, damagePercentApplicable);
-        StartCoroutine(DamageModuleAction(damageAfterArmor));
+        StartCoroutine(DamageEntityAction(damageAfterArmor));
     }
 
     public override void HealObject(IDamageData.HealModuleData healModuleData)
     {
-        StartCoroutine(HealModuleAction(healModuleData));
+        StartCoroutine(HealEntityAction(healModuleData));
     }
 
     #endregion

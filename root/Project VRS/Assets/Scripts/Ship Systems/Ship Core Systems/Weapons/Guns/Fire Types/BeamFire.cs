@@ -13,13 +13,9 @@ public class BeamFire : BC_FireType
             PreFire preFireAction = null
         ) : base(weapon, fireAction, startFireAction, stopFireAction, postFireAction, preFireAction)
     {
-        m_startFireMethods += StartTryFire;
+
     }
-    void StartTryFire()
-    {
-        m_weapon.StartCoroutine(TryFireLogicAsync());
-    }
-    IEnumerator TryFireLogicAsync()
+    protected override IEnumerator TryFireLogicAsync()
     {
         if (m_weapon.CurrentWeaponState == BC_Weapon.WeaponState.Ready)
         {

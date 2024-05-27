@@ -31,7 +31,7 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
     #region Coroutines
 
     //cause rate is over time, we need it to stealily increase/decrease
-    protected IEnumerator HealModuleAction(IDamageData.HealModuleData healModuleData)
+    protected IEnumerator HealEntityAction(IDamageData.HealModuleData healModuleData)
     {
         //save some initial values so we dont forget where we are
         int amountModuleHealedThisAction = 0;
@@ -47,7 +47,7 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
         }
     }
 
-    protected IEnumerator DamageModuleAction(int damageVal)
+    protected IEnumerator DamageEntityAction(int damageVal)
     {
         //save some initial values so we dont forget where we are
         int amountModuleDamagedThisAction = 0;

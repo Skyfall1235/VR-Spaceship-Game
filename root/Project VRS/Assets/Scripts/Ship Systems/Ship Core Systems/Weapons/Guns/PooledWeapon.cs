@@ -95,6 +95,4 @@ public abstract class PooledWeapon : BC_Weapon
     {
         Destroy(objectToDestroy);
     }
-
-
 }

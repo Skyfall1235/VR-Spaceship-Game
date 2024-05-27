@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class BC_FireType
@@ -55,8 +56,21 @@ public abstract class BC_FireType
         m_postFireMethods += postFireAction;
         m_preFireMethods += preFireAction;
         m_fireMethods += mainFireAction;
-        m_startFireMethods += startFireAction;
+        m_startFireMethods += startFireAction + StartFireLogic;
         m_stopFireMethods += stopFireAction;
         m_weapon = weapon;
     }
+    /// <summary>
+    /// Starts the TryFireLogicAsync Coroutine
+    /// </summary>
+    void StartFireLogic()
+    {
+        m_weapon.StartCoroutine(TryFireLogicAsync());
+    }
+    /// <summary>
+    /// Logic for triggering when each weapon is fired
+    /// </summary>
+    /// <returns></returns>
+    protected abstract IEnumerator TryFireLogicAsync();
+
 }
