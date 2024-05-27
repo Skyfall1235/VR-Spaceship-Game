@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Simple Missile")]
+[CreateAssetMenu(menuName = "Project VRS/Simple Missile")]
 [Serializable]
 public class SO_MissileData : ScriptableObject
 {

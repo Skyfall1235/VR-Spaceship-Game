@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "New Chair Movement Node Data")]
+[CreateAssetMenu(menuName = "Project VRS/New Chair Movement Node Data")]
 [Serializable]
 public class SO_NodeData : ScriptableObject
 {

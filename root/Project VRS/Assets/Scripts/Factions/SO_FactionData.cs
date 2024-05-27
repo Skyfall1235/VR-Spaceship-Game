@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "New Faction Data")]
+[CreateAssetMenu(menuName = "Project VRS/New Faction Data")]
 [System.Serializable]
 public class SO_FactionData : ScriptableObject
 {

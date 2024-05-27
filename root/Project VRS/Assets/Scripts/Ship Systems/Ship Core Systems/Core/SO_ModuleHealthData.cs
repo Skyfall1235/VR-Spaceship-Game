@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Module Health Data")]
+[CreateAssetMenu(menuName = "Project VRS/Module Health Data")]
 [Serializable]
 public class SO_ModuleHealthData : ScriptableObject
 {
