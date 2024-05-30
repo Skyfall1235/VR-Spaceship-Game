@@ -52,4 +52,12 @@ public static class ExtensionMethods
     {
         return gameObject.GetComponent<T>() != null;
     }
+
+    #region Vector3 Methods
+    static Vector3 Abs(this Vector3 inputVector)
+    {
+        return new Vector3(Mathf.Abs(inputVector.x), Mathf.Abs(inputVector.y), Mathf.Abs(inputVector.z));
+    }
+
+    #endregion
 }
