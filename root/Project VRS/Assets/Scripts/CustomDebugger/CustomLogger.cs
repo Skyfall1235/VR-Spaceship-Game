@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class CustomLogger : ScriptableObject
 {
     [SerializeField]
-    LogSettings[] m_logSettings = new LogSettings[6];
+    static LogSettings[] m_logSettings = new LogSettings[6];
     static private byte _Hash = 0;
 
     private void OnEnable()
@@ -62,10 +62,12 @@ public class CustomLogger : ScriptableObject
         output = $"<color={ToHex(color)}>{text}</color>";
         return output;
     }
+
     public static string ToHex(Color c)
     {
         return string.Format($"#{ToByte(c.r)}{ToByte(c.g)}{ToByte(c.b)}");
     }
+
     private static byte ToByte(float f)
     {
         f = Mathf.Clamp01(f);
@@ -95,7 +97,6 @@ public class CustomLogger : ScriptableObject
             writer.WriteLine($"[{timestamp}] Source: {sender}, Logger: {category}, Scene: {currentSceneName}\n {message}");
             writer.Close();
         }
-
     }
 
     [Serializable]

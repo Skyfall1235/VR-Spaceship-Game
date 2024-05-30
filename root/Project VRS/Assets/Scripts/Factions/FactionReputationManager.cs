@@ -6,6 +6,9 @@ public class FactionReputationManager : MonoBehaviour
 {
     public List<FactionToReputationsBinding> FactionToFactionReputations = new();
 
+    [SerializeField]
+    CustomLogger m_customLogger;
+
     [System.Serializable]
     public class FactionToReputationsBinding
     {
@@ -36,19 +39,48 @@ public class FactionReputation
     public List<ReputationDatum> ReputationData = new List<ReputationDatum>();
     private const int MaxOffsetFromNeutral = 10000;
 
-    public void IncreaseStanding(Faction faction, int value)
+    /// <summary>
+    /// Modifies the reputation standing of a faction.
+    /// </summary>
+    /// <param name="faction">The faction whose reputation to modify.</param>
+    /// <param name="value">The amount to change the reputation by (positive for increase, negative for decrease).</param>
+    /// <remarks>
+    /// This method attempts to find the reputation data for the specified faction. If found, the value is added to the existing standing. 
+    /// If the faction data is not found, a log message is created using the provided CustomLogger class.
+    /// </remarks>
+    public void ModifyStanding(SO_FactionData faction, int value)
     {
-
+        ReputationDatum foundDatum;
+        if (FindReputationDatum(faction, out foundDatum))
+        {
+            foundDatum.Value += value;
+        }
+        else
+        {
+            CustomLogger.Log
+                (
+                "Attempting to increase standing on a faction that does not exist in the reputation data of this faction", 
+                CustomLogger.LogLevel.Error, 
+                CustomLogger.LogCategory.System
+                );
+        }
     }
 
-    public void DecreaseStanding(Faction faction, int value)
+    /// <summary>
+    /// Adds a new faction to the reputation data if it doesn't already exist.
+    /// </summary>
+    /// <param name="faction">The faction data to add.</param>
+    /// <remarks>
+    /// This method checks if the reputation data already contains information for the provided faction. 
+    /// If not, a new ReputationDatum object is created and added to the internal ReputationData list.
+    /// </remarks>
+    public void AddFactionToReputationData(SO_FactionData faction)
     {
-
-    }
-
-    public void AddFactionToReputationData(Faction faction)
-    {
-
+        if (!FindReputationDatum(faction))
+        {
+            ReputationDatum newDatum = new ReputationDatum(faction);
+            ReputationData.Add(newDatum);
+        }
     }
 
     /// <summary>
@@ -57,7 +89,7 @@ public class FactionReputation
     /// <param name="factionToCheck">The faction whose reputation to check.</param>
     /// <param name="repValue">Outputs the reputation value of the faction (if found).</param>
     /// <returns>True if the faction's reputation data is found, False otherwise.</returns>
-    public bool CheckFactionReputation(Faction factionToCheck, out ReputationValue repValue)
+    public bool CheckFactionReputation(SO_FactionData factionToCheck, out ReputationValue repValue)
     {
         // Handle null input for factionToCheck
         if (factionToCheck == null)
@@ -75,17 +107,17 @@ public class FactionReputation
         }
 
         // Reputation data found, set output value and return success
-        repValue = foundDatum.ReputationStanding;
+        repValue = ConvertIntToReputationValue(foundDatum.Value);
         return true;
     }
 
-    private bool FindReputationDatum(Faction factionToCheck, out ReputationDatum foundDatum)
+    private bool FindReputationDatum(SO_FactionData factionToCheck, out ReputationDatum foundDatum)
     {
         // Iterate through each ReputationDatum in the ReputationData list
         foreach (ReputationDatum datum in ReputationData)
         {
             // Check if the faction stored in the datum matches the provided faction
-            if (datum.FactionRef.Faction == factionToCheck)
+            if (datum.FactionRef == factionToCheck)
             {
                 // Found a match, set output parameter and return success
                 foundDatum = datum;
@@ -95,6 +127,21 @@ public class FactionReputation
 
         // No match found, set output parameter to null and return false
         foundDatum = null;
+        return false;
+    }
+
+    //override in case i just need to check if one already exists
+    private bool FindReputationDatum(SO_FactionData factionToCheck)
+    {
+        // Iterate through each ReputationDatum in the ReputationData list
+        foreach (ReputationDatum datum in ReputationData)
+        {
+            // Check if the faction stored in the datum matches the provided faction
+            if (datum.FactionRef == factionToCheck)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -135,6 +182,16 @@ public class FactionReputation
     public class ReputationDatum
     {
         [SerializeField]
+        private string m_factionName;
+        public string FactionName
+        {
+            get
+            {
+                return m_factionName;
+            }
+        }
+
+        [SerializeField]
         private SO_FactionData m_factionRef;
 
         /// <summary>
@@ -145,20 +202,6 @@ public class FactionReputation
             get
             {
                 return m_factionRef;
-            }
-        }
-
-        [SerializeField]
-        private ReputationValue m_reputationStanding = ReputationValue.Neutral;
-
-        /// <summary>
-        /// The current reputation level this faction has with another faction (e.g., Hostile, Neutral, Trusted).
-        /// </summary>
-        public ReputationValue ReputationStanding
-        {
-            get
-            {
-                return m_reputationStanding;
             }
         }
 
@@ -178,6 +221,12 @@ public class FactionReputation
             {
                 m_value = Mathf.Clamp(value, -MaxOffsetFromNeutral, MaxOffsetFromNeutral);
             }
+        }
+
+        public ReputationDatum(SO_FactionData factionRef)
+        {
+            m_factionRef = factionRef;
+            m_factionName = factionRef.name;
         }
     }
 

@@ -95,19 +95,40 @@ public class Faction
     /// <summary>
     /// Stores data associated with a classified ship type.
     /// </summary>
+    [System.Serializable]
     public class ClassifiedShipDatum
     {
+        [SerializeField]
+        [Tooltip("This value is used solely to label elements in the list")]
+        private string m_name;
+
         /// <summary>
         /// The size and capabilities of the ship (fighter, corvette, frigate, etc.).
         /// </summary>
         [SerializeField]
-        public EntitySize EntityType { get; private set; }
+        [Tooltip("This is the ship descriptor for what the ships in this list are")]
+        private EntitySize m_entityType;
+        public EntitySize EntityType
+        {
+            get
+            {
+                return m_entityType;
+            }
+        }
 
         /// <summary>
         /// A list of prefabs representing the different variations or models of this classified ship type.
         /// </summary>
         [SerializeField]
-        public List<GameObject> ShipPrefabs { get; private set; }
+        [Tooltip("These are all ships of this entity type")]
+        private List<GameObject> m_shipPrefabs;
+        public List<GameObject> ShipPrefabs
+        {
+            get
+            { 
+                return m_shipPrefabs;
+            }
+        }
     }
 
     /// <summary>
