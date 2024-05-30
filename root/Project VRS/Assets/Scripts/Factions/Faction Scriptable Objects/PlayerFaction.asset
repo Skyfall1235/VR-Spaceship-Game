@@ -13,8 +13,27 @@ MonoBehaviour:
   m_Name: PlayerFaction
   m_EditorClassIdentifier: 
   Faction:
-    m_name: 
-    m_description: 
+    m_name: ' PANDORA'
+    m_description: Pan-American Defense & Orbital Research Agency
     m_emblem: {fileID: 0}
     m_governmentType: 0
+    m_classifiedVesselData:
+    - m_name: Fighters
+      m_entityType: 0
+      m_shipPrefabs: []
+    - m_name: Corvettes
+      m_entityType: 1
+      m_shipPrefabs: []
+    - m_name: Frigates
+      m_entityType: 2
+      m_shipPrefabs: []
+    - m_name: Cruisers
+      m_entityType: 3
+      m_shipPrefabs: []
+    - m_name: Battleships
+      m_entityType: 4
+      m_shipPrefabs: []
+    - m_name: Dreadnoughts
+      m_entityType: 5
+      m_shipPrefabs: []
     m_stationPrefabs: []

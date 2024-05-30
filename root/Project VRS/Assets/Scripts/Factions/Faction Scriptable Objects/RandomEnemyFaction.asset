@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RandomEnemyFaction
   m_EditorClassIdentifier: 
   Faction:
-    m_name: 
-    m_description: 
+    m_name: TestingFaction
+    m_description: ur cringe
     m_emblem: {fileID: 0}
-    m_governmentType: 0
+    m_governmentType: 5
     m_classifiedVesselData:
     - m_name: 
       m_entityType: 0
