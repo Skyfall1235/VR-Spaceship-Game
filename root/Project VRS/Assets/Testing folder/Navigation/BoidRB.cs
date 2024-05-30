@@ -1,11 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BoidRB : MonoBehaviour
 {
-    int distanceThreshold = 2;
+    int distanceThreshold = 10;
     static List<BoidRB> ActiveBoids = new List<BoidRB>();
     Rigidbody rb;
     private void Awake()
@@ -26,7 +26,7 @@ public class BoidRB : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = rb.velocity + CenterOfMassRule() + DistanceRule();
+        rb.AddForce(DistanceRule() + CenterOfMassRule() + VelocityChangeRule());
         Debug.DrawRay(transform.position, rb.velocity);
     }
 
@@ -41,7 +41,7 @@ public class BoidRB : MonoBehaviour
             }
         }
         headingChange = headingChange / (ActiveBoids.Count - 1);
-        return ((headingChange - transform.position) /100) * Time.fixedDeltaTime;
+        return ((headingChange - transform.position) /100);
     }
     private Vector3 DistanceRule()
     {
@@ -50,13 +50,13 @@ public class BoidRB : MonoBehaviour
         {
             if(boid != this)
             {
-                if(Vector3.Distance(transform.position, boid.transform.position) < distanceThreshold)
+                if((boid.transform.position - transform.position).Abs().magnitude < distanceThreshold)
                 {
-                    headingChange = headingChange - (boid.transform.position - transform.position);
+                    headingChange -= (boid.transform.position - transform.position);
                 }
             }
         }
-        return headingChange * Time.fixedDeltaTime ;
+        return headingChange;
     }
 
     private Vector3 VelocityChangeRule()
@@ -70,6 +70,6 @@ public class BoidRB : MonoBehaviour
             }
         }
         headingChange = headingChange / (ActiveBoids.Count - 1);
-        return (headingChange / 8) * Time.fixedDeltaTime;
+        return (headingChange / 8);
     }
 }
