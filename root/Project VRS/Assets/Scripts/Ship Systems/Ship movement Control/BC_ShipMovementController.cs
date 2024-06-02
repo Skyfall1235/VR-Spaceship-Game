@@ -46,7 +46,7 @@ public class BC_ShipMovementController : MonoBehaviour
     protected float m_MaxBreakValue = 5f;
 
     /// <summary>
-    /// maximum amount of torque that can be allied to the rigidbody
+    /// maximum amount of torque that can be applied to the rigidbody
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum rotation speed the ship can achieve")]

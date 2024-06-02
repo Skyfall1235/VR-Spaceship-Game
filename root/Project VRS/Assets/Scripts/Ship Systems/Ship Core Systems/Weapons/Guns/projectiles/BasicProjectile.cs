@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer))]
@@ -15,18 +16,28 @@ public class BasicProjectile : MonoBehaviour
     {
         //setup trail renderer
         m_trailRender = GetComponent<TrailRenderer>();
-
-        
     }
     private IEnumerator DestroyAfterTime()
     {
+        //wait
         yield return new WaitForSeconds(m_timeToDestroyAfter);
+        //if the gun still exists, we can release the projectile
         if(m_gunThatFiredProjectile != null)
         {
             m_gunThatFiredProjectile.Pool.Release(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    public void Setup(Vector3 startingPosition, Quaternion startingRotation)
+
+    /// <summary>
+    /// Sets up the main projectile from the gun.
+    /// </summary>
+    /// <param name="startingPosition"> is the starting position for the projectile</param>
+    /// <param name="startingRotation"> is the starting rotation for the projectile</param>
+    public virtual void Setup(Vector3 startingPosition, Quaternion startingRotation)
     {
         //setup the position and rotation
         m_projectileRigidBody.velocity = Vector3.zero;
