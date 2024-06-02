@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: FlakWeaponData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 0
+  m_projectileSpeed: 80
   m_prefabBullet: {fileID: 0}
   m_weaponParticleSystem: {fileID: 0}
-  m_requiredHardpointSize: 0
+  m_requiredHardpointSize: 2
   m_weaponFireAudioClip: []
   m_weaponEventSFX: []
-  m_minimumTimeBetweenFiring: 0
+  m_minimumTimeBetweenFiring: 0.3
   m_usesMag: 1
-  m_reloadTime: 0
-  m_magazineCapacity: 0
+  m_reloadTime: 6
+  m_magazineCapacity: 150
   m_firingMode: 1
-  m_autoFiring: 0
-  m_useSpread: 0
-  m_spreadValues: {x: 0, y: 0}
+  m_autoFiring: 1
+  m_useSpread: 1
+  m_spreadValues: {x: 0.3, y: 0.3}

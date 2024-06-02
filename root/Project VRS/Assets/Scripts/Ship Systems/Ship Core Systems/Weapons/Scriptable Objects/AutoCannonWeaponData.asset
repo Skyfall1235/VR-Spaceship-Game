@@ -15,14 +15,14 @@ MonoBehaviour:
   m_projectileSpeed: 0
   m_prefabBullet: {fileID: 0}
   m_weaponParticleSystem: {fileID: 0}
-  m_requiredHardpointSize: 0
+  m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []
   m_weaponEventSFX: []
-  m_minimumTimeBetweenFiring: 0
+  m_minimumTimeBetweenFiring: 0.75
   m_usesMag: 1
-  m_reloadTime: 0
-  m_magazineCapacity: 0
+  m_reloadTime: 5
+  m_magazineCapacity: 25
   m_firingMode: 1
-  m_autoFiring: 0
-  m_useSpread: 0
-  m_spreadValues: {x: 0, y: 0}
+  m_autoFiring: 1
+  m_useSpread: 1
+  m_spreadValues: {x: 0.1, y: 0.1}

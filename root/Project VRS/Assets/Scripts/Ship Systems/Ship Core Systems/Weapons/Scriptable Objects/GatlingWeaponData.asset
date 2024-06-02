@@ -24,5 +24,5 @@ MonoBehaviour:
   m_magazineCapacity: 200
   m_firingMode: 0
   m_autoFiring: 1
-  m_useSpread: 0
-  m_spreadValues: {x: 0, y: 0}
+  m_useSpread: 1
+  m_spreadValues: {x: 0.5, y: 0.5}
