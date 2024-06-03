@@ -71,6 +71,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
             {
                 return m_internalModuleHealth;
             }
+            //if it is null, find and reassign
             m_internalModuleHealth = GetComponent<InternalModuleHealth>();
             return m_internalModuleHealth;
         }
@@ -92,12 +93,15 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public ICoreModule.ModuleOperationalState OperationalState
     { get => m_operationalState; }
 
+    #region Energy Variables
+
     [Header("Energy Management")]
 
     /// <summary>
     /// The percent boost this module gets to apply to its functions.
     /// </summary>
     [SerializeField]
+    [Tooltip("Boost Percentage \nThis value defines the percentage boost this module applies to its functions. A value of 0 means no boost.")]
     protected int m_boostPercent = 0;
     public int BoostPercent
     {
@@ -109,19 +113,21 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     /// The power requirement for this module.
     /// </summary>
     [SerializeField]
+    [Tooltip("Power Requirement \nThis value defines the amount of power this module consumes.")]
     protected int m_powerRequirement;
     public int PowerRequirements
     {
         get => m_powerRequirement;
     }
 
-    ///<summary>
-    /// The priory of this module in the energy system.
+    /// <summary>
+    /// The priority of this module in the energy system.
     /// </summary>
     /// <remarks>
     /// The lower the value, the higher the priority to keep power in the case of an outage.
     /// </remarks>
     [SerializeField]
+    [Tooltip("Module Energy Priority \nThis value defines the priority of this module in the energy system. Lower values have higher priority for power during outages.")]
     protected int m_moduleEnergyPriorty = 0;
     public int ModuleEnergyPriority
     {
@@ -129,8 +135,8 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     }
 
     [SerializeField]
-
-    protected PipSelection m_systemType = PipSelection.internalSystems; 
+    [Tooltip("System Type \nThis value defines the type of system this module belongs to for power routing purposes.")]
+    protected PipSelection m_systemType = PipSelection.internalSystems;
     public PipSelection SystemType
     {
         get => m_systemType;
@@ -138,14 +144,18 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     [Header("Delays for State Changes")]
     [SerializeField]
+    [Tooltip("Startup Wait Time (Seconds) \nThis value defines the amount of time (in seconds) the startup routine will wait for before completing.")]
     protected float m_startUpDelay = 1f;
 
     [SerializeField]
+    [Tooltip("Shutdown Wait Time (Seconds) \nThis value defines the amount of time (in seconds) the shutdown routine will wait for before completing.")]
     protected float m_shutDownDelay = 1f;
 
     [SerializeField]
+    [Tooltip("Reboot Wait Time (Seconds) \nThis value defines the amount of time (in seconds) the reboot routine will wait for before completing.")]
     protected float m_rebootDelay = 1f;
 
+    #endregion
 
     #endregion
 
@@ -232,11 +242,13 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         {
             return;
         }
-        //attempt assignment
+
         //get the parent
         Transform parentObject = gameObject.transform.parent;
+
         //attempt the search for the manager
         CoreShipModuleManager manager = parentObject.GetComponent<CoreShipModuleManager>();
+
         //if found, use register method
         if (manager != null)
         {
@@ -282,16 +294,26 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     }
 
     #region Start up, restart, and shut down logic
+
+    /// <summary>
+    /// Initiates the shutdown sequence for the module.
+    /// </summary>
     public virtual void ShutDown()
     {
         StartCoroutine(ShutDownRoutine(false));
     }
 
+    /// <summary>
+    /// Initiates the startup sequence for the module.
+    /// </summary>
     public virtual void StartUp()
     {
         StartCoroutine(StartUpRoutine());
     }
 
+    /// <summary>
+    /// Initiates the reboot sequence for the module.
+    /// </summary>
     public virtual void Reboot()
     {
         StartCoroutine(RebootRoutine());
@@ -386,11 +408,19 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     #endregion
 
+    /// <summary>
+    /// Registers the provided CoreShipModuleManager with the module.
+    /// </summary>
+    /// <param name="currentManager">The CoreShipModuleManager instance to register with this module.</param>
     public virtual void RegisterCoreModuleManager(CoreShipModuleManager currentManager)
     {
         AttemptToLinkManager(currentManager);
     }
 
+    /// <summary>
+    /// Deregisters the CoreShipModuleManager from the module.
+    /// </summary>
+    /// <param name="currentManager">The CoreShipModuleManager instance to deregister (presumably the same as the previously registered one).</param>
     public virtual void DeregisterCoreSystemManager(CoreShipModuleManager currentManager)
     {
         m_shipModuleManager = null;
