@@ -267,9 +267,8 @@ public class SO_WeaponData_Editor : Editor
     {
         DrawDefaultInspector();
         serializedObject.Update();
-        SO_WeaponData scriptToDisplayDataFor = (SO_WeaponData)target;
         EditorGUI.BeginChangeCheck();
-        int newMagazineCapacityValue = 0;
+        uint newMagazineCapacityValue = 0;
         float newReloadTime = 0;
         Vector2 newSpreadValues = new Vector2(0, 0);
         float newMinimumTimeBetweenFiring = EditorGUILayout.FloatField("Minimum Time Between Shots", m_minimumTimeBetweenFiring.floatValue);
@@ -280,10 +279,10 @@ public class SO_WeaponData_Editor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(.1f);
         EditorGUILayout.BeginVertical();
-        if (scriptToDisplayDataFor.UsesMag)
+        if (m_usesMag.boolValue)
         {
             newReloadTime = EditorGUILayout.FloatField("Reload Time", m_reloadTime.floatValue);
-            newMagazineCapacityValue = EditorGUILayout.IntField("Magazine Capacity", m_magazineCapacity.intValue);
+            newMagazineCapacityValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Magazine Capacity", m_magazineCapacity.intValue), 0, uint.MaxValue);
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
@@ -295,7 +294,7 @@ public class SO_WeaponData_Editor : Editor
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space(.1f);
         EditorGUILayout.BeginVertical();
-        if (scriptToDisplayDataFor.UseSpread)
+        if (m_useSpread.boolValue)
         {
             newSpreadValues = EditorGUILayout.Vector2Field("Spread Max Values", m_spreadValues.vector2Value);
         }
@@ -304,12 +303,18 @@ public class SO_WeaponData_Editor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObjects(targets, "Changed Scriptable Object");
+            m_minimumTimeBetweenFiring.floatValue = Mathf.Clamp(newMinimumTimeBetweenFiring, 0, float.MaxValue);
+            if (m_usesMag.boolValue)
+            {
+                m_magazineCapacity.uintValue = newMagazineCapacityValue;
+                m_reloadTime.floatValue = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            }
             m_usesMag.boolValue = newUsesMag;
-            m_minimumTimeBetweenFiring.floatValue = Mathf.Clamp(newMinimumTimeBetweenFiring, 0 , float.MaxValue);
-            m_magazineCapacity.intValue = (int)Mathf.Clamp(newMagazineCapacityValue, 0, uint.MaxValue);
-            m_reloadTime.floatValue = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            if(m_useSpread.boolValue)
+            {
+                m_spreadValues.vector2Value = newSpreadValues;
+            }
             m_useSpread.boolValue = newUseSpred;
-            m_spreadValues.vector2Value = newSpreadValues;
             serializedObject.ApplyModifiedProperties();
         }
     }
