@@ -242,6 +242,10 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         {
             AttemptToLinkManager(manager);
         }
+        else
+        {
+            Debug.Log($"{this.gameObject.name} module could not locate a Core Ship module manager... fuck, what did i break");
+        }
     }
 
     /// <summary>
@@ -262,8 +266,6 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
         }
         if (currentManager != null)
         {
-            //confirm manager link goes both ways
-            currentManager.AddSingleModule(this);
             m_shipModuleManager = currentManager;
         }
     }

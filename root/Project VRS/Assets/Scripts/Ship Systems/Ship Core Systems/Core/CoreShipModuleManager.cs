@@ -41,7 +41,6 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
         }
         coreModules.Add(module);
         module.AttemptToLinkManager(this);
-        //needs to grab all the unity events and everything else it needs from the modules
     }
 
     public void RemoveSingleModule(BC_CoreModule module)

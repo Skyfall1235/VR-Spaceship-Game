@@ -35,7 +35,7 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
     }
 
     [SerializeField]
-    protected CustomLogger logger;
+    protected CustomLogger m_customLogger;
 
     #region Virtual Methods
 
@@ -44,14 +44,14 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
     /// </summary>
     /// <param name="owner">The object that owns this health component and implements the IHealthEvents interface.</param>
     /// <remarks>
-    /// This method first checks if the `ModuleHealthData` scriptable object is assigned. If not, it logs a warning message using the provided `logger` (if available).
+    /// This method first checks if the `ModuleHealthData` scriptable object is assigned. If not, it logs a warning message using the provided `m_customLogger` (if available).
     /// It then sets the initial health value based on the `ModuleHealthData.healthMax` property and stores the owner reference for event handling.
     /// </remarks>
     public virtual void InitializeHealth(IHealthEvents owner)
     {
-        if (ModuleHealthData == null && logger != null)
+        if (ModuleHealthData == null && m_customLogger != null)
         {
-            logger.Log($"health Data scriptable object is missing on {this.gameObject.name}", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.Other, this);
+            m_customLogger.Log($"health Data scriptable object is missing on {this.gameObject.name}", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.Other, this);
         }
         m_moduleHealth = ModuleHealthData.healthMax;
         m_scriptOwner = owner;
