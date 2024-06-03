@@ -4,7 +4,7 @@ using UnityEngine;
 
 public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
 {
-    int m_incomingPower;
+    private int m_incomingPower;
     public int IncomingPower
     {
         get 
@@ -18,7 +18,7 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
         }
     }
 
-    int m_remainingPower;
+    private int m_remainingPower;
     public int RemainingPower 
     {
         get 

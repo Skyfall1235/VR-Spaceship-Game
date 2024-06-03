@@ -6,31 +6,32 @@ using UnityEngine;
 /// </summary>
 public class InternalModuleHealth : BC_UniversalEntityHealth
 {
-    public BC_CoreModule moduleOwner { get; set; }
 
     #region public stuff
 
-    public override void InitializeHealth()
+    public override void InitializeHealth(IHealthEvents owner)
     {
-        if(ModuleHealthData == null && logger != null)
-        {
-            logger.Log($"health Data scriptable object is missing on {this.gameObject.name}", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.Other, this);
-        }
-        ModuleHealth = ModuleHealthData.healthMax;
+        base.InitializeHealth(owner);
     }
 
     //WE FOROGT TO DO THE ARMOR CALCUALTION YOU BUMBLING FOOL
     //EDIT: Fixed, dont know how i managed to forget that but its there now, i didnt do all thart math for nothin
     public override void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData)
     {
+        //calculate the damage before we make the health script do more work
         int damageValueFromDataPack = weaponCollisionData.damageVal;
+
+        //use lookup table to find appropriate damage
         int damagePercentApplicable = FindDamageApplicable(weaponCollisionData);
+
+        //find damage after armor negation
         int damageAfterArmor = CalculateDamageAfterArmor(damageValueFromDataPack, damagePercentApplicable);
         StartCoroutine(DamageEntityAction(damageAfterArmor));
     }
 
     public override void HealObject(IDamageData.HealModuleData healModuleData)
     {
+        //start the heal corotuine and let it take the data
         StartCoroutine(HealEntityAction(healModuleData));
     }
 

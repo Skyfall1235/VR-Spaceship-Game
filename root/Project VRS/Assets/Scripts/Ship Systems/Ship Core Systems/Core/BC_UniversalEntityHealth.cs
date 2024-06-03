@@ -4,33 +4,96 @@ using UnityEngine;
 
 public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
 {
-    public IHealthEvents ScriptOwner { get; set; }
-    public SO_ModuleHealthData ModuleHealthData;
-    public int ModuleHealth;
+    [SerializeField]
+    protected IHealthEvents m_scriptOwner;
+    public IHealthEvents ScriptOwner
+    {  
+        get 
+        { 
+            return m_scriptOwner; 
+        }
+    }
+
+    [SerializeField]
+    protected SO_ModuleHealthData m_moduleHealthData;
+    public SO_ModuleHealthData ModuleHealthData
+    {
+        get
+        {
+            return m_moduleHealthData;
+        }
+    }
+
+    [SerializeField]
+    protected int m_moduleHealth;
+    public int ModuleHealth
+    {
+        get
+        {
+            return m_moduleHealth;
+        }
+    }
 
     [SerializeField]
     protected CustomLogger logger;
 
     #region Virtual Methods
 
-    public virtual void InitializeHealth()
+    /// <summary>
+    /// Initializes the health of the module.
+    /// </summary>
+    /// <param name="owner">The object that owns this health component and implements the IHealthEvents interface.</param>
+    /// <remarks>
+    /// This method first checks if the `ModuleHealthData` scriptable object is assigned. If not, it logs a warning message using the provided `logger` (if available).
+    /// It then sets the initial health value based on the `ModuleHealthData.healthMax` property and stores the owner reference for event handling.
+    /// </remarks>
+    public virtual void InitializeHealth(IHealthEvents owner)
     {
         if (ModuleHealthData == null && logger != null)
         {
             logger.Log($"health Data scriptable object is missing on {this.gameObject.name}", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.Other, this);
         }
-        ModuleHealth = ModuleHealthData.healthMax;
+        m_moduleHealth = ModuleHealthData.healthMax;
+        m_scriptOwner = owner;
     }
 
-    public virtual void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData) { }
+    /// <summary>
+    /// Applies damage to the module and triggers damage events.
+    /// </summary>
+    /// <param name="weaponCollisionData">Data about the weapon collision that caused the damage.</param>
+    /// <remarks>
+    /// This method first calls the `onDamageEvent` delegate implemented by the `m_scriptOwner` (which should implement the `IHealthEvents` interface).
+    /// This allows other components to react to the damage taken. 
+    /// 
+    /// **Important:** Base class damage handling (if applicable) should be called at the **end** of this method's logic for proper inheritance behavior.
+    /// </remarks>
+    public virtual void TakeDamage(IDamageData.WeaponCollisionData weaponCollisionData) 
+    {
+        //call for damage events. death events are inherited
+        m_scriptOwner.onDamageEvent.Invoke(weaponCollisionData, m_scriptOwner, ICoreModule.ModuleStateChangeType.Health);
+    }
 
-    public virtual void HealObject(IDamageData.HealModuleData healModuleData) { }
+    /// <summary>
+    /// Applies healing to the module and triggers healing events.
+    /// </summary>
+    /// <param name="healModuleData">Data about the heal module that is providing healing.</param>
+    /// <remarks>
+    /// This method first calls the `onHealEvent` delegate implemented by the `m_scriptOwner` (which should implement the `IHealthEvents` interface).
+    /// This allows other components to react to the healing received.
+    /// 
+    /// **Important:** Base class healing handling (if applicable) should be called at the **end** of this method's logic for proper inheritance behavior.
+    /// </remarks>
+    public virtual void HealObject(IDamageData.HealModuleData healModuleData) 
+    {
+        //call for heal events
+        m_scriptOwner.onHealEvent.Invoke(healModuleData, m_scriptOwner, ICoreModule.ModuleStateChangeType.Health);
+    }
 
     #endregion
 
     #region Coroutines
 
-    //cause rate is over time, we need it to stealily increase/decrease
+    //cause rate is over time, we need it to steadily increase/decrease
     protected IEnumerator HealEntityAction(IDamageData.HealModuleData healModuleData)
     {
         //save some initial values so we dont forget where we are
@@ -42,7 +105,7 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
         while (amountModuleHealedThisAction < healValue)
         {
             amountModuleHealedThisAction += healRate;
-            ModuleHealth += healRate;
+            m_moduleHealth += healRate;
             yield return null;
         }
     }
@@ -57,12 +120,12 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
         while (amountModuleDamagedThisAction < damageVal)
         {
             amountModuleDamagedThisAction += damageRate;
-            ModuleHealth -= damageRate;
+            m_moduleHealth -= damageRate;
             //check if damage can still be applied
-            if (ModuleHealth <= 0)
+            if (m_moduleHealth <= 0)
             {
                 //if the modules dead, we should cancel the rest of the application and call the unity event
-                ScriptOwner.onDeathEvent.Invoke(ScriptOwner, ICoreModule.ModuleStateChangeType.Destroyed);
+                m_scriptOwner.onDeathEvent.Invoke(m_scriptOwner, ICoreModule.ModuleStateChangeType.Destroyed);
                 yield break;
             }
             yield return null;

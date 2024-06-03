@@ -275,7 +275,8 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public virtual void InitializeModule()
     {
         m_internalModuleHealth = GetComponent<InternalModuleHealth>();
-        m_internalModuleHealth.InitializeHealth();
+        //set the health stuff to refer to this script as the owner
+        m_internalModuleHealth.InitializeHealth(this);
     }
 
     #region Start up, restart, and shut down logic
