@@ -7,9 +7,29 @@ using UnityEngine;
 public class SO_ProjectileData : ScriptableObject
 {
     [SerializeField] float m_projectileSpeed;
+    public float ProjectileSpeed
+    {
+        get { return m_projectileSpeed; }
+    }
     [SerializeField] float m_projectileDestroyTime;
+    public float ProjectileDestroyTime
+    {
+        get { return m_projectileDestroyTime; } 
+    }
     [SerializeField] uint m_projectileDamage;
+    [SerializeField] GameObject m_projectilePrefab;
+    public GameObject ProjectilePrefab 
+    {
+        get 
+        {
+            return m_projectilePrefab; 
+        } 
+    }
     [HideInInspector][SerializeField] bool m_spawnSubProjectiles;
+    public bool SpawnSubProjectiles
+    {
+        get => m_spawnSubProjectiles;
+    }
     [HideInInspector][SerializeField] uint m_subProjectileCount;
     public uint? SubProjectileCount
     {
@@ -100,6 +120,21 @@ public class SO_ProjectileData : ScriptableObject
             }
         }
     }
+    [HideInInspector][SerializeField] GameObject m_subProjectilePrefab;
+    public GameObject SubProjectilePrefab
+    {
+        get
+        {
+            if (m_spawnSubProjectiles)
+            {
+                return m_subProjectilePrefab;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }
 
 #if UNITY_EDITOR
@@ -113,6 +148,7 @@ public class SO_ProjectileEditor : Editor
     SerializedProperty m_subProjectileDamage;
     SerializedProperty m_subProjectileSpread;
     SerializedProperty m_subProjectileDestroyTime;
+    SerializedProperty m_subProjectilePrefab;
     SerializedProperty m_projectileDestroyTime;
     private void OnEnable()
     {
@@ -123,6 +159,7 @@ public class SO_ProjectileEditor : Editor
         m_subProjectileDamage = serializedObject.FindProperty(nameof(m_subProjectileDamage));
         m_subProjectileSpread = serializedObject.FindProperty(nameof(m_subProjectileSpread));
         m_subProjectileDestroyTime = serializedObject.FindProperty(nameof(m_subProjectileDestroyTime));
+        m_subProjectilePrefab = serializedObject.FindProperty(nameof(m_subProjectilePrefab));
         m_projectileDestroyTime = serializedObject.FindProperty(nameof(m_projectileDestroyTime));
     }
     public override void OnInspectorGUI()
@@ -135,23 +172,25 @@ public class SO_ProjectileEditor : Editor
         float newSubProjectileDestroyTime = 0;
         uint newSubProjectileDamage = 0;
         Vector2 newSubProjectileSpread = Vector2.zero;
+        GameObject newSubProjectilePrefab = null;
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Sub Projectiles");
-        bool newSpawnProjectile = EditorGUILayout.Toggle(m_spawnSubProjectiles.boolValue);
+            EditorGUILayout.LabelField("Sub Projectiles");
+            bool newSpawnProjectile = EditorGUILayout.Toggle(m_spawnSubProjectiles.boolValue);
         EditorGUILayout.EndHorizontal();
         if (m_spawnSubProjectiles.boolValue)
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.Space(0.1f);
-            EditorGUILayout.BeginVertical();
-            newSubProjectileCount = (uint)Mathf.Clamp(EditorGUILayout.IntField("Sub Projectile Count", (int)m_subProjectileCount.uintValue), 0, uint.MaxValue);
-            newSubProjectileSpawnTime = EditorGUILayout.FloatField("Sub Projectile Spawn Time", m_subProjectileSpawnTime.floatValue);
-            newSubProjectileSpeed = EditorGUILayout.FloatField("Sub Projectile Speed", m_subProjectileSpeed.floatValue);
-            newSubProjectileDamage = (uint)Mathf.Clamp(EditorGUILayout.IntField("Sub Projectile Damage", (int)m_subProjectileDamage.uintValue), 0, uint.MaxValue);
-            newSubProjectileSpread = EditorGUILayout.Vector2Field("Spread", m_subProjectileSpread.vector2Value);
-            newSubProjectileDestroyTime = EditorGUILayout.FloatField("Sub Projectile Destroy Time", m_subProjectileDestroyTime.floatValue);
-            EditorGUILayout.EndVertical();
+                EditorGUILayout.Space(0.1f);
+                EditorGUILayout.BeginVertical();
+                    newSubProjectileCount = (uint)Mathf.Clamp(EditorGUILayout.IntField("Sub Projectile Count", (int)m_subProjectileCount.uintValue), 0, uint.MaxValue);
+                    newSubProjectileSpawnTime = EditorGUILayout.FloatField("Sub Projectile Spawn Time", m_subProjectileSpawnTime.floatValue);
+                    newSubProjectileSpeed = EditorGUILayout.FloatField("Sub Projectile Speed", m_subProjectileSpeed.floatValue);
+                    newSubProjectileDamage = (uint)Mathf.Clamp(EditorGUILayout.IntField("Sub Projectile Damage", (int)m_subProjectileDamage.uintValue), 0, uint.MaxValue);
+                    newSubProjectileSpread = EditorGUILayout.Vector2Field("Spread", m_subProjectileSpread.vector2Value);
+                    newSubProjectileDestroyTime = EditorGUILayout.FloatField("Sub Projectile Destroy Time", m_subProjectileDestroyTime.floatValue);
+                    newSubProjectilePrefab = (GameObject)EditorGUILayout.ObjectField("Sub Projectile Prefab", m_subProjectilePrefab.objectReferenceValue, typeof(GameObject), true);
+                EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
         }
         if (EditorGUI.EndChangeCheck())
@@ -166,6 +205,7 @@ public class SO_ProjectileEditor : Editor
                 m_subProjectileDamage.uintValue = newSubProjectileDamage;
                 m_subProjectileSpread.vector2Value = newSubProjectileSpread;
                 m_subProjectileDestroyTime.floatValue = Mathf.Clamp(newSubProjectileDestroyTime, 0, Mathf.Infinity);
+                m_subProjectilePrefab.objectReferenceValue = newSubProjectilePrefab;
             }
             m_spawnSubProjectiles.boolValue = newSpawnProjectile;
             serializedObject.ApplyModifiedProperties();

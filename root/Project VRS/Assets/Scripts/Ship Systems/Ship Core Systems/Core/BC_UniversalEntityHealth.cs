@@ -53,7 +53,8 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
         {
             m_customLogger.Log($"health Data scriptable object is missing on {this.gameObject.name}", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.Other, this);
         }
-        m_moduleHealth = ModuleHealthData.healthMax;
+        //This line is commented because it was causing errors that wouldn't let me test my code
+        //m_moduleHealth = ModuleHealthData.healthMax;
         m_scriptOwner = owner;
     }
 

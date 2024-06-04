@@ -5,22 +5,33 @@ using UnityEngine.Pool;
 public abstract class PooledWeapon : BC_Weapon
 {
     [SerializeField]
-    protected ObjectPool<GameObject> m_pool;
-    public ObjectPool<GameObject> Pool
+    protected SO_ProjectileData m_projectileData { get; private set;}
+
+    [SerializeField]
+    protected ObjectPool<GameObject> m_primaryProjectilePool;
+    public ObjectPool<GameObject> PrimaryProjectilePool
     {
-        get { return m_pool; }
-        //set { m_pool = value; }
+        get { return m_primaryProjectilePool; }
+    }
+
+    protected ObjectPool<GameObject> m_secondaryProjectilePool;
+    public ObjectPool<GameObject> SecondaryProjectilePool
+    {
+        get
+        {
+            return m_secondaryProjectilePool;
+        }
     }
 
     public override void OnFire()
     {
-        m_pool.Get();
+        m_primaryProjectilePool.Get();
     }
 
     protected override void Awake()
     {
         base.Awake();
-        m_pool = new ObjectPool<GameObject>(OnCreatePooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
+        m_primaryProjectilePool = new ObjectPool<GameObject>(OnCreatePrimaryPooledObject, OnPulledFromPrimaryPool, OnReturnedToPrimaryPool, DestroyPrimaryPooledObject);
     }
 
     /// <summary>
@@ -29,9 +40,9 @@ public abstract class PooledWeapon : BC_Weapon
     /// <returns>
     /// The newly instantiated GameObject representing the bullet.
     /// </returns>
-    protected GameObject OnCreatePooledObject()
+    protected GameObject OnCreatePrimaryPooledObject()
     {
-        return Instantiate(WeaponData.PrefabBullet, m_instantiationPoint.transform.position, gameObject.transform.rotation);
+        return Instantiate(WeaponData.ProjectileData.ProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
     }
 
     /// <summary>
@@ -41,12 +52,12 @@ public abstract class PooledWeapon : BC_Weapon
     /// <param name="objectPulled">
     /// The GameObject that was pulled from the object pool.
     /// </param>
-    protected void OnPulledFromPool(GameObject objectPulled)
+    protected void OnPulledFromPrimaryPool(GameObject objectPulled)
     {
         objectPulled.SetActive(true);
-        if (objectPulled.HasComponent<BasicProjectile>())
+        if (objectPulled.HasComponent<Projectile>())
         {
-            BasicProjectile projectileScript = objectPulled.GetComponent<BasicProjectile>();
+            Projectile projectileScript = objectPulled.GetComponent<Projectile>();
             projectileScript.m_gunThatFiredProjectile = this;
             if (WeaponData.UseSpread)
             {
@@ -80,7 +91,7 @@ public abstract class PooledWeapon : BC_Weapon
     /// <param name="objectReturned">
     /// The GameObject that was returned to the object pool.
     /// </param>
-    protected void OnReturnedToPool(GameObject objectReturned)
+    protected void OnReturnedToPrimaryPool(GameObject objectReturned)
     {
         objectReturned.SetActive(false);
     }
@@ -91,7 +102,7 @@ public abstract class PooledWeapon : BC_Weapon
     /// <param name="objectToDestroy">
     /// The GameObject to be destroyed.
     /// </param>
-    protected void DestroyPooledObject(GameObject objectToDestroy)
+    protected void DestroyPrimaryPooledObject(GameObject objectToDestroy)
     {
         Destroy(objectToDestroy);
     }

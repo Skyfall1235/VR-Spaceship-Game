@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: TestingWeaponData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 50
-  m_prefabBullet: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
+  m_useProjectile: 1
+  m_projectileData: {fileID: 11400000, guid: 7a3e5f75e3ede89479a57b7265cb9f03, type: 2}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []
