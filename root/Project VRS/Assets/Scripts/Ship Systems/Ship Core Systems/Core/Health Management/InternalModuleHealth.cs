@@ -27,12 +27,14 @@ public class InternalModuleHealth : BC_UniversalEntityHealth
         //find damage after armor negation
         int damageAfterArmor = CalculateDamageAfterArmor(damageValueFromDataPack, damagePercentApplicable);
         StartCoroutine(DamageEntityAction(damageAfterArmor));
+        base.TakeDamage(weaponCollisionData);
     }
 
     public override void HealObject(IDamageData.HealModuleData healModuleData)
     {
         //start the heal corotuine and let it take the data
         StartCoroutine(HealEntityAction(healModuleData));
+        base.HealObject(healModuleData);
     }
 
     #endregion

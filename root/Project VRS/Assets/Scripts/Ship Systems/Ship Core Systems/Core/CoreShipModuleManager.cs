@@ -8,16 +8,34 @@ using UnityEngine.Events;
 /// This class is responsible for registering core modules, applying various operations (start-up, shut-down, reboot) to them, 
 /// and retrieving information about their state and health.
 /// </summary>
+[RequireComponent(typeof(HullHealthManager))]
 public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
 {
     //what does the manmager need to handle?
     public List<BC_CoreModule> coreModules = new List<BC_CoreModule>();
+
+    public UnityEvent<BC_CoreModule> OnModuleAdded = new UnityEvent<BC_CoreModule>();
+    public UnityEvent<BC_CoreModule> OnModuleRemoved = new UnityEvent<BC_CoreModule>();
 
     public ReportModuleEvent OnModuleEvent = new ReportModuleEvent();
 
 
     //what is registration?
     //its adding the item to the core modules list if it not already there, and adding it to the module script.
+    #region Health Management
+
+    private void Awake()
+    {
+        HullHealthManager manager = GetComponent<HullHealthManager>();
+        if (manager != null)
+        {
+            OnModuleAdded.AddListener(manager.SubscribeToModule);
+            OnModuleRemoved.AddListener(manager.UnsubscribeToModule);
+        }
+        manager.InitialSubscribeToAllModuleEvents(coreModules);
+    }
+
+    #endregion
 
     #region Adding, removing, and Registering modules
 
@@ -41,6 +59,7 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
         }
         coreModules.Add(module);
         module.AttemptToLinkManager(this);
+        OnModuleAdded.Invoke(module);
     }
 
     public void RemoveSingleModule(BC_CoreModule module)
@@ -52,6 +71,7 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
         }
         coreModules.Remove(module);
         module.DeregisterCoreSystemManager(this);
+        OnModuleRemoved.Invoke(module);
         //remove all references to any unity events
     }
 
