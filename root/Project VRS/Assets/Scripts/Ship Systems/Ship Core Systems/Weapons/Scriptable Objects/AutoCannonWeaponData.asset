@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: AutoCannonWeaponData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 0
-  m_prefabBullet: {fileID: 0}
+  m_useProjectile: 1
+  m_projectileData: {fileID: 0}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []

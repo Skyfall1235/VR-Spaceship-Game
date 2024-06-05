@@ -12,6 +12,6 @@ public class TestingGun : PooledWeapon
 
     public override void OnFire()
     {
-        m_pool.Get();
+        m_primaryProjectilePool.Get();
     }
 }

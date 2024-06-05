@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(TrailRenderer))]
-public class BasicProjectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public PooledWeapon m_gunThatFiredProjectile;
-    [SerializeField] float m_timeToDestroyAfter;
+
     [SerializeField] ForceMode m_forceMode = ForceMode.Impulse;
-    [SerializeField] float m_projectileSpeed;
+    float m_projectileSpeed;
     [SerializeField] Rigidbody m_projectileRigidBody;
     TrailRenderer m_trailRender;
 
@@ -16,14 +16,14 @@ public class BasicProjectile : MonoBehaviour
         //setup trail renderer
         m_trailRender = GetComponent<TrailRenderer>();
     }
-    private IEnumerator DestroyAfterTime()
+    protected IEnumerator DestroyAfterTime()
     {
         //wait
-        yield return new WaitForSeconds(m_timeToDestroyAfter);
+        yield return new WaitForSeconds(m_gunThatFiredProjectile.WeaponData.ProjectileData.ProjectileDestroyTime);
         //if the gun still exists, we can release the projectile
         if(m_gunThatFiredProjectile != null)
         {
-            m_gunThatFiredProjectile.Pool.Release(gameObject);
+            m_gunThatFiredProjectile.PrimaryProjectilePool.Release(gameObject);
         }
         else
         {
@@ -44,7 +44,7 @@ public class BasicProjectile : MonoBehaviour
         transform.rotation = startingRotation;
 
         //now, set the speed to what the scriptable object says it should be
-        m_projectileSpeed = m_gunThatFiredProjectile.WeaponData.ProjectileSpeed;
+        m_projectileSpeed = m_gunThatFiredProjectile.WeaponData.ProjectileData.ProjectileSpeed;
 
         //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();

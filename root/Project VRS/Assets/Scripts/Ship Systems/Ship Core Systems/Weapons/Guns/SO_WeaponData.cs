@@ -44,24 +44,18 @@ public class SO_WeaponData : ScriptableObject
 
     [Header("Projectile and FX")]
 
-    [SerializeField]
-    [Tooltip("The speed of the projectiles fired by this turret. This value might be overridden based on the weapon reference.")]
-    private float m_projectileSpeed;
-    public float ProjectileSpeed
-    {
-        get => m_projectileSpeed;
-    }
 
     /// <summary>
-    /// gameobject reference to the bullet prefab.
+    /// Whether the weapon uses projectiles
     /// </summary>
-    [SerializeField]
-    [Tooltip("Prefab of the game object used as the projectile fired by this turret.")]
-    private GameObject m_prefabBullet;
-    public GameObject PrefabBullet
-    {
-        get => m_prefabBullet;
-    }
+    [SerializeField][HideInInspector] bool m_useProjectile;
+    public bool UseProjectile { get { return m_useProjectile; }}
+
+    /// <summary>
+    /// The data for any projectile fired
+    /// </summary>
+    [SerializeField][HideInInspector] SO_ProjectileData m_projectileData;
+    public SO_ProjectileData ProjectileData {  get { return m_projectileData; }}
 
     /// <summary>
     /// Particle system assciated with this turret.
@@ -248,6 +242,8 @@ public class SO_WeaponData : ScriptableObject
 [CustomEditor(typeof(SO_WeaponData))]
 public class SO_WeaponData_Editor : Editor
 {
+    SerializedProperty m_useProjectile;
+    SerializedProperty m_projectileData;
     SerializedProperty m_magazineCapacity;
     SerializedProperty m_reloadTime;
     SerializedProperty m_minimumTimeBetweenFiring;
@@ -256,6 +252,8 @@ public class SO_WeaponData_Editor : Editor
     SerializedProperty m_spreadValues;
     private void OnEnable()
     {
+        m_useProjectile = serializedObject.FindProperty(nameof(m_useProjectile));
+        m_projectileData = serializedObject.FindProperty(nameof(m_projectileData));
         m_magazineCapacity = serializedObject.FindProperty(nameof(m_magazineCapacity));
         m_reloadTime = serializedObject.FindProperty(nameof(m_reloadTime));
         m_minimumTimeBetweenFiring = serializedObject.FindProperty(nameof(m_minimumTimeBetweenFiring));
@@ -265,51 +263,83 @@ public class SO_WeaponData_Editor : Editor
     }
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
         serializedObject.Update();
-        SO_WeaponData scriptToDisplayDataFor = (SO_WeaponData)target;
         EditorGUI.BeginChangeCheck();
-        int newMagazineCapacityValue = 0;
+        DrawDefaultInspector();
+        float newMinimumTimeBetweenFiring = EditorGUILayout.FloatField("Minimum Time Between Shots", m_minimumTimeBetweenFiring.floatValue);
+
+        //Initial variables to save values to
+        SO_ProjectileData newProjectileData = null;
+        uint newMagazineCapacityValue = 0;
         float newReloadTime = 0;
         Vector2 newSpreadValues = new Vector2(0, 0);
-        float newMinimumTimeBetweenFiring = EditorGUILayout.FloatField("Minimum Time Between Shots", m_minimumTimeBetweenFiring.floatValue);
+
+        //checkbox and variables for using a projectile
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Magazine");
-        bool newUsesMag = EditorGUILayout.Toggle(m_usesMag.boolValue);
+            EditorGUILayout.LabelField("Use Projectile");
+            bool newUseProjectile = EditorGUILayout.Toggle(m_useProjectile.boolValue);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.Space(.1f);
-        EditorGUILayout.BeginVertical();
-        if (scriptToDisplayDataFor.UsesMag)
-        {
-            newReloadTime = EditorGUILayout.FloatField("Reload Time", m_reloadTime.floatValue);
-            newMagazineCapacityValue = EditorGUILayout.IntField("Magazine Capacity", m_magazineCapacity.intValue);
-        }
-        EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(.1f);
+            EditorGUILayout.BeginVertical();
+            if (m_useProjectile.boolValue)
+            {
+                newProjectileData = (SO_ProjectileData)EditorGUILayout.ObjectField("Projectile Data", m_projectileData.objectReferenceValue, typeof(SO_ProjectileData), true);
+            }
+            EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
+        //checkbox and variables for using a magazine
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Spread");
-        bool newUseSpred = EditorGUILayout.Toggle(m_useSpread.boolValue);
+            EditorGUILayout.LabelField("Magazine");
+            bool newUsesMag = EditorGUILayout.Toggle(m_usesMag.boolValue);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.Space(.1f);
-        EditorGUILayout.BeginVertical();
-        if (scriptToDisplayDataFor.UseSpread)
-        {
-            newSpreadValues = EditorGUILayout.Vector2Field("Spread Max Values", m_spreadValues.vector2Value);
-        }
-        EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(.1f);
+            EditorGUILayout.BeginVertical();
+                if (m_usesMag.boolValue)
+                {
+                    newReloadTime = EditorGUILayout.FloatField("Reload Time", m_reloadTime.floatValue);
+                    newMagazineCapacityValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Magazine Capacity", m_magazineCapacity.intValue), 0, uint.MaxValue);
+                }
+            EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
+
+        //checkbox and variables for spread
+        EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Spread");
+            bool newUseSpred = EditorGUILayout.Toggle(m_useSpread.boolValue);
+        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.Space(.1f);
+            EditorGUILayout.BeginVertical();
+                if (m_useSpread.boolValue)
+                {
+                    newSpreadValues = EditorGUILayout.Vector2Field("Spread Max Values", m_spreadValues.vector2Value);
+                }
+            EditorGUILayout.EndVertical();
+        EditorGUILayout.EndHorizontal();
+
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObjects(targets, "Changed Scriptable Object");
+            if(m_useProjectile.boolValue)
+            {
+                m_projectileData.objectReferenceValue = newProjectileData;
+            }
+            m_useProjectile.boolValue = newUseProjectile;
+            m_minimumTimeBetweenFiring.floatValue = Mathf.Clamp(newMinimumTimeBetweenFiring, 0, float.MaxValue);
+            if (m_usesMag.boolValue)
+            {
+                m_magazineCapacity.uintValue = newMagazineCapacityValue;
+                m_reloadTime.floatValue = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            }
             m_usesMag.boolValue = newUsesMag;
-            m_minimumTimeBetweenFiring.floatValue = Mathf.Clamp(newMinimumTimeBetweenFiring, 0 , float.MaxValue);
-            m_magazineCapacity.intValue = (int)Mathf.Clamp(newMagazineCapacityValue, 0, uint.MaxValue);
-            m_reloadTime.floatValue = Mathf.Clamp(newReloadTime, 0, float.MaxValue);
+            if(m_useSpread.boolValue)
+            {
+                m_spreadValues.vector2Value = newSpreadValues;
+            }
             m_useSpread.boolValue = newUseSpred;
-            m_spreadValues.vector2Value = newSpreadValues;
             serializedObject.ApplyModifiedProperties();
         }
     }
