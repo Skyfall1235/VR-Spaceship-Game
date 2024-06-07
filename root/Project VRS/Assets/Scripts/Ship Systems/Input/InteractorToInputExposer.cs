@@ -116,7 +116,7 @@ public class InteractorToInputExposer : MonoBehaviour
                 return false;
             }
             m_primaryButton = false;
-            return false;
+            return m_primaryButton;
         }
     }
 

@@ -48,7 +48,7 @@ using static IModuleDamage;
 /// </para>
 /// </remarks>
 [RequireComponent(typeof(InternalModuleHealth))]
-public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IHealthEvents
+public abstract class BC_CoreModule : HealthBehavior, ICoreModule, ICoreModuleBehavior
 {
 
     #region Variables
@@ -170,51 +170,6 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     /// An event that is raised whenever the operational state of the system changes.
     /// </summary>
     public ICoreModule.OnModuleOperationalStateChange OnModuleOperationalStateChange = new();
-
-    [SerializeField]
-    protected OnHealEvent m_onHealEvent = new();
-
-    [SerializeField]
-    protected OnDamageEvent m_onDamageEvent = new();
-
-    [SerializeField]
-    protected OnDeathEvent m_onDeathEvent = new();
-
-    public OnHealEvent onHealEvent
-    {
-        get
-        {
-            return m_onHealEvent;
-        }
-        set
-        {
-            m_onHealEvent = value;
-        }
-    }
-
-    public OnDamageEvent onDamageEvent
-    {
-        get
-        {
-            return m_onDamageEvent;
-        }
-        set
-        {
-            m_onDamageEvent = value;
-        }
-    }
-
-    public OnDeathEvent onDeathEvent
-    {
-        get
-        {
-            return m_onDeathEvent;
-        }
-        set
-        {
-            m_onDeathEvent = value;
-        }
-    }
 
     #endregion
 
@@ -434,21 +389,21 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     /// Applies damage to this module based on the provided damage data.
     /// </summary>
     /// <param name="damageData">The weapon collision data containing damage information.</param>
-    public void TakeDamage(IDamageData.WeaponCollisionData damageData)
+    public override void TakeDamage(IDamageData.WeaponCollisionData damageData)
     {
         //allow the health script to handle the actual number stuff and then invoke the event
+        base.TakeDamage(damageData);
         m_internalModuleHealth.TakeDamage(damageData);
-        m_onDamageEvent.Invoke(damageData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
     /// <summary>
     /// Heals this module based on the provided heal data.
     /// </summary>
     /// <param name="healData">The heal module data containing healing information.</param>
-    public void HealObject(IDamageData.HealModuleData healData)
+    public override void HealObject(IDamageData.HealModuleData healData)
     {
+        base.HealObject(healData);
         m_internalModuleHealth.HealObject(healData);
-        m_onHealEvent.Invoke(healData, this, ICoreModule.ModuleStateChangeType.Health);
     }
 
     #endregion

@@ -94,7 +94,11 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
 
     #region Coroutines
 
-    //cause rate is over time, we need it to steadily increase/decrease
+    /// <summary>
+    /// Heals THIS entity using a fixed rate that is stored in <see cref="SO_ModuleHealthData"/> 
+    /// </summary>
+    /// <param name="healModuleData">The data neede to heal the entity by what amount and what rate.</param>
+    /// <returns></returns>
     protected IEnumerator HealEntityAction(IDamageData.HealModuleData healModuleData)
     {
         //save some initial values so we dont forget where we are
@@ -107,10 +111,15 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
         {
             amountModuleHealedThisAction += healRate;
             m_moduleHealth += healRate;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 
+    /// <summary>
+    /// Damages THIS entity using the modules rate of damage per frame that i
+    /// </summary>
+    /// <param name="damageVal"></param>
+    /// <returns></returns>
     protected IEnumerator DamageEntityAction(int damageVal)
     {
         //save some initial values so we dont forget where we are
@@ -129,7 +138,7 @@ public abstract class BC_UniversalEntityHealth : MonoBehaviour, IModuleDamage
                 m_scriptOwner.onDeathEvent.Invoke(m_scriptOwner, ICoreModule.ModuleStateChangeType.Destroyed);
                 yield break;
             }
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 

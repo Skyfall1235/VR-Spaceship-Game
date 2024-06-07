@@ -286,10 +286,6 @@ namespace UnityEngine.XR.Content.Interaction
             m_OnValueChangeY.Invoke(m_Value.y);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="angles"></param>
         void SetHandleAngle(Vector2 angles)
         {
             if (m_Handle == null)

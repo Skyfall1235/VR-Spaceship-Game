@@ -19,11 +19,15 @@ public class SO_ModuleHealthData : ScriptableObject
     [SerializeField]
     public int healthMax;
 
-
+    /// <summary>
+    /// The rate of damage that this module can take in a given damage tick.
+    /// </summary>
     [SerializeField]
     public int rateOfDamage;
 
-
+    /// <summary>
+    /// Hard coded values as a lookup table for damage reduction or increase.
+    /// </summary>
     [SerializeField]
     public List<DamageValue> damageApplicationCurveList = new List<DamageValue>()
     {

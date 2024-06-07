@@ -31,6 +31,14 @@ public class HullHealthManager : BC_UniversalEntityHealth
     }
 
     /// <summary>
+    /// Removes all modules subscriptions for the hull.
+    /// </summary>
+    public void DumpAllModules()
+    {
+        EntityHealths.Clear();
+    }
+
+    /// <summary>
     /// Subscribes to the health of another module.
     /// </summary>
     /// <param name="module">The BC_CoreModule instance to subscribe to for health updates.</param>
