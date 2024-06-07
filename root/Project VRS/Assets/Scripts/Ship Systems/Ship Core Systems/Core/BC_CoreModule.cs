@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using static SystemResourceQueue;
 using static IModuleDamage;
+using static ICoreModule;
 
 /// <summary>
 /// Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module's state, health, and management.
@@ -48,7 +49,7 @@ using static IModuleDamage;
 /// </para>
 /// </remarks>
 [RequireComponent(typeof(InternalModuleHealth))]
-public abstract class BC_CoreModule : HealthBehavior, ICoreModule, ICoreModuleBehavior
+public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IHealthEvents
 {
 
     #region Variables
@@ -81,16 +82,16 @@ public abstract class BC_CoreModule : HealthBehavior, ICoreModule, ICoreModuleBe
     /// Sets the current CoreModuleState of the system.
     /// </summary>
     [SerializeField]
-    protected ICoreModule.CoreModuleState m_coreState;
-    public ICoreModule.CoreModuleState CoreModuleState
+    protected CoreModuleState m_coreState;
+    public CoreModuleState CoreModuleState
     { get => m_coreState; }
 
     /// <summary>
     /// Represents the current operational state of the system, such as Active, Preparing, ReadyForUse, Damaged, or Rebooting.
     /// </summary>
     [SerializeField]
-    protected ICoreModule.ModuleOperationalState m_operationalState;
-    public ICoreModule.ModuleOperationalState OperationalState
+    protected ModuleOperationalState m_operationalState;
+    public ModuleOperationalState OperationalState
     { get => m_operationalState; }
 
     #region Energy Variables
@@ -161,15 +162,69 @@ public abstract class BC_CoreModule : HealthBehavior, ICoreModule, ICoreModuleBe
 
     #region Base Class unity Events
 
+    [SerializeField]
+    protected OnHealEvent m_onHealEvent = new();
+
+    [SerializeField]
+    protected IDamageEvents.OnDamageEvent m_onDamageEvent = new();
+
+    [SerializeField]
+    protected IDamageEvents.OnDeathEvent m_onDeathEvent = new();
+
+    /// <summary>
+    /// Unity Event for activation of the Heal action.
+    /// </summary>
+    public OnHealEvent onHealEvent
+    {
+        get
+        {
+            return m_onHealEvent;
+        }
+        set
+        {
+            m_onHealEvent = value;
+        }
+    }
+
+    /// <summary>
+    /// Unity Event for activation of the Damage action.
+    /// </summary>
+    public IDamageEvents.OnDamageEvent onDamageEvent
+    {
+        get
+        {
+            return m_onDamageEvent;
+        }
+        set
+        {
+            m_onDamageEvent = value;
+        }
+    }
+
+    /// <summary>
+    /// Unity Event for activation of the Death action.
+    /// </summary>
+    public IDamageEvents.OnDeathEvent onDeathEvent
+    {
+        get
+        {
+            return m_onDeathEvent;
+        }
+        set
+        {
+            m_onDeathEvent = value;
+        }
+    }
+
     /// <summary>
     /// An event that is raised whenever the CoreState of the system changes.
     /// </summary>
-    public ICoreModule.OnCoreModuleStateChange OnCoreModuleStateChange = new();
+    public OnCoreModuleStateChange OnCoreModuleStateChange = new();
 
     /// <summary>
     /// An event that is raised whenever the operational state of the system changes.
     /// </summary>
-    public ICoreModule.OnModuleOperationalStateChange OnModuleOperationalStateChange = new();
+    public OnModuleOperationalStateChange OnModuleOperationalStateChange = new();
 
     #endregion
 
@@ -389,10 +444,9 @@ public abstract class BC_CoreModule : HealthBehavior, ICoreModule, ICoreModuleBe
     /// Applies damage to this module based on the provided damage data.
     /// </summary>
     /// <param name="damageData">The weapon collision data containing damage information.</param>
-    public override void TakeDamage(IDamageData.WeaponCollisionData damageData)
+    public virtual void TakeDamage(IDamageData.WeaponCollisionData damageData)
     {
         //allow the health script to handle the actual number stuff and then invoke the event
-        base.TakeDamage(damageData);
         m_internalModuleHealth.TakeDamage(damageData);
     }
 
@@ -400,12 +454,15 @@ public abstract class BC_CoreModule : HealthBehavior, ICoreModule, ICoreModuleBe
     /// Heals this module based on the provided heal data.
     /// </summary>
     /// <param name="healData">The heal module data containing healing information.</param>
-    public override void HealObject(IDamageData.HealModuleData healData)
+    public virtual void HealObject(IDamageData.HealModuleData healData)
     {
-        base.HealObject(healData);
         m_internalModuleHealth.HealObject(healData);
     }
 
     #endregion
 
 }
+
+
+
+
