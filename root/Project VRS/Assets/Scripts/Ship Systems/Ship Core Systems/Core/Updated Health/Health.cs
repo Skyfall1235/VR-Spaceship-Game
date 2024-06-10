@@ -63,6 +63,50 @@ public class Health : MonoBehaviour, IDamagable
         }
     }
     public bool IsAlive { get; private set; } = true;
+
+    #region Events
+
+    private DamageData.OnHealEvent m_onHeal = new DamageData.OnHealEvent();
+    public DamageData.OnHealEvent OnHeal 
+    {
+        get
+        {
+            return m_onHeal;
+        }
+        set
+        {
+            m_onHeal = value;
+        }
+    }
+
+    private DamageData.OnDamageEvent m_onDamage = new DamageData.OnDamageEvent();
+    public DamageData.OnDamageEvent OnDamage 
+    {
+        get
+        {
+            return m_onDamage;
+        }
+        set
+        {
+            m_onDamage = value;
+        }
+    }
+
+    private DamageData.OnHealthComponentInitialized m_onHealthInitialized = new DamageData.OnHealthComponentInitialized();
+    public DamageData.OnHealthComponentInitialized OnHealthInitialized 
+    {
+        get
+        {
+            return m_onHealthInitialized;
+        }
+        set
+        {
+            m_onHealthInitialized = value;
+        }
+    }
+
+    #endregion
+
     /// <summary>
     /// Triggered when a health component dies
     /// </summary>
@@ -79,32 +123,14 @@ public class Health : MonoBehaviour, IDamagable
     /// Triggered when a health component becomes vulnerable
     /// </summary>
     public UnityEvent OnBecameVulnerable = new UnityEvent();
-    /// <summary>
-    /// Triggered when a health component is healed
-    /// Output 1 is max health
-    /// Output 2 is health before action occured
-    /// Output 3 is health after action occured
-    /// </summary>
-    public UnityEvent<uint, uint, uint> OnHeal = new UnityEvent<uint, uint, uint>();
-    /// <summary>
-    /// Triggered when a health component is damaged
-    /// Output 1 is max health
-    /// Output 2 is health before action occured
-    /// Output 3 is health after action occured
-    /// </summary>
-    public UnityEvent<uint, uint, uint> OnDamage = new UnityEvent<uint, uint, uint>();
-    /// <summary>
-    /// Triggered when a health component is initialized
-    /// Output 1 is max health
-    /// Output 2 is current health
-    /// </summary>
-    public UnityEvent<uint, uint> OnHealthComponentInitialized = new UnityEvent<uint, uint>();
+
+    
 
     void Start()
     {
         CurrentHealth = m_maxHealth;
         IsAlive = CurrentHealth > 0;
-        OnHealthComponentInitialized.Invoke(m_maxHealth, CurrentHealth);
+        m_onHealthInitialized.Invoke(m_maxHealth, CurrentHealth);
     }
 
     /// <summary>
@@ -179,35 +205,40 @@ public class Health : MonoBehaviour, IDamagable
         m_isInvulnerable = false;
         OnBecameVulnerable.Invoke();
     }
+}
 
+/// <summary>
+/// A struct containing data required for dealing damage
+/// </summary>
+public struct DamageData
+{
+    public class OnHealEvent : UnityEvent<uint, uint, uint> { }
+
+    public class OnDamageEvent : UnityEvent<uint, uint, uint> { }
+
+    public class OnHealthComponentInitialized : UnityEvent<uint, uint> { }
     /// <summary>
-    /// A struct containing data required for dealing damage
+    /// Creates a DamageData struct
     /// </summary>
-    public struct DamageData
+    /// <param name="damage">The amount of damage dealt</param>
+    /// <param name="armorPenetration">The amount of armor penetration of the damage</param>
+    /// <param name="damager">The GameObject who dealt the damage</param>
+    public DamageData(uint damage, uint armorPenetration = 0, GameObject damager = null)
     {
-        /// <summary>
-        /// Creates a DamageData struct
-        /// </summary>
-        /// <param name="damage">The amount of damage dealt</param>
-        /// <param name="armorPenetration">The amount of armor penetration of the damage</param>
-        /// <param name="damager">The GameObject who dealt the damage</param>
-        public DamageData(uint damage, uint armorPenetration = 0, GameObject damager = null)
-        {
-            Damage = damage;
-            ArmorPenetration = armorPenetration;
-            Damager = damager;
-        }
-        /// <summary>
-        /// The amount of damage dealt
-        /// </summary>
-        public uint Damage {  get; private set; }
-        /// <summary>
-        /// The amount of armor penetration of the damage
-        /// </summary>
-        public uint ArmorPenetration { get; private set; }
-        /// <summary>
-        /// The GameObject who dealt the damage
-        /// </summary>
-        public GameObject Damager { get; private set; }
+        Damage = damage;
+        ArmorPenetration = armorPenetration;
+        Damager = damager;
     }
+    /// <summary>
+    /// The amount of damage dealt
+    /// </summary>
+    public uint Damage { get; private set; }
+    /// <summary>
+    /// The amount of armor penetration of the damage
+    /// </summary>
+    public uint ArmorPenetration { get; private set; }
+    /// <summary>
+    /// The GameObject who dealt the damage
+    /// </summary>
+    public GameObject Damager { get; private set; }
 }
