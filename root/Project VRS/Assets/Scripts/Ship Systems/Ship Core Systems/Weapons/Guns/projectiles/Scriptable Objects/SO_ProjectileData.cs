@@ -16,7 +16,7 @@ public class SO_ProjectileData : ScriptableObject
     {
         get { return m_projectileDestroyTime; } 
     }
-    [SerializeField] uint m_projectileDamage;
+    [SerializeField] public uint m_projectileDamage { get; private set; }
     [SerializeField] GameObject m_projectilePrefab;
     public GameObject ProjectilePrefab 
     {

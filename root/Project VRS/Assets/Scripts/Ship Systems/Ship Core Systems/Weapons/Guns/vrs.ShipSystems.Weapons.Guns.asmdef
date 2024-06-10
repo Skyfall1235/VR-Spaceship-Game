@@ -2,8 +2,8 @@
     "name": "vrs.ShipSystems.Weapons.Guns",
     "rootNamespace": "",
     "references": [
-        "GUID:abb0239e6ec62eb48b0d3693e7e2f53f",
-        "GUID:123a3d4b6916622409770533c4ecf412"
+        "GUID:123a3d4b6916622409770533c4ecf412",
+        "GUID:600487aca8c3f3f43b3caf5badfda3c4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

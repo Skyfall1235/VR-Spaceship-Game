@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 public abstract class PooledWeapon : BC_Weapon
 {
     [SerializeField]
-    protected SO_ProjectileData m_projectileData { get; private set;}
+    public SO_ProjectileData ProjectileData { get; private set;}
 
     [SerializeField]
     protected ObjectPool<GameObject> m_primaryProjectilePool;

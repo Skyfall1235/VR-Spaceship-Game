@@ -51,5 +51,16 @@ public class Projectile : MonoBehaviour
         m_projectileRigidBody.AddForce(transform.up * m_projectileSpeed, m_forceMode);
         StartCoroutine(DestroyAfterTime());
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision != null) 
+        {
+            Health objectHealth = collision.gameObject.GetComponent<Health>();
+            uint damageVal = m_gunThatFiredProjectile.ProjectileData.m_projectileDamage;
+            DamageData damageData = new DamageData(damageVal, 0, this.gameObject);
+            objectHealth.Damage(damageData);
+        }
+    }
 }
 
