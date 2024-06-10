@@ -5,9 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class BoidRB : MonoBehaviour
 {
-    int distanceThreshold = 10;
+    int distanceThreshold = 15;
     static List<BoidRB> ActiveBoids = new List<BoidRB>();
     Rigidbody rb;
+    [SerializeField]Transform target;
+    [SerializeField]bool activeBoid = true;
     private void Awake()
     {
         if (!ActiveBoids.Contains(this)) 
@@ -26,8 +28,14 @@ public class BoidRB : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(DistanceRule() + CenterOfMassRule() + VelocityChangeRule());
-        Debug.DrawRay(transform.position, rb.velocity);
+        if(activeBoid)
+        {
+
+            Vector3 velocity = rb.velocity;
+            Vector3 newDesiredVelocity = (target.position - transform.position).normalized * 5 + DistanceRule() + CenterOfMassRule() + VelocityChangeRule();
+            rb.AddForce(newDesiredVelocity - velocity);
+            Debug.DrawRay(transform.position, rb.velocity);
+        }
     }
 
     private Vector3 CenterOfMassRule()
