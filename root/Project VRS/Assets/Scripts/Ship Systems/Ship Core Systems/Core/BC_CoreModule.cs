@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using static SystemResourceQueue;
-using static IModuleDamage;
 using static ICoreModule;
 
 /// <summary>
@@ -48,8 +47,8 @@ using static ICoreModule;
 /// Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module's state, health, and management.
 /// </para>
 /// </remarks>
-[RequireComponent(typeof(InternalModuleHealth))]
-public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior, IHealthEvents
+[RequireComponent(typeof(Health))]
+public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBehavior
 {
 
     #region Variables
@@ -63,8 +62,8 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public CoreShipModuleManager ShipModuleManager
     { get => m_shipModuleManager; }
 
-    protected InternalModuleHealth m_internalModuleHealth;
-    public InternalModuleHealth InternalModuleHealth
+    protected Health m_internalModuleHealth;
+    public Health InternalModuleHealth
     {
         get
         {
@@ -73,7 +72,7 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
                 return m_internalModuleHealth;
             }
             //if it is null, find and reassign
-            m_internalModuleHealth = GetComponent<InternalModuleHealth>();
+            m_internalModuleHealth = GetComponent<Health>();
             return m_internalModuleHealth;
         }
     }
@@ -162,60 +161,6 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     #region Base Class unity Events
 
-    [SerializeField]
-    protected OnHealEvent m_onHealEvent = new();
-
-    [SerializeField]
-    protected IDamageEvents.OnDamageEvent m_onDamageEvent = new();
-
-    [SerializeField]
-    protected IDamageEvents.OnDeathEvent m_onDeathEvent = new();
-
-    /// <summary>
-    /// Unity Event for activation of the Heal action.
-    /// </summary>
-    public OnHealEvent onHealEvent
-    {
-        get
-        {
-            return m_onHealEvent;
-        }
-        set
-        {
-            m_onHealEvent = value;
-        }
-    }
-
-    /// <summary>
-    /// Unity Event for activation of the Damage action.
-    /// </summary>
-    public IDamageEvents.OnDamageEvent onDamageEvent
-    {
-        get
-        {
-            return m_onDamageEvent;
-        }
-        set
-        {
-            m_onDamageEvent = value;
-        }
-    }
-
-    /// <summary>
-    /// Unity Event for activation of the Death action.
-    /// </summary>
-    public IDamageEvents.OnDeathEvent onDeathEvent
-    {
-        get
-        {
-            return m_onDeathEvent;
-        }
-        set
-        {
-            m_onDeathEvent = value;
-        }
-    }
-
     /// <summary>
     /// An event that is raised whenever the CoreState of the system changes.
     /// </summary>
@@ -298,9 +243,9 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
 
     public virtual void InitializeModule()
     {
-        m_internalModuleHealth = GetComponent<InternalModuleHealth>();
+        m_internalModuleHealth = GetComponent<Health>();
         //set the health stuff to refer to this script as the owner
-        m_internalModuleHealth.InitializeHealth(this);
+        m_internalModuleHealth.InitializeHealth();
     }
 
     #region Start up, restart, and shut down logic
@@ -434,29 +379,6 @@ public abstract class BC_CoreModule : MonoBehaviour, ICoreModule, ICoreModuleBeh
     public virtual void DeregisterCoreSystemManager(CoreShipModuleManager currentManager)
     {
         m_shipModuleManager = null;
-    }
-
-    #endregion
-
-    #region Health Management
-
-    /// <summary>
-    /// Applies damage to this module based on the provided damage data.
-    /// </summary>
-    /// <param name="damageData">The weapon collision data containing damage information.</param>
-    public virtual void TakeDamage(IDamageData.WeaponCollisionData damageData)
-    {
-        //allow the health script to handle the actual number stuff and then invoke the event
-        m_internalModuleHealth.TakeDamage(damageData);
-    }
-
-    /// <summary>
-    /// Heals this module based on the provided heal data.
-    /// </summary>
-    /// <param name="healData">The heal module data containing healing information.</param>
-    public virtual void HealObject(IDamageData.HealModuleData healData)
-    {
-        m_internalModuleHealth.HealObject(healData);
     }
 
     #endregion

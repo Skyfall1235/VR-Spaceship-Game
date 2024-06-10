@@ -1,71 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static IDamageData;
-using static IModuleDamage;
 
-public class HullHealthManager : BC_UniversalEntityHealth, IHealthEvents
+
+public class HullHealthManager : Health
 {
     //will need to subscribe to all modules heallth events
 
-    public List<BC_UniversalEntityHealth> EntityHealths = new List<BC_UniversalEntityHealth>();
+    public List<Health> EntityHealths = new List<Health>();
 
     private const int FlatRateReduction = 20;
 
     #region Events
 
-    [SerializeField]
-    protected OnHealEvent m_onHealEvent = new();
 
-    [SerializeField]
-    protected IDamageEvents.OnDamageEvent m_onDamageEvent = new();
-
-    [SerializeField]
-    protected IDamageEvents.OnDeathEvent m_onDeathEvent = new();
-
-    /// <summary>
-    /// Unity Event for activation of the Heal action.
-    /// </summary>
-    public OnHealEvent onHealEvent
-    {
-        get
-        {
-            return m_onHealEvent;
-        }
-        set
-        {
-            m_onHealEvent = value;
-        }
-    }
-
-    /// <summary>
-    /// Unity Event for activation of the Damage action.
-    /// </summary>
-    public IDamageEvents.OnDamageEvent onDamageEvent
-    {
-        get
-        {
-            return m_onDamageEvent;
-        }
-        set
-        {
-            m_onDamageEvent = value;
-        }
-    }
-
-    /// <summary>
-    /// Unity Event for activation of the Death action.
-    /// </summary>
-    public IDamageEvents.OnDeathEvent onDeathEvent
-    {
-        get
-        {
-            return m_onDeathEvent;
-        }
-        set
-        {
-            m_onDeathEvent = value;
-        }
-    }
 
     #endregion
 
@@ -108,7 +55,7 @@ public class HullHealthManager : BC_UniversalEntityHealth, IHealthEvents
     /// </remarks>
     public void SubscribeToModule(BC_CoreModule module)
     {
-        BC_UniversalEntityHealth entityHP = module.InternalModuleHealth;
+        Health entityHP = module.InternalModuleHealth;
         EntityHealths.Add(entityHP);
     }
 
@@ -123,7 +70,7 @@ public class HullHealthManager : BC_UniversalEntityHealth, IHealthEvents
     /// </remarks>
     public void UnsubscribeToModule(BC_CoreModule module)
     {
-        BC_UniversalEntityHealth entityHP = module.InternalModuleHealth;
+        Health entityHP = module.InternalModuleHealth;
         EntityHealths.Remove(entityHP);
     }
 
@@ -131,36 +78,25 @@ public class HullHealthManager : BC_UniversalEntityHealth, IHealthEvents
 
     #region Health Application
 
-    private void OnModuleTakeDamage(WeaponCollisionData dataPack)
+    //STILL NOT DONE
+    private void OnModuleTakeDamage(BC_CoreModule module)
     {
 
     }
 
-    public override void InitializeHealth(IHealthEvents owner)
+    public override void InitializeHealth()
     {
-        base.InitializeHealth(owner);
+        base.InitializeHealth();
     }
 
-    /// <summary>
-    /// Applies damage to this module based on the provided damage data.
-    /// </summary>
-    /// <param name="damageData">The weapon collision data containing damage information.</param>
-    public override void TakeDamage(IDamageData.WeaponCollisionData damageData)
+    public override void Damage(DamageData damageData, bool ignoreInvulnerabilityAfterDamage = false, bool ignoreArmor = false)
     {
-        //allow the health script to handle the actual number stuff and then invoke the event
-        int damageValueFromDataPack = damageData.damageVal;
-        StartCoroutine(DamageEntityAction(damageValueFromDataPack));
-        base.TakeDamage(damageData);
+        base.Damage(damageData, ignoreInvulnerabilityAfterDamage, ignoreArmor);
     }
 
-    /// <summary>
-    /// Heals this module based on the provided heal data.
-    /// </summary>
-    /// <param name="healData">The heal module data containing healing information.</param>
-    public override void HealObject(IDamageData.HealModuleData healData)
+    public override void Heal(uint amountToHeal)
     {
-        StartCoroutine(HealEntityAction(healData));
-        base.HealObject(healData);
+        base.Heal(amountToHeal);
     }
 
     #endregion

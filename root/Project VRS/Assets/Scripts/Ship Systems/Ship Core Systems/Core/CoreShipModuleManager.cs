@@ -129,9 +129,9 @@ public partial class CoreShipModuleManager : MonoBehaviour, ICoreModule
     #region Data Retrieval
 
     //a method that is able to grab the health of any singular core module
-    public int RetrieveHealthOfSelectedModule(BC_CoreModule module)
+    public uint RetrieveHealthOfSelectedModule(BC_CoreModule module)
     {
-        return module.InternalModuleHealth.ModuleHealth;
+        return module.InternalModuleHealth.CurrentHealth;
     }
 
     //method that checks the operational state of all objects whenever it is called

@@ -1,21 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static ICoreModule;
-using static IDamageData;
-using static IModuleDamage;
 
 //just a register for hits
-public class HullModule : MonoBehaviour, IDamageEvents
+public class HullModule : MonoBehaviour, IDamagable
 {
     [SerializeField]
     private HullHealthManager m_hullHealthManager;
 
-    public IDamageEvents.OnDamageEvent OnDamageEvent = new();
+    #region Events
 
-    public void TakeDamage(WeaponCollisionData damageData)
+    private DamageData.OnHealEvent m_onHeal = new DamageData.OnHealEvent();
+    public DamageData.OnHealEvent OnHeal
     {
-        OnDamageEvent.Invoke(damageData, m_hullHealthManager, ModuleStateChangeType.Health);
-        m_hullHealthManager.TakeDamage(damageData);
+        get
+        {
+            return m_onHeal;
+        }
+        set
+        {
+            m_onHeal = value;
+        }
+    }
+
+    private DamageData.OnDamageEvent m_onDamage = new DamageData.OnDamageEvent();
+    public DamageData.OnDamageEvent OnDamage
+    {
+        get
+        {
+            return m_onDamage;
+        }
+        set
+        {
+            m_onDamage = value;
+        }
+    }
+
+    private DamageData.OnHealthComponentInitialized m_onHealthInitialized = new DamageData.OnHealthComponentInitialized();
+    public DamageData.OnHealthComponentInitialized OnHealthInitialized
+    {
+        get
+        {
+            return m_onHealthInitialized;
+        }
+        set
+        {
+            m_onHealthInitialized = value;
+        }
+    }
+
+    #endregion
+
+    public void Damage(DamageData damageData, bool ignoreInvulnerabilityAfterDamage = false, bool ignoreArmor = false)
+    {
+        m_hullHealthManager.Damage(damageData, ignoreInvulnerabilityAfterDamage, ignoreArmor);
     }
 }

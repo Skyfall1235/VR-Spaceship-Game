@@ -1043,7 +1043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291208997}
   - component: {fileID: 291209000}
-  - component: {fileID: 291208998}
+  - component: {fileID: 291209001}
   m_Layer: 0
   m_Name: Avionics Module
   m_TagString: Untagged
@@ -1066,21 +1066,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1196831773}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &291208998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291208996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_moduleHealthData: {fileID: 0}
-  m_moduleHealth: 0
-  m_customLogger: {fileID: 0}
 --- !u!114 &291209000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,19 +1088,39 @@ MonoBehaviour:
   m_startUpDelay: 1
   m_shutDownDelay: 1
   m_rebootDelay: 1
-  m_onHealEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   OnCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []
   OnModuleOperationalStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &291209001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291208996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fdcb813be3b3e4cad595409e96af09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_useInvulnerabilityAfterDamage: 1
+  m_inulnerabilityAfterDamageTimer: 3
+  m_useArmor: 0
+  m_armor: 0
+  m_armorForFiftyPercentReduction: 50
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerable:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &306608430 stripped
@@ -1599,8 +1604,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 433828277}
-  - component: {fileID: 433828279}
   - component: {fileID: 433828278}
+  - component: {fileID: 433828279}
   m_Layer: 0
   m_Name: WeaponManager
   m_TagString: Untagged
@@ -1649,15 +1654,6 @@ MonoBehaviour:
   m_startUpDelay: 1
   m_shutDownDelay: 1
   m_rebootDelay: 1
-  m_onHealEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   OnCoreModuleStateChange:
     m_PersistentCalls:
       m_Calls: []
@@ -1680,12 +1676,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 433828276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
+  m_Script: {fileID: 11500000, guid: 48fdcb813be3b3e4cad595409e96af09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moduleHealthData: {fileID: 0}
-  m_moduleHealth: 0
-  m_customLogger: {fileID: 0}
+  m_useInvulnerabilityAfterDamage: 1
+  m_inulnerabilityAfterDamageTimer: 3
+  m_useArmor: 0
+  m_armor: 0
+  m_armorForFiftyPercentReduction: 50
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!20 &451720299 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6176602969698653465, guid: 06368be4aefe6224f8cc34c1514fff60, type: 3}
@@ -3420,19 +3430,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b777693abd21ab04998d9c0ad999db34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moduleHealthData: {fileID: 0}
-  m_moduleHealth: 0
-  m_customLogger: {fileID: 0}
+  m_useInvulnerabilityAfterDamage: 1
+  m_inulnerabilityAfterDamageTimer: 3
+  m_useArmor: 0
+  m_armor: 0
+  m_armorForFiftyPercentReduction: 50
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
   EntityHealths: []
-  m_onHealEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1201038630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
@@ -8092,7 +8107,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractorSocket
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4780322614796531396, guid: 2fa3202b568f3a64cbd72c5ee2bd9ba3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

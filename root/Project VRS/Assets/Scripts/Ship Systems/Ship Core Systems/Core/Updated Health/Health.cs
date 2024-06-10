@@ -126,7 +126,10 @@ public class Health : MonoBehaviour, IDamagable
 
     
 
-    void Start()
+    /// <summary>
+    /// Initializes the Health Component with a full HP and invokes the declaration event
+    /// </summary>
+    public virtual void InitializeHealth()
     {
         CurrentHealth = m_maxHealth;
         IsAlive = CurrentHealth > 0;
@@ -139,7 +142,7 @@ public class Health : MonoBehaviour, IDamagable
     /// <param name="damageData">The data of the damage trying to be dealt</param>
     /// <param name="ignoreInvulnerabilityAfterDamage">Whether we ignore the invulnerability timer on this damage tick</param>
     /// <param name="ignoreArmor">Whether we ignore armor damage reduction on this damage tick</param>
-    public void Damage(DamageData damageData, bool ignoreInvulnerabilityAfterDamage = false, bool ignoreArmor = false)
+    public virtual void Damage(DamageData damageData, bool ignoreInvulnerabilityAfterDamage = false, bool ignoreArmor = false)
     {
         if (!IsInvulnerable)
         {
@@ -158,7 +161,7 @@ public class Health : MonoBehaviour, IDamagable
     /// Heals the health component
     /// </summary>
     /// <param name="amountToHeal">The amount to heal the health component</param>
-    public void Heal(uint amountToHeal)
+    public virtual void Heal(uint amountToHeal)
     {
         uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth + (int)amountToHeal, 0, m_maxHealth); ;
         OnHeal.Invoke(m_maxHealth, CurrentHealth, newHealth);
