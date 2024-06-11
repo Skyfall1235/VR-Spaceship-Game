@@ -42,6 +42,7 @@ public abstract class PooledWeapon : BC_Weapon
     /// </returns>
     protected GameObject OnCreatePrimaryPooledObject()
     {
+        //FOR THE LOVE OF GOD GET PROJECTILE CODE OUT OF GUN CODE THEY DONT BELONG
         return Instantiate(WeaponData.ProjectileData.ProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
     }
 
