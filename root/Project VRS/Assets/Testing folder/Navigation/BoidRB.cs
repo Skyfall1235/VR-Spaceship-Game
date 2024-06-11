@@ -30,7 +30,6 @@ public class BoidRB : MonoBehaviour
     {
         if(activeBoid)
         {
-
             Vector3 velocity = rb.velocity;
             Vector3 newDesiredVelocity = (target.position - transform.position).normalized * 5 + DistanceRule() + CenterOfMassRule() + VelocityChangeRule();
             rb.AddForce(newDesiredVelocity - velocity);
@@ -49,7 +48,7 @@ public class BoidRB : MonoBehaviour
             }
         }
         headingChange = headingChange / (ActiveBoids.Count - 1);
-        return ((headingChange - transform.position) /100);
+        return ((headingChange - transform.position) / 100);
     }
     private Vector3 DistanceRule()
     {

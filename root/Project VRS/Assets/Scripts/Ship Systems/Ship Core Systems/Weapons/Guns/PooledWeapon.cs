@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 public abstract class PooledWeapon : BC_Weapon
 {
     [SerializeField]
-    public SO_ProjectileData ProjectileData { get; private set;}
+    protected Projectile m_projectile;
 
     [SerializeField]
     protected ObjectPool<GameObject> m_primaryProjectilePool;
@@ -42,7 +42,7 @@ public abstract class PooledWeapon : BC_Weapon
     /// </returns>
     protected GameObject OnCreatePrimaryPooledObject()
     {
-        return Instantiate(WeaponData.ProjectileData.ProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
+        return Instantiate(m_projectile.ProjectileData.ProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
     }
 
     /// <summary>
