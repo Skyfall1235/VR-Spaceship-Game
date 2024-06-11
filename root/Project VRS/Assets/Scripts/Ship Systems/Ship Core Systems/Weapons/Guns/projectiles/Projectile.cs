@@ -6,9 +6,6 @@ public class Projectile : MonoBehaviour
 {
     public PooledWeapon m_gunThatFiredProjectile;
 
-    [SerializeField]
-    public SO_ProjectileData ProjectileData { get; private set; }
-
     [SerializeField] ForceMode m_forceMode = ForceMode.Impulse;
     float m_projectileSpeed;
     [SerializeField] Rigidbody m_projectileRigidBody;
@@ -60,7 +57,7 @@ public class Projectile : MonoBehaviour
         if(collision != null) 
         {
             Health objectHealth = collision.gameObject.GetComponent<Health>();
-            uint damageVal = ProjectileData.m_projectileDamage;
+            uint damageVal = m_gunThatFiredProjectile.ProjectileData.m_projectileDamage;
             DamageData damageData = new DamageData(damageVal, 0, this.gameObject);
             objectHealth.Damage(damageData);
         }
