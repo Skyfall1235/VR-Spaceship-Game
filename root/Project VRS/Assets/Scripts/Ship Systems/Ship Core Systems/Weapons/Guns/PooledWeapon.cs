@@ -5,10 +5,6 @@ using UnityEngine.Pool;
 public abstract class PooledWeapon : BC_Weapon
 {
     [SerializeField]
-    public SO_ProjectileData m_projectileData;
-    public SO_ProjectileData ProjectileData { get { return m_projectileData; } }
-
-    [SerializeField]
     protected ObjectPool<GameObject> m_primaryProjectilePool;
     public ObjectPool<GameObject> PrimaryProjectilePool
     {
@@ -76,11 +72,11 @@ public abstract class PooledWeapon : BC_Weapon
                         )
                     )
                 );
-                projectileScript.Setup(m_instantiationPoint.transform.position, bulletForward, ref m_projectileData);
+                projectileScript.Setup(m_instantiationPoint.transform.position, bulletForward, m_weaponData.ProjectileData);
             }
             else
             {
-                projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation, ref m_projectileData);
+                projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation, m_weaponData.ProjectileData);
             }
         }
     }

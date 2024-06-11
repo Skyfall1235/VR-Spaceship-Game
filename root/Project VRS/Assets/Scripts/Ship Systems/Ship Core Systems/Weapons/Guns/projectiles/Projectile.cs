@@ -7,7 +7,6 @@ public class Projectile : MonoBehaviour
     public PooledWeapon m_gunThatFiredProjectile;
 
     [SerializeField] ForceMode m_forceMode = ForceMode.Impulse;
-    float m_projectileSpeed;
     [SerializeField] Rigidbody m_projectileRigidBody;
     TrailRenderer m_trailRender;
     SO_ProjectileData m_projectileData;
@@ -36,7 +35,7 @@ public class Projectile : MonoBehaviour
     /// </summary>
     /// <param name="startingPosition"> is the starting position for the projectile</param>
     /// <param name="startingRotation"> is the starting rotation for the projectile</param>
-    public virtual void Setup(Vector3 startingPosition, Quaternion startingRotation, ref SO_ProjectileData projectileData)
+    public virtual void Setup(Vector3 startingPosition, Quaternion startingRotation, SO_ProjectileData projectileData)
     {
         //setup the position and rotation
         m_projectileRigidBody.velocity = Vector3.zero;
@@ -44,18 +43,15 @@ public class Projectile : MonoBehaviour
         transform.rotation = startingRotation;
         m_projectileData = projectileData;
 
-        //now, set the speed to what the scriptable object says it should be
-        m_projectileSpeed = m_projectileData.ProjectileSpeed;
-
         //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();
-        m_projectileRigidBody.AddForce(transform.up * m_projectileSpeed, m_forceMode);
+        m_projectileRigidBody.AddForce(transform.up * m_projectileData.ProjectileSpeed, m_forceMode);
         StartCoroutine(DestroyAfterTime());
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision != null) 
+        if(collision != null && collision.gameObject.GetComponent<IDamagable>() != null) 
         {
             Health objectHealth = collision.gameObject.GetComponent<Health>();
             uint damageVal = m_projectileData.m_projectileDamage;

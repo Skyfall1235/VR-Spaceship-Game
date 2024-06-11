@@ -2920,6 +2920,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b77bfc5b9cdeded419cdf7018e168207, type: 2}
     - target: {fileID: 4294037586097658261, guid: 4465e27aaed8d834ea185f1c189cb6a6, type: 3}
+      propertyPath: m_projectileData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a3e5f75e3ede89479a57b7265cb9f03, type: 2}
+    - target: {fileID: 4294037586097658261, guid: 4465e27aaed8d834ea185f1c189cb6a6, type: 3}
       propertyPath: m_currentAmountInMagazine
       value: 30
       objectReference: {fileID: 0}
@@ -4880,6 +4884,7 @@ MonoBehaviour:
   OnWeaponAction:
     m_PersistentCalls:
       m_Calls: []
+  m_projectileData: {fileID: 0}
 --- !u!1 &1757470048
 GameObject:
   m_ObjectHideFlags: 0
