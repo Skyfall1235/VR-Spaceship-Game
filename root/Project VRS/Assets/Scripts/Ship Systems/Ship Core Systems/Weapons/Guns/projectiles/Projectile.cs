@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     float m_projectileSpeed;
     [SerializeField] Rigidbody m_projectileRigidBody;
     TrailRenderer m_trailRender;
-
+    SO_ProjectileData m_projectileData;
     private void Awake()
     {
         //setup trail renderer
@@ -36,15 +36,16 @@ public class Projectile : MonoBehaviour
     /// </summary>
     /// <param name="startingPosition"> is the starting position for the projectile</param>
     /// <param name="startingRotation"> is the starting rotation for the projectile</param>
-    public virtual void Setup(Vector3 startingPosition, Quaternion startingRotation)
+    public virtual void Setup(Vector3 startingPosition, Quaternion startingRotation, ref SO_ProjectileData projectileData)
     {
         //setup the position and rotation
         m_projectileRigidBody.velocity = Vector3.zero;
         transform.position = startingPosition;
         transform.rotation = startingRotation;
+        m_projectileData = projectileData;
 
         //now, set the speed to what the scriptable object says it should be
-        m_projectileSpeed = m_gunThatFiredProjectile.WeaponData.ProjectileData.ProjectileSpeed;
+        m_projectileSpeed = m_projectileData.ProjectileSpeed;
 
         //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();
@@ -57,7 +58,7 @@ public class Projectile : MonoBehaviour
         if(collision != null) 
         {
             Health objectHealth = collision.gameObject.GetComponent<Health>();
-            uint damageVal = m_gunThatFiredProjectile.ProjectileData.m_projectileDamage;
+            uint damageVal = m_projectileData.m_projectileDamage;
             DamageData damageData = new DamageData(damageVal, 0, this.gameObject);
             objectHealth.Damage(damageData);
         }

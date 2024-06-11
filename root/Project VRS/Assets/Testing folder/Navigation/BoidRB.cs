@@ -30,9 +30,8 @@ public class BoidRB : MonoBehaviour
     {
         if(activeBoid)
         {
-
             Vector3 velocity = rb.velocity;
-            Vector3 newDesiredVelocity = (target.position - transform.position).normalized * 5 + DistanceRule() + CenterOfMassRule() + VelocityChangeRule();
+            Vector3 newDesiredVelocity = Vector3.MoveTowards(velocity, (target.position - transform.position).normalized * 5 + DistanceRule() + CenterOfMassRule() + VelocityChangeRule(), 100 * Time.fixedDeltaTime);
             rb.AddForce(newDesiredVelocity - velocity);
             Debug.DrawRay(transform.position, rb.velocity);
         }

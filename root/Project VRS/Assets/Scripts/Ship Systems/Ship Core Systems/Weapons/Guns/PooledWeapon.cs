@@ -5,7 +5,8 @@ using UnityEngine.Pool;
 public abstract class PooledWeapon : BC_Weapon
 {
     [SerializeField]
-    public SO_ProjectileData ProjectileData { get; private set;}
+    public SO_ProjectileData m_projectileData;
+    public SO_ProjectileData ProjectileData { get { return m_projectileData; } }
 
     [SerializeField]
     protected ObjectPool<GameObject> m_primaryProjectilePool;
@@ -42,7 +43,6 @@ public abstract class PooledWeapon : BC_Weapon
     /// </returns>
     protected GameObject OnCreatePrimaryPooledObject()
     {
-        //FOR THE LOVE OF GOD GET PROJECTILE CODE OUT OF GUN CODE THEY DONT BELONG
         return Instantiate(WeaponData.ProjectileData.ProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
     }
 
@@ -76,11 +76,11 @@ public abstract class PooledWeapon : BC_Weapon
                         )
                     )
                 );
-                projectileScript.Setup(m_instantiationPoint.transform.position, bulletForward);
+                projectileScript.Setup(m_instantiationPoint.transform.position, bulletForward, ref m_projectileData);
             }
             else
             {
-                projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation);
+                projectileScript.Setup(m_instantiationPoint.transform.position, transform.rotation, ref m_projectileData);
             }
         }
     }
