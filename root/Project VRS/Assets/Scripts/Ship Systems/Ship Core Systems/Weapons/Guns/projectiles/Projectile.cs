@@ -53,9 +53,8 @@ public class Projectile : MonoBehaviour
     {
         if(collision != null && collision.gameObject.GetComponent<IDamagable>() != null) 
         {
-            Health objectHealth = collision.gameObject.GetComponent<Health>();
-            uint damageVal = m_projectileData.m_projectileDamage;
-            DamageData damageData = new DamageData(damageVal, 0, this.gameObject);
+            IDamagable objectHealth = collision.gameObject.GetComponent<IDamagable>();
+            DamageData damageData = new DamageData(m_projectileData.ProjectileDamage, m_projectileData.ArmorPenetration, this.gameObject);
             objectHealth.Damage(damageData);
         }
     }

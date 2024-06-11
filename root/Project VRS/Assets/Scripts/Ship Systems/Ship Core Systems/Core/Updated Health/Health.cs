@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour, IDamagable
+public class Health : MonoBehaviour, IDamagable, IHealable
 {
     uint m_currentHealth;
     public uint CurrentHealth
@@ -65,67 +65,51 @@ public class Health : MonoBehaviour, IDamagable
     public bool IsAlive { get; private set; } = true;
 
     #region Events
+    /// <summary>
+    /// An event type providing info for when the health of an object changes
+    /// Parameter 1 is the max health
+    /// Parameter 2 is the health before the event
+    /// Parameter 3 is the health after the event
+    /// </summary>
+    [System.Serializable] public class OnHealthChangedEvent : UnityEvent<uint, uint, uint> { }
 
-    private DamageData.OnHealEvent m_onHeal = new DamageData.OnHealEvent();
-    public DamageData.OnHealEvent OnHeal 
-    {
-        get
-        {
-            return m_onHeal;
-        }
-        set
-        {
-            m_onHeal = value;
-        }
-    }
+    /// <summary>
+    /// Triggered whenever a health component takes damage
+    /// </summary>
+    [field:SerializeField] public OnHealthChangedEvent OnDamage { get; set; } = new OnHealthChangedEvent();
 
-    private DamageData.OnDamageEvent m_onDamage = new DamageData.OnDamageEvent();
-    public DamageData.OnDamageEvent OnDamage 
-    {
-        get
-        {
-            return m_onDamage;
-        }
-        set
-        {
-            m_onDamage = value;
-        }
-    }
+    /// <summary>
+    /// Triggered whenever a health component is healed
+    /// </summary>
+    [field:SerializeField] public OnHealthChangedEvent OnHeal { get; set; } = new OnHealthChangedEvent();
 
-    private DamageData.OnHealthComponentInitialized m_onHealthInitialized = new DamageData.OnHealthComponentInitialized();
-    public DamageData.OnHealthComponentInitialized OnHealthInitialized 
-    {
-        get
-        {
-            return m_onHealthInitialized;
-        }
-        set
-        {
-            m_onHealthInitialized = value;
-        }
-    }
-
-    #endregion
+    /// <summary>
+    /// triggered when a healthcomponent is initialized
+    /// Parameter 1 is the max health
+    /// Parameter 2 is the current health
+    /// </summary>
+    public UnityEvent<uint, uint> OnHealthInitialized = new UnityEvent<uint, uint>();
 
     /// <summary>
     /// Triggered when a health component dies
     /// </summary>
     public UnityEvent OnDeath = new UnityEvent();
+
     /// <summary>
     /// Triggered when a health component gets revived
     /// </summary>
     public UnityEvent OnRevive = new UnityEvent();
+
     /// <summary>
     /// Triggered when a health component becomes invulnerable
     /// </summary>
     public UnityEvent OnBecameInvulnerable = new UnityEvent();
+
     /// <summary>
     /// Triggered when a health component becomes vulnerable
     /// </summary>
     public UnityEvent OnBecameVulnerable = new UnityEvent();
-
-    
-
+    #endregion
     /// <summary>
     /// Initializes the Health Component with a full HP and invokes the declaration event
     /// </summary>
@@ -133,7 +117,7 @@ public class Health : MonoBehaviour, IDamagable
     {
         CurrentHealth = m_maxHealth;
         IsAlive = CurrentHealth > 0;
-        m_onHealthInitialized.Invoke(m_maxHealth, CurrentHealth);
+        OnHealthInitialized.Invoke(m_maxHealth, CurrentHealth);
     }
 
     /// <summary>
@@ -147,7 +131,7 @@ public class Health : MonoBehaviour, IDamagable
         if (!IsInvulnerable)
         {
             //calculate the damage to be taken
-            uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth - (ignoreArmor || !m_useArmor ? (int)damageData.Damage : Mathf.FloorToInt((float)damageData.Damage * CalculateDamageReduction(damageData.ArmorPenetration))), 0, m_maxHealth);
+            uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth - ((ignoreArmor || !m_useArmor) ? (int)damageData.Damage : Mathf.CeilToInt((float)damageData.Damage * (float)CalculateDamageReduction(damageData.ArmorPenetration))), 0, m_maxHealth);
             OnDamage.Invoke(m_maxHealth, CurrentHealth, newHealth);
             //take the damage
             CurrentHealth = newHealth;
@@ -198,8 +182,12 @@ public class Health : MonoBehaviour, IDamagable
     float CalculateDamageReduction(uint armorPentetration)
     {
         uint armorAfterPenetration = (uint)Mathf.Clamp((int)m_armor - (int)armorPentetration, 0, uint.MaxValue);
-        return (float)armorAfterPenetration / (float)(armorAfterPenetration + m_armorForFiftyPercentReduction);
+        return 1 - (float)armorAfterPenetration / ((float)armorAfterPenetration + (float)m_armorForFiftyPercentReduction);
     }
+    /// <summary>
+    /// Handles the invulnerability timer after taking damage
+    /// </summary>
+    /// <returns>Nothing</returns>
     IEnumerator InvulnerabilityTimerAsync()
     {
         m_isInvulnerable = true;
@@ -208,6 +196,10 @@ public class Health : MonoBehaviour, IDamagable
         m_isInvulnerable = false;
         OnBecameVulnerable.Invoke();
     }
+    void Awake()
+    {
+        InitializeHealth();
+    }
 }
 
 /// <summary>
@@ -215,11 +207,6 @@ public class Health : MonoBehaviour, IDamagable
 /// </summary>
 public struct DamageData
 {
-    public class OnHealEvent : UnityEvent<uint, uint, uint> { }
-
-    public class OnDamageEvent : UnityEvent<uint, uint, uint> { }
-
-    public class OnHealthComponentInitialized : UnityEvent<uint, uint> { }
     /// <summary>
     /// Creates a DamageData struct
     /// </summary>

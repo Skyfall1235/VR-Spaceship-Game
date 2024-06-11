@@ -1111,6 +1111,15 @@ MonoBehaviour:
   m_useArmor: 0
   m_armor: 0
   m_armorForFiftyPercentReduction: 50
+  <OnDamage>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHeal>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1684,6 +1693,15 @@ MonoBehaviour:
   m_useArmor: 0
   m_armor: 0
   m_armorForFiftyPercentReduction: 50
+  <OnDamage>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHeal>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -3311,6 +3329,44 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
   m_PrefabInstance: {fileID: 1764444570706325764}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1067792848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067792837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fdcb813be3b3e4cad595409e96af09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_useInvulnerabilityAfterDamage: 0
+  m_inulnerabilityAfterDamageTimer: 3
+  m_useArmor: 1
+  m_armor: 10
+  m_armorForFiftyPercentReduction: 50
+  <OnDamage>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHeal>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1144244538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,6 +3495,15 @@ MonoBehaviour:
   m_useArmor: 0
   m_armor: 0
   m_armorForFiftyPercentReduction: 50
+  <OnDamage>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHeal>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -4884,7 +4949,6 @@ MonoBehaviour:
   OnWeaponAction:
     m_PersistentCalls:
       m_Calls: []
-  m_projectileData: {fileID: 0}
 --- !u!1 &1757470048
 GameObject:
   m_ObjectHideFlags: 0
@@ -6631,7 +6695,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5904361696486201797, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1067792848}
   m_SourcePrefab: {fileID: 100100000, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
 --- !u!114 &2487326323696819322
 MonoBehaviour:

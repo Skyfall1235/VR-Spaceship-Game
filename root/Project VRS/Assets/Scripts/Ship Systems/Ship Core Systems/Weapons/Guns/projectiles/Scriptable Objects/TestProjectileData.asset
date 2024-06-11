@@ -15,12 +15,14 @@ MonoBehaviour:
   m_projectileSpeed: 50
   m_projectileDestroyTime: 5
   m_projectileDamage: 10
+  m_armorPenetration: 0
   m_projectilePrefab: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
-  m_spawnSubProjectiles: 0
+  m_spawnSubProjectiles: 1
   m_subProjectileCount: 0
   m_subProjectileSpawnTime: 0
   m_subProjectileSpeed: 0
   m_subProjectileDamage: 0
+  m_subProjectileArmorPenetration: 0
   m_subProjectileSpread: {x: 0, y: 0}
   m_subProjectileDestroyTime: 0
   m_subProjectilePrefab: {fileID: 0}

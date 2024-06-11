@@ -1,28 +1,13 @@
-using static Health;
-
 /// <summary>
-/// Interface that defines properties and methods related to handling damage and healing.
+/// Interface that defines properties and methods related to handling damage
 /// </summary>
 public interface IDamagable
 {
-
     /// <summary>
-    /// This property exposes a `DamageData.OnHealEvent` delegate. 
-    /// It allows subscribing to events triggered when the object heals.
-    /// </summary>
-    public DamageData.OnHealEvent OnHeal { get; set; }
-
-    /// <summary>
-    /// This property exposes a `DamageData.OnDamageEvent` delegate. 
+    /// This property exposes a `Health.OnHealthChangedEvent` delegate. 
     /// It allows subscribing to events triggered when the object takes damage.
     /// </summary>
-    public DamageData.OnDamageEvent OnDamage { get; set; }
-
-    /// <summary>
-    /// This property exposes a `DamageData.OnHealthComponentInitialized` delegate. 
-    /// It allows subscribing to events triggered when the health component of the object is initialized.
-    /// </summary>
-    public DamageData.OnHealthComponentInitialized OnHealthInitialized { get; set; }
+    public Health.OnHealthChangedEvent OnDamage {  get; set; }
 
     /// <summary>
     /// This method takes a `DamageData` object containing information about the damage and applies it to the object.
