@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f41c472e23e8f049832ebe1f94088db, type: 3}
-  m_Name: TestProjectileData
+  m_Name: Splitting
   m_EditorClassIdentifier: 
   m_projectileSpeed: 50
-  m_projectileDestroyTime: 5
+  m_projectileDestroyTime: 1
   m_projectileDamage: 10
   m_armorPenetration: 0
-  m_projectilePrefab: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
-  m_spawnSubProjectiles: 0
+  m_projectilePrefab: {fileID: 5734054399690719909, guid: 8cd085d0e371f3140a03a85bc17fc91a, type: 3}
+  m_spawnSubProjectiles: 1
   m_subProjectileCount: 5
-  m_subProjectileSpawnTime: 5
+  m_subProjectileSpawnTime: 0.5
   m_subProjectileSpeed: 50
-  m_subProjectileDamage: 5
+  m_subProjectileDamage: 2
   m_subProjectileArmorPenetration: 0
   m_subProjectileSpread: {x: 0.5, y: 0.5}
   m_subProjectileDestroyTime: 5
