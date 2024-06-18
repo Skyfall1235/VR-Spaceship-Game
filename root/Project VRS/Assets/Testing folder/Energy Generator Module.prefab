@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7136679473023098632}
   - component: {fileID: 2747400177485452437}
-  - component: {fileID: 4780322614796531396}
+  - component: {fileID: 5894164330452022402}
   m_Layer: 0
   m_Name: Energy Generator Module
   m_TagString: Untagged
@@ -64,20 +64,11 @@ MonoBehaviour:
   OnModuleOperationalStateChange:
     m_PersistentCalls:
       m_Calls: []
-  OnHealEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   EnergyPool: 0
   OnDepletionOfFuelRod:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4780322614796531396
+--- !u!114 &5894164330452022402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,12 +77,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1508486376708572376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbadafe7093896439dbdf3134747266, type: 3}
+  m_Script: {fileID: 11500000, guid: 48fdcb813be3b3e4cad595409e96af09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModuleHealthData: {fileID: 11400000, guid: dfa0e5ad79be6a9479e4002ddcda3cf7, type: 2}
-  ModuleHealth: 0
-  logger: {fileID: 0}
+  m_useInvulnerabilityAfterDamage: 1
+  m_inulnerabilityAfterDamageTimer: 3
+  m_useArmor: 0
+  m_armor: 0
+  m_armorForFiftyPercentReduction: 50
+  <OnDamage>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHeal>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameInvulnerable:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameVulnerable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3178963775437942314
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7198977832785128180
 Transform:
   m_ObjectHideFlags: 0
@@ -52,9 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_primaryShipJoystick: {fileID: 3512706294336259780}
   m_secondaryShipJoystick: {fileID: 6581294590869234824}
+  m_primaryJoystickInteractor: {fileID: 0}
   m_secondaryJoystickInteractor: {fileID: 0}
   useKeyboardControls: 0
-  logger: {fileID: 0}
 --- !u!114 &9165704552627657890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +81,9 @@ MonoBehaviour:
   m_OnVelocityChangeEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_logger: {fileID: 0}
+  OnUpdateInputs:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &8331395900804429465
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -314,7 +316,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -419,7 +421,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1092,7 +1094,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

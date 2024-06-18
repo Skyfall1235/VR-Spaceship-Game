@@ -11,9 +11,6 @@ public class EnergyGenerationModule : BC_CoreModule
 
     public UnityEvent<int> OnDepletionOfFuelRod = new UnityEvent<int>();
 
-    [SerializeField]
-    Logger logger;
-
     //note, thiss is for UI elements to know the status of an object. there may be expnasion to make this pass a tuple or struct
     public DepletionStatus GetFuelRodDepletionStatus(int index)
     {
@@ -23,7 +20,7 @@ public class EnergyGenerationModule : BC_CoreModule
         }
         else
         {
-            logger.Log(LogType.Error, $"Invalid index {index} for sockets array", this.gameObject.name);
+            //logger.Log(LogType.Error, $"Invalid index {index} for sockets array", this.gameObject.name);
             return DepletionStatus.Nulled;
         }
     }
