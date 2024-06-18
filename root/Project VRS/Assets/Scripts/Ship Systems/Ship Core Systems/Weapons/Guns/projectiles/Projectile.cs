@@ -6,19 +6,19 @@ public class Projectile : MonoBehaviour
 {
     public PooledWeapon m_gunThatFiredProjectile;
 
-    [SerializeField] ForceMode m_forceMode = ForceMode.Impulse;
-    [SerializeField] Rigidbody m_projectileRigidBody;
-    TrailRenderer m_trailRender;
-    SO_ProjectileData m_projectileData;
+    [SerializeField] protected ForceMode m_forceMode = ForceMode.Impulse;
+    [SerializeField] protected Rigidbody m_projectileRigidBody;
+    protected TrailRenderer m_trailRender;
+    protected SO_ProjectileData m_projectileData;
     private void Awake()
     {
         //setup trail renderer
         m_trailRender = GetComponent<TrailRenderer>();
     }
-    protected IEnumerator DestroyAfterTime()
+    protected virtual IEnumerator DestroyAfterTime()
     {
         //wait
-        yield return new WaitForSeconds(m_gunThatFiredProjectile.WeaponData.ProjectileData.ProjectileDestroyTime);
+        yield return new WaitForSeconds(m_projectileData.ProjectileDestroyTime);
         //if the gun still exists, we can release the projectile
         if(m_gunThatFiredProjectile != null)
         {
@@ -30,18 +30,33 @@ public class Projectile : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Sets up the main projectile from the gun.
     /// </summary>
     /// <param name="startingPosition"> is the starting position for the projectile</param>
     /// <param name="startingRotation"> is the starting rotation for the projectile</param>
-    public virtual void Setup(Vector3 startingPosition, Quaternion startingRotation, SO_ProjectileData projectileData)
+    public virtual void Fire(Vector3 startingPosition, Quaternion startingRotation)
     {
         //setup the position and rotation
         m_projectileRigidBody.velocity = Vector3.zero;
         transform.position = startingPosition;
-        transform.rotation = startingRotation;
-        m_projectileData = projectileData;
+
+        Quaternion fireRotation = startingRotation;
+        fireRotation *= Quaternion.Euler(
+            new Vector3(
+                Random.Range(
+                    -((Vector2)m_gunThatFiredProjectile.WeaponData.SpreadValues).x,
+                    ((Vector2)m_gunThatFiredProjectile.WeaponData.SpreadValues).x
+                ),
+                0,
+                Random.Range(
+                    -((Vector2)m_gunThatFiredProjectile.WeaponData.SpreadValues).y,
+                    ((Vector2)m_gunThatFiredProjectile.WeaponData.SpreadValues).y
+                )
+            )
+        );
+        transform.rotation = fireRotation;
 
         //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();
@@ -49,7 +64,7 @@ public class Projectile : MonoBehaviour
         StartCoroutine(DestroyAfterTime());
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if(collision != null && collision.gameObject.GetComponent<IDamagable>() != null) 
         {
@@ -58,5 +73,28 @@ public class Projectile : MonoBehaviour
             objectHealth.Damage(damageData);
         }
     }
-}
 
+    /// <summary>
+    /// Passes projectile data to the projectile
+    /// </summary>
+    /// <param name="projectileData">The projectile data to pass</param>
+    public void SetProjectileData(SO_ProjectileData projectileData)
+    {
+        if(projectileData != null)
+        {
+            m_projectileData = projectileData;
+        }
+    }
+
+    /// <summary>
+    /// Passes weapon reference to the projectile
+    /// </summary>
+    /// <param name="weapon">weapon to pass</param>
+    public void SetFiringWeapon(PooledWeapon weapon)
+    {
+        if (weapon != null)
+        {
+            m_gunThatFiredProjectile = weapon;
+        }
+    }
+}

@@ -2935,7 +2935,7 @@ PrefabInstance:
     - target: {fileID: 4294037586097658261, guid: 4465e27aaed8d834ea185f1c189cb6a6, type: 3}
       propertyPath: m_weaponData
       value: 
-      objectReference: {fileID: 11400000, guid: b77bfc5b9cdeded419cdf7018e168207, type: 2}
+      objectReference: {fileID: 11400000, guid: 3e00cf6ad8dfddd42ab7322936375f3b, type: 2}
     - target: {fileID: 4294037586097658261, guid: 4465e27aaed8d834ea185f1c189cb6a6, type: 3}
       propertyPath: m_projectileData
       value: 

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5086367158528285092}
   - component: {fileID: 143049329982845261}
   - component: {fileID: 8670963942546944563}
-  - component: {fileID: -4199199915310256953}
-  m_Layer: 0
-  m_Name: Projectile
+  - component: {fileID: -6385501442564236705}
+  m_Layer: 10
+  m_Name: Sub Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,7 +196,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-4199199915310256953
+--- !u!114 &-6385501442564236705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,11 +205,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5734054399690719909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5df672b459e4a4a4dbf136645995851b, type: 3}
+  m_Script: {fileID: 11500000, guid: a9d3145467cb6364899b858ee504a43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_gunThatFiredProjectile: {fileID: 0}
-  m_timeToDestroyAfter: 5
   m_forceMode: 1
-  m_projectileSpeed: 0
   m_projectileRigidBody: {fileID: 8670963942546944563}
