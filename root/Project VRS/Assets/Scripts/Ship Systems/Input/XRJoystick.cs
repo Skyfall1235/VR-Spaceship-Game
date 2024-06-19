@@ -175,7 +175,7 @@ namespace UnityEngine.XR.Content.Interaction
 
             if (m_RecenterXOnRelease)
             {
-                Debug.Log("END GRAB Setting the handle to center");
+                //Debug.Log("END GRAB Setting the handle to center");
                 Vector2 centeredX = new Vector2(0f, m_Value.y);
                 SetHandleAngle(new Vector2(0f, currentUpDownAngle));
                 SetValue(centeredX);
@@ -183,7 +183,7 @@ namespace UnityEngine.XR.Content.Interaction
 
             if (m_RecenterOnRelease)
             {
-                Debug.Log("recentering");
+                //Debug.Log("recentering");
                 SetHandleAngle(Vector2.zero);
                 SetValue(Vector2.zero);
             }
@@ -276,7 +276,7 @@ namespace UnityEngine.XR.Content.Interaction
 
             SetHandleAngle(new Vector2(leftRightAngle, upDownAngle));
             SetValue(stickValue);
-            Debug.Log("UPDATE VALUE Setting the handle to center");
+            //Debug.Log("UPDATE VALUE Setting the handle to center");
         }
 
         void SetValue(Vector2 value)

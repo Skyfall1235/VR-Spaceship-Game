@@ -31,10 +31,16 @@ public class ShipMovementController : IM_ShipMovementController
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         OnUpdateInputs.Invoke(currentInput);
-        float rotationSpeed = Vector2.Distance(Vector2.zero, currentInput.PrimaryFlightStick);
-        Vector3 axisOfRotation = FindAxisForRotation(currentInput.PrimaryFlightStick);
+
+        //TESTING
+        //X, 0, Y : HANDLE RIGHT - DOWN AND LEFT (
+
+        Quaternion newRotation = Quaternion.Euler(currentInput.PrimaryFlightStick.x, 0f, currentInput.PrimaryFlightStick.y) * transform.rotation;
+        Vector3 newForward = newRotation * transform.forward;
+
+
         //apply all rotations - pitch, roll, and yaw
-        SaveNewRotationOnAxis(axisOfRotation, rotationSpeed, currentInput.yawValue);
+        SaveNewRotationOnAxis(newForward, m_shipRigidbody);
     }
 
     public void CallUpdateForStrafe()
@@ -42,6 +48,7 @@ public class ShipMovementController : IM_ShipMovementController
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         OnUpdateInputs.Invoke(currentInput);
+
         //save new strafe takes the raw yaw value and maps it, then saves it
         SaveNewStrafeVector(currentInput.yawValue);
     }
@@ -61,6 +68,7 @@ public class ShipMovementController : IM_ShipMovementController
     ShipJoystickInput GrabCurrentShipControlInputs()
     {
         //attempt cast to inherited member with new variable
+        
         if (m_shipInputHandler is PlayerShipInputHandler)
         {
             PlayerShipInputHandler convertedHandler = (PlayerShipInputHandler)m_shipInputHandler;

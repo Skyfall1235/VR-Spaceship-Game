@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BC_ShipInputHandler : MonoBehaviour
@@ -77,6 +78,15 @@ public struct ShipJoystickInput
         this.PrimaryFlightStick = new(totalInput.x, totalInput.y);
         this.yawValue = totalInput.z;
         this.ThrustValue = totalInput.w;
+        this.BreakValue = 0f;
+    }
+
+    public ShipJoystickInput(Tuple<Vector2, Vector2, float> keyboardInput)
+    {
+        this.PrimaryFlightStick.x = keyboardInput.Item1.x;
+        this.PrimaryFlightStick.y = keyboardInput.Item1.y;
+        this.yawValue = keyboardInput.Item2.x;
+        this.ThrustValue = keyboardInput.Item2.y;
         this.BreakValue = 0f;
     }
 }

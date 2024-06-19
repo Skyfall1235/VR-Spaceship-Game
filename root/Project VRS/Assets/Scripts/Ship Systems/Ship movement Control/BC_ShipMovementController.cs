@@ -47,10 +47,11 @@ public class BC_ShipMovementController : MonoBehaviour
 
     /// <summary>
     /// maximum amount of torque that can be applied to the rigidbody
+    /// REDO THIS SUMMARY
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum rotation speed the ship can achieve")]
-    protected float m_maxRateOfTurn = 10f;
+    protected Vector3 m_maxRateOfTurn = new Vector3(10f, 10f, 10f);
 
     /// <summary>
     /// the toggle between strafing and yaw rotation
@@ -167,11 +168,12 @@ public class BC_ShipMovementController : MonoBehaviour
     /// a method to find the cross product of a Vector2 and Vector3.Up
     /// </summary>
     /// <param name="inputVal">is the Vector2 we wish to get the cross product with</param>
+    /// <param name="axis">The vector in which we map the cross from</param>
     /// <returns>the cross product of a Vector2 and Vector3.Up</returns>
-    internal Vector3 FindAxisForRotation(Vector2 inputVal)
+    internal Vector3 FindAxisForRotation(Vector2 inputVal, Vector3 axis)
     {
         Vector3 convertedInputVal = new Vector3(inputVal.x, 0f, inputVal.y);
-        Vector3 crossAxis = Vector3.Cross(convertedInputVal, Vector3.up);
+        Vector3 crossAxis = Vector3.Cross(convertedInputVal, axis);
         return crossAxis;
     }
 

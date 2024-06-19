@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -34,6 +35,10 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     {
         get
         {
+            if(useKeyboardControls)
+            {
+                return new ShipJoystickInput(KeyboardInputControls());
+            }
             // Check for missing references and log a single, comprehensive message
             if (m_primaryShipJoystick == null || m_secondaryShipJoystick == null)
             {
@@ -84,11 +89,11 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         }
     }
 
-    private (Vector2, Vector2, float) KeyboardInputControls()
+    private Tuple<Vector2, Vector2, float> KeyboardInputControls()
     {
         Vector2 rightHand = new(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
         Vector2 leftHand = new(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         float breakVal = Input.GetAxis("Jump");
-        return (rightHand, leftHand, breakVal);
+        return new Tuple<Vector2, Vector2, float>(rightHand, leftHand, breakVal);
     }
 }
