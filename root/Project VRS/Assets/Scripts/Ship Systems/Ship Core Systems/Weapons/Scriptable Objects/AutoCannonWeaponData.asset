@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AutoCannonWeaponData
   m_EditorClassIdentifier: 
   m_useProjectile: 1
-  m_projectileData: {fileID: 0}
+  m_projectileData: {fileID: 11400000, guid: 7a3e5f75e3ede89479a57b7265cb9f03, type: 2}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []
@@ -22,7 +22,10 @@ MonoBehaviour:
   m_usesMag: 1
   m_reloadTime: 5
   m_magazineCapacity: 25
-  m_firingMode: 1
+  m_fireType:
+    m_AssemblyName: vrs.ShipSystems.Weapons.Guns, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_ClassName: AutomaticFire
   m_autoFiring: 1
   m_useSpread: 1
   m_spreadValues: {x: 0.1, y: 0.1}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: LaserWeaponData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 0
-  m_prefabBullet: {fileID: 0}
+  m_useProjectile: 0
+  m_projectileData: {fileID: 0}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []
@@ -22,7 +22,10 @@ MonoBehaviour:
   m_usesMag: 0
   m_reloadTime: 0
   m_magazineCapacity: 0
-  m_firingMode: 2
+  m_fireType:
+    m_AssemblyName: vrs.ShipSystems.Weapons.Guns, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_ClassName: BeamFire
   m_autoFiring: 0
   m_useSpread: 0
   m_spreadValues: {x: 0, y: 0}

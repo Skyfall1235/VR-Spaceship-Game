@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.ResourceManagement.Util;
 
 [CreateAssetMenu(menuName = "Project VRS/New Weapon Data")]
 [Serializable]
@@ -23,22 +24,6 @@ public class SO_WeaponData : ScriptableObject
         /// The weapon does not reload
         /// </summary>
         None
-    }
-
-    public enum FiringMode
-    {
-        /// <summary>
-        /// Fires repeatedly until the command is given to stop or the weapon needs to reload
-        /// </summary>
-        Auto,
-        /// <summary>
-        /// Fires once per command
-        /// </summary>
-        SemiAuto,
-        /// <summary>
-        /// holds a singular fire until told to stop
-        /// </summary>
-        Beam
     }
     #endregion
 
@@ -190,13 +175,11 @@ public class SO_WeaponData : ScriptableObject
             }
         }
     }
-    /// <summary>
-    /// the type of firing that will be performed by the weapon
-    /// </summary>
-    [SerializeField] FiringMode m_firingMode = FiringMode.SemiAuto;
-    public FiringMode WeaponFiringMode
+
+    [SerializeField] [SerializedTypeRestrictionAttribute(type = typeof(BC_FireType))] SerializedType m_fireType;
+    public Type WeaponFiringMode
     {
-        get => m_firingMode;
+        get => m_fireType.Value;
     }
     /// <summary>
     /// Whether the weapon is in charge of firing itself or takes commands from the wepon manager
@@ -320,6 +303,7 @@ public class SO_WeaponData_Editor : Editor
             EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
 
+        //Update our object
         if (EditorGUI.EndChangeCheck())
         {
             Undo.RecordObjects(targets, "Changed Scriptable Object");

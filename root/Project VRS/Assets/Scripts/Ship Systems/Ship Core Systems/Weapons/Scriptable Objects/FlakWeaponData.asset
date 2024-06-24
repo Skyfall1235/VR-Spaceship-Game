@@ -22,7 +22,10 @@ MonoBehaviour:
   m_usesMag: 1
   m_reloadTime: 6
   m_magazineCapacity: 150
-  m_firingMode: 1
+  m_fireType:
+    m_AssemblyName: vrs.ShipSystems.Weapons.Guns, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_ClassName: SemiAutomaticFire
   m_autoFiring: 0
   m_useSpread: 1
   m_spreadValues: {x: 0.3, y: 0.3}
