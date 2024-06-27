@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -11,18 +9,59 @@ public class SO_ProjectileRecursive : ScriptableObject, ISerializationCallbackRe
     [System.Serializable]
     public class ProjectileData
     {
-        [SerializeField] public float Speed = 0;
-        [field: SerializeField] public uint Damage  = 0;
-        [field: SerializeField] public uint ArmorPenetration = 0;
-        [field: SerializeField] public float Lifetime = 0;
-        [field: SerializeField] public Vector2 Spread = new Vector2(0,0);
-        [field: SerializeField] public GameObject Prefab = null;
-        [field: SerializeField][HideInInspector] public bool SpawnSubProjectiles = false;
-        [field: SerializeField][HideInInspector] public uint SubProjectileCount = 0;
-        [field: SerializeField][HideInInspector] public float SubProjectileSpawnTime = 0;
-        [HideInInspector][SerializeReference] public ProjectileData SubProjectileData = null;
+
+        [SerializeField] float m_speed = 0;
+        public float Speed { get { return m_speed; } }
+
+        [SerializeField] uint m_damage  = 0;
+        public float Damage {  get { return m_damage; } }
+
+        [SerializeField] public uint m_armorPenetration = 0;
+        public uint ArmorPenetration { get {  return m_armorPenetration; } }
+
+        [SerializeField] float m_lifetime = 0;
+        public float Lifetime { get { return m_lifetime; } }
+
+        [SerializeField] Vector2 m_spread = new Vector2(0,0);
+        public Vector2 Spread { get { return m_spread; } }
+
+        [SerializeField] GameObject m_prefab = null;
+        public GameObject Prefab { get { return m_prefab; } }
+
+        [SerializeField][HideInInspector] bool m_spawnSubProjectiles = false;
+        public bool SpawnSubProjectiles { get { return m_spawnSubProjectiles; } }
+
+        [SerializeField][HideInInspector] uint m_subProjectileCount = 0;
+        public uint? SubProjectileCount
+        {
+            get
+            {
+                if (m_spawnSubProjectiles)
+                {
+                    return m_subProjectileCount;
+                }
+                return null;
+            }
+        }
+
+        [SerializeField][HideInInspector] float m_subProjectileSpawnTime = 0;
+        public float? SubProjectileSpawnTime
+        {
+            get 
+            {
+                if (m_spawnSubProjectiles)
+                {
+                    return m_subProjectileSpawnTime;
+                }
+                return null;
+            }
+        }
+
+        [HideInInspector][SerializeReference] ProjectileData m_subProjectileData = null;
+        public ProjectileData SubProjectileData { get {  return m_subProjectileData; } internal set { m_subProjectileData = value; } }
     }
     ProjectileData m_rootProjectileData = new ProjectileData();
+    public ProjectileData RootProjectileData { get {  return m_rootProjectileData; } }
     [SerializeReference][HideInInspector] List<ProjectileData> m_projectileDataStructure = new List<ProjectileData>();
 
     public void OnBeforeSerialize()
@@ -70,24 +109,24 @@ public class SO_ProjectileRecursiveEditor : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical();
         }
-        SerializedProperty Speed = dataToShow.FindPropertyRelative(nameof(Speed));
-        Speed.floatValue = Mathf.Clamp(EditorGUILayout.FloatField("Speed", Speed.floatValue), 0, float.MaxValue);
-        SerializedProperty Damage = dataToShow.FindPropertyRelative(nameof(Damage));
-        Damage.uintValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Damage", (int)Damage.uintValue), 0, uint.MaxValue);
-        SerializedProperty ArmorPenetration = dataToShow.FindPropertyRelative(nameof(ArmorPenetration));
-        ArmorPenetration.uintValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Armor Penetration", (int)ArmorPenetration.uintValue), 0, uint.MaxValue);
-        SerializedProperty Lifetime = dataToShow.FindPropertyRelative(nameof(Lifetime));
-        Lifetime.floatValue = Mathf.Clamp(EditorGUILayout.FloatField("Lifetime", Lifetime.floatValue), 0, float.MaxValue);
-        SerializedProperty Spread = dataToShow.FindPropertyRelative(nameof(Spread));
-        Vector2 incomingSpread = EditorGUILayout.Vector2Field("Spread", Spread.vector2Value);
-        Spread.vector2Value = new Vector2(Mathf.Clamp(incomingSpread.x, 0, float.MaxValue), Mathf.Clamp(incomingSpread.y, 0, float.MaxValue));
-        SerializedProperty Prefab = dataToShow.FindPropertyRelative(nameof(Prefab));
-        Prefab.objectReferenceValue = EditorGUILayout.ObjectField("Prefab", Prefab.objectReferenceValue, typeof(GameObject), false) as GameObject;
-        SerializedProperty SpawnSubProjectiles = dataToShow.FindPropertyRelative(nameof(SpawnSubProjectiles));
-        SpawnSubProjectiles.boolValue = EditorGUILayout.Toggle("Spawn Sub-Projectiles?", SpawnSubProjectiles.boolValue);
+        SerializedProperty m_speed = dataToShow.FindPropertyRelative(nameof(m_speed));
+        m_speed.floatValue = Mathf.Clamp(EditorGUILayout.FloatField("Speed", m_speed.floatValue), 0, float.MaxValue);
+        SerializedProperty m_damage = dataToShow.FindPropertyRelative(nameof(m_damage));
+        m_damage.uintValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Damage", (int)m_damage.uintValue), 0, uint.MaxValue);
+        SerializedProperty m_armorPenetration = dataToShow.FindPropertyRelative(nameof(m_armorPenetration));
+        m_armorPenetration.uintValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Armor Penetration", (int)m_armorPenetration.uintValue), 0, uint.MaxValue);
+        SerializedProperty m_lifetime = dataToShow.FindPropertyRelative(nameof(m_lifetime));
+        m_lifetime.floatValue = Mathf.Clamp(EditorGUILayout.FloatField("Lifetime", m_lifetime.floatValue), 0, float.MaxValue);
+        SerializedProperty m_spread = dataToShow.FindPropertyRelative(nameof(m_spread));
+        Vector2 incomingSpread = EditorGUILayout.Vector2Field("Spread", m_spread.vector2Value);
+        m_spread.vector2Value = new Vector2(Mathf.Clamp(incomingSpread.x, 0, float.MaxValue), Mathf.Clamp(incomingSpread.y, 0, float.MaxValue));
+        SerializedProperty m_prefab = dataToShow.FindPropertyRelative(nameof(m_prefab));
+        m_prefab.objectReferenceValue = EditorGUILayout.ObjectField("Prefab", m_prefab.objectReferenceValue, typeof(GameObject), false) as GameObject;
+        SerializedProperty m_spawnSubProjectiles = dataToShow.FindPropertyRelative(nameof(m_spawnSubProjectiles));
+        m_spawnSubProjectiles.boolValue = EditorGUILayout.Toggle("Spawn Sub-Projectiles?", m_spawnSubProjectiles.boolValue);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
-        if (SpawnSubProjectiles.boolValue)
+        if (m_spawnSubProjectiles.boolValue)
         {
             if(arrayPosition + 1 >= arrayCount || m_projectileDataStructure.GetArrayElementAtIndex(arrayPosition + 1) == null)
             {
@@ -100,10 +139,10 @@ public class SO_ProjectileRecursiveEditor : Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Space(20f * (arrayPosition + 1), false);
             EditorGUILayout.BeginVertical();
-            SerializedProperty SubProjectileCount = dataToShow.FindPropertyRelative(nameof (SubProjectileCount));
-            SubProjectileCount.uintValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Sub-Projectile Count", (int)SubProjectileCount.uintValue), 1, uint.MaxValue);
-            SerializedProperty SubProjectileSpawnTime = dataToShow.FindPropertyRelative(nameof(SubProjectileSpawnTime));
-            SubProjectileSpawnTime.floatValue = Mathf.Clamp(EditorGUILayout.FloatField("Sub-Projectile Spawn Time", SubProjectileSpawnTime.floatValue), 0, SubProjectileSpawnTime.floatValue);
+            SerializedProperty m_subProjectileCount = dataToShow.FindPropertyRelative(nameof (m_subProjectileCount));
+            m_subProjectileCount.uintValue = (uint)Mathf.Clamp(EditorGUILayout.IntField("Sub-Projectile Count", (int)m_subProjectileCount.uintValue), 1, uint.MaxValue);
+            SerializedProperty m_subProjectileSpawnTime = dataToShow.FindPropertyRelative(nameof(m_subProjectileSpawnTime));
+            m_subProjectileSpawnTime.floatValue = Mathf.Clamp(EditorGUILayout.FloatField("Sub-Projectile Spawn Time", m_subProjectileSpawnTime.floatValue), 0, m_lifetime.floatValue);
             
         }
         else
