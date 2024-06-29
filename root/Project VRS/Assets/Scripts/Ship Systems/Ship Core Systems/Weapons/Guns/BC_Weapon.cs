@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -78,6 +79,7 @@ public abstract class BC_Weapon : MonoBehaviour
     /// </summary>
     public WeaponState CurrentWeaponState = WeaponState.Ready;
 
+    
     /// <summary>
     /// UnityEvent triggered whenever the weapon's state changes.
     /// This event provides the new weapon state as an argument.
@@ -158,50 +160,28 @@ public abstract class BC_Weapon : MonoBehaviour
                 m_magCapacity = (uint)WeaponData.MagazineCapacity;
                 m_currentMag = m_magCapacity;
             }
+            //setup firing mode
+            if(m_weaponData.WeaponFiringMode != null) 
+            {
+                m_FireType = (BC_FireType)Activator.CreateInstance(m_weaponData.WeaponFiringMode, new object[] {
+                    this,
+                    (BC_FireType.Fire)OnFire,
+                    (BC_FireType.StartFire)OnStartFire,
+                    (BC_FireType.StopFire)OnStopFire,
+                    (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (() => CurrentMag--) : OnPostFire,
+                    (BC_FireType.PreFire)OnPreFire,
+                });
+            }
+            else
+            {
+                Debug.LogError("No Fire Type setup in Scriptable Object");
+            }
         }
         else
         {
             throw new System.Exception("No scriptable object found");
         }
-        //setup the firing mode
-        switch (m_weaponData.WeaponFiringMode)
-        {
-            case (SO_WeaponData.FiringMode.Auto):
-                m_FireType = new AutomaticFire
-                    (
-                        this,
-                        OnFire,
-                        OnStartFire,
-                        OnStopFire,
-                        (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (()=> CurrentMag--) : OnPostFire,
-                        OnPreFire
-                    );
-                break;
-            case (SO_WeaponData.FiringMode.SemiAuto):
-                m_FireType = new SemiAutomaticFire
-                    (
-                        this,
-                        OnFire,
-                        OnStartFire,
-                        OnStopFire,
-                        (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (() => CurrentMag--) : OnPostFire,
-                        OnPreFire
-                    );
-                break;
-            case(SO_WeaponData.FiringMode.Beam):
-                m_FireType = new BeamFire
-                    (
-                        this,
-                        OnFire,
-                        OnStartFire,
-                        OnStopFire,
-                        (WeaponData.UsesMag) ? (BC_FireType.PostFire)OnPostFire + (() => CurrentMag--) : OnPostFire,
-                        OnPreFire
-                    );
-                break;
-            default:
-                throw new System.Exception("Firing mode not implemented");
-        }
+        
     }
 
     /// <summary>
@@ -218,7 +198,7 @@ public abstract class BC_Weapon : MonoBehaviour
     }
 
     
-
+    //Methods to override for individualized functionaility
     public virtual void OnStartFire()
     {
 

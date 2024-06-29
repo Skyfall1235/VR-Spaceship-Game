@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: GatlingWeaponData
   m_EditorClassIdentifier: 
-  m_projectileSpeed: 100
-  m_prefabBullet: {fileID: 5734054399690719909, guid: 5c44a6c5be978e24dbba97124be0118e, type: 3}
+  m_useProjectile: 1
+  m_projectileData: {fileID: 11400000, guid: 7a3e5f75e3ede89479a57b7265cb9f03, type: 2}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []
@@ -22,7 +22,10 @@ MonoBehaviour:
   m_usesMag: 1
   m_reloadTime: 3
   m_magazineCapacity: 200
-  m_firingMode: 0
+  m_fireType:
+    m_AssemblyName: vrs.ShipSystems.Weapons.Guns, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_ClassName: AutomaticFire
   m_autoFiring: 1
   m_useSpread: 1
   m_spreadValues: {x: 0.5, y: 0.5}
