@@ -50,7 +50,21 @@ public class BC_ShipMovementController : MonoBehaviour
     /// </summary>
     [SerializeField]
     [Tooltip("Maximum rotation speed the ship can achieve")]
-    protected float m_maxRateOfTurn = 10f;
+    protected float m_maxRateOfPitch = 10f;
+
+    /// <summary>
+    /// maximum amount of torque that can be applied to the rigidbody
+    /// </summary>
+    [SerializeField]
+    [Tooltip("Maximum rotation speed the ship can achieve")]
+    protected float m_maxRateOfRoll = 10f;
+
+    /// <summary>
+    /// maximum amount of torque that can be applied to the rigidbody
+    /// </summary>
+    [SerializeField]
+    [Tooltip("Maximum rotation speed the ship can achieve")]
+    protected float m_maxRateOfYaw = 10f;
 
     /// <summary>
     /// the toggle between strafing and yaw rotation
@@ -162,37 +176,5 @@ public class BC_ShipMovementController : MonoBehaviour
             m_shipRigidbody.velocity = Vector3.ClampMagnitude(m_shipRigidbody.velocity, m_maxSpeed);
         }
     }
-
-    /// <summary>
-    /// a method to find the cross product of a Vector2 and Vector3.Up
-    /// </summary>
-    /// <param name="inputVal">is the Vector2 we wish to get the cross product with</param>
-    /// <returns>the cross product of a Vector2 and Vector3.Up</returns>
-    internal Vector3 FindAxisForRotation(Vector2 inputVal)
-    {
-        Vector3 convertedInputVal = new Vector3(inputVal.x, 0f, inputVal.y);
-        Vector3 crossAxis = Vector3.Cross(convertedInputVal, Vector3.up);
-        return crossAxis;
-    }
-
-    /// <summary>
-    /// Remaps a value from one range to another, potentially scaling and clamping it within the new range.
-    /// </summary>
-    /// <param name="value">The input value to be remapped.</param>
-    /// <param name="originalMin">The minimum value of the original range.</param>
-    /// <param name="originalMax">The maximum value of the original range.</param>
-    /// <param name="newMin">The minimum value of the desired new range.</param>
-    /// <param name="newMax">The maximum value of the desired new range.</param>
-    /// <returns>The remapped value within the new range.</returns>
-    internal float Remap(float value, float originalMin, float originalMax, float newMin, float newMax)
-    {
-        // Normalize value to the range [0, 1]
-        float normalizedValue = (value - originalMin) / (originalMax - originalMin);
-
-        // Rescale normalized value to the new range
-        float rescaledValue = normalizedValue * (newMax - newMin) + newMin;
-        return rescaledValue;
-    }
-
     #endregion
 }

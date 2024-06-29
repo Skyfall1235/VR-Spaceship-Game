@@ -31,10 +31,8 @@ public class ShipMovementController : IM_ShipMovementController
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         OnUpdateInputs.Invoke(currentInput);
-        float rotationSpeed = Vector2.Distance(Vector2.zero, currentInput.PrimaryFlightStick);
-        Vector3 axisOfRotation = FindAxisForRotation(currentInput.PrimaryFlightStick);
         //apply all rotations - pitch, roll, and yaw
-        SaveNewRotationOnAxis(axisOfRotation, rotationSpeed, currentInput.yawValue);
+        SaveNewRotationOnAxis(currentInput);
     }
 
     public void CallUpdateForStrafe()
@@ -74,4 +72,20 @@ public class ShipMovementController : IM_ShipMovementController
     }
 
     #endregion
+    //DEBUG ONLY, WILL NEED TO BE REMOVED IN BUILDS
+    public void SetYawSpeed(float value)
+    {
+        Debug.LogWarning("SETTING THE YAW MAX TURN RATE. REMEMBER TO REMOVE FOR BUILD");
+        m_maxRateOfYaw = value;
+    }
+    public void SetRollSpeed(float value)
+    {
+        Debug.LogWarning("SETTING THE ROLL MAX TURN RATE. REMEMBER TO REMOVE FOR BUILD");
+        m_maxRateOfRoll = value;
+    }
+    public void SetPitchSpeed(float value)
+    {
+        Debug.LogWarning("SETTING THE PITCH MAX TURN RATE. REMEMBER TO REMOVE FOR BUILD");
+        m_maxRateOfPitch = value;
+    }
 }

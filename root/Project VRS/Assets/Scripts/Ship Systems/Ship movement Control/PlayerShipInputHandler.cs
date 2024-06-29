@@ -35,17 +35,22 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         get
         {
             // Check for missing references and log a single, comprehensive message
-            if (m_primaryShipJoystick == null || m_secondaryShipJoystick == null)
+            if (m_primaryShipJoystick == null || m_secondaryShipJoystick == null && !useKeyboardControls)
             {
                 Debug.LogWarning("Either primary ship joystick or secondary ship joystick reference is missing.");
                 return new();  // Return an empty struct to indicate an error
+            }
+
+            if (useKeyboardControls)
+            {
+                return InputEncoder(KeyboardInputControls());
             }
 
             // There are only 2 possible reasons for why this should not be true
             // 1. Update on End select requests this input handlers value
             // 2. if the register interactor Controller event somehow gets called first.
             //therefore LEAVE THE DAMN RETURN AT THE BOTTOM ALONE
-            if(m_secondaryJoystickInteractor != null)
+            if (m_secondaryJoystickInteractor != null)
             {
                 //get the input action property and store its value
                 InputActionProperty activateValueProperty = m_secondaryJoystickInteractor.activateActionValue;
@@ -86,8 +91,10 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
 
     private (Vector2, Vector2, float) KeyboardInputControls()
     {
-        Vector2 rightHand = new(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-        Vector2 leftHand = new(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 rightHand = Vector2.zero;//new(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); 
+        Debug.Log(rightHand);
+        Vector2 leftHand = new(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        Debug.Log(leftHand);
         float breakVal = Input.GetAxis("Jump");
         return (rightHand, leftHand, breakVal);
     }

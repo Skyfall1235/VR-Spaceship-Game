@@ -18,7 +18,6 @@ public class Planet : MonoBehaviour
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
-    public Material material;
 
     ShapeGenerator generator;
 
@@ -44,7 +43,7 @@ public class Planet : MonoBehaviour
                 meshObj.transform.parent = transform;
 
                 //setup the meah filters array with objects have give them a material
-                meshObj.AddComponent<MeshRenderer>().sharedMaterial = material;
+                meshObj.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
 
                 //set the mesh initially
@@ -54,8 +53,6 @@ public class Planet : MonoBehaviour
             terrainFaces[i] = new TerrainFace(generator, meshFilters[i].sharedMesh, Resolution, directions[i]);
         }
     }
-
-    
 
     public void OnColorSettingsUpdated()
     {

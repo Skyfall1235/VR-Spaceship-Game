@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: New SO_Projectile Recursive
   m_EditorClassIdentifier: 
   m_projectileDataStructure:
-  - rid: 1567131228774073055
+  - rid: 8062483030911221930
   - rid: 1567131209339765610
   - rid: 1567131209339765611
   - rid: 1567131209339765627
@@ -21,6 +21,70 @@ MonoBehaviour:
   - rid: 1567131228243493626
   - rid: 1567131228744188398
   - rid: 1567131228774073056
+  - rid: 8062483030911221760
+  - rid: 8062483030911221761
+  - rid: 8062483030911221762
+  - rid: 8062483030911221763
+  - rid: 8062483030911221764
+  - rid: 8062483030911221765
+  - rid: 8062483030911221766
+  - rid: 8062483030911221767
+  - rid: 8062483030911221768
+  - rid: 8062483030911221769
+  - rid: 8062483030911221770
+  - rid: 8062483030911221771
+  - rid: 8062483030911221772
+  - rid: 8062483030911221773
+  - rid: 8062483030911221774
+  - rid: 8062483030911221775
+  - rid: 8062483030911221776
+  - rid: 8062483030911221777
+  - rid: 8062483030911221778
+  - rid: 8062483030911221779
+  - rid: 8062483030911221780
+  - rid: 8062483030911221781
+  - rid: 8062483030911221782
+  - rid: 8062483030911221783
+  - rid: 8062483030911221784
+  - rid: 8062483030911221785
+  - rid: 8062483030911221786
+  - rid: 8062483030911221787
+  - rid: 8062483030911221788
+  - rid: 8062483030911221789
+  - rid: 8062483030911221790
+  - rid: 8062483030911221791
+  - rid: 8062483030911221792
+  - rid: 8062483030911221793
+  - rid: 8062483030911221794
+  - rid: 8062483030911221795
+  - rid: 8062483030911221796
+  - rid: 8062483030911221797
+  - rid: 8062483030911221798
+  - rid: 8062483030911221799
+  - rid: 8062483030911221800
+  - rid: 8062483030911221801
+  - rid: 8062483030911221802
+  - rid: 8062483030911221803
+  - rid: 8062483030911221804
+  - rid: 8062483030911221805
+  - rid: 8062483030911221806
+  - rid: 8062483030911221807
+  - rid: 8062483030911221808
+  - rid: 8062483030911221809
+  - rid: 8062483030911221810
+  - rid: 8062483030911221811
+  - rid: 8062483030911221812
+  - rid: 8062483030911221813
+  - rid: 8062483030911221814
+  - rid: 8062483030911221815
+  - rid: 8062483030911221816
+  - rid: 8062483030911221817
+  - rid: 8062483030911221818
+  - rid: 8062483030911221819
+  - rid: 8062483030911221820
+  - rid: 8062483030911221821
+  - rid: 8062483030911221822
+  - rid: 8062483030911221823
   references:
     version: 2
     RefIds:
@@ -35,7 +99,7 @@ MonoBehaviour:
         m_lifetime: 0
         m_spread: {x: 0, y: 0}
         m_prefab: {fileID: 0}
-        m_spawnSubProjectiles: 0
+        m_spawnSubProjectiles: 1
         m_subProjectileCount: 1
         m_subProjectileSpawnTime: 0
         m_subProjectileData:
@@ -110,7 +174,735 @@ MonoBehaviour:
         m_subProjectileSpawnTime: 0
         m_subProjectileData:
           rid: 1567131228774073056
-    - rid: 1567131228774073055
+    - rid: 1567131228774073056
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221760
+    - rid: 8062483030911221760
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221761
+    - rid: 8062483030911221761
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221762
+    - rid: 8062483030911221762
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221763
+    - rid: 8062483030911221763
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221764
+    - rid: 8062483030911221764
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221765
+    - rid: 8062483030911221765
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221766
+    - rid: 8062483030911221766
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221767
+    - rid: 8062483030911221767
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221768
+    - rid: 8062483030911221768
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221769
+    - rid: 8062483030911221769
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221770
+    - rid: 8062483030911221770
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221771
+    - rid: 8062483030911221771
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221772
+    - rid: 8062483030911221772
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221773
+    - rid: 8062483030911221773
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221774
+    - rid: 8062483030911221774
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221775
+    - rid: 8062483030911221775
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221776
+    - rid: 8062483030911221776
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221777
+    - rid: 8062483030911221777
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221778
+    - rid: 8062483030911221778
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221779
+    - rid: 8062483030911221779
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221780
+    - rid: 8062483030911221780
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221781
+    - rid: 8062483030911221781
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221782
+    - rid: 8062483030911221782
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221783
+    - rid: 8062483030911221783
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221784
+    - rid: 8062483030911221784
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221785
+    - rid: 8062483030911221785
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221786
+    - rid: 8062483030911221786
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221787
+    - rid: 8062483030911221787
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221788
+    - rid: 8062483030911221788
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221789
+    - rid: 8062483030911221789
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221790
+    - rid: 8062483030911221790
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221791
+    - rid: 8062483030911221791
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221792
+    - rid: 8062483030911221792
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221793
+    - rid: 8062483030911221793
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221794
+    - rid: 8062483030911221794
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221795
+    - rid: 8062483030911221795
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221796
+    - rid: 8062483030911221796
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221797
+    - rid: 8062483030911221797
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221798
+    - rid: 8062483030911221798
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221799
+    - rid: 8062483030911221799
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221800
+    - rid: 8062483030911221800
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221801
+    - rid: 8062483030911221801
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221802
+    - rid: 8062483030911221802
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221803
+    - rid: 8062483030911221803
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221804
+    - rid: 8062483030911221804
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221805
+    - rid: 8062483030911221805
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221806
+    - rid: 8062483030911221806
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221807
+    - rid: 8062483030911221807
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221808
+    - rid: 8062483030911221808
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221809
+    - rid: 8062483030911221809
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221810
+    - rid: 8062483030911221810
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 0
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221811
+    - rid: 8062483030911221811
       type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 0
@@ -123,8 +915,162 @@ MonoBehaviour:
         m_subProjectileCount: 1
         m_subProjectileSpawnTime: 0
         m_subProjectileData:
-          rid: 1567131209339765610
-    - rid: 1567131228774073056
+          rid: 8062483030911221812
+    - rid: 8062483030911221812
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221813
+    - rid: 8062483030911221813
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221814
+    - rid: 8062483030911221814
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221815
+    - rid: 8062483030911221815
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221816
+    - rid: 8062483030911221816
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221817
+    - rid: 8062483030911221817
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221818
+    - rid: 8062483030911221818
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221819
+    - rid: 8062483030911221819
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221820
+    - rid: 8062483030911221820
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221821
+    - rid: 8062483030911221821
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221822
+    - rid: 8062483030911221822
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 8062483030911221823
+    - rid: 8062483030911221823
       type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 0
@@ -138,3 +1084,17 @@ MonoBehaviour:
         m_subProjectileSpawnTime: 0
         m_subProjectileData:
           rid: -2
+    - rid: 8062483030911221930
+      type: {class: SO_ProjectileRecursive/ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
+      data:
+        m_speed: 0
+        m_damage: 0
+        m_armorPenetration: 0
+        m_lifetime: 0
+        m_spread: {x: 0, y: 0}
+        m_prefab: {fileID: 0}
+        m_spawnSubProjectiles: 1
+        m_subProjectileCount: 1
+        m_subProjectileSpawnTime: 0
+        m_subProjectileData:
+          rid: 1567131209339765610

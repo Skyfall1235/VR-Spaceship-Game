@@ -9,8 +9,11 @@ public class IM_ShipMovementController : BC_ShipMovementController
     //continously applied vectors that change upon setting values for the inputs
     protected Vector3 m_savedForwardVector;
 
-    protected Vector3 m_savedRotationAxis;
-    protected float m_savedRotationSpeed;
+    protected Vector3 m_savedPitchAxis;
+    protected float m_savedPitchSpeed;
+
+    protected Vector3 m_savedRollAxis;
+    protected float m_savedRollSpeed;
 
     protected Vector3 m_savedStrafeVector;
 
@@ -34,7 +37,8 @@ public class IM_ShipMovementController : BC_ShipMovementController
         ApplyLinearMotionValue(m_savedForwardVector);
 
         //roll and pitch rotations
-        ApplyRotationOnAxis(m_savedRotationAxis, m_savedRotationSpeed);
+        ApplyRotationOnAxis(m_savedPitchAxis, m_savedPitchSpeed);
+        ApplyRotationOnAxis(m_savedRollAxis, m_savedRollSpeed);
 
         if (m_toggleYawForStrafe == true) //true means we strafe, false means we rotate yaw
         {
@@ -54,7 +58,7 @@ public class IM_ShipMovementController : BC_ShipMovementController
     protected void SaveNewLinearMotionVector(float rawThrottleInput)
     {
         //remap the joystick value
-        float appliedThrustValue = Remap(rawThrottleInput,        // Value to modify
+        float appliedThrustValue = ExtensionMethods.Remap(rawThrottleInput,        // Value to modify
                                         m_lowerJoystickInputBounds, // Lower original bound
                                         m_upperJoystickInputBounds, // Upper original bound
                                         m_maxDeceleration,          // Lower new bound
@@ -67,45 +71,42 @@ public class IM_ShipMovementController : BC_ShipMovementController
         m_savedForwardVector = forwardVector;
     }
 
-    protected void SaveNewRotationOnAxis(Vector3 PitchAndRollAxis, float rotationSpeed, float rawYawInput)
+    protected void SaveNewRotationOnAxis(ShipJoystickInput currentInput)
     {
         //ADD-RELATIVE-TORQUE ROTATES THE BODY CLOCKWISE AROUND THE AXIS (if it is counter clockwise your visualization is upside down)
 
         //remap the joystick values
-        float newRotationSpeed = Remap(rotationSpeed,              // Value to modify
-                                       m_lowerJoystickInputBounds, // Lower original bound
-                                       m_upperJoystickInputBounds, // Upper original bound
-                                       0f,                         // Lower new bound
-                                       m_maxRateOfTurn);           // Upper new bound
+        float newPitchRotationSpeed = currentInput.PrimaryFlightStick.y * m_maxRateOfPitch;
 
-        float newYawRotationSpeed = Remap(rawYawInput,                // Value to modify
-                                       m_lowerJoystickInputBounds, // Lower original bound
-                                       m_upperJoystickInputBounds, // Upper original bound
-                                       0f,                         // Lower new bound
-                                       m_maxRateOfTurn);           // Upper new bound
-                                                                   //Pitch and Roll
-                                                                   //invert the axis. id why but it needed to happen, the math said this shouldnt be needed??
-        Vector3 invertedVector = -PitchAndRollAxis;
+        float newRollRotationSpeed = currentInput.PrimaryFlightStick.x * m_maxRateOfRoll;
+
+        float newYawRotationSpeed = currentInput.yawValue * m_maxRateOfYaw;
+
+
         //since the axis is a normalized vector we can just multiply it to get our torque value
-        Vector3 rotationAxisWithMappedSpeed = invertedVector * newRotationSpeed;
-        //Yaw
+        Vector3 pitchTorqueVector = ReturnTorqueVector(newPitchRotationSpeed, Vector3.left);
+        Vector3 pitchAxisWithMappedSpeed = -pitchTorqueVector * Mathf.Abs(newPitchRotationSpeed);
+
+        Vector3 rollTorqueVector = ReturnTorqueVector(newRollRotationSpeed, Vector3.forward);
+        Vector3 rollAxisWithMappedSpeed = -rollTorqueVector * Mathf.Abs(newRollRotationSpeed);
+
+        //Yaw ONLY
         //determine the direction based on the torque roation
-        Vector3 TorqueVector;
-        if (rawYawInput > 0f)
-        {
-            TorqueVector = Vector3.up;
-        }
-        else if (rawYawInput < 0f)
-        {
-            TorqueVector = Vector3.down;
-        }
-        else { TorqueVector = Vector3.zero; }
+        Vector3 yawTorqueVector = ReturnTorqueVector(currentInput.yawValue, Vector3.up);
+        
         //set the vector to be the speed of the rotation
-        Vector3 yawAxisWithMappedSpeed = TorqueVector * newRotationSpeed;
-        //Saving
-        //save Pitch and roll
-        m_savedRotationAxis = rotationAxisWithMappedSpeed;
-        m_savedRotationSpeed = newRotationSpeed;
+        Vector3 yawAxisWithMappedSpeed = yawTorqueVector * Mathf.Abs(newYawRotationSpeed);
+
+    //Saving
+
+        //save Pitch
+        m_savedPitchAxis = pitchAxisWithMappedSpeed;
+        m_savedPitchSpeed = newPitchRotationSpeed;
+
+        // and roll
+        m_savedRollAxis = rollAxisWithMappedSpeed;
+        m_savedRollSpeed = newRollRotationSpeed;
+
         //save yaw
         m_savedYawAxis = yawAxisWithMappedSpeed;
         m_savedYawSpeed = newYawRotationSpeed;
@@ -114,7 +115,7 @@ public class IM_ShipMovementController : BC_ShipMovementController
     protected void SaveNewStrafeVector(float rawYawInput)
     {
         //remap the joystick value
-        float appliedYawValue = Remap(rawYawInput,                // Value to modify  
+        float appliedYawValue = ExtensionMethods.Remap(rawYawInput,                // Value to modify  
                                       m_lowerJoystickInputBounds, // Lower original bound
                                       m_upperJoystickInputBounds, // Upper original bound
                                       -m_maxStrafeSpeed,          // Lower new bound
@@ -125,5 +126,18 @@ public class IM_ShipMovementController : BC_ShipMovementController
 
         //save the values
         m_savedStrafeVector = strafeVector;
+    }
+
+    protected Vector3 ReturnTorqueVector(float input, Vector3 AxiOfRotation)
+    {
+        if (input > 0f)
+        {
+            return AxiOfRotation;
+        }
+        else if (input < 0f)
+        {
+            return -AxiOfRotation;
+        }
+        else return Vector3.zero;
     }
 }
