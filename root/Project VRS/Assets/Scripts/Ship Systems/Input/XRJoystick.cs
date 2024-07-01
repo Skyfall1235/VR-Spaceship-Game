@@ -1,4 +1,6 @@
 using System;
+using System.Numerics;
+using UnityEditor;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -7,7 +9,7 @@ namespace UnityEngine.XR.Content.Interaction
     /// <summary>
     /// An interactable joystick that can move side to side, and forward and back by a direct interactor
     /// </summary>
-    public class XRJoystick : XRBaseInteractable
+    public class XRJoystick : XRGrabInteractable
     {
         const float k_MaxDeadZonePercent = 0.9f;
 
@@ -21,6 +23,8 @@ namespace UnityEngine.XR.Content.Interaction
 
         [Serializable]
         public class ValueChangeEvent : UnityEvent<float> { }
+
+        #region Variables for Control
 
         [Tooltip("Controls how the joystick moves")]
         [SerializeField]
@@ -60,6 +64,9 @@ namespace UnityEngine.XR.Content.Interaction
         [Tooltip("Events to trigger when the joystick's y value changes")]
         ValueChangeEvent m_OnValueChangeY = new ValueChangeEvent();
 
+        Vector3 m_localRotationOnGrab;
+        Vector3 m_lastInteractorRotation;
+
         IXRSelectInteractor m_Interactor;
 
         /// <summary>
@@ -92,7 +99,6 @@ namespace UnityEngine.XR.Content.Interaction
                 {
                     SetValue(value);
                     SetHandleAngle(value * m_MaxAngle);
-                    Debug.Log("VECTOR2 SET VALUE Setting the handle to center");
                 }
             }
         }
@@ -133,6 +139,14 @@ namespace UnityEngine.XR.Content.Interaction
             set => m_DeadZoneAngle = value;
         }
 
+        #endregion 
+
+        //if the controller is grabbed, on the start, save the Y rot of it
+        //on release, reset it to zero
+        //display it as a rot value
+        //cast interactor as hand interactor, then get inputs from it, and save it whenever it changes
+
+
         /// <summary>
         /// Events to trigger when the joystick's x value changes
         /// </summary>
@@ -143,6 +157,7 @@ namespace UnityEngine.XR.Content.Interaction
         /// </summary>
         public ValueChangeEvent onValueChangeY => m_OnValueChangeY;
 
+        #region Monobehaviors and VR stuff
 
         void Start()
         {
@@ -167,23 +182,22 @@ namespace UnityEngine.XR.Content.Interaction
         private void StartGrab(SelectEnterEventArgs args)
         {
             m_Interactor = args.interactorObject;
+            m_localRotationOnGrab = GetTwistValue();
         }
 
         private void EndGrab(SelectExitEventArgs args)
         {
             UpdateValue();
 
-            if (m_RecenterXOnRelease)
-            {
-                Debug.Log("END GRAB Setting the handle to center");
-                Vector2 centeredX = new Vector2(0f, m_Value.y);
-                SetHandleAngle(new Vector2(0f, currentUpDownAngle));
-                SetValue(centeredX);
-            }
+            //if (m_RecenterXOnRelease)
+            //{
+            //    Vector2 centeredX = new Vector2(0f, m_Value.y);
+            //    SetHandleAngle(new Vector2(0f, currentUpDownAngle));
+            //    SetValue(centeredX);
+            //}
 
             if (m_RecenterOnRelease)
             {
-                Debug.Log("recentering");
                 SetHandleAngle(Vector2.zero);
                 SetValue(Vector2.zero);
             }
@@ -204,6 +218,8 @@ namespace UnityEngine.XR.Content.Interaction
             }
         }
 
+        #endregion
+
         Vector3 GetLookDirection()
         {
             Vector3 direction = m_Interactor.GetAttachTransform(this).position - m_Handle.position;
@@ -222,11 +238,17 @@ namespace UnityEngine.XR.Content.Interaction
             return direction.normalized;
         }
 
+        Vector3 GetTwistValue()
+        {
+            Vector3 currentTwistRot = m_Interactor.GetAttachTransform(this).localEulerAngles;
+            return currentTwistRot;
+        }
 
         float currentUpDownAngle;
         void UpdateValue()
         {
             var lookDirection = GetLookDirection();
+
 
             // Get up/down angle and left/right angle
             var upDownAngle = Mathf.Atan2(lookDirection.z, lookDirection.y) * Mathf.Rad2Deg;
@@ -274,9 +296,10 @@ namespace UnityEngine.XR.Content.Interaction
             //injected
             currentUpDownAngle = upDownAngle;
 
+            m_lastInteractorRotation = GetTwistValue();
+
             SetHandleAngle(new Vector2(leftRightAngle, upDownAngle));
             SetValue(stickValue);
-            Debug.Log("UPDATE VALUE Setting the handle to center");
         }
 
         void SetValue(Vector2 value)
@@ -297,6 +320,15 @@ namespace UnityEngine.XR.Content.Interaction
             var yComp = Mathf.Sqrt(1.0f - largerComp * largerComp);
 
             m_Handle.up = (transform.up * yComp) + (transform.right * xComp) + (transform.forward * zComp);
+
+            //retrive original rotation
+            Quaternion Swing, Twist;
+            DecomposeSwingTwist(m_Handle.rotation, m_Handle.up, out Swing, out Twist);
+            //Debug.Log(Twist);
+
+            //make new rotation
+
+            //set rot
         }
 
         void OnDrawGizmosSelected()
@@ -361,5 +393,44 @@ namespace UnityEngine.XR.Content.Interaction
         {
             m_DeadZoneAngle = Mathf.Min(m_DeadZoneAngle, m_MaxAngle * k_MaxDeadZonePercent);
         }
+
+        public static void DecomposeSwingTwist(Quaternion q, Vector3 twistAxis, out Quaternion swing, out Quaternion twist)
+        {
+            Vector3 r = new Vector3(q.x, q.y, q.z);
+
+            // singularity: rotation by 180 degree
+            if (r.sqrMagnitude < float.Epsilon)
+            {
+                Vector3 rotatedTwistAxis = q * twistAxis;
+                Vector3 swingAxis =
+                  Vector3.Cross(twistAxis, rotatedTwistAxis);
+
+                if (swingAxis.sqrMagnitude > float.Epsilon)
+                {
+                    float swingAngle =
+                      Vector3.Angle(twistAxis, rotatedTwistAxis);
+                    swing = Quaternion.AngleAxis(swingAngle, swingAxis);
+                }
+                else
+                {
+                    // more singularity: 
+                    // rotation axis parallel to twist axis
+                    swing = Quaternion.identity; // no swing
+                }
+
+                // always twist 180 degree on singularity
+                twist = Quaternion.AngleAxis(180.0f, twistAxis);
+                return;
+            }
+
+            // meat of swing-twist decomposition
+            Vector3 p = Vector3.Project(r, twistAxis);
+            twist = new Quaternion(p.x, p.y, p.z, q.w);
+            twist = Quaternion.Normalize(twist);
+            swing = q * Quaternion.Inverse(twist);
+        }
+
     }
 }
+
+
