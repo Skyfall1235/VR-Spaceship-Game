@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class NewXRJoystick : MonoBehaviour
@@ -9,6 +10,7 @@ public class NewXRJoystick : MonoBehaviour
     // Assign the hand when it grabs/interacts with this joystick, and unassign on release.
     Transform m_hand;
     [SerializeField] float m_maxRotationAngle = 45f;
+    public float TwistClampValue;
     [SerializeField] float m_returnDuration = 0.25f;  // Duration for the joystick to return to the initial rotation
 
     private Quaternion m_initialRotation;
@@ -22,18 +24,6 @@ public class NewXRJoystick : MonoBehaviour
     private float m_returnTimer = 0f;  // Timer to keep track of the return duration
     private bool m_isReturning = false;  // Flag to check if we are currently returning to the initial rotation
 
-
-
-    //FEATURES TO BE ADDED IN
-    public bool m_resetAllOnRelease = true;
-    public bool m_resetXOnRelease = true;
-    public float m_deadZoneAngle;
-    //[SerializeField] CustomLogger logger;
-    //PLEASE USE m_
-    //rename joystick vector to the value
-    //make methods for firing off changes to the input
-    //add in the twisitng readings
-
     [Serializable]
     public class ValueChangeEvent : UnityEvent<float> { }
 
@@ -44,6 +34,19 @@ public class NewXRJoystick : MonoBehaviour
     [SerializeField]
     [Tooltip("Events to trigger when the joystick's y value changes")]
     ValueChangeEvent m_onValueChangeY = new ValueChangeEvent();
+
+
+
+    //FEATURES TO BE ADDED IN
+    public bool m_resetXOnRelease = true;
+    public bool m_resetYOnRelease = true;
+    public float m_deadZoneAngle;
+    //[SerializeField] CustomLogger logger;
+    //rename joystick vector to the value
+    //make methods for firing off changes to the input
+    //add in the twisitng readings
+
+    
 
     
 
@@ -86,14 +89,16 @@ public class NewXRJoystick : MonoBehaviour
         }
 
         // Update the rotational vector
-        m_joystickVector = new Vector2();
-        if((m_joystickVector.x + m_joystickVector.y) > 0.2f) 
+        m_joystickVector = GetJoyStickVector();
+        if(m_hand != null)
         {
-            m_joystickVector = GetJoyStickVector();
+            TwistValue = GetJoystickTwist();
         }
-        TwistValue = GetjoystickTwistValue();
+        
 
-        Debug.Log(m_joystickVector);
+        //Debug.Log(m_joystickVector);
+        Debug.Log(TwistValue);
+
     }
 
     #endregion
@@ -162,9 +167,27 @@ public class NewXRJoystick : MonoBehaviour
 
         return rotationalVector;
     }
+    private float GetJoystickTwist()
+    {
+        Quaternion handRotationOffset = m_hand.rotation * Quaternion.Inverse(transform.rotation);
+        
+        float TwistValue = handRotationOffset.eulerAngles.y;
+        float clampedValue = ModularClamp(TwistValue, 0 + TwistClampValue, 360 - TwistClampValue, 0, 360);
+        Debug.DrawLine(transform.position, Quaternion.Euler(0f, clampedValue, 0f) * transform.forward);
+        return clampedValue;
+
+    }
+
+    static public float ModularClamp(float val, float min, float max, float rangemin = -180f, float rangemax = 180f)
+    {
+        var modulus = Mathf.Abs(rangemax - rangemin);
+        if ((val %= modulus) < 0f) val += modulus;
+        return Mathf.Clamp(val + Mathf.Min(rangemin, rangemax), min, max);
+    }
+
 
     #endregion
 
-    
+
 
 }

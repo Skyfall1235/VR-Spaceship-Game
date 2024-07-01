@@ -8963,6 +8963,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1654923503}
     m_Modifications:
+    - target: {fileID: 4108785132778785529, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: TwistClampValue
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4228377820268643759, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_Name
       value: newJoystickDesign
