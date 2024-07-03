@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class PlayerHUDReciever : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //the current selected gun, if none is available, show the default - "NO ARM"
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //the throttle and braking sliders
+
+    //bounding box for vecto2 for input
+    //the icons for the input
 }

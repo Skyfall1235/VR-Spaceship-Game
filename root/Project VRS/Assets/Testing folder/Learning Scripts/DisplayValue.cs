@@ -8,8 +8,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class DisplayValue : MonoBehaviour
 {
     public TextMeshProUGUI displayText;
-    public XRJoystick rightjoystick;
-    public XRJoystick leftjoystick;
+    public NewXRJoystick rightjoystick;
+    public NewXRJoystick leftjoystick;
     public Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,9 @@ public class DisplayValue : MonoBehaviour
     void Update()
     {
         displayText.text = $"right Joystick val - {rightjoystick.value}\n" +
+                           $"right twist val - {rightjoystick.TwistValue}\n" +
                            $"left Joystick val - {leftjoystick.value}\n" +
-                           $"Velocity - {rb.velocity}";
+                           $"left twist val - {leftjoystick.TwistValue}\n" +
+                           $"Velocity - {rb.velocity.magnitude}";
     }
 }

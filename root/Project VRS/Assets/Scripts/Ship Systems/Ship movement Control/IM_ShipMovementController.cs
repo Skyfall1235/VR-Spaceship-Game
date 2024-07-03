@@ -80,7 +80,7 @@ public class IM_ShipMovementController : BC_ShipMovementController
 
         float newRollRotationSpeed = currentInput.PrimaryFlightStick.x * m_maxRateOfRoll;
 
-        float newYawRotationSpeed = currentInput.yawValue * m_maxRateOfYaw;
+        float newYawRotationSpeed = currentInput.PrimaryYawValue * m_maxRateOfYaw;
 
 
         //since the axis is a normalized vector we can just multiply it to get our torque value
@@ -92,7 +92,7 @@ public class IM_ShipMovementController : BC_ShipMovementController
 
         //Yaw ONLY
         //determine the direction based on the torque roation
-        Vector3 yawTorqueVector = ReturnTorqueVector(currentInput.yawValue, Vector3.up);
+        Vector3 yawTorqueVector = ReturnTorqueVector(currentInput.PrimaryYawValue, Vector3.up);
         
         //set the vector to be the speed of the rotation
         Vector3 yawAxisWithMappedSpeed = yawTorqueVector * Mathf.Abs(newYawRotationSpeed);

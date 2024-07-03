@@ -10,11 +10,8 @@ public partial class AvionicsModule
     Vector3 Velocity;
     Vector3 LastVelocity;
     float EngineThrust; // the speed of forward
-    float Throttle;
+
     float BreakingForce;
-    float yawInput;
-    float pitchInput;
-    float RollInput;
     float InertialForce;
 
     protected bool AreControlsResponsive = true;
@@ -39,10 +36,6 @@ public partial class AvionicsModule
 
     void ParseInput(ShipJoystickInput input)
     {
-        Throttle = input.ThrustValue;
-        yawInput = input.yawValue;
-        RollInput = input.PrimaryFlightStick.x;
-        pitchInput = input.PrimaryFlightStick.y;
         BreakingForce = input.BreakValue;
     }
 
