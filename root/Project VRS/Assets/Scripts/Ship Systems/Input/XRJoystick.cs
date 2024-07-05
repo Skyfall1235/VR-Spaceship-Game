@@ -144,7 +144,7 @@ namespace UnityEngine.XR.Content.Interaction
         //if the controller is grabbed, on the start, save the Y rot of it
         //on release, reset it to zero
         //display it as a rot value
-        //cast interactor as hand interactor, then get inputs from it, and save it whenever it changes
+        //cast interactor as m_hand interactor, then get inputs from it, and save it whenever it changes
 
 
         /// <summary>

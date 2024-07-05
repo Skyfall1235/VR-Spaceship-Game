@@ -62,7 +62,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
                 //return the encoded joystick inputs with a break value if there is any
                 return InputEncoder(m_primaryShipJoystick.value, m_primaryShipJoystick.TwistValue, m_secondaryShipJoystick.value, m_secondaryShipJoystick.TwistValue, activateValue);
             }
-
+            Debug.Log("are we getting here?");
             return InputEncoder(m_primaryShipJoystick.value, m_primaryShipJoystick.TwistValue, m_secondaryShipJoystick.value, m_secondaryShipJoystick.TwistValue, 0);
         }
     }
@@ -76,7 +76,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     public void RegisterInteractorController(SelectEnterEventArgs e)
     {
         //this method is called when either joystick gets grabbed
-        Debug.Log(e.interactableObject.ToString());
+        //Debug.Log(e.interactableObject.ToString());
         //depending on the ordinal, set the interactor as needed.
         NewXRJoystick grabbedJoystick = e.interactableObject.transform.GetComponent<NewXRJoystick>();
 

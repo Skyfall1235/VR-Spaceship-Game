@@ -30,7 +30,7 @@ public class BC_ShipInputHandler : MonoBehaviour
         Vector3 secondaryHand = keyboardInput.Item2;
         float breakVal = keyboardInput.Item3;
 
-        // Convert primary and secondary hand data to Vector2 for movement axes
+        // Convert primary and secondary m_hand data to Vector2 for movement axes
         Vector2 primaryInput = primaryHand;
         Vector2 secondaryInput = secondaryHand;
 

@@ -19,7 +19,7 @@ public class SectionsToComeBackTo
 
     //void BrakeLinearMovement()
     //{
-    //    //get the trigger value from the hand that is currently grabbing the joystick
+    //    //get the trigger value from the m_hand that is currently grabbing the joystick
     //    Vector3 currentLinearVector = savedForwardVector;
     //    ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
 

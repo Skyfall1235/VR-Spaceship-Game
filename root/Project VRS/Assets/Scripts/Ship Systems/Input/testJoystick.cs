@@ -1,72 +1,27 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR;
 
-public class NewXRJoystick : XRBaseInteractable
+public class testJoystick : XRBaseInteractable
 {
-    [Header("Joystick Data")]
     // Assign the m_hand when it grabs/interacts with this joystick, and unassign on release.
-    private Transform m_hand;
+    public Transform m_hand;
     public Transform m_handle;
-    public JoystickOrdinal Ordinal;
+
     [SerializeField] float m_maxJoystickAngle = 45f;
     [SerializeField] float m_maxYawAngle = 30f;  // Maximum yaw twist angle in degrees
     [SerializeField] float m_returnDuration = 0.25f;  // Duration for the joystick to return to the initial rotation
-    [SerializeField] private Vector2 m_joystickValue;  // Backing field for the read-only property
-    [SerializeField] private float m_joystickTwistValue;  // Backing field for the read-only property
 
-    //FEATURES TO BE ADDED IN
-    [SerializeField] private bool m_resetXOnRelease = true;
-    [SerializeField] private bool m_resetYOnRelease = true;
-    [SerializeField] private float m_deadZoneAngle;
-    [SerializeField] CustomLogger logger;
+    private Vector2 m_joystickVector;  // Backing field for the read-only property
+    private float m_twistFloat;  // Backing field for the read-only property
 
-    #region publics
-
-    // Read-only property for joystickVector
-    public Vector2 value => m_joystickValue;
-    // Read-only property for twistFloat
-    public float TwistValue => m_joystickTwistValue;
-
-    #endregion
-
-    #region Internal execution
-
-    private float m_returnTimer = 0f;  // Timer to keep track of the return duration
-    private bool m_isReturning = false;  // Flag to check if we are currently returning to the initial rotation
     private Quaternion m_initialRotation;
     private Quaternion m_initialHandRotation;
 
-    const float k_MaxDeadZonePercent = 0.9f;
-
-    #endregion
-
-    #region Events
-
-    [Serializable]
-    public class XRJoystickEvents
-    {
-        [Serializable]
-        public class ValueChangeEvent : UnityEvent<float> { }
-
-        [SerializeField]
-        [Tooltip("Events to trigger when the joystick's x value changes")]
-        public ValueChangeEvent m_onValueChangeX = new ValueChangeEvent();
-
-        [SerializeField]
-        [Tooltip("Events to trigger when the joystick's y value changes")]
-        public ValueChangeEvent m_onValueChangeY = new ValueChangeEvent();
-
-        [SerializeField]
-        [Tooltip("Events to trigger when the joystick's y value changes")]
-        public ValueChangeEvent m_onValueChangeZ = new ValueChangeEvent();
-    }
-    [SerializeField] public XRJoystickEvents m_joystickEvents;
-
-    #endregion
-
-    #region Monobehavior Messages
+    private float m_returnTimer = 0f;  // Timer to keep track of the return duration
+    private bool m_isReturning = false;  // Flag to check if we are currently returning to the initial rotation
 
     void Start()
     {
@@ -118,16 +73,12 @@ public class NewXRJoystick : XRBaseInteractable
         }
 
         // Update the rotational vector
-        m_joystickValue = GetJoyStickVector();
+        m_joystickVector = GetJoyStickVector();
         // Update the twistFloat
-        m_joystickTwistValue = GetYawTwistFloat();
+        m_twistFloat = GetYawTwistFloat();
 
-        //print(GetJoyStickVector() + " : " + GetYawTwistFloat());
+        print(GetJoyStickVector() + " : " + GetYawTwistFloat());
     }
-
-    #endregion
-
-    #region XR hookups
 
     protected override void OnEnable()
     {
@@ -152,20 +103,8 @@ public class NewXRJoystick : XRBaseInteractable
         m_hand = null;
     }
 
-    #endregion
 
-    #region Input Updaters
 
-    private void SetValues()
-    {
-        m_joystickEvents.m_onValueChangeX.Invoke(m_joystickValue.x);
-        m_joystickEvents.m_onValueChangeY.Invoke(m_joystickValue.y);
-        m_joystickEvents.m_onValueChangeZ.Invoke(m_joystickTwistValue);
-    }
-
-    #endregion
-
-    #region Math drivers
 
     private Quaternion GetTwistRotation()
     {
@@ -235,67 +174,8 @@ public class NewXRJoystick : XRBaseInteractable
         return rotationalVector.normalized * Mathf.Clamp01(Quaternion.Angle(m_initialRotation, m_handle.localRotation) / m_maxJoystickAngle);
     }
 
-    #endregion
-
-    void OnDrawGizmosSelected()
-    {
-        //get the base of the line
-        var angleStartPoint = transform.position;
-
-        //save our known angle length
-        const float k_AngleLength = 0.25f;
-
-        //Null check before proceeding
-        if (m_handle != null)
-        {
-            angleStartPoint = m_handle.position;
-        }
-
-        //green is the outer bounds of the joystick
-        Gizmos.color = Color.green;
-        DrawLines(new Vector3(m_maxJoystickAngle, 0.0f, 0.0f));
-
-        //red is the deadzone angle, where inputs arent updated
-        if (m_deadZoneAngle > 0.0f)
-        {
-            Gizmos.color = Color.red;
-            DrawLines(new Vector3(m_deadZoneAngle, 0.0f, 0.0f));
-        }
-
-        //green is the outer bounds of the joystick
-        Gizmos.color = Color.green;
-        DrawLines(new Vector3(0.0f, 0.0f, m_maxJoystickAngle));
-
-        //red is the deadzone angle, where inputs arent updated
-        if (m_deadZoneAngle > 0.0f)
-        {
-            Gizmos.color = Color.red;
-            DrawLines(new Vector3(0.0f, 0.0f, m_deadZoneAngle));
-        }
-
-        //method in method as a throwaway for complex logic that doesnt belong out of callback
-        void DrawLines(Vector3 unit)
-        {
-            //create the axis points
-            var axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(unit) * Vector3.up) * k_AngleLength;
-            var axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-unit) * Vector3.up) * k_AngleLength;
-            //draw the lines with whatever color the gizmo is currently
-            Gizmos.DrawLine(angleStartPoint, axisPoint1);
-            Gizmos.DrawLine(angleStartPoint, axisPoint2);
-        }
-    }
-
-    void OnValidate()
-    {
-        m_deadZoneAngle = Mathf.Min(m_deadZoneAngle, m_maxJoystickAngle * k_MaxDeadZonePercent);
-    }
-
-    /// <summary>
-    /// This is used to tell the ship controller what type of joystick this is
-    /// </summary>
-    public enum JoystickOrdinal
-    {
-        Primary, Secondary, tertiary
-    }
-
+    // Read-only property for joystickVector
+    public Vector2 JoystickVector => m_joystickVector;
+    // Read-only property for twistFloat
+    public float TwistFloat => m_twistFloat;
 }

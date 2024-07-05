@@ -72,6 +72,7 @@ public class ShipMovementController : IM_ShipMovementController
     }
 
     #endregion
+
     //DEBUG ONLY, WILL NEED TO BE REMOVED IN BUILDS
     public void SetYawSpeed(float value)
     {

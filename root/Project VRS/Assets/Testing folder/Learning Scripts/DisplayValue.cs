@@ -18,12 +18,12 @@ public class DisplayValue : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        displayText.text = $"right Joystick val - {rightjoystick.value}\n" +
-                           $"right twist val - {rightjoystick.TwistValue}\n" +
-                           $"left Joystick val - {leftjoystick.value}\n" +
-                           $"left twist val - {leftjoystick.TwistValue}\n" +
-                           $"Velocity - {rb.velocity.magnitude}";
-    }
+    //void Update()
+    //{
+    //    displayText.text = $"right Joystick val - {rightjoystick.value}\n" +
+    //                       $"right twist val - {rightjoystick.TwistValue}\n" +
+    //                       $"left Joystick val - {leftjoystick.value}\n" +
+    //                       $"left twist val - {leftjoystick.TwistValue}\n" +
+    //                       $"Velocity - {rb.velocity.magnitude}";
+    //}
 }
