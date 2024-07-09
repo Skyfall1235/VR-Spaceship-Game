@@ -75,8 +75,8 @@ public static class ExtensionMethods
     /// <returns>The absolute value of the combined x and y components of the vector.</returns>
     public static float AbsOfVector2AsFloat(this Vector2 vector)
     {
-        float combinedVector = vector.x + vector.y;
-        return Mathf.Abs(combinedVector);
+        float combinedVector = Mathf.Abs(vector.x) + Mathf.Abs(vector.y);
+        return combinedVector;
     }
 
     /// <summary>
@@ -86,8 +86,8 @@ public static class ExtensionMethods
     /// <returns>The absolute value of the combined x, y, and z components of the vector.</returns>
     public static float AbsOfVector3AsFloat(this Vector3 vector)
     {
-        float combinedVector = vector.x + vector.y + vector.z;
-        return Mathf.Abs(combinedVector);
+        float combinedVector = Mathf.Abs(vector.x) + Mathf.Abs(vector.y) + Mathf.Abs(vector.z);
+        return combinedVector;
     }
 
     #endregion
