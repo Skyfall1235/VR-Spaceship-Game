@@ -12,7 +12,6 @@ public class TestingGun : PooledWeapon
 
     public override void OnFire()
     {
-        Projectile projectile = m_primaryProjectilePool.Get().GetComponent<Projectile>();
-        projectile.Fire(m_instantiationPoint.transform.position, m_instantiationPoint.transform.rotation);
+        base.OnFire();
     }
 }

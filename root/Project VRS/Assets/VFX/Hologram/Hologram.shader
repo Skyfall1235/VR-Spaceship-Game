@@ -1,4 +1,4 @@
-Shader "Unlit/Hologram"
+Shader "Custom/Hologram"
 {
     Properties
     {
@@ -29,14 +29,18 @@ Shader "Unlit/Hologram"
     }
     SubShader
     {
-        Tags { "Queue" = "Transparent" "RenderType"="Transparent" }
+        Tags {
+                "Queue" = "Transparent"
+                "RenderType" = "Transparent"
+                "RenderPipeline" = "UniversalRenderPipeline"
+             }
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
         LOD 100
 
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             // make fog work
@@ -57,12 +61,6 @@ Shader "Unlit/Hologram"
                 float4 vertex : SV_POSITION;
                 float3 viewPos : TEXCOORD1;
             };
-
-            float ParsePeriod(float incomingPeriod)
-            {
-                static const float PI = 3.14159265f;
-                return incomingPeriod * 2 * PI;
-            }
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
@@ -116,12 +114,12 @@ Shader "Unlit/Hologram"
                 float2 lineScrolledUVs = i.viewPos.xy + float2(0, _Time.y * _LineScrollSpeed);
                 //Apply line alpha
                 const float white = 1;
-                col.a *= lerp(tex2D(_LinesAlpha, lineScrolledUVs), white, 1 - _LineApplicationAmount);
+                col.a *= lerp(tex2D(_LinesAlpha, lineScrolledUVs.xy), white, 1 - _LineApplicationAmount);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

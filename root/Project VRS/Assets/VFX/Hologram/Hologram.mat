@@ -124,15 +124,15 @@ Material:
     - _GlitchDistance: 1
     - _GlitchEndDistance: 0.86
     - _GlitchFrequency: 2.52
-    - _GlitchOffset: 0.52
+    - _GlitchOffset: 0.27
     - _GlitchPeriod: 1
     - _GlitchScrollSpeed: 2.04
     - _GlitchStartDistance: 0.53
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LineApplicationAmount: 0.606
-    - _LineScrollSpeed: 0.88
+    - _LineApplicationAmount: 0.906
+    - _LineScrollSpeed: 0.68
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

@@ -40,7 +40,7 @@ public class SO_WeaponData : ScriptableObject
     /// The data for any projectile fired
     /// </summary>
     [SerializeField][HideInInspector] SO_ProjectileData m_projectileData;
-    public SO_ProjectileData ProjectileData {  get { return m_projectileData; }}
+    public SO_ProjectileData WeaponProjectileData {  get { return m_projectileData; }}
 
     /// <summary>
     /// Particle system assciated with this turret.

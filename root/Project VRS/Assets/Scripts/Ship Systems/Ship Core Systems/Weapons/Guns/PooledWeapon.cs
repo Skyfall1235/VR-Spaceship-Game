@@ -1,79 +1,70 @@
 using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using System;
 
 public abstract class PooledWeapon : BC_Weapon
 {
-    [SerializeField]
-    protected ObjectPool<GameObject> m_primaryProjectilePool;
-    public ObjectPool<GameObject> PrimaryProjectilePool
-    {
-        get { return m_primaryProjectilePool; }
-    }
-
-    protected ObjectPool<GameObject> m_secondaryProjectilePool;
-    public ObjectPool<GameObject> SecondaryProjectilePool
-    {
-        get
-        {
-            return m_secondaryProjectilePool;
-        }
-    }
-
-    public override void OnFire()
-    {
-        m_primaryProjectilePool.Get();
-    }
-
+    [field:SerializeField]public List<ObjectPool<GameObject>> projectilePools { get; private set; } = new List<ObjectPool<GameObject>>();
     protected override void Awake()
     {
         base.Awake();
-        m_primaryProjectilePool = new ObjectPool<GameObject>(OnCreatePrimaryPooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
-        if(m_weaponData.UseProjectile && m_weaponData.ProjectileData.SpawnSubProjectiles)
+        for(uint i = 0; i <= WeaponData.WeaponProjectileData.CalculateDepth(); i++)
         {
-            m_secondaryProjectilePool = new ObjectPool<GameObject>(OnCreateSecondaryPooledObject, OnPulledFromPool, OnReturnedToPool, DestroyPooledObject);
+            GameObject prefabToInstantiate = WeaponData.WeaponProjectileData.GetDataAtDepth(i).Prefab;
+            ObjectPool<GameObject> pool = null;
+            pool = new ObjectPool<GameObject>
+                (
+                    () => OnCreate(prefabToInstantiate, pool),
+                    OnPulledFromPool,
+                    OnReturnedToPool,
+                    DestroyPooledObject
+                );
+       
+            projectilePools.Add
+            (
+                pool
+            );
+        }
+        Debug.Log(projectilePools.Count);
+    }
+    public override void OnFire()
+    {
+        const int firstProjectileIndex = 0;
+        for (uint i = 0; i < m_weaponData.WeaponProjectileData.RootProjectileData.ProjectileCount; i++)
+        {
+            GameObject firedProjectile = projectilePools[firstProjectileIndex].Get();
+            if (firedProjectile.HasComponent<Projectile>())
+            {
+                firedProjectile.GetComponent<Projectile>().Fire
+                (
+                    m_instantiationPoint.transform.position,
+                    m_instantiationPoint.transform.rotation,
+                    m_weaponData.WeaponProjectileData.RootProjectileData,
+                    firstProjectileIndex
+                );
+            }
         }
     }
-
-    /// <summary>
-    /// Instantiates a new bullet object from the WeaponData.PrefabBullet prefab.
-    /// </summary>
-    /// <returns>
-    /// The newly instantiated GameObject representing the bullet.
-    /// </returns>
-    protected GameObject OnCreatePrimaryPooledObject()
+    
+    protected GameObject OnCreate(GameObject prefabToInstantiate, ObjectPool<GameObject> pool = null)
     {
-        return Instantiate(WeaponData.ProjectileData.ProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
+        GameObject newProjectile = Instantiate(prefabToInstantiate);
+        if(pool != null && newProjectile.HasComponent<Projectile>())
+        {
+            newProjectile.GetComponent<Projectile>().poolToReturnTo = pool;
+        }
+        return newProjectile;
     }
-
-    /// <summary>
-    /// Instantiates a new bullet object from the WeaponData.SubPrefabBullet prefab.
-    /// </summary>
-    /// <returns>
-    /// The newly instantiated GameObject representing the bullet.
-    /// </returns>
-    protected GameObject OnCreateSecondaryPooledObject()
-    {
-        return Instantiate(WeaponData.ProjectileData.SubProjectilePrefab, m_instantiationPoint.transform.position, gameObject.transform.rotation);
-    }
-    /// <summary>
-    /// Called when a GameObject is pulled from the object pool.
-    /// This method activates the object and sets up its projectile script if it has one.
-    /// </summary>
-    /// <param name="objectPulled">
-    /// The GameObject that was pulled from the object pool.
-    /// </param>
     protected void OnPulledFromPool(GameObject objectPulled)
     {
         objectPulled.SetActive(true);
-        if(objectPulled.HasComponent<Projectile>())
+        if(objectPulled.HasComponent<Projectile>()) 
         {
-            Projectile projectileComponent = objectPulled.GetComponent<Projectile>();
-            projectileComponent.SetProjectileData(m_weaponData.ProjectileData);
-            projectileComponent.SetFiringWeapon(this);
+            objectPulled.GetComponent<Projectile>().SetFiringWeapon(this);
         }
     }
-
     /// <summary>
     /// Called when a GameObject is returned to the object pool.
     /// This method deactivates the object.

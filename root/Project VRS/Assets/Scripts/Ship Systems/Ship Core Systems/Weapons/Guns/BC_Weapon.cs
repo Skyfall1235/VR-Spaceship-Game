@@ -190,7 +190,7 @@ public abstract class BC_Weapon : MonoBehaviour
     /// <param name="newFiringState">The new firing state (true for firing, false for not firing).</param>
     public void UpdateFiringState(bool newFiringState)
     {
-        if(CurrentWeaponState != WeaponState.Reloading)
+        if(CurrentWeaponState != WeaponState.Reloading && m_FireType != null)
         {
             m_FireType.UpdateFiringState(newFiringState);
         }
