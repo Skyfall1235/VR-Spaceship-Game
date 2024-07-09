@@ -20,7 +20,7 @@ public class ShipMovementController : IM_ShipMovementController
         //get the current inputs
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         OnUpdateInputs.Invoke(currentInput);
-        float secondaryJoystickYVal = currentInput.ThrustValue;
+        float secondaryJoystickYVal = currentInput.SecondaryFlightStick.y;
 
         SaveNewLinearMotionVector(secondaryJoystickYVal);
         //unlike the rest of the methods, brakes can be applied even if you are using thrust.
@@ -41,7 +41,7 @@ public class ShipMovementController : IM_ShipMovementController
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         OnUpdateInputs.Invoke(currentInput);
         //save new strafe takes the raw yaw value and maps it, then saves it
-        SaveNewStrafeVector(currentInput.yawValue);
+        SaveNewStrafeVector(currentInput.SecondaryYawValue);
     }
 
     //THIS IS TEMP
@@ -72,6 +72,7 @@ public class ShipMovementController : IM_ShipMovementController
     }
 
     #endregion
+
     //DEBUG ONLY, WILL NEED TO BE REMOVED IN BUILDS
     public void SetYawSpeed(float value)
     {

@@ -216,7 +216,7 @@ public class InteractorToInputExposer : MonoBehaviour
     /// <typeparam name="T">The type of the value to retrieve. Must be a struct.</typeparam>
     /// <param name="actionProperty">The InputActionProperty object containing the value.</param>
     /// <returns>The value of type T retrieved from the InputActionProperty.</returns>
-    private T RetrieveValueFromAction<T>(InputActionProperty actionProperty) where T : struct
+    static public T RetrieveValueFromAction<T>(InputActionProperty actionProperty) where T : struct
     {
         // retrive the value from the action map
         T actionValue = actionProperty.action.ReadValue<T>();
@@ -229,7 +229,7 @@ public class InteractorToInputExposer : MonoBehaviour
     /// </summary>
     /// <param name="interactor">is the interactor that is currently registered</param>
     /// <returns>the Game object currently interacting with the associated Interactable</returns>
-    static private GameObject RetrieveGameObjectFromInteractor(IXRInteractor interactor)
+    static public GameObject RetrieveGameObjectFromInteractor(IXRInteractor interactor)
     {
         GameObject interactorGO = interactor.transform.gameObject;
         return interactorGO;

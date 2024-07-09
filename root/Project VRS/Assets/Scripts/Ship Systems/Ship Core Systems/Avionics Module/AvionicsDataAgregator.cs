@@ -39,8 +39,8 @@ public partial class AvionicsModule
 
     void ParseInput(ShipJoystickInput input)
     {
-        Throttle = input.ThrustValue;
-        yawInput = input.yawValue;
+        //Throttle = input.ThrustValue;
+        //yawInput = input.yawValue;
         RollInput = input.PrimaryFlightStick.x;
         pitchInput = input.PrimaryFlightStick.y;
         BreakingForce = input.BreakValue;
