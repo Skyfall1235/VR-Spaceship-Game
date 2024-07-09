@@ -8963,6 +8963,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1654923503}
     m_Modifications:
+    - target: {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4228377820268643759, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_Name
       value: newJoystickDesign
@@ -9007,7 +9015,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4108785132778785529, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+    - {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -9955,8 +9965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: {fileID: 2487326323696819322}
-  rightjoystick: {fileID: 4231576645753286736}
-  leftjoystick: {fileID: 5860102061197251100}
+  rightjoystick: {fileID: 0}
+  leftjoystick: {fileID: 0}
   rb: {fileID: 8762077600585629709}
 --- !u!1001 &5119693222105587332
 PrefabInstance:
@@ -10062,8 +10072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b10d22ac9f5c418bc14fb77dfb49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_primaryShipJoystick: {fileID: 4231576645753286736}
-  m_secondaryShipJoystick: {fileID: 5860102061197251100}
+  m_primaryShipJoystick: {fileID: 0}
+  m_secondaryShipJoystick: {fileID: 0}
   m_primaryJoystickInteractor: {fileID: 0}
   m_secondaryJoystickInteractor: {fileID: 0}
   useKeyboardControls: 0
