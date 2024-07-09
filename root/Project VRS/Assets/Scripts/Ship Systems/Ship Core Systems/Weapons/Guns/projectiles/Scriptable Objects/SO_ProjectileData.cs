@@ -7,50 +7,11 @@ using UnityEngine;
 [System.Serializable]
 public class SO_ProjectileData : ScriptableObject, ISerializationCallbackReceiver
 {
-    [System.Serializable]
-    public class ProjectileData
-    {
+    
 
-        [SerializeField] float m_speed = 0;
-        public float Speed { get { return m_speed; } }
-
-        [SerializeField] uint m_damage  = 0;
-        public uint Damage {  get { return m_damage; } }
-
-        [SerializeField] uint m_armorPenetration = 0;
-        public uint ArmorPenetration { get {  return m_armorPenetration; } }
-
-        [SerializeField] float m_lifetime = 0;
-        public float Lifetime { get { return m_lifetime; } }
-
-        [SerializeField] uint m_projectileCount = 1; 
-        public uint ProjectileCount{ get { return m_projectileCount; }}
-
-        [SerializeField] Vector2 m_spread = new Vector2(0,0);
-        public Vector2 Spread { get { return m_spread; } }
-
-        [SerializeField] GameObject m_prefab = null;
-        public GameObject Prefab { get { return m_prefab; } }
-
-        [SerializeField][HideInInspector] bool m_spawnSubProjectiles = false;
-        public bool SpawnSubProjectiles { get { return m_spawnSubProjectiles; } }
-
-        [SerializeField][HideInInspector] float m_subProjectileSpawnTime = 0;
-        public float? SubProjectileSpawnTime
-        {
-            get 
-            {
-                if (m_spawnSubProjectiles)
-                {
-                    return m_subProjectileSpawnTime;
-                }
-                return null;
-            }
-        }
-
-        [HideInInspector][SerializeReference] ProjectileData m_subProjectileData = null;
-        public ProjectileData SubProjectileData { get {  return m_subProjectileData; } internal set { m_subProjectileData = value; } }
-    }
+   [HideInInspector][SerializeReference] ProjectileData m_subProjectileData = null;
+   public ProjectileData SubProjectileData { get {  return m_subProjectileData; } internal set { m_subProjectileData = value; } }
+    
 
     ProjectileData m_rootProjectileData = new ProjectileData();
     public ProjectileData RootProjectileData { get {  return m_rootProjectileData; } }
@@ -169,7 +130,7 @@ public class SO_ProjectileRecursiveEditor : Editor
                 {
                     m_projectileDataStructure.arraySize = arrayCount + 1;
                 }
-                m_projectileDataStructure.GetArrayElementAtIndex(arrayPosition + 1).managedReferenceValue = new SO_ProjectileData.ProjectileData();
+                m_projectileDataStructure.GetArrayElementAtIndex(arrayPosition + 1).managedReferenceValue = new ProjectileData();
             }
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.Space(20f * (arrayPosition + 1), false);
@@ -201,7 +162,7 @@ public class SO_ProjectileRecursiveEditor : Editor
             for (int i = 0; i < currentArraySize;  ++i)
             {
                 SerializedProperty currentProjectileDataToSerialize = m_projectileDataStructure.GetArrayElementAtIndex(i);
-                if(currentProjectileDataToSerialize.managedReferenceValue as SO_ProjectileData.ProjectileData != null)
+                if(currentProjectileDataToSerialize.managedReferenceValue as ProjectileData != null)
                 {
                     ShowFieldsForData(currentProjectileDataToSerialize, i, m_projectileDataStructure.arraySize);
                 }
