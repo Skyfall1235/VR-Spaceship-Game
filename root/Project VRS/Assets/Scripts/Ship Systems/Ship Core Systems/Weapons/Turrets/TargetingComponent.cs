@@ -83,7 +83,7 @@ public class TargetingComponent : MonoBehaviour
         }
 
         //Start job if there are no obstructions
-        StartCoroutine(ComputeTargetLead(m_projectileInstantiationPoint.transform.position, m_currentTargetData, m_weaponData.UseProjectile? m_weaponData.ProjectileData.ProjectileSpeed : Mathf.Infinity));
+        StartCoroutine(ComputeTargetLead(m_projectileInstantiationPoint.transform.position, m_currentTargetData, m_weaponData.UseProjectile? m_weaponData.WeaponProjectileData.RootProjectileData.Speed : Mathf.Infinity));
     }
 
     private void OnDestroy()

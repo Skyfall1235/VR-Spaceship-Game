@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AutoCannonWeaponData
   m_EditorClassIdentifier: 
   m_useProjectile: 1
-  m_projectileData: {fileID: 11400000, guid: 7a3e5f75e3ede89479a57b7265cb9f03, type: 2}
+  m_projectileData: {fileID: 11400000, guid: 7a3e814e6ffd0a247b24e5788044b609, type: 2}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 3
   m_weaponFireAudioClip: []

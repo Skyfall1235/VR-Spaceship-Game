@@ -164,7 +164,7 @@ public class WeaponManagerModule : BC_CoreModule
         }
     }
 
-    void RotateSelectedWeaponBackward()
+    public void RotateSelectedWeaponBackward()
     {
         if (m_selectedWeapon != null)
         {
