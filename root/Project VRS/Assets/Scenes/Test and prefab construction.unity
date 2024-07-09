@@ -2876,9 +2876,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd96f7a9f9cad843a7a1b4c2624d66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 10
-  OldRTM: {x: 0, y: 0, z: 0}
 --- !u!1 &517047269
 GameObject:
   m_ObjectHideFlags: 0
@@ -7124,17 +7121,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6837784257581428431, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
   m_PrefabInstance: {fileID: 1570399021721298552}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1693136898 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4108785132778785529, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
-  m_PrefabInstance: {fileID: 1570399021721298552}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325b63cf758d6df4e84abe38e5697871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1694997420
 GameObject:
   m_ObjectHideFlags: 0
@@ -9822,9 +9808,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2044773220}
+    - target: {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3116162131023667350, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -9873,6 +9867,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: newJoystickDesign
       objectReference: {fileID: 0}
+    - target: {fileID: 4228377820268643759, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.401
@@ -9887,19 +9885,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7722082
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6353696
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9907,13 +9905,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -78.895
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5560792726653495870, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7575334030893403797, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_logger
+      value: 
+      objectReference: {fileID: 11400000, guid: eed22bf2e31e57b479b1d13377fcbcfc, type: 2}
+    - target: {fileID: 7575334030893403797, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
+      propertyPath: m_AllowGazeInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4108785132778785529, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6837784257581428431, guid: ae2d61528bb9bc446b1570315af7f204, type: 3}
@@ -10270,14 +10277,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6620624972921252573}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.3831465, w: 0.92368764}
   m_LocalPosition: {x: 0.27299997, y: 0.92999995, z: -0.288}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8808225624174191837}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45.057}
 --- !u!1001 &3479103926100725722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10955,8 +10962,6 @@ GameObject:
   - component: {fileID: 3738718573617128297}
   - component: {fileID: 6506751977233159717}
   - component: {fileID: 8942713639873094039}
-  - component: {fileID: 8942713639873094040}
-  - component: {fileID: 5364293614002065380}
   m_Layer: 0
   m_Name: Joystick
   m_TagString: Untagged
@@ -11056,206 +11061,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5364293614002065380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5098649505430183297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 1
-  m_DistanceCalculationMode: 1
-  m_SelectMode: 0
-  m_FocusMode: 1
-  m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
-  m_OverrideGazeTimeToSelect: 0
-  m_GazeTimeToSelect: 0.5
-  m_OverrideTimeToAutoDeselectGaze: 0
-  m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
-  m_FirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8942713639873094040}
-        m_TargetAssemblyTypeName: testJoystick, vrs.ShipSystems.Input
-        m_MethodName: SetHand
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2044773220}
-        m_TargetAssemblyTypeName: PlayerShipInputHandler, vrs.ShipSystems.Movement
-        m_MethodName: RegisterInteractorController
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8942713639873094040}
-        m_TargetAssemblyTypeName: testJoystick, vrs.ShipSystems.Input
-        m_MethodName: RemoveHand
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2044773220}
-        m_TargetAssemblyTypeName: PlayerShipInputHandler, vrs.ShipSystems.Movement
-        m_MethodName: UnregisterInteractorController
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_FirstFocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastFocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Activated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Deactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_StartingInteractionStrengthFilters: []
-  m_OnFirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectCanceled:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_AttachTransform: {fileID: 0}
-  m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 1
-  m_MatchAttachPosition: 0
-  m_MatchAttachRotation: 0
-  m_SnapToColliderVolume: 1
-  m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
-  m_VelocityDamping: 1
-  m_VelocityScale: 1
-  m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
-  m_TrackPosition: 0
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 8
-  m_TightenPosition: 0.1
-  m_TrackRotation: 0
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 8
-  m_TightenRotation: 0.1
-  m_TrackScale: 0
-  m_SmoothScale: 0
-  m_SmoothScaleAmount: 8
-  m_TightenScale: 0.1
-  m_ThrowOnDetach: 0
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
-  m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers: []
-  m_AddDefaultGrabTransformers: 1
 --- !u!114 &5652076144704250637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11594,13 +11399,121 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3198963013991007564}
+  - component: {fileID: 6620624972921252574}
   m_Layer: 0
   m_Name: New Joystick Local Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!114 &6620624972921252574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620624972921252573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e2af9162c8efaa45be3f35f11ef73b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_hand: {fileID: 0}
+  m_handle: {fileID: 4587946332088156605}
+  m_maxJoystickAngle: 45
+  m_maxYawAngle: 30
+  m_returnDuration: 0.25
 --- !u!54 &6626255935261043451
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11918,7 +11831,7 @@ PrefabInstance:
     - target: {fileID: 9066461916220883810, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_primaryShipJoystick
       value: 
-      objectReference: {fileID: 1693136898}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -12267,23 +12180,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8942713639873094040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5098649505430183297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e2af9162c8efaa45be3f35f11ef73b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_hand: {fileID: 0}
-  m_parent: {fileID: 8808225624174191837}
-  m_maxJoystickAngle: 45
-  m_maxYawAngle: 30
-  m_returnDuration: 0.25
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -5,22 +5,30 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class NewXRJoystick : XRBaseInteractable
 {
-    [Header("Joystick Data")]
     // Assign the m_hand when it grabs/interacts with this joystick, and unassign on release.
     private Transform m_hand;
-    public Transform m_handle;
-    public JoystickOrdinal Ordinal;
-    [SerializeField] float m_maxJoystickAngle = 45f;
-    [SerializeField] float m_maxYawAngle = 30f;  // Maximum yaw twist angle in degrees
-    [SerializeField] float m_returnDuration = 0.25f;  // Duration for the joystick to return to the initial rotation
+    [Header("Joystick Data")]
+    [SerializeField] private Transform m_handle;
+    [SerializeField] private JoystickOrdinal m_ordinal; //allows specification of a left or right handed joystick, or center dpeending on needed usage
+    [SerializeField] private JoystickResetType m_resetType; //the type of resetting rotations permitted for the joystick
+    public JoystickOrdinal Ordinal => m_ordinal;
+
+    [Header("Joystick Values")]
     [SerializeField] private Vector2 m_joystickValue;  // Backing field for the read-only property
     [SerializeField] private float m_joystickTwistValue;  // Backing field for the read-only property
 
+    [Header("Joystick Movement Control")]
+    [SerializeField] private float m_maxJoystickAngle = 45f;
+    [SerializeField] private float m_maxYawAngle = 30f;  // Maximum yaw twist angle in degrees
+    [SerializeField] private float m_returnDuration = 0.25f;  // Duration for the joystick to return to the initial rotation
+    
+
     //FEATURES TO BE ADDED IN
-    [SerializeField] private bool m_resetXOnRelease = true;
-    [SerializeField] private bool m_resetYOnRelease = true;
-    [SerializeField] private float m_deadZoneAngle;
-    [SerializeField] CustomLogger logger;
+    [Header("Deadzone Data")]
+    [Range(0f, 0.9f)]
+    [SerializeField] private float m_deadZoneJoystickValue;
+    [SerializeField] private float m_deadZoneYawAngle;
+    [SerializeField] private CustomLogger m_logger;
 
     #region publics
 
@@ -38,7 +46,7 @@ public class NewXRJoystick : XRBaseInteractable
     private Quaternion m_initialRotation;
     private Quaternion m_initialHandRotation;
 
-    const float k_MaxDeadZonePercent = 0.9f;
+    const float MaxDeadZonePercent = 0.9f;
 
     #endregion
 
@@ -101,10 +109,10 @@ public class NewXRJoystick : XRBaseInteractable
         }
         else
         {
-            // Reset the initial m_hand rotation
+            // Reset the initial hand rotation
             m_initialHandRotation = Quaternion.identity;
 
-            // Start the timer if the m_hand is not found
+            // Start the timer if the hand is not found
             if (!m_isReturning)
             {
                 m_isReturning = true;
@@ -112,17 +120,63 @@ public class NewXRJoystick : XRBaseInteractable
             }
 
             // Update the timer and calculate the interpolation factor
-            m_returnTimer += Time.deltaTime;
+            //dont bother keeping track of time past 5 seconds
+            if(m_returnTimer < 5f)
+            {
+                m_returnTimer += Time.deltaTime;
+            }
             float t = Mathf.Clamp01(m_returnTimer / m_returnDuration);
-            m_handle.localRotation = Quaternion.Slerp(transform.localRotation, m_initialRotation, t);
+
+            // Slerp the rotation back to the initial rotation
+            Quaternion slerpedRotation = Quaternion.Slerp(m_handle.localRotation, m_initialRotation, t);
+
+            // Extract the X component from the current rotation
+            float currentX = m_handle.localRotation.eulerAngles.x;
+
+            // Extract the Z component from the current rotation
+            float currentZ = m_handle.localRotation.eulerAngles.z;
+
+            //based on the joystick reset type, we can selectively set the slerp rotations to be normal rotation or to keep its current orientation.
+            //this sets the angles to the SLERPED angles, overwriting the set angles.
+            switch (m_resetType)
+            {
+                case JoystickResetType.None:
+                    currentX = slerpedRotation.eulerAngles.x;
+                    currentZ = slerpedRotation.eulerAngles.z;
+                    break;
+                case JoystickResetType.X:
+                    currentX = slerpedRotation.eulerAngles.x; //overwrite only the X value to be the slerped angle
+
+                    break;
+                case JoystickResetType.Y:
+                    currentZ = slerpedRotation.eulerAngles.z; //overwrite only the y value to be the slerped angle
+                    break;
+                case JoystickResetType.XY:
+                    //none, because we want the angles to stay where they are
+                    break;
+            }          
+
+            // Combine the slerped X and Y with the preserved Z component
+            Quaternion combinedRotation = Quaternion.Euler(currentX, slerpedRotation.eulerAngles.y, currentZ);
+
+            //set the nadle to be the rotation required
+            m_handle.transform.localRotation = combinedRotation;
         }
 
-        // Update the rotational vector
-        m_joystickValue = GetJoyStickVector();
-        // Update the twistFloat
-        m_joystickTwistValue = GetYawTwistFloat();
+        //get the values from the joystick
+        Vector2 joystickVector = GetJoyStickVector();
+        float joystickTwist = GetYawTwistFloat();
 
-        //print(GetJoyStickVector() + " : " + GetYawTwistFloat());
+        //set deadzone by allowing the value to be updated if its value would exceed the deadzone threshhold
+        m_joystickTwistValue = joystickTwist > m_deadZoneYawAngle ? joystickTwist : 0.0f;
+        m_joystickValue = joystickVector.AbsOfVector2AsFloat() > (m_deadZoneJoystickValue * 2) ? joystickVector : Vector2.zero;
+        SetValues();
+
+    //DEPRICATED
+        //// Update the rotational vector
+        //m_joystickValue = GetJoyStickVector();
+        //// Update the twistFloat
+        //m_joystickTwistValue = GetYawTwistFloat();
     }
 
     #endregion
@@ -146,10 +200,13 @@ public class NewXRJoystick : XRBaseInteractable
     public void SetHand(SelectEnterEventArgs args)
     {
         m_hand = args.interactorObject.transform;
+        Debug.Log("hand set");
     }
+
     public void RemoveHand(SelectExitEventArgs args)
     {
         m_hand = null;
+        Debug.Log("hand removed");
     }
 
     #endregion
@@ -186,18 +243,6 @@ public class NewXRJoystick : XRBaseInteractable
         return Quaternion.Euler(0, clampedYaw, 0);
     }
 
-
-    private float GetYawTwistFloat()
-    {
-        // Calculate the current yaw angle relative to the initial rotation in local space
-        float currentYaw = Mathf.DeltaAngle(m_initialRotation.eulerAngles.y, transform.localRotation.eulerAngles.y);
-
-        // Normalize the yaw twist value to be between -1 and 1
-        float normalizedYawTwist = Mathf.Clamp(currentYaw / m_maxYawAngle, -1f, 1f);
-
-        return normalizedYawTwist;
-    }
-
     private Quaternion GetTargetRotation()
     {
         // Calculate the direction to m_hand in local space
@@ -220,6 +265,17 @@ public class NewXRJoystick : XRBaseInteractable
         return targetRotation;
     }
 
+    private float GetYawTwistFloat()
+    {
+        // Calculate the current yaw angle relative to the initial rotation in local space
+        float currentYaw = Mathf.DeltaAngle(m_initialRotation.eulerAngles.y, transform.localRotation.eulerAngles.y);
+
+        // Normalize the yaw twist value to be between -1 and 1
+        float normalizedYawTwist = Mathf.Clamp(currentYaw / m_maxYawAngle, -1f, 1f);
+
+        return normalizedYawTwist;
+    }
+
     private Vector2 GetJoyStickVector()
     {
         // Calculate the current rotation relative to the initial rotation
@@ -235,50 +291,59 @@ public class NewXRJoystick : XRBaseInteractable
         return rotationalVector.normalized * Mathf.Clamp01(Quaternion.Angle(m_initialRotation, m_handle.localRotation) / m_maxJoystickAngle);
     }
 
+    private void SlerpTransform(float t, Vector3 LockoutDirection)
+    {
+        // Extract the Z component from the current rotation
+        float currentZ = transform.localRotation.eulerAngles.z;
+
+        // Slerp the rotation back to the initial rotation
+        Quaternion slerpedRotation = Quaternion.Slerp(transform.localRotation, m_initialRotation, t);
+
+        // Combine the slerped X and Y with the preserved Z component
+        Quaternion combinedRotation = Quaternion.Euler(slerpedRotation.eulerAngles.x, slerpedRotation.eulerAngles.y, currentZ);
+
+        transform.localRotation = combinedRotation;
+    }
+
     #endregion
 
     void OnDrawGizmosSelected()
     {
         //get the base of the line
-        var angleStartPoint = transform.position;
+        Vector3 angleStartPoint = transform.position;
 
         //save our known angle length
-        const float k_AngleLength = 0.25f;
-
-        //Null check before proceeding
-        if (m_handle != null)
-        {
-            angleStartPoint = m_handle.position;
-        }
+        const float AngleLength = 0.25f;
 
         //green is the outer bounds of the joystick
         Gizmos.color = Color.green;
         DrawLines(new Vector3(m_maxJoystickAngle, 0.0f, 0.0f));
-
-        //red is the deadzone angle, where inputs arent updated
-        if (m_deadZoneAngle > 0.0f)
-        {
-            Gizmos.color = Color.red;
-            DrawLines(new Vector3(m_deadZoneAngle, 0.0f, 0.0f));
-        }
-
-        //green is the outer bounds of the joystick
-        Gizmos.color = Color.green;
         DrawLines(new Vector3(0.0f, 0.0f, m_maxJoystickAngle));
 
+
         //red is the deadzone angle, where inputs arent updated
-        if (m_deadZoneAngle > 0.0f)
+        if (m_deadZoneJoystickValue > 0.0f)
         {
+            //NOT FINISHED
             Gizmos.color = Color.red;
-            DrawLines(new Vector3(0.0f, 0.0f, m_deadZoneAngle));
+            //DrawLines(new Vector3(0.0f, 0.0f, m_deadZoneJoystickValue));
+            //DrawLines(new Vector3(m_deadZoneJoystickValue, 0.0f, 0.0f));
+        }
+        if(m_deadZoneYawAngle > 0.0f)
+        {
+            Gizmos.color = Color.magenta;
+            Vector3 axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(new Vector3(0f, m_deadZoneYawAngle, 0f)) * Vector3.forward) * AngleLength;
+            Vector3 axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(new Vector3(0f, -m_deadZoneYawAngle, 0f)) * Vector3.forward) * AngleLength;
+            Gizmos.DrawLine(angleStartPoint, axisPoint1);
+            Gizmos.DrawLine(angleStartPoint, axisPoint2);
         }
 
         //method in method as a throwaway for complex logic that doesnt belong out of callback
         void DrawLines(Vector3 unit)
         {
             //create the axis points
-            var axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(unit) * Vector3.up) * k_AngleLength;
-            var axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-unit) * Vector3.up) * k_AngleLength;
+            Vector3 axisPoint1 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(unit) * Vector3.up) * AngleLength;
+            Vector3 axisPoint2 = angleStartPoint + transform.TransformDirection(Quaternion.Euler(-unit) * Vector3.up) * AngleLength;
             //draw the lines with whatever color the gizmo is currently
             Gizmos.DrawLine(angleStartPoint, axisPoint1);
             Gizmos.DrawLine(angleStartPoint, axisPoint2);
@@ -287,15 +352,52 @@ public class NewXRJoystick : XRBaseInteractable
 
     void OnValidate()
     {
-        m_deadZoneAngle = Mathf.Min(m_deadZoneAngle, m_maxJoystickAngle * k_MaxDeadZonePercent);
+        m_deadZoneJoystickValue = Mathf.Min(m_deadZoneJoystickValue, m_maxJoystickAngle * MaxDeadZonePercent);
+        m_deadZoneYawAngle = Mathf.Min(m_maxYawAngle, m_maxYawAngle * MaxDeadZonePercent);
     }
 
     /// <summary>
-    /// This is used to tell the ship controller what type of joystick this is
+    /// Represents the Joystick in relation to operation selection
     /// </summary>
+    [Serializable]
     public enum JoystickOrdinal
     {
-        Primary, Secondary, tertiary
+        /// <summary>
+        /// The primary joystick.
+        /// </summary>
+        Primary,
+        /// <summary>
+        /// The secondary joystick.
+        /// </summary>
+        Secondary,
+        /// <summary>
+        /// The tertiary joystick (if applicable).
+        /// </summary>
+        Tertiary
+    }
+
+    /// <summary>
+    /// Defines the type of reset to be performed on a joystick axis.
+    /// </summary>
+    [Serializable]
+    private enum JoystickResetType
+    {
+        /// <summary>
+        /// No reset is performed.
+        /// </summary>
+        None,
+        /// <summary>
+        /// Resets the X axis only.
+        /// </summary>
+        X,
+        /// <summary>
+        /// Resets the Y axis only.
+        /// </summary>
+        Y,
+        /// <summary>
+        /// Resets both the X and Y axes.
+        /// </summary>
+        XY
     }
 
 }

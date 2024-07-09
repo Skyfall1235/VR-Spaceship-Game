@@ -11,6 +11,7 @@ public class ShapeSettings : ScriptableObject
     public class NoiseLayer
     {
         public bool enabled = true;
+        public bool UseFirstLayerAsMask;
         public NoiseSettings settings;
     }
 }
