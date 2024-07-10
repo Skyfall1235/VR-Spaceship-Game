@@ -12,11 +12,18 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected Rigidbody m_projectileRigidBody;
     public ObjectPool<GameObject> poolToReturnTo;
     protected TrailRenderer m_trailRender;
-    protected SO_ProjectileData.ProjectileData m_projectileData;
+    protected ProjectileData m_projectileData;
     private void Awake()
     {
         //setup trail renderer
         m_trailRender = GetComponent<TrailRenderer>();
+    }
+    private void FixedUpdate()
+    {
+        if(m_projectileRigidBody.velocity.magnitude > 0 && gameObject.activeSelf)
+        {
+            transform.rotation = Quaternion.LookRotation(m_projectileRigidBody.velocity);
+        }
     }
     protected virtual IEnumerator DestroyAfterTimeAsync()
     {
@@ -45,7 +52,7 @@ public class Projectile : MonoBehaviour
                 firedProjectile.GetComponent<Projectile>().Fire
                 (
                     transform.position,
-                    Quaternion.FromToRotation(Vector3.up, m_projectileRigidBody.velocity),
+                    Quaternion.FromToRotation(Vector3.up, transform.forward),
                     m_projectileData.SubProjectileData,
                     ProjectilePoolIndex + 1
                 );
@@ -62,7 +69,7 @@ public class Projectile : MonoBehaviour
     (
         Vector3 startingPosition,
         Quaternion startingRotation,
-        SO_ProjectileData.ProjectileData projectileData,
+        ProjectileData projectileData,
         int poolIndex
     )
     {
@@ -74,22 +81,14 @@ public class Projectile : MonoBehaviour
         //setup current index
         ProjectilePoolIndex = poolIndex;
 
-        Quaternion fireRotation = startingRotation;
-        fireRotation *= Quaternion.Euler(
-            new Vector3(
-                Random.Range(
-                    -m_projectileData.Spread.x,
-                    m_projectileData.Spread.x
-                ),
-                0,
-                Random.Range(
-                    -m_projectileData.Spread.y,
-                    m_projectileData.Spread.y
-                )
-            )
-        );
+        transform.rotation = startingRotation;
+        Vector3 currentUp = transform.up;
+        Vector3 currentRight = transform.right;
+        Quaternion fireRotation = transform.rotation;
+        fireRotation *= Quaternion.AngleAxis(Random.Range(-m_projectileData.Spread.y, m_projectileData.Spread.y), currentRight);
+        fireRotation *= Quaternion.AngleAxis(Random.Range(-m_projectileData.Spread.x, m_projectileData.Spread.x), currentUp);
         transform.rotation = fireRotation;
-        
+
         //clear visual effects and ADD FORCE BABYYYYYY
         m_trailRender.Clear();
         m_projectileRigidBody.AddForce(transform.up * m_projectileData.Speed, m_forceMode);

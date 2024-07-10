@@ -1,5 +1,4 @@
 using UnityEngine;
-
 [System.Serializable]
 public class ProjectileData
 {
@@ -10,11 +9,14 @@ public class ProjectileData
     [SerializeField] uint m_damage = 0;
     public uint Damage { get { return m_damage; } }
 
-    [SerializeField] public uint m_armorPenetration = 0;
+    [SerializeField] uint m_armorPenetration = 0;
     public uint ArmorPenetration { get { return m_armorPenetration; } }
 
     [SerializeField] float m_lifetime = 0;
     public float Lifetime { get { return m_lifetime; } }
+
+    [SerializeField] uint m_projectileCount = 1;
+    public uint ProjectileCount { get { return m_projectileCount; } }
 
     [SerializeField] Vector2 m_spread = new Vector2(0, 0);
     public Vector2 Spread { get { return m_spread; } }
@@ -24,19 +26,6 @@ public class ProjectileData
 
     [SerializeField][HideInInspector] bool m_spawnSubProjectiles = false;
     public bool SpawnSubProjectiles { get { return m_spawnSubProjectiles; } }
-
-    [SerializeField][HideInInspector] uint m_subProjectileCount = 0;
-    public uint? SubProjectileCount
-    {
-        get
-        {
-            if (m_spawnSubProjectiles)
-            {
-                return m_subProjectileCount;
-            }
-            return null;
-        }
-    }
 
     [SerializeField][HideInInspector] float m_subProjectileSpawnTime = 0;
     public float? SubProjectileSpawnTime
