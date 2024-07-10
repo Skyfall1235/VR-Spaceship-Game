@@ -76,8 +76,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     /// 
     public void RegisterInteractorController(SelectEnterEventArgs e)
     {
-        
-
+        SetOrRemoveValueProperties(e, true);
     }
 
     /// <summary>
@@ -85,37 +84,61 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     /// </summary>
     public void UnregisterInteractorController(SelectExitEventArgs e)
     {
-        //if (m_secondaryJoystickInteractor != null)
-        //{
-        //    m_secondaryJoystickInteractor = null;
-        //}
+        SetOrRemoveValueProperties(e, false);
     }
 
-    public void FigureThisOutLater(BaseInteractionEventArgs e, ref ValueProperties valueProperties, bool setProperties)
+    public void SetOrRemoveValueProperties(BaseInteractionEventArgs e, bool setProperties)
     {
         //this method is called when either joystick gets grabbed
         //Debug.Log(e.interactableObject.ToString());
         //depending on the ordinal, set the interactor as needed.
         NewXRJoystick grabbedJoystick = e.interactableObject.transform.GetComponent<NewXRJoystick>();
-
-        switch (grabbedJoystick.Ordinal)
+        //depending on where or not we are setting or removing the properties for the addtional input
+        switch(setProperties)
         {
-            case NewXRJoystick.JoystickOrdinal.Primary:
-                m_primaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
-                AdditionalInputForActionBasedController additionalInput = e.interactorObject.transform.GetComponent<AdditionalInputForActionBasedController>();
-                if (additionalInput != null)
+            //if we are setting the properties, we need to know waht joystick is being interacted with
+            case true:
+                switch (grabbedJoystick.Ordinal)
                 {
+                    case NewXRJoystick.JoystickOrdinal.Primary:
 
+                        //set the interactor so we can reference it
+                        m_primaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
+                        AdditionalInputForActionBasedController additionalInput = e.interactorObject.transform.GetComponent<AdditionalInputForActionBasedController>();
+
+                        //if the interactor has additional inputs, register them
+                        if (additionalInput != null)
+                        {
+                            m_primaryValueProperties.SetProperties(additionalInput, ref m_primaryValueProperties);
+                        }
+                        break;
+
+                    case NewXRJoystick.JoystickOrdinal.Secondary:
+
+                        //set the interactor so we can reference it
+                        m_secondaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
+                        AdditionalInputForActionBasedController additionalInputSecondary = e.interactorObject.transform.GetComponent<AdditionalInputForActionBasedController>();
+
+                        //if the interactor has additional inputs, register them
+                        if (additionalInputSecondary != null)
+                        {
+                            m_secondaryValueProperties.SetProperties(additionalInputSecondary, ref m_secondaryValueProperties);
+                        }
+                        break;
                 }
                 break;
-            case NewXRJoystick.JoystickOrdinal.Secondary:
-                m_secondaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
-                AdditionalInputForActionBasedController additionalInputSecondary = e.interactorObject.transform.GetComponent<AdditionalInputForActionBasedController>();
-                if (additionalInputSecondary != null)
+            //in the case of removal, just remove based on the joystick.
+            case false:
+                switch (grabbedJoystick.Ordinal)
                 {
-
+                    case NewXRJoystick.JoystickOrdinal.Primary:
+                        m_primaryValueProperties.RemoveProperties();
+                        break;
+                    case NewXRJoystick.JoystickOrdinal.Secondary:
+                        m_secondaryValueProperties.RemoveProperties();
+                        break;
                 }
-                break;
+            break;
         }
     }
 
