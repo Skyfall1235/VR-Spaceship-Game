@@ -6,11 +6,16 @@ using UnityEngine.Pool;
 [RequireComponent(typeof(TrailRenderer))]
 public class Projectile : MonoBehaviour
 {
+    /// <summary>
+    /// The weapon that fired a projectile
+    /// </summary>
     public PooledWeapon m_gunThatFiredProjectile;
+    /// <summary>
+    /// The index of the projectile pool to return to on the pooled weapon
+    /// </summary>
     public int ProjectilePoolIndex { get; private set; }
     [SerializeField] protected ForceMode m_forceMode = ForceMode.Impulse;
     [SerializeField] protected Rigidbody m_projectileRigidBody;
-    public ObjectPool<GameObject> poolToReturnTo;
     protected TrailRenderer m_trailRender;
     protected ProjectileData m_projectileData;
     private void Awake()
@@ -25,21 +30,28 @@ public class Projectile : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(m_projectileRigidBody.velocity);
         }
     }
+    /// <summary>
+    /// Destroys the projectile or returns it to its pool after a given time
+    /// </summary>
+    /// <returns>Nothing</returns>
     protected virtual IEnumerator DestroyAfterTimeAsync()
     {
         //wait
         yield return new WaitForSeconds(m_projectileData.Lifetime);
         //if the gun still exists, we can release the projectile
-        if(m_gunThatFiredProjectile != null && poolToReturnTo != null)
+        if(m_gunThatFiredProjectile != null && ProjectilePoolIndex < m_gunThatFiredProjectile.projectilePools.Count)
         {
-            poolToReturnTo.Release(gameObject);
+            m_gunThatFiredProjectile.projectilePools[ProjectilePoolIndex].Release(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
+    /// <summary>
+    /// Splits after a given period
+    /// </summary>
+    /// <returns>Nothing</returns>
     protected virtual IEnumerator SplitAfterTimeAsync()
     {
         yield return new WaitForSeconds((float)m_projectileData.SubProjectileSpawnTime);
@@ -61,10 +73,12 @@ public class Projectile : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets up the main projectile from the gun.
+    /// Initializes projectile variables, sets up vfx, and adds force to the projectile
     /// </summary>
-    /// <param name="startingPosition"> is the starting position for the projectile</param>
-    /// <param name="startingRotation"> is the starting rotation for the projectile</param>
+    /// <param name="startingPosition">The place for the projectile to be fired from</param>
+    /// <param name="startingRotation">The quaternion describing the rotation of the projectile</param>
+    /// <param name="projectileData">The data that the pprojectile should use for its attributes</param>
+    /// <param name="poolIndex">The pool index of the projectile</param>
     public virtual void Fire
     (
         Vector3 startingPosition,
