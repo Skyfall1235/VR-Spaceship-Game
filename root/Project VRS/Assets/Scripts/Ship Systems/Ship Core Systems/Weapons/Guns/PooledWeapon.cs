@@ -27,7 +27,7 @@ public abstract class PooledWeapon : BC_Weapon
                 pool
             );
         }
-        Debug.Log(projectilePools.Count);
+        //Debug.Log(projectilePools.Count);
     }
     public override void OnFire()
     {

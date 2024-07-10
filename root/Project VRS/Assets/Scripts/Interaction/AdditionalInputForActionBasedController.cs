@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class AdditionalInputForActionBasedController : ActionBasedController
 {
+
     /// <inheritdoc />
     protected override void OnEnable()
     {
