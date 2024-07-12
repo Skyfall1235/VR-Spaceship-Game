@@ -6,6 +6,9 @@ using System;
 
 public abstract class PooledWeapon : BC_Weapon
 {
+    /// <summary>
+    /// A list of pools that contain the projectiles for this weapon
+    /// </summary>
     [field:SerializeField]public List<ObjectPool<GameObject>> projectilePools { get; private set; } = new List<ObjectPool<GameObject>>();
     protected override void Awake()
     {
@@ -13,10 +16,10 @@ public abstract class PooledWeapon : BC_Weapon
         for(uint i = 0; i <= WeaponData.WeaponProjectileData.CalculateDepth(); i++)
         {
             GameObject prefabToInstantiate = WeaponData.WeaponProjectileData.GetDataAtDepth(i).Prefab;
-            ObjectPool<GameObject> pool = null;
+            ObjectPool<GameObject> pool;
             pool = new ObjectPool<GameObject>
                 (
-                    () => OnCreate(prefabToInstantiate, pool),
+                    () => OnCreate(prefabToInstantiate),
                     OnPulledFromPool,
                     OnReturnedToPool,
                     DestroyPooledObject
@@ -29,6 +32,9 @@ public abstract class PooledWeapon : BC_Weapon
         }
         //Debug.Log(projectilePools.Count);
     }
+    /// <summary>
+    /// Called whenever the weapon is fired
+    /// </summary>
     public override void OnFire()
     {
         const int firstProjectileIndex = 0;
@@ -47,16 +53,20 @@ public abstract class PooledWeapon : BC_Weapon
             }
         }
     }
-    
-    protected GameObject OnCreate(GameObject prefabToInstantiate, ObjectPool<GameObject> pool = null)
+    /// <summary>
+    /// Called when a new pool object needs to be created
+    /// </summary>
+    /// <param name="prefabToInstantiate">The prefab this pool should instatiate</param>
+    /// <returns>The instantiated GameObject</returns>
+    protected GameObject OnCreate(GameObject prefabToInstantiate)
     {
         GameObject newProjectile = Instantiate(prefabToInstantiate);
-        if(pool != null && newProjectile.HasComponent<Projectile>())
-        {
-            newProjectile.GetComponent<Projectile>().poolToReturnTo = pool;
-        }
         return newProjectile;
     }
+    /// <summary>
+    /// Called whenever an object is pulled from a pool
+    /// </summary>
+    /// <param name="objectPulled">The object pulled from the pool</param>
     protected void OnPulledFromPool(GameObject objectPulled)
     {
         objectPulled.SetActive(true);
