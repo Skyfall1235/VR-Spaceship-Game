@@ -30,7 +30,6 @@ public abstract class PooledWeapon : BC_Weapon
                 pool
             );
         }
-        Debug.Log(projectilePools.Count);
     }
     /// <summary>
     /// Called whenever the weapon is fired
