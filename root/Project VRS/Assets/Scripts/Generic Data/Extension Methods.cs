@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -147,24 +148,19 @@ public static class ExtensionMethods
         swing = q * Quaternion.Inverse(twist);
     }
 
-    public static IEnumerable<SerializedProperty> GetChildren(this SerializedProperty serializedProperty)
+    /// <summary>
+    /// Gets a private value from an object using reflection
+    /// This is usually bad but unity is forcing my hand
+    /// </summary>
+    /// <typeparam name="T">The type of variable that you are retrieving</typeparam>
+    /// <param name="obj">object to get values from</param>
+    /// <param name="name">The name of the variable you wish to retrieve</param>
+    /// <returns>the value of the variable by the name passed into the method</returns>
+    public static T GetFieldValue<T>(this object obj, string name)
     {
-        SerializedProperty currentProperty = serializedProperty.Copy();
-        SerializedProperty nextSiblingProperty = serializedProperty.Copy();
-        {
-            nextSiblingProperty.Next(false);
-        }
-
-        if (currentProperty.Next(true))
-        {
-            do
-            {
-                if (SerializedProperty.EqualContents(currentProperty, nextSiblingProperty))
-                    break;
-
-                yield return currentProperty;
-            }
-            while (currentProperty.Next(false));
-        }
+        // Set the flags so that private and public fields from instances will be found
+        var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        var field = obj.GetType().GetField(name, bindingFlags);
+        return (T)field?.GetValue(obj);
     }
 }

@@ -6,6 +6,4 @@
         </ui:VisualElement>
         <ui:VisualElement name="ObjectProperties" style="flex-grow: 1;" />
     </ui:VisualElement>
-    <uie:PropertyField />
-    <uie:PropertyField />
 </ui:UXML>
