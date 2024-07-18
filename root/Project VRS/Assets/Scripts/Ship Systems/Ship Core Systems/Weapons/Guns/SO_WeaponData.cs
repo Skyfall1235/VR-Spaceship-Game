@@ -223,7 +223,7 @@ public class SO_WeaponData : ScriptableObject
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(SO_WeaponData))]
-public class SO_WeaponData_Editor : Editor
+class SO_WeaponData_Editor : Editor
 {
     SerializedProperty m_useProjectile;
     SerializedProperty m_projectileData;
