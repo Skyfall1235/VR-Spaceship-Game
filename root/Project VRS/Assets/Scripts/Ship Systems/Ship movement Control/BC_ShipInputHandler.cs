@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class BC_ShipInputHandler : MonoBehaviour
 {
+    [SerializeField]
+    public bool ControlsAreResponsive = false;
+
     /// <summary>
     /// Encodes raw input values directly into a ShipJoystickInput struct.
     /// </summary>

@@ -341,7 +341,7 @@ MonoBehaviour:
       - m_factionName: 
         m_factionRef: {fileID: 0}
         m_value: 0
-  m_customLogger: {fileID: 0}
+  m_customLogger: {fileID: 11400000, guid: eed22bf2e31e57b479b1d13377fcbcfc, type: 2}
 --- !u!1001 &7520955515471427831
 PrefabInstance:
   m_ObjectHideFlags: 0

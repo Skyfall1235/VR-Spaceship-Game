@@ -8425,7 +8425,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5985742401948865389, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
   m_PrefabInstance: {fileID: 7524369253438478928}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7524369253438478930}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a434f400ccd4140a01356896647f3e, type: 3}
@@ -9894,6 +9894,9 @@ MonoBehaviour:
   m_secondaryShipJoystick: {fileID: 0}
   m_primaryJoystickInteractor: {fileID: 0}
   m_secondaryJoystickInteractor: {fileID: 0}
+  InputRecieval:
+    m_PersistentCalls:
+      m_Calls: []
   useKeyboardControls: 0
   logger: {fileID: 0}
 --- !u!114 &5860102061197251100
@@ -10641,7 +10644,8 @@ PrefabInstance:
       propertyPath: m_secondaryShipJoystick
       value: 
       objectReference: {fileID: 1853898354}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4675017810823475522, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2881506368289842355, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
@@ -10659,13 +10663,89 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3625049632382782504, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       insertIndex: 1
       addedObject: {fileID: 768235207}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5497593087302435098, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7524369253438478933}
+    - targetCorrespondingSourceObject: {fileID: 8651115667669437368, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7524369253438478934}
   m_SourcePrefab: {fileID: 100100000, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
 --- !u!4 &7524369253438478929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625049632382782504, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
   m_PrefabInstance: {fileID: 7524369253438478928}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7524369253438478930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5497593087302435098, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+  m_PrefabInstance: {fileID: 7524369253438478928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7524369253438478931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9066461916220883810, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+  m_PrefabInstance: {fileID: 7524369253438478928}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524369253438478930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77b10d22ac9f5c418bc14fb77dfb49e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &7524369253438478932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8651115667669437368, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+  m_PrefabInstance: {fileID: 7524369253438478928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7524369253438478933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524369253438478930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1937b9f9ed55f64a88a2b3ba7814fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSelectedText: {fileID: 0}
+  weaponManager: {fileID: 0}
+--- !u!114 &7524369253438478934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524369253438478932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18601cd4d7a0db14598ed870879d31ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_shipModuleManager: {fileID: 0}
+  m_coreState: 0
+  m_operationalState: 0
+  m_boostPercent: 0
+  m_powerRequirement: 0
+  m_moduleEnergyPriorty: 0
+  m_systemType: 1
+  m_startUpDelay: 1
+  m_shutDownDelay: 1
+  m_rebootDelay: 1
+  OnCoreModuleStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnModuleOperationalStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  m_playerShipInputHandler: {fileID: 7524369253438478931}
+  PrimaryInputUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  SecondaryInputsUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &7629624963499433056
 Transform:
   m_ObjectHideFlags: 0

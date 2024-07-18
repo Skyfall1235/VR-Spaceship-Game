@@ -1,5 +1,7 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -18,26 +20,30 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
 
     [SerializeField] private ActionBasedController m_primaryJoystickInteractor;
     [SerializeField] private ValueProperties m_primaryValueProperties;
+    public ValueProperties PrimaryValuesProperties
+    {
+        get => m_primaryValueProperties;
+    }
     [SerializeField] private ActionBasedController m_secondaryJoystickInteractor;
     [SerializeField] private ValueProperties m_secondaryValueProperties;
-
-    //TEMP
-    public bool useKeyboardControls = true;
-
-    [SerializeField] CustomLogger logger;
-
-    #endregion
-
-    private void Awake()
+    public ValueProperties SecondaryValuesProperties
     {
-        m_primaryValueProperties = new ValueProperties(gameObject, logger);
-        m_secondaryValueProperties = new ValueProperties(gameObject, logger);
+        get => m_secondaryValueProperties;
     }
+
+    public UnityEvent InputRecieval = new UnityEvent();
+
+    public bool useKeyboardControls = true;
 
     public ShipJoystickInput CurrentShipJoystickInputs
     {
         get
         {
+            //if the controls are to be unresponsive, dont proceed
+            if (!ControlsAreResponsive)
+            {
+                return new();
+            }
             // Check for missing references and log a single, comprehensive message
             if (m_primaryShipJoystick == null || m_secondaryShipJoystick == null && !useKeyboardControls)
             {
@@ -49,6 +55,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
             {
                 return InputEncoder(KeyboardInputControls());
             }
+            //this can stay the same because we
 
             // There are only 2 possible reasons for why this should not be true
             // 1. Update on End select requests this input handlers value
@@ -61,12 +68,26 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
                 float activateValue = activateValueProperty.action.ReadValue<float>();
 
                 //return the encoded joystick inputs with a break value if there is any
+                InputRecieval.Invoke();
                 return InputEncoder(m_primaryShipJoystick.value, m_primaryShipJoystick.TwistValue, m_secondaryShipJoystick.value, m_secondaryShipJoystick.TwistValue, activateValue);
             }
             Debug.Log("are we getting here?");
+            InputRecieval.Invoke();
             return InputEncoder(m_primaryShipJoystick.value, m_primaryShipJoystick.TwistValue, m_secondaryShipJoystick.value, m_secondaryShipJoystick.TwistValue, 0);
         }
     }
+
+    [SerializeField] CustomLogger logger;
+
+    #endregion
+
+    private void Awake()
+    {
+        m_primaryValueProperties = new ValueProperties(gameObject, logger);
+        m_secondaryValueProperties = new ValueProperties(gameObject, logger);
+    }
+
+    #region Registration of interactors
 
     /// <summary>
     /// Registers the secondary joysticks action based controller based on what selected the joystick.
@@ -87,10 +108,12 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         SetOrRemoveValueProperties(e, false);
     }
 
+    #endregion
+
+    #region Access Controls
     public void SetOrRemoveValueProperties(BaseInteractionEventArgs e, bool setProperties)
     {
         //this method is called when either joystick gets grabbed
-        //Debug.Log(e.interactableObject.ToString());
         //depending on the ordinal, set the interactor as needed.
         NewXRJoystick grabbedJoystick = e.interactableObject.transform.GetComponent<NewXRJoystick>();
         //depending on where or not we are setting or removing the properties for the addtional input
@@ -152,6 +175,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
         return (rightHand, leftHand, breakVal);
     }
 
+    #endregion
 }
 
 /// <summary>
@@ -243,7 +267,7 @@ public class ValueProperties
     {
         valueProperties.SetProperties(additionalInput.activateAction,
                                       additionalInput.activateActionValue,
-                                      additionalInput.primaryButtonAction,
+                                      additionalInput.PrimaryButtonAction,
                                       additionalInput.uiPressAction,
                                       additionalInput.directionalAnchorRotationAction);
     }
@@ -307,6 +331,12 @@ public class ValueProperties
         this.m_joystickValueProperty = joystickValueProperty;
     }
 
+    public ActionValues RetrieveActionValues()
+    {
+        ActionValues values = new ActionValues(TriggerPressed, TriggerValue, PrimaryButtonPressed, TouchpadPressed, TouchpadValue);
+        return values;
+    }
+
     /// <summary>
     /// Throws a new System.Exception with a log message about a failed retrieval of a value.
     /// </summary>
@@ -320,6 +350,26 @@ public class ValueProperties
 
     #endregion
 }
+
+[System.Serializable]
+public readonly struct ActionValues
+{
+    public readonly bool TriggerPressed;
+    public readonly float TriggerValue;
+    public readonly bool PrimaryButtonPressed;
+    public readonly bool TouchpadPressed;
+    public readonly Vector2 TouchpadValue;
+
+    public ActionValues(bool triggerPressed, float triggerValue, bool primaryButtonPressed, bool touchpadPressed, Vector2 touchpadValue)
+    {
+        TriggerPressed = triggerPressed;
+        TriggerValue = triggerValue;
+        PrimaryButtonPressed = primaryButtonPressed;
+        TouchpadPressed = touchpadPressed;
+        TouchpadValue = touchpadValue;
+    }
+}
+
 
 [System.Serializable]
 public enum InteractorObject

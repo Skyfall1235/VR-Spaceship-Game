@@ -73,6 +73,7 @@ public class ShipMovementController : IM_ShipMovementController
 
     #endregion
 
+#if DEBUG
     //DEBUG ONLY, WILL NEED TO BE REMOVED IN BUILDS
     public void SetYawSpeed(float value)
     {
@@ -89,4 +90,5 @@ public class ShipMovementController : IM_ShipMovementController
         Debug.LogWarning("SETTING THE PITCH MAX TURN RATE. REMEMBER TO REMOVE FOR BUILD");
         m_maxRateOfPitch = value;
     }
+#endif
 }
