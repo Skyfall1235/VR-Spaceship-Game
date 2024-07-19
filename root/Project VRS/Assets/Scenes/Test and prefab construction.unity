@@ -10770,8 +10770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3be1184965c5f54ca1b99ac76fd5bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_primaryInteractable: {fileID: 0}
-  m_secondaryInteractable: {fileID: 0}
+  m_primaryInteractable: {fileID: 1384655214}
+  m_secondaryInteractable: {fileID: 1853898354}
   m_primaryController: {fileID: 0}
   m_secondaryController: {fileID: 0}
   logger: {fileID: 0}
