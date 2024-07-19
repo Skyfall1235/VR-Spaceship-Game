@@ -2386,9 +2386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd96f7a9f9cad843a7a1b4c2624d66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 10
-  OldRTM: {x: 0, y: 0, z: 0}
 --- !u!1 &517047269
 GameObject:
   m_ObjectHideFlags: 0
@@ -10682,6 +10679,9 @@ PrefabInstance:
       addedObject: {fileID: 768235207}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5497593087302435098, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 7524369253438478936}
+    - targetCorrespondingSourceObject: {fileID: 5497593087302435098, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7524369253438478933}
     - targetCorrespondingSourceObject: {fileID: 8651115667669437368, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
@@ -10728,6 +10728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSelectedText: {fileID: 0}
   weaponManager: {fileID: 0}
+  handler: {fileID: 0}
 --- !u!114 &7524369253438478934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10757,24 +10758,23 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_playerShipInputHandler: {fileID: 7524369253438478931}
-  m_primaryInput:
-    m_triggerPressed: 0
-    m_triggerValue: 0
-    m_primaryButtonPressed: 0
-    m_touchpadPressed: 0
-    m_touchpadValue: {x: 0, y: 0}
-  m_secondaryInput:
-    m_triggerPressed: 0
-    m_triggerValue: 0
-    m_primaryButtonPressed: 0
-    m_touchpadPressed: 0
-    m_touchpadValue: {x: 0, y: 0}
-  PrimaryInputUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  SecondaryInputsUpdate:
-    m_PersistentCalls:
-      m_Calls: []
+--- !u!114 &7524369253438478936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524369253438478930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3be1184965c5f54ca1b99ac76fd5bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_primaryInteractable: {fileID: 0}
+  m_secondaryInteractable: {fileID: 0}
+  m_primaryController: {fileID: 0}
+  m_secondaryController: {fileID: 0}
+  logger: {fileID: 0}
 --- !u!4 &7629624963499433056
 Transform:
   m_ObjectHideFlags: 0

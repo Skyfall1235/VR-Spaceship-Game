@@ -1,19 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class ShootAndCycle : ControllerInputManager
+public class ShootAndCycle : MonoBehaviour
 {
     public TextMeshProUGUI weaponSelectedText;
     public WeaponManagerModule weaponManager;
+    public TwoHandedControllerInputHandler handler;
 
-    private void Awake()
+    private void Update()
     {
-        
+        if ((handler.PrimaryValuesProperties == null))
+        {
+            return;
+        }
+        InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
+        InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
+        if (action.WasPerformedThisFrame())
+        {
+            weaponManager.RotateSelectedWeaponForward();
+            SetSelectedText();
+        }
+        //if()
     }
 
     void SetSelectedText()

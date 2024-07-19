@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: FlakWeaponData
   m_EditorClassIdentifier: 
+  m_weaponName: Flak Cannon
   m_useProjectile: 1
   m_projectileData: {fileID: 11400000, guid: daaf19d8b1340954487efd7bd3118750, type: 2}
   m_weaponParticleSystem: {fileID: 0}
