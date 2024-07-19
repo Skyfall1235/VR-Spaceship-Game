@@ -2552,8 +2552,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 586707969}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9813739, y: -3.0044873, z: -21.688946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3700,8 +3700,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 868576509}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9813739, y: -3.0044873, z: -21.688946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5507,8 +5507,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383304717}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9813739, y: -3.0044873, z: -21.688946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8815,6 +8815,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3475408708665596157, guid: cab806f1051cdca409f413c0b49681e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475408708665596157, guid: cab806f1051cdca409f413c0b49681e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475408708665596157, guid: cab806f1051cdca409f413c0b49681e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5345841743299488424, guid: cab806f1051cdca409f413c0b49681e9, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -9890,6 +9902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77b10d22ac9f5c418bc14fb77dfb49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControlsAreResponsive: 0
   m_primaryShipJoystick: {fileID: 0}
   m_secondaryShipJoystick: {fileID: 0}
   m_primaryJoystickInteractor: {fileID: 0}
@@ -10462,6 +10475,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2971156298747148937, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: coreModules.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3295221926095525437, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_MaxAngle
       value: 30.2
@@ -10740,6 +10757,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_playerShipInputHandler: {fileID: 7524369253438478931}
+  m_primaryInput:
+    m_triggerPressed: 0
+    m_triggerValue: 0
+    m_primaryButtonPressed: 0
+    m_touchpadPressed: 0
+    m_touchpadValue: {x: 0, y: 0}
+  m_secondaryInput:
+    m_triggerPressed: 0
+    m_triggerValue: 0
+    m_primaryButtonPressed: 0
+    m_touchpadPressed: 0
+    m_touchpadValue: {x: 0, y: 0}
   PrimaryInputUpdate:
     m_PersistentCalls:
       m_Calls: []

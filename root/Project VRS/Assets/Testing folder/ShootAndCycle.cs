@@ -1,30 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class ShootAndCycle : ControllerInputManager
 {
     public TextMeshProUGUI weaponSelectedText;
     public WeaponManagerModule weaponManager;
-    public override void PrimaryUpdate(ActionValues? primary)
+
+    private void Awake()
     {
-
-    }
-
-    public override void SecondaryUpdate(ActionValues? secondary) 
-    {
-    
-    }
-
-    private void DetermineActions(ActionValues? value)
-    {
-
+        
     }
 
     void SetSelectedText()
     {
-        //weaponManager.
+        string selectedWeaponName = weaponManager.RetrieveSelectedWeapon().name;
+        weaponSelectedText.text = selectedWeaponName;
     }
+
 }
+

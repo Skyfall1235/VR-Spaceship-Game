@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BC_ShipInputHandler : MonoBehaviour
@@ -49,6 +50,7 @@ public class BC_ShipInputHandler : MonoBehaviour
 /// <summary>
 /// Represents input data from a joystick for controlling a ship.
 /// </summary>
+[Serializable]
 public struct ShipJoystickInput
 {
     /// <summary>

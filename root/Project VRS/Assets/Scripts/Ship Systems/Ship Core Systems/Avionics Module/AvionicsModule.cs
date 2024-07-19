@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class AvionicsModule : BC_CoreModule
 {
-    protected bool AreControlsResponsive = true;
-
     protected BC_ShipMovementController movementController;
     protected Rigidbody ShipRigidbody;
     protected BC_ShipInputHandler shipInputHandler;
 
     //flight data, positional info
-    protected Vector3 PositionInSpace;
+    protected Vector3 PositionInSpace => transform.position;
     protected Vector3 AngularVelocity;
     protected Vector3 Velocity;
     protected Vector3 LastVelocity;
@@ -28,15 +26,14 @@ public class AvionicsModule : BC_CoreModule
     protected override void PostStartUpLogic()
     {
         base.PostStartUpLogic();
-        AreControlsResponsive = true;
+        shipInputHandler.ControlsAreResponsive = true;
     }
 
     protected override void PreShutDownLogic()
     {
         base.PreShutDownLogic();
-        AreControlsResponsive = false;
+        shipInputHandler.ControlsAreResponsive = false;
         ShipRigidbody = null;
-        //setup for the inputs
     }
 
     protected override void PostShutDownLogic()

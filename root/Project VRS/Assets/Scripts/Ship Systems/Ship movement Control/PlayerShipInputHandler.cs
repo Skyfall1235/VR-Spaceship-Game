@@ -1,35 +1,22 @@
-using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PlayerShipInputHandler : BC_ShipInputHandler
+public class PlayerShipInputHandler : BC_ShipInputHandler, IinteractorRegister
 {
-    #region Variables
+    #region Joysticks
 
     //reference to primary controls
     [SerializeField] private NewXRJoystick m_primaryShipJoystick;
     public NewXRJoystick PrimaryShipJoystick => m_primaryShipJoystick;
 
-
     [SerializeField] private NewXRJoystick m_secondaryShipJoystick;
     public NewXRJoystick SecondaryShipJoystick => m_secondaryShipJoystick;
 
     [SerializeField] private ActionBasedController m_primaryJoystickInteractor;
-    [SerializeField] private ValueProperties m_primaryValueProperties;
-    public ValueProperties PrimaryValuesProperties
-    {
-        get => m_primaryValueProperties;
-    }
     [SerializeField] private ActionBasedController m_secondaryJoystickInteractor;
-    [SerializeField] private ValueProperties m_secondaryValueProperties;
-    public ValueProperties SecondaryValuesProperties
-    {
-        get => m_secondaryValueProperties;
-    }
+
 
     public UnityEvent InputRecieval = new UnityEvent();
 
@@ -79,91 +66,39 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
 
     [SerializeField] CustomLogger logger;
 
-    #endregion
-
     private void Awake()
     {
-        m_primaryValueProperties = new ValueProperties(gameObject, logger);
-        m_secondaryValueProperties = new ValueProperties(gameObject, logger);
-    }
-
-    #region Registration of interactors
-
-    /// <summary>
-    /// Registers the secondary joysticks action based controller based on what selected the joystick.
-    /// this method does use <seealso cref="InteractorToInputExposer"/>'s <seealso cref="InteractorToInputExposer.GrabActionBasedController"/> to get the action map from the interactor.
-    /// </summary>
-    /// <param name="e">the event args that contain the interactor and interactable associated with this unityevent</param>
-    /// 
-    public void RegisterInteractorController(SelectEnterEventArgs e)
-    {
-        SetOrRemoveValueProperties(e, true);
-    }
-
-    /// <summary>
-    ///  Unregisters the secondary joysticks action based controller from what unselected the joystick
-    /// </summary>
-    public void UnregisterInteractorController(SelectExitEventArgs e)
-    {
-        SetOrRemoveValueProperties(e, false);
+        //primary joystick
+        m_primaryShipJoystick.selectEntered.AddListener(RegisterPrimaryInteractorController);
+        m_primaryShipJoystick.selectExited.AddListener(UnregisterPrimaryInteractorController);
+        //secondary joystick
+        m_secondaryShipJoystick.selectEntered.AddListener(RegisterPrimaryInteractorController);
+        m_secondaryShipJoystick.selectExited.AddListener(UnregisterSecondaryInteractorController);
     }
 
     #endregion
 
-    #region Access Controls
-    public void SetOrRemoveValueProperties(BaseInteractionEventArgs e, bool setProperties)
+    public void RegisterPrimaryInteractorController(SelectEnterEventArgs e)
     {
-        //this method is called when either joystick gets grabbed
-        //depending on the ordinal, set the interactor as needed.
-        NewXRJoystick grabbedJoystick = e.interactableObject.transform.GetComponent<NewXRJoystick>();
-        //depending on where or not we are setting or removing the properties for the addtional input
-        switch(setProperties)
-        {
-            //if we are setting the properties, we need to know waht joystick is being interacted with
-            case true:
-                switch (grabbedJoystick.Ordinal)
-                {
-                    case NewXRJoystick.JoystickOrdinal.Primary:
-
-                        //set the interactor so we can reference it
-                        m_primaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
-                        AdditionalInputForActionBasedController additionalInput = e.interactorObject.transform.GetComponent<AdditionalInputForActionBasedController>();
-
-                        //if the interactor has additional inputs, register them
-                        if (additionalInput != null)
-                        {
-                            m_primaryValueProperties.SetProperties(additionalInput, ref m_primaryValueProperties);
-                        }
-                        break;
-
-                    case NewXRJoystick.JoystickOrdinal.Secondary:
-
-                        //set the interactor so we can reference it
-                        m_secondaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
-                        AdditionalInputForActionBasedController additionalInputSecondary = e.interactorObject.transform.GetComponent<AdditionalInputForActionBasedController>();
-
-                        //if the interactor has additional inputs, register them
-                        if (additionalInputSecondary != null)
-                        {
-                            m_secondaryValueProperties.SetProperties(additionalInputSecondary, ref m_secondaryValueProperties);
-                        }
-                        break;
-                }
-                break;
-            //in the case of removal, just remove based on the joystick.
-            case false:
-                switch (grabbedJoystick.Ordinal)
-                {
-                    case NewXRJoystick.JoystickOrdinal.Primary:
-                        m_primaryValueProperties.RemoveProperties();
-                        break;
-                    case NewXRJoystick.JoystickOrdinal.Secondary:
-                        m_secondaryValueProperties.RemoveProperties();
-                        break;
-                }
-            break;
-        }
+        m_primaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
     }
+
+    public void UnregisterPrimaryInteractorController(SelectExitEventArgs e)
+    {
+        m_primaryJoystickInteractor = null;
+    }
+
+    public void RegisterSecondaryInteractorController(SelectEnterEventArgs e)
+    {
+        m_secondaryJoystickInteractor = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
+    }
+
+    public void UnregisterSecondaryInteractorController(SelectExitEventArgs e)
+    {
+        m_secondaryJoystickInteractor = null;
+    }
+
+    #region Access Controls
 
     private (Vector3, Vector3, float) KeyboardInputControls()
     {
@@ -178,201 +113,14 @@ public class PlayerShipInputHandler : BC_ShipInputHandler
     #endregion
 }
 
-/// <summary>
-/// Represents properties for accessing input action values.
-/// </summary>
-[System.Serializable]
-public class ValueProperties
+public interface IinteractorRegister
 {
-    private CustomLogger logger;
-    private GameObject scriptOwner;
+    public void RegisterPrimaryInteractorController(SelectEnterEventArgs e);
 
-    #region Input action properties
+    public void UnregisterPrimaryInteractorController(SelectExitEventArgs e);
 
-    /// <summary>
-    /// Private property for storing the trigger press action.
-    /// </summary>
-    private InputActionProperty? m_triggerPressProperty;
+    public void RegisterSecondaryInteractorController(SelectEnterEventArgs e);
 
-    /// <summary>
-    /// Private property for storing the trigger value action.
-    /// </summary>
-    private InputActionProperty? m_triggerValueProperty;
-
-    /// <summary>
-    /// Private property for storing the primary button press action.
-    /// </summary>
-    private InputActionProperty? m_primaryButtonPressProperty;
-
-    /// <summary>
-    /// Private property for storing the joystick press action (assumed to be left/right press, not touchpad).
-    /// </summary>
-    private InputActionProperty? m_joystickPressProperty;
-
-    /// <summary>
-    /// Private property for storing the joystick value action (assumed to provide X and Y values).
-    /// </summary>
-    private InputActionProperty? m_joystickValueProperty;
-
-    #endregion
-
-    /// <summary>
-    /// Gets a value indicating whether the trigger button is currently pressed.
-    /// </summary>
-    /// <remarks>
-    /// This property retrieves the value from the internally stored `m_triggerPressProperty` using the `InteractorToInputExposer.RetrieveValueFromAction` method.
-    /// </remarks>
-    public bool TriggerPressed { get => InteractorToInputExposer.RetrieveValueFromAction<bool>(m_triggerPressProperty != null ? (InputActionProperty)m_triggerValueProperty : throw ThrowErrorWithLog("TriggerPressed")); }
-
-    /// <summary>
-    /// Gets the current value of the trigger axis (usually a value between 0.0 and 1.0).
-    /// </summary>
-    /// <remarks>
-    /// This property retrieves the value from the internally stored `m_triggerValueProperty` using the `InteractorToInputExposer.RetrieveValueFromAction` method.
-    /// </remarks>
-    public float TriggerValue { get => InteractorToInputExposer.RetrieveValueFromAction<float>(m_triggerValueProperty != null ? (InputActionProperty)m_triggerValueProperty : throw ThrowErrorWithLog("TriggerValue")); }
-
-    /// <summary>
-    /// Gets a value indicating whether the primary button is currently pressed.
-    /// </summary>
-    /// <remarks>
-    /// This property retrieves the value from the internally stored `m_primaryButtonPressProperty` using the `InteractorToInputExposer.RetrieveValueFromAction` method.
-    /// </remarks>
-    public bool PrimaryButtonPressed { get => InteractorToInputExposer.RetrieveValueFromAction<bool>(m_primaryButtonPressProperty != null ? (InputActionProperty)m_primaryButtonPressProperty : throw ThrowErrorWithLog("PrimaryButtonPressed")); }
-
-    /// <summary>
-    /// Gets a value indicating whether the joystick is currently pressed, does not care about where on the touchpad.
-    /// </summary>
-    /// <remarks>
-    /// This property retrieves the value from the internally stored `m_joystickPressProperty` using the `InteractorToInputExposer.RetrieveValueFromAction` method.
-    /// </remarks>
-    public bool TouchpadPressed { get => InteractorToInputExposer.RetrieveValueFromAction<bool>(m_joystickPressProperty != null ? (InputActionProperty)m_joystickPressProperty : throw ThrowErrorWithLog("TouchpadPressed")); }
-
-    /// <summary>
-    /// Gets the current X and Y values of the joystick.
-    /// </summary>
-    /// <remarks>
-    /// This property retrieves the value from the internally stored `m_joystickValueProperty` using the `InteractorToInputExposer.RetrieveValueFromAction` method.
-    /// </remarks>
-    public Vector2 TouchpadValue { get => InteractorToInputExposer.RetrieveValueFromAction<Vector2>(m_joystickValueProperty != null ? (InputActionProperty)m_joystickValueProperty : throw ThrowErrorWithLog("TouchpadValue")); }
-
-    #region public methods
-
-    /// <summary>
-    /// Sets the properties of a <see cref="ValueProperties"/> instance using the provided additional input configuration for an action-based controller.
-    /// </summary>
-    /// <param name="additionalInput">An object containing additional input configuration for an action-based controller.</param>
-    /// <param name="valueProperties">A reference to the <see cref="ValueProperties"/> instance whose properties will be set.</param>
-    public void SetProperties(AdditionalInputForActionBasedController additionalInput, ref ValueProperties valueProperties)
-    {
-        valueProperties.SetProperties(additionalInput.activateAction,
-                                      additionalInput.activateActionValue,
-                                      additionalInput.PrimaryButtonAction,
-                                      additionalInput.uiPressAction,
-                                      additionalInput.directionalAnchorRotationAction);
-    }
-
-    /// <summary>
-    /// Sets the properties used to retrieve input action values.
-    /// </summary>
-    /// <param name="TriggerPressProperty">The property for retrieving the trigger press state.</param>
-    /// <param name="TriggerValueProperty">The property for retrieving the trigger value.</param>
-    /// <param name="PrimaryButtonPressProperty">The property for retrieving the primary button press state.</param>
-    /// <param name="JoystickPressProperty">The property for retrieving the joystick press state (assumed to be left/right press).</param>
-    /// <param name="JoystickValueProperty">The property for retrieving the X and Y values of the joystick.</param>
-    public void SetProperties(InputActionProperty TriggerPressProperty,
-                              InputActionProperty TriggerValueProperty,
-                              InputActionProperty PrimaryButtonPressProperty,
-                              InputActionProperty JoystickPressProperty,
-                              InputActionProperty JoystickValueProperty)
-    {
-        m_triggerPressProperty = TriggerPressProperty;
-        m_triggerValueProperty = TriggerValueProperty;
-        m_primaryButtonPressProperty = PrimaryButtonPressProperty;
-        m_joystickPressProperty = JoystickPressProperty;
-        m_joystickValueProperty = JoystickValueProperty;
-    }
-
-    /// <summary>
-    /// Clears the properties used to retrieve input action values.
-    /// </summary>
-    public void RemoveProperties()
-    {
-        m_triggerPressProperty = null;
-        m_triggerValueProperty = null;
-        m_primaryButtonPressProperty = null;
-        m_joystickPressProperty = null;
-        m_joystickValueProperty = null;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ValueProperties"/> class with the specified owner and optional input action properties.
-    /// </summary>
-    /// <param name="Owner">The GameObject that owns this instance.</param>
-    /// <param name="triggerPressProperty">The property for retrieving the trigger press state (nullable).</param>
-    /// <param name="triggerValueProperty">The property for retrieving the trigger value (nullable).</param>
-    /// <param name="primaryButtonPressProperty">The property for retrieving the primary button press state (nullable).</param>
-    /// <param name="joystickPressProperty">The property for retrieving the joystick press state (nullable, assumed left/right press).</param>
-    /// <param name="joystickValueProperty">The property for retrieving the X and Y values of the joystick (nullable).</param>
-    public ValueProperties(GameObject Owner,
-                           CustomLogger logger,
-                           InputActionProperty? triggerPressProperty = null,
-                           InputActionProperty? triggerValueProperty = null,
-                           InputActionProperty? primaryButtonPressProperty = null,
-                           InputActionProperty? joystickPressProperty = null,
-                           InputActionProperty? joystickValueProperty = null)
-    {
-        this.scriptOwner = Owner;
-        this.logger = logger;
-        this.m_triggerPressProperty = triggerPressProperty;
-        this.m_triggerValueProperty = triggerValueProperty;
-        this.m_primaryButtonPressProperty = primaryButtonPressProperty;
-        this.m_joystickPressProperty = joystickPressProperty;
-        this.m_joystickValueProperty = joystickValueProperty;
-    }
-
-    public ActionValues RetrieveActionValues()
-    {
-        ActionValues values = new ActionValues(TriggerPressed, TriggerValue, PrimaryButtonPressed, TouchpadPressed, TouchpadValue);
-        return values;
-    }
-
-    /// <summary>
-    /// Throws a new System.Exception with a log message about a failed retrieval of a value.
-    /// </summary>
-    /// <param name="actionPropertyName">The name of the action property that failed retrieval.</param>
-    /// <returns>A new System.Exception object.</returns>
-    public System.Exception ThrowErrorWithLog(string actionPropertyName)
-    {
-        logger.Log($"Failed to retrieve trigger press value from {actionPropertyName}", CustomLogger.LogLevel.Error, CustomLogger.LogCategory.Player, this.scriptOwner);
-        return new System.Exception();
-    }
-
-    #endregion
+    public void UnregisterSecondaryInteractorController(SelectExitEventArgs e);
 }
 
-[System.Serializable]
-public readonly struct ActionValues
-{
-    public readonly bool TriggerPressed;
-    public readonly float TriggerValue;
-    public readonly bool PrimaryButtonPressed;
-    public readonly bool TouchpadPressed;
-    public readonly Vector2 TouchpadValue;
-
-    public ActionValues(bool triggerPressed, float triggerValue, bool primaryButtonPressed, bool touchpadPressed, Vector2 touchpadValue)
-    {
-        TriggerPressed = triggerPressed;
-        TriggerValue = triggerValue;
-        PrimaryButtonPressed = primaryButtonPressed;
-        TouchpadPressed = touchpadPressed;
-        TouchpadValue = touchpadValue;
-    }
-}
-
-
-[System.Serializable]
-public enum InteractorObject
-{
-    Head, LeftHand, RightHand
-}

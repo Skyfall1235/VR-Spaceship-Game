@@ -27,6 +27,9 @@ public class SO_WeaponData : ScriptableObject
     }
     #endregion
 
+    [SerializeField] string m_weaponName;
+    public string WeaponName { get { return m_weaponName; } }
+
     [Header("Projectile and FX")]
 
 
@@ -217,6 +220,15 @@ public class SO_WeaponData : ScriptableObject
             {
                 return null;
             }
+        }
+    }
+
+
+    private void OnValidate()
+    {
+        if(m_weaponName == "")
+        {
+            m_weaponName = name;
         }
     }
 }

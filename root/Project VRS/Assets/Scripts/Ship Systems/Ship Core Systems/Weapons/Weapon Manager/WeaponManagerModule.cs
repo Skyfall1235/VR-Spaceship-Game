@@ -7,21 +7,13 @@ public class WeaponManagerModule : BC_CoreModule
 {
     [field:SerializeField] public List<WeaponSlot> WeaponSlots { get; private set; } = new List<WeaponSlot>();
     public LinkedList<WeaponSlot> PlayerWeapons { get; private set; } = new LinkedList<WeaponSlot>();
-    public List<BC_Weapon> GetWeapons() 
-    {
-        List<BC_Weapon> listToReturn = new List<BC_Weapon>();
-        foreach(WeaponSlot weaponSlot in WeaponSlots)
-        {
-            if(weaponSlot.Weapon != null)
-            {
-                listToReturn.Add(weaponSlot.Weapon);
-            }
-        } 
-        return listToReturn;
-    }
+    
     LinkedListNode<WeaponSlot> m_selectedWeapon;
-    bool m_lastMouseDownStatus = false;
+    bool m_lastFireState = false;
 
+    /// <summary>
+    /// Struct containing the weapon refernce, the weapons transform, and the size of the weapon
+    /// </summary>
     [System.Serializable]
     public struct WeaponSlot
     {
@@ -36,15 +28,19 @@ public class WeaponManagerModule : BC_CoreModule
         }
     }
 
-    public bool LastMouseDownStatus
+    /// <summary>
+    /// Stores the firing state (true/false) from the last mouse down event.
+    /// This value is used to update the firing state of the selected weapon when it changes.
+    /// </summary>
+    public bool LastFireState
     { 
         get 
         { 
-            return m_lastMouseDownStatus; 
+            return m_lastFireState; 
         }
         set 
         {
-            m_lastMouseDownStatus = value;
+            m_lastFireState = value;
             if (m_selectedWeapon != null && m_selectedWeapon.Value.Weapon != null)
             {
                 m_selectedWeapon.Value.Weapon.UpdateFiringState(value);
@@ -55,11 +51,19 @@ public class WeaponManagerModule : BC_CoreModule
 
     #region registration, deregistration, creation, and destruction of weapons 
 
+    /// <summary>
+    /// Registers a weapon to a weapon slot on the player.
+    /// </summary>
+    /// <param name="weaponToAdd">The weapon to register.</param>
+    /// <param name="transform">The transform to attach the weapon to. If null, it will find an available slot.</param>
+    /// <param name="autoManageWeapon">If true, the weapon will be parented to the transform and reset its local position and rotation.</param>
+    /// <returns>True if the weapon was registered successfully, false otherwise.</returns>
     public bool RegisterWeapon(BC_Weapon weaponToAdd,Transform transform = null, bool autoManageWeapon = true)
     {
         if(transform == null)
         {
-            for(int i = 0; i < WeaponSlots.Count; i++)
+            // Find an available weapon slot with sufficient size for the weapon
+            for (int i = 0; i < WeaponSlots.Count; i++)
             {
                 if ((int)WeaponSlots[i].WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize && WeaponSlots[i].Weapon == null)
                 {
@@ -81,6 +85,7 @@ public class WeaponManagerModule : BC_CoreModule
         }
         else
         {
+            // Find the specified weapon slot and register the weapon if it's available and has sufficient size
             for (int i = 0; i < WeaponSlots.Count; i++)
             {
                 if(WeaponSlots[i].Transform == transform && WeaponSlots[i].Weapon == null && (int)WeaponSlots[i].WeaponSize >= (int)weaponToAdd.WeaponData.RequiredHardpointSize)
@@ -103,11 +108,19 @@ public class WeaponManagerModule : BC_CoreModule
         }
     }
 
+    /// <summary>
+    /// Deregisters a weapon from the player.
+    /// </summary>
+    /// <param name="weaponToRemove">The specific weapon to deregister (optional).</param>
+    /// <param name="position">The transform position of the weapon to deregister (optional).</param>
+    /// <param name="autoManageWeapon">If true, the weapon will be parented to the specified transform (if provided).</param>
+    /// <returns>True if the weapon was deregistered successfully, false otherwise.</returns>
     public bool DeregisterWeapon(BC_Weapon weaponToRemove = null, Transform position = null, bool autoManageWeapon = true)
     {
         if (position != null)
         {
-            for(int i = 0; i < WeaponSlots.Count; i++)
+            // Find the weapon slot at the specified position and deregister it
+            for (int i = 0; i < WeaponSlots.Count; i++)
             {
                 if(WeaponSlots[i].Transform == position)
                 {
@@ -150,17 +163,43 @@ public class WeaponManagerModule : BC_CoreModule
         return false;
     }
 
+    /// <summary>
+    /// Returns the currently selected weapon
+    /// </summary>
+    /// <returns></returns>
+    public BC_Weapon RetrieveSelectedWeapon()
+    {
+        return m_selectedWeapon.Value.Weapon;
+    }
+
+    /// <summary>
+    /// Gets a list of all currently equipped BC_Weapons on the player.
+    /// </summary>
+    /// <returns>A list of BC_Weapon objects representing the player's equipped weapons.</returns>
+    public List<BC_Weapon> GetWeapons()
+    {
+        List<BC_Weapon> listToReturn = new List<BC_Weapon>();
+        foreach (WeaponSlot weaponSlot in WeaponSlots)
+        {
+            if (weaponSlot.Weapon != null)
+            {
+                listToReturn.Add(weaponSlot.Weapon);
+            }
+        }
+        return listToReturn;
+    }
+
     #endregion
 
     #region weapon cycling
 
-    void RotateSelectedWeaponForward()
+    public void RotateSelectedWeaponForward()
     {
         if(m_selectedWeapon != null)
         {
             m_selectedWeapon.Value.Weapon.UpdateFiringState(false);
             m_selectedWeapon = m_selectedWeapon.NextOrFirst();
-            m_selectedWeapon.Value.Weapon.UpdateFiringState(m_lastMouseDownStatus);
+            m_selectedWeapon.Value.Weapon.UpdateFiringState(m_lastFireState);
         }
     }
 
@@ -170,7 +209,7 @@ public class WeaponManagerModule : BC_CoreModule
         {
             m_selectedWeapon.Value.Weapon.UpdateFiringState(false);
             m_selectedWeapon = m_selectedWeapon.PreviousOrLast();
-            m_selectedWeapon.Value.Weapon.UpdateFiringState(m_lastMouseDownStatus);
+            m_selectedWeapon.Value.Weapon.UpdateFiringState(m_lastFireState);
         }
     }
 
@@ -183,11 +222,11 @@ public class WeaponManagerModule : BC_CoreModule
         //DEBUG
         if(Input.GetMouseButtonDown(0)) 
         {
-            LastMouseDownStatus = true;
+            LastFireState = true;
         }
         if (Input.GetMouseButtonUp(0))
         {
-            LastMouseDownStatus = false;
+            LastFireState = false;
         }
         if (Input.GetMouseButtonDown(1))
         {
