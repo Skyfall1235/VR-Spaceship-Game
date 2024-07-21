@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(BC_Item))]
+[CustomPropertyDrawer(typeof(BC_Item), true)]
 public class BC_ItemPropertyDrawer : PropertyDrawer
 {
     const string filePathForBC_ItemDrawerTree = "Assets/Scripts/Editor/UXML/ItemCustomInspector.uxml";
