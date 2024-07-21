@@ -13,9 +13,9 @@ public static class SerializedProperty_Extention
     {
         if (m_GetFieldInfoAndStaticTypeFromProperty == null)
         {
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (var t in assembly.GetTypes())
+                foreach (Type t in assembly.GetTypes())
                 {
                     if (t.Name == "ScriptAttributeUtility")
                     {
