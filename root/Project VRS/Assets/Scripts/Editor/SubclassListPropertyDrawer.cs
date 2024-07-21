@@ -60,7 +60,7 @@ public class SubclassListPropertyDrawer : PropertyDrawer
     /// <returns>All property drawers in the projects a types</returns>
     IEnumerable<System.Type> AllPropertyDrawers()
     {
-        List<System.Type> drawers = new List<Type>();
+        //List<System.Type> drawers = new List<Type>();
         foreach (Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
         {
             foreach (Type t in ass.GetTypes())
