@@ -19,7 +19,6 @@ public class AvionicsModule : BC_CoreModule
     protected override void PreStartUpLogic()
     {
         base.PreStartUpLogic();
-        ShipRigidbody = transform.root.GetComponent<Rigidbody>();
         shipInputHandler = transform.root.GetComponent<BC_ShipInputHandler>();
     }
 

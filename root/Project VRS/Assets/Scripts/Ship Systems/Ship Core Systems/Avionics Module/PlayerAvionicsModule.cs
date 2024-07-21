@@ -18,6 +18,7 @@ public class PlayerAvionicsModule : AvionicsModule
     public override void Awake()
     {
         base.Awake();
+        ShipRigidbody = transform.root.GetComponent<Rigidbody>();
         try
         {
             m_playerShipInputHandler = (PlayerShipInputHandler)shipInputHandler;
@@ -27,8 +28,6 @@ public class PlayerAvionicsModule : AvionicsModule
             Debug.Log("input could not be converted");
             throw new System.Exception();
         }
-        
-        
     }
 
     private void FixedUpdate()
@@ -59,8 +58,6 @@ public class PlayerAvionicsModule : AvionicsModule
     {
         
     }
-
-    
 
     #endregion
 }

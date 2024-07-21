@@ -44,7 +44,6 @@ public class WeaponManagerModule : BC_CoreModule
             if (m_selectedWeapon != null && m_selectedWeapon.Value.Weapon != null)
             {
                 m_selectedWeapon.Value.Weapon.UpdateFiringState(value);
-
             }
         }
     }

@@ -10,7 +10,7 @@ public class ShootAndCycle : MonoBehaviour
 
     private void Update()
     {
-        if ((handler.PrimaryValuesProperties == null))
+        if (handler.PrimaryValuesProperties.HasValues == false)
         {
             return;
         }
@@ -21,7 +21,14 @@ public class ShootAndCycle : MonoBehaviour
             weaponManager.RotateSelectedWeaponForward();
             SetSelectedText();
         }
-        //if()
+        if(trigger.WasPerformedThisFrame())
+        {
+            weaponManager.LastFireState = true;
+        }
+        else
+        {
+            weaponManager.LastFireState = false;
+        }
     }
 
     void SetSelectedText()

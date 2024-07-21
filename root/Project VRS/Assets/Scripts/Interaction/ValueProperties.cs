@@ -9,6 +9,7 @@ public class ValueProperties
 {
     private CustomLogger logger;
     private GameObject scriptOwner;
+    public bool HasValues = false;
 
     #region Input action properties
 
@@ -124,6 +125,7 @@ public class ValueProperties
                               InputActionProperty JoystickPressProperty,
                               InputActionProperty JoystickValueProperty)
     {
+        HasValues = true;
         m_triggerPressProperty = TriggerPressProperty;
         m_triggerValueProperty = TriggerValueProperty;
         m_primaryButtonPressProperty = PrimaryButtonPressProperty;
@@ -136,6 +138,7 @@ public class ValueProperties
     /// </summary>
     public void RemoveProperties()
     {
+        HasValues = false;
         m_triggerPressProperty = null;
         m_triggerValueProperty = null;
         m_primaryButtonPressProperty = null;
