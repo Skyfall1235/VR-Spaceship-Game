@@ -12,57 +12,42 @@ public class SubclassListPropertyDrawer : PropertyDrawer
 {
     const string FilePathForUIBuilderTree = "Assets/Scripts/Editor/UXML/SubclassList.uxml";
     public VisualTreeAsset UIBuilderTree;
-    bool m_init = true;
     SubclassListAttribute m_attributeData;
-    Dictionary<string, Type> m_derivingTypes = new Dictionary<string, Type>();
-    VisualElement m_root = new VisualElement();
-    Type m_selectedType = null;
-    void OnEnable(SerializedProperty property)
+
+    public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
+        VisualElement root = new VisualElement();
         UIBuilderTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(FilePathForUIBuilderTree);
-        UIBuilderTree.CloneTree(m_root);
+        UIBuilderTree.CloneTree(root);
         m_attributeData = attribute as SubclassListAttribute;
-        DropdownField dropdownMenu = m_root.Query<DropdownField>("TypeSelectionDropdown");
-        VisualElement objectPropertiesContainer = m_root.Query<VisualElement>("ObjectProperties");
+        DropdownField dropdownMenu = root.Query<DropdownField>("TypeSelectionDropdown");
+        VisualElement objectPropertiesContainer = root.Query<VisualElement>("ObjectProperties");
         dropdownMenu.choices.Clear();
         //Get all non-abstract sub-types and add them to a dictionary where they can be looked up by name
-        m_derivingTypes = GetDerivingTypes(m_attributeData.Type).ToDictionary(value => value.Name, value => value);
+        Dictionary<string, Type> derivingTypes = GetDerivingTypes(m_attributeData.Type).ToDictionary(value => value.Name, value => value);
         //Add type names to dropdown
-        m_derivingTypes.ToList().ForEach(entry => dropdownMenu.choices.Add(entry.Key));
+        derivingTypes.ToList().ForEach(entry => dropdownMenu.choices.Add(entry.Key));
         //try to find the type and pass it to selected type when the value is changed
+        Type selectedType = null;
         dropdownMenu.RegisterValueChangedCallback(value =>
         {
-            m_derivingTypes.TryGetValue(value.newValue, out m_selectedType);
-            if (m_selectedType != null)
+            derivingTypes.TryGetValue(value.newValue, out selectedType);
+            if (selectedType != null)
             {
-                property.managedReferenceValue = Activator.CreateInstance(m_selectedType);
+                property.managedReferenceValue = Activator.CreateInstance(selectedType);
                 objectPropertiesContainer.Clear();
-                DrawUI(m_selectedType, property, objectPropertiesContainer);
+                DrawUI(selectedType, property, objectPropertiesContainer);
                 property.serializedObject.ApplyModifiedProperties();
             }
         }
         );
-    }
-    void OnDisable()
-    {
-
-    }
-    void OnDestroy()
-    {
-
-    }
-    public override VisualElement CreatePropertyGUI(SerializedProperty property)
-    {
-        CheckInit(property);
-        DropdownField dropdownMenu = m_root.Query<DropdownField>("TypeSelectionDropdown");
-        VisualElement objectPropertiesContainer = m_root.Query<VisualElement>("ObjectProperties");
         if(property.managedReferenceValue != null)
         {
-            m_selectedType = property.managedReferenceValue.GetType();
-            dropdownMenu.value = dropdownMenu.choices[dropdownMenu.choices.IndexOf(m_selectedType.Name)];
-            DrawUI(m_selectedType, property, objectPropertiesContainer);
+            selectedType = property.managedReferenceValue.GetType();
+            dropdownMenu.value = dropdownMenu.choices[dropdownMenu.choices.IndexOf(selectedType.Name)];
+            DrawUI(selectedType, property, objectPropertiesContainer);
         }
-        return m_root;
+        return root;
     }
 
     #region Get custom property drawer for type
@@ -190,56 +175,4 @@ public class SubclassListPropertyDrawer : PropertyDrawer
             }
         }
     }
-    #region OnEnable OnDisable and OnDestroy event handling
-    void CheckInit(SerializedProperty property)
-    {
-        if (m_init)
-        {
-            Enable(property);
-        }
-    }
-    ~SubclassListPropertyDrawer()
-    {
-        Destroy();
-    }
-
-    private void PlayModeStateChanged(PlayModeStateChange obj)
-    {
-        switch (obj)
-        {
-            case PlayModeStateChange.ExitingEditMode:
-            case PlayModeStateChange.ExitingPlayMode:
-                Destroy();
-                break;
-        }
-    }
-
-    private void SelectionChanged()
-    {
-        Disable();
-    }
-    public void Enable(SerializedProperty property)
-    {
-        m_init = false;
-        EditorApplication.playModeStateChanged += PlayModeStateChanged;
-        Selection.selectionChanged += SelectionChanged;
-        OnEnable(property);
-    }
-
-    public void Disable()
-    {
-        OnDisable();
-        EditorApplication.playModeStateChanged -= PlayModeStateChanged;
-        Selection.selectionChanged -= SelectionChanged;
-        m_init = true;
-    }
-
-    public void Destroy()
-    {
-        OnDestroy();
-        EditorApplication.playModeStateChanged -= PlayModeStateChanged;
-        Selection.selectionChanged -= SelectionChanged;
-        m_init = true;
-    }
-    #endregion
 }

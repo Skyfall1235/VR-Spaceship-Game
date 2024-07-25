@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,6 +7,17 @@ using UnityEngine;
 [System.Serializable]
 public class BC_Item
 {
+    [Flags]
+    public enum ItemFlags
+    {
+        Nothing = 0,
+        Ammo = 1 << 0,
+        Module = 1 << 1,
+        Weapon = 1 << 2,
+        Material = 1 << 3,
+        Everything = (1 << 4) - 1,
+    }
+
     [SerializeField] Mesh m_modelToDisplay;
     public Mesh ModelToDisplay { get => m_modelToDisplay; private set => m_modelToDisplay = value; }
 
@@ -14,6 +26,9 @@ public class BC_Item
 
     [SerializeField] Sprite m_spriteForInventory;
     public Sprite SpriteForInventory { get => m_spriteForInventory; private set => m_spriteForInventory = value; }
+
+    [SerializeField] ItemFlags m_itemType;
+    public ItemFlags ItemType { get => m_itemType; }
 
     [SerializeField] uint m_maxStackSize;
     public uint MaxStackSize { get => m_maxStackSize; private set => m_maxStackSize = value; }
