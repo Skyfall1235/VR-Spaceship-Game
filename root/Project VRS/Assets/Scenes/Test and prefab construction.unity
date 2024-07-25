@@ -4057,6 +4057,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908476401}
   m_CullTransparentMesh: 1
+--- !u!1 &914051653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914051655}
+  - component: {fileID: 914051654}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &914051654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914051653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c0e1f785ac4e748a3641af5a9bac98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inventorySize: 1
+  m_inventorySlots:
+  - item:
+      m_modelToDisplay: {fileID: 0}
+      m_materialToDisplay: {fileID: 0}
+      m_spriteForInventory: {fileID: 0}
+      m_maxStackSize: 0
+      m_mass: 0
+      m_name: 
+      m_description: 
+    itemCount: 0
+--- !u!4 &914051655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914051653}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.436639, y: 1.6310643, z: 0.36499578}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &925067582
 GameObject:
   m_ObjectHideFlags: 0
@@ -10776,7 +10831,11 @@ MonoBehaviour:
   m_primaryInteractable: {fileID: 1384655214}
   m_secondaryInteractable: {fileID: 1853898354}
   m_primaryController: {fileID: 0}
+  m_primaryValueProperties:
+    HasValues: 0
   m_secondaryController: {fileID: 0}
+  m_secondaryValueProperties:
+    HasValues: 0
   logger: {fileID: 0}
 --- !u!4 &7629624963499433056
 Transform:
@@ -11016,3 +11075,4 @@ SceneRoots:
   - {fileID: 3901353408080016292}
   - {fileID: 1834431210}
   - {fileID: 1543845912333860696}
+  - {fileID: 914051655}

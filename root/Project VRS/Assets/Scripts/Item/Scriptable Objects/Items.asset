@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Items
   m_EditorClassIdentifier: 
   ItemList:
-  - rid: 7954508625848303627
+  - rid: 7954508697403654163
   references:
     version: 2
     RefIds:
-    - rid: 7954508625848303627
+    - rid: 7954508697403654163
       type: {class: BC_Item, ns: , asm: Assembly-CSharp}
       data:
         m_modelToDisplay: {fileID: 0}
         m_materialToDisplay: {fileID: 0}
         m_spriteForInventory: {fileID: 0}
         m_maxStackSize: 0
+        m_mass: 0
         m_name: 
         m_description: 
