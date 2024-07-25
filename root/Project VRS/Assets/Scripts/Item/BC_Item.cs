@@ -18,6 +18,9 @@ public class BC_Item
     [SerializeField] uint m_maxStackSize;
     public uint MaxStackSize { get => m_maxStackSize; private set => m_maxStackSize = value; }
 
+    [SerializeField] float m_mass;
+    public float Mass { get => m_mass; }
+
     [SerializeField] string m_name;
     public string Name { get => m_name; private set => m_name = value; }
 

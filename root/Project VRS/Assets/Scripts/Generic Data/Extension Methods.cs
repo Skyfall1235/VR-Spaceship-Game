@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Unity.Mathematics;
 using UnityEditor;
@@ -162,5 +163,22 @@ public static class ExtensionMethods
         var bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         var field = obj.GetType().GetField(name, bindingFlags);
         return (T)field?.GetValue(obj);
+    }
+
+    public static void Resize<T>(this List<T> listToResize, int desiredSize, T element)
+    {
+        int current = listToResize.Count;
+        if (desiredSize < current)
+            listToResize.RemoveRange(desiredSize, current - desiredSize);
+        else if (desiredSize > current)
+        {
+            if (desiredSize > listToResize.Capacity)//this bit is purely an optimisation, to avoid multiple automatic capacity changes.
+                listToResize.Capacity = desiredSize;
+            listToResize.AddRange(Enumerable.Repeat(element, desiredSize - current));
+        }
+    }
+    public static void Resize<T>(this List<T> listToResize, int desiredSize) where T : new()
+    {
+        Resize(listToResize, desiredSize, new T());
     }
 }

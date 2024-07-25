@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 
-public static class SerializedProperty_Extentsion
+public static class SerializedPropertyExtensions
 {
     private delegate FieldInfo GetFieldInfoAndStaticTypeFromProperty(SerializedProperty aProperty, out Type aType);
     private static GetFieldInfoAndStaticTypeFromProperty m_GetFieldInfoAndStaticTypeFromProperty;

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(BC_Item))]
+[CustomPropertyDrawer(typeof(BC_Item), true)]
 public class BC_ItemPropertyDrawer : PropertyDrawer
 {
     const string filePathForBC_ItemDrawerTree = "Assets/Scripts/Editor/UXML/ItemCustomInspector.uxml";
@@ -114,37 +114,63 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
         {
             PropertyField fieldToAdd = new PropertyField();
             fieldToAdd.BindProperty(childProperty);
-            if (childProperty.name == "m_modelToDisplay")
+            switch (childProperty.name)
             {
-                modelPreviewContainer.Add(fieldToAdd);
-                
-                fieldToAdd.RegisterValueChangeCallback(value =>
-                {
-                    CreateModelDisplayForInspector(root, property);
-                });
+                case "m_name":
+                    TextField titleField = root.Query<TextField>("TitleField");
+                    titleField.BindProperty(childProperty);
+                    break;
+                case "m_description":
+                    TextField descriptionField = root.Query<TextField>("DescriptionField");
+                    descriptionField.BindProperty(childProperty);
+                    break;
+                case "m_modelToDisplay":
+                    modelPreviewContainer.Add(fieldToAdd);
 
-            }
-            else if (childProperty.name == "m_materialToDisplay")
-            {
-                modelPreviewContainer.Add(fieldToAdd);
-                fieldToAdd.RegisterValueChangeCallback(value =>
-                {
-                    CreateModelDisplayForInspector(root, property);
-                });
-            }
-            else if (childProperty.name == "m_spriteForInventory")
-            {
-                VisualElement spritePreviewContainer = root.Query<VisualElement>("SpritePreviewContainer");
-                spritePreviewContainer.Add(fieldToAdd);
-                fieldToAdd.RegisterValueChangeCallback(value => 
-                {
-                    CreateDisplaySprite(root, property);
-                });
-            }
-            else
-            {
-                propertyHolder.Add(fieldToAdd);
-            }
+                    fieldToAdd.RegisterValueChangeCallback(value =>
+                    {
+                        CreateModelDisplayForInspector(root, property);
+                    });
+                    break;
+                case "m_materialToDisplay":
+                    modelPreviewContainer.Add(fieldToAdd);
+                    fieldToAdd.RegisterValueChangeCallback(value =>
+                    {
+                        CreateModelDisplayForInspector(root, property);
+                    });
+                    break;
+                case "m_spriteForInventory":
+                    VisualElement spritePreviewContainer = root.Query<VisualElement>("SpritePreviewContainer");
+                    spritePreviewContainer.Add(fieldToAdd);
+                    fieldToAdd.RegisterValueChangeCallback(value =>
+                    {
+                        CreateDisplaySprite(root, property);
+                    });
+                    break;
+                case "m_mass":
+                    FloatField floatFieldToAdd = new FloatField();
+                    floatFieldToAdd.label = ObjectNames.NicifyVariableName(childProperty.name);
+                    floatFieldToAdd.AddToClassList("unity-base-field__aligned");
+                    floatFieldToAdd.RegisterCallback<ChangeEvent<float>>(callbackEvent =>
+                    {
+                        if (callbackEvent.target == floatFieldToAdd)
+                        {
+                            float clampedvalue = Mathf.Clamp(callbackEvent.newValue, 0.0f, float.MaxValue);
+                            if (!Mathf.Approximately(clampedvalue, callbackEvent.newValue))
+                            {
+                                callbackEvent.StopImmediatePropagation();
+                                callbackEvent.PreventDefault();
+                                floatFieldToAdd.value = clampedvalue;
+                            }
+                        }
+                    });
+                    propertyHolder.Add(floatFieldToAdd);
+                    break;
+                default:
+                    propertyHolder.Add(fieldToAdd);
+                    break;
+            };
+
         }
         CreateDisplaySprite(root, property);
         CreateModelDisplayForInspector(root, property);

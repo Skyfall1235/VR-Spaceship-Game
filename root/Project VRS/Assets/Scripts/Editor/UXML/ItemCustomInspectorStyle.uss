@@ -22,3 +22,27 @@
     margin-left: 3px;
     justify-content: flex-start;
 }
+
+#TitleField TextElement {
+    -unity-text-align: upper-center;
+}
+
+#DescriptionField Label {
+    -unity-text-align: upper-center;
+}
+
+#TitleField TextElement {
+    font-size: 25px;
+    -unity-font-style: bold;
+}
+
+.topFields {
+    width: 85%;
+}
+
+.tabContainer {
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+}
