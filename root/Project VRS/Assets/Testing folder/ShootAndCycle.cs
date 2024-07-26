@@ -10,13 +10,14 @@ public class ShootAndCycle : MonoBehaviour
 
     private void Update()
     {
+        SetSelectedText();
         if (handler.PrimaryValuesProperties.HasValues == false)
         {
             return;
         }
         InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
         InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
-        SetSelectedText();
+        
         if (action.WasPerformedThisFrame())
         {
             weaponManager.RotateSelectedWeaponForward();
