@@ -66,6 +66,33 @@ public class Inventory : MonoBehaviour
             return null;
         }
     }
+    public List<InventorySlot>? GetSlotsWithItemWithTag(BC_Item.ItemFlags flags)
+    {
+        List<InventorySlot> result = m_inventorySlots.Select(current => current)
+            .Where(slot => slot.item.ItemType.HasFlag(flags)).ToList();
+        if (result.Count > 0)
+        {
+            return result;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public List<uint>? GetIndiciesOfSlotsWithItemWithTag(BC_Item.ItemFlags flags)
+    {
+        List<uint> result = m_inventorySlots.Select((current, i) => new { current, i })
+            .Where(current => current.current.item.ItemType.HasFlag(flags))
+            .Select(current => (uint)current.i).ToList();
+        if (result.Count > 0)
+        {
+            return result;
+        }
+        else
+        {
+            return null;
+        }
+    }
     #nullable disable
     #endregion
     [SerializeField] uint m_inventorySize;

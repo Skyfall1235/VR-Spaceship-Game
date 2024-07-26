@@ -4096,6 +4096,7 @@ MonoBehaviour:
       m_modelToDisplay: {fileID: 0}
       m_materialToDisplay: {fileID: 0}
       m_spriteForInventory: {fileID: 0}
+      m_itemType: 0
       m_maxStackSize: 0
       m_mass: 0
       m_name: 
