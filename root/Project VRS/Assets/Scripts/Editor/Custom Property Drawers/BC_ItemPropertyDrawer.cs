@@ -105,6 +105,10 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
             aspectRatioContainer = new AspectRatioElement();
             aspectRatioContainer.name = "SpritePreviewAspectController";
             spriteContainer.Add(aspectRatioContainer);
+            aspectRatioContainer.style.marginBottom = 10;
+            aspectRatioContainer.style.marginTop = 10;
+            aspectRatioContainer.style.marginLeft = 10;
+            aspectRatioContainer.style.marginRight = 10;
         }
         if (image == null)
         {
@@ -116,6 +120,8 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
         if (spriteToDisplay != null)
         {
             image.sprite = spriteToDisplay;
+            aspectRatioContainer.Width = Mathf.CeilToInt(spriteToDisplay.rect.width);
+            aspectRatioContainer.Height = Mathf.CeilToInt(spriteToDisplay.rect.height);
         }
         else
         {
