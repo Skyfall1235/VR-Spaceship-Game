@@ -11047,7 +11047,6 @@ MonoBehaviour:
   m_maxRateOfPitch: 10
   m_maxRateOfRoll: 10
   m_maxRateOfYaw: 10
-  m_toggleStrafe: 0
   m_maxSpeed: 100
   m_OnRotationChangeEvent:
     m_PersistentCalls:

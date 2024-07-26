@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Items
   m_EditorClassIdentifier: 
   ItemList:
-  - rid: 7954508718157332481
+  - rid: 7954508737128955915
   references:
     version: 2
     RefIds:
-    - rid: 7954508718157332481
+    - rid: 7954508737128955915
       type: {class: BC_Item, ns: , asm: Assembly-CSharp}
       data:
         m_modelToDisplay: {fileID: -5517805144868682806, guid: 3940827fbdfb4f2488259b0dc1642eb0, type: 3}
         m_materialToDisplay: {fileID: 2100000, guid: 1fa75786ac748a445bd3a4e7db14639b, type: 2}
         m_spriteForInventory: {fileID: 21300000, guid: 8f02643ce4a0a4142a96839721cfd244, type: 3}
-        m_itemType: 1
-        m_maxStackSize: 64
-        m_mass: 0.1
-        m_name: Bullet
-        m_description: A bullet fired from a weapon
+        m_itemType: 0
+        m_maxStackSize: 0
+        m_mass: 0
+        m_name: 
+        m_description: 

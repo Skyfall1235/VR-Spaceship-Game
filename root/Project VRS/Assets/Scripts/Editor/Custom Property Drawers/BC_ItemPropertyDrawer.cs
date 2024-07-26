@@ -9,6 +9,7 @@ using UnityEditor;
 public class BC_ItemPropertyDrawer : PropertyDrawer
 {
     const string filePathForBC_ItemDrawerTree = "Assets/Scripts/Editor/UXML/ItemCustomInspector.uxml";
+    const int ImageHeight = 128;
     bool init = true;
     public PreviewRenderUtility m_previewRenderUtility;
     VisualTreeAsset m_itemCustomInspectorTree;
@@ -49,11 +50,18 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
     {
         VisualElement modelPreviewContainer = root.Query<VisualElement>("ModelPreviewContainer");
         Image image = root.Query<Image>("ModelPreviewImage");
+        AspectRatioElement aspectRatioContainer = root.Query<AspectRatioElement>("ModelPreviewAspectController");
+        if(aspectRatioContainer == null) 
+        {
+            aspectRatioContainer = new AspectRatioElement();
+            aspectRatioContainer.name = "ModelPreviewAspectController";
+            modelPreviewContainer.Add(aspectRatioContainer);
+        }
         if (image == null)
         {
             image = new Image();
-            modelPreviewContainer.Add(image);
             image.name = "ModelPreviewImage";
+            aspectRatioContainer.Add(image);
         }
         Mesh meshToDisplay = property.FindPropertyRelative("m_modelToDisplay").objectReferenceValue as Mesh;
         Material materialToDisplay = property.FindPropertyRelative("m_materialToDisplay").objectReferenceValue as Material;
@@ -69,31 +77,43 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
             Vector3 position =  new Vector3(0 - (meshToDisplay.bounds.center.x * scale.x), 0 - (meshToDisplay.bounds.center.y * scale.y), 0 - (meshToDisplay.bounds.center.z * scale.z));
             m_previewRenderUtility.camera.transform.LookAt(position);
             Matrix4x4 meshTransformations = Matrix4x4.TRS(position, rotation, scale);
-            m_previewRenderUtility.BeginPreview(new Rect(0, 0, 512, 512), GUIStyle.none);
+            Vector2Int desiredImageDimensions = new Vector2Int(512, 512);
+            m_previewRenderUtility.BeginPreview(new Rect(0, 0, desiredImageDimensions.x, desiredImageDimensions.y), GUIStyle.none);
             m_previewRenderUtility.lights[0].transform.localEulerAngles = new Vector3(30, 30, 0);
             m_previewRenderUtility.lights[0].intensity = 2;
             m_previewRenderUtility.DrawMesh(meshToDisplay, meshTransformations, materialToDisplay, 0);
             m_previewRenderUtility.camera.Render();
             image.image = m_previewRenderUtility.EndPreview();
+            aspectRatioContainer.style.height = ImageHeight;
+
+            aspectRatioContainer.Width = desiredImageDimensions.y;
+            aspectRatioContainer.Height = desiredImageDimensions.x;
+            aspectRatioContainer.RegisterCallback<GeometryChangedEvent>(changedEvent =>
+            {
+                image.style.width = aspectRatioContainer.contentRect.width;
+                image.style.height = aspectRatioContainer.contentRect.width;
+            });
         }
-        image.style.height = image.resolvedStyle.width;
     }
     void CreateDisplaySprite(VisualElement root, SerializedProperty property)
     {
         VisualElement spriteContainer = root.Query<VisualElement>("SpritePreviewContainer");
         Image image = spriteContainer.Query<Image>("SpritePreview");
-        if(image == null)
+        AspectRatioElement aspectRatioContainer = root.Query<AspectRatioElement>("SpritePreviewAspectController");
+        if (aspectRatioContainer == null)
+        {
+            aspectRatioContainer = new AspectRatioElement();
+            aspectRatioContainer.name = "SpritePreviewAspectController";
+            spriteContainer.Add(aspectRatioContainer);
+        }
+        if (image == null)
         {
             image = new Image();
             image.name = "SpritePreview";
-            image.style.marginBottom = 10;
-            image.style.marginTop = 10;
-            image.style.marginLeft = 10;
-            image.style.marginRight = 10;
-            spriteContainer.Add(image);
+            aspectRatioContainer.Add(image);
         }
         Sprite spriteToDisplay = property.FindPropertyRelative("m_spriteForInventory").objectReferenceValue as Sprite;
-        if(spriteToDisplay != null)
+        if (spriteToDisplay != null)
         {
             image.sprite = spriteToDisplay;
         }
@@ -101,7 +121,12 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
         {
             image.sprite = null;
         }
-        image.style.height = image.resolvedStyle.width;
+        aspectRatioContainer.style.height = ImageHeight;
+        aspectRatioContainer.RegisterCallback<GeometryChangedEvent>(changedEvent =>
+        {
+            image.style.width = aspectRatioContainer.contentRect.width;
+            image.style.height = aspectRatioContainer.contentRect.width;
+        });
     }
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
