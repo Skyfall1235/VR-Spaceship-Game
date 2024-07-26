@@ -150,6 +150,7 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
                 case "m_mass":
                     FloatField floatFieldToAdd = new FloatField();
                     floatFieldToAdd.label = ObjectNames.NicifyVariableName(childProperty.name);
+                    floatFieldToAdd.BindProperty(childProperty);
                     floatFieldToAdd.AddToClassList("unity-base-field__aligned");
                     floatFieldToAdd.RegisterCallback<ChangeEvent<float>>(callbackEvent =>
                     {
