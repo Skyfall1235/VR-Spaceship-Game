@@ -39,14 +39,14 @@ public class TwoHandedControllerInputHandler : MonoBehaviour, IinteractorRegiste
 
     public void UnregisterPrimaryInteractorController(SelectExitEventArgs e)
     {
-        Debug.Log("registered primary");
+        Debug.Log("deregistered primary");
         m_primaryController = null;
         SetOrRemoveValueProperties(e, false, ref m_primaryController, ref m_primaryValueProperties);
     }
 
     public void RegisterSecondaryInteractorController(SelectEnterEventArgs e)
     {
-        Debug.Log("deregistered secondary");
+        Debug.Log("registered secondary");
         m_secondaryController = InteractorToInputExposer.GrabActionBasedController(e.interactorObject);
         SetOrRemoveValueProperties(e, true, ref m_secondaryController, ref m_secondaryValueProperties);
     }
@@ -67,7 +67,7 @@ public class TwoHandedControllerInputHandler : MonoBehaviour, IinteractorRegiste
         m_primaryInteractable.selectEntered.AddListener(RegisterPrimaryInteractorController);
         m_primaryInteractable.selectExited.AddListener(UnregisterPrimaryInteractorController);
         //secondary interactable
-        m_secondaryInteractable.selectEntered.AddListener(RegisterPrimaryInteractorController);
+        m_secondaryInteractable.selectEntered.AddListener(RegisterSecondaryInteractorController);
         m_secondaryInteractable.selectExited.AddListener(UnregisterSecondaryInteractorController);
     }
 

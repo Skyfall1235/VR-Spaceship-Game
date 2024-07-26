@@ -72,7 +72,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler, IinteractorRegister
         m_primaryShipJoystick.selectEntered.AddListener(RegisterPrimaryInteractorController);
         m_primaryShipJoystick.selectExited.AddListener(UnregisterPrimaryInteractorController);
         //secondary joystick
-        m_secondaryShipJoystick.selectEntered.AddListener(RegisterPrimaryInteractorController);
+        m_secondaryShipJoystick.selectEntered.AddListener(RegisterSecondaryInteractorController);
         m_secondaryShipJoystick.selectExited.AddListener(UnregisterSecondaryInteractorController);
     }
 

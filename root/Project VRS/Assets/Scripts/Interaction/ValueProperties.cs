@@ -61,7 +61,7 @@ public class ValueProperties
     /// <remarks>
     /// This property retrieves the value from the internally stored `m_triggerPressProperty` using the `InteractorToInputExposer.RetrieveValueFromAction` method.
     /// </remarks>
-    public bool TriggerPressed { get => InteractorToInputExposer.RetrieveValueFromAction<bool>(m_triggerPressProperty != null ? (InputActionProperty)m_triggerValueProperty : throw ThrowErrorWithLog("TriggerPressed")); }
+    public bool TriggerPressed { get => InteractorToInputExposer.RetrieveValueFromAction<bool>(m_triggerPressProperty != null ? (InputActionProperty)m_triggerPressProperty : throw ThrowErrorWithLog("TriggerPressed")); }
 
     /// <summary>
     /// Gets the current value of the trigger axis (usually a value between 0.0 and 1.0).
@@ -104,7 +104,6 @@ public class ValueProperties
     /// <param name="valueProperties">A reference to the <see cref="ValueProperties"/> instance whose properties will be set.</param>
     public void SetProperties(AdditionalInputForActionBasedController additionalInput, ref ValueProperties valueProperties)
     {
-        Debug.Log("1st set property chain");
         valueProperties.SetProperties(additionalInput.activateAction,
                                       additionalInput.activateActionValue,
                                       additionalInput.PrimaryButtonAction,
@@ -126,7 +125,6 @@ public class ValueProperties
                               InputActionProperty JoystickPressProperty,
                               InputActionProperty JoystickValueProperty)
     {
-        Debug.Log("2nd set property chain");
         HasValues = true;
         m_triggerPressProperty = TriggerPressProperty;
         m_triggerValueProperty = TriggerValueProperty;
@@ -140,7 +138,6 @@ public class ValueProperties
     /// </summary>
     public void RemoveProperties()
     {
-        Debug.Log("remove properties");
         HasValues = false;
         m_triggerPressProperty = null;
         m_triggerValueProperty = null;
