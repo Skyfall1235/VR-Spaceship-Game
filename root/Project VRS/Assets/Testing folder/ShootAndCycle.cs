@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,13 +14,19 @@ public class ShootAndCycle : MonoBehaviour
         SetSelectedText();
         if (handler.PrimaryValuesProperties.HasValues == false)
         {
+            Debug.Log("does not have values");
             return;
+        }
+        else
+        {
+            Debug.Log("does have value");
         }
         InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
         InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
-        
-        if (action.WasPerformedThisFrame())
+
+        if (action.WasPressedThisFrame())
         {
+            Debug.Log("primary button press");
             weaponManager.RotateSelectedWeaponForward();
             
         }
