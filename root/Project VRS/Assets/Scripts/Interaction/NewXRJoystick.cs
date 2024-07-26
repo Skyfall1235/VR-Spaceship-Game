@@ -200,13 +200,13 @@ public class NewXRJoystick : XRBaseInteractable
     public void SetHand(SelectEnterEventArgs args)
     {
         m_hand = args.interactorObject.transform;
-        Debug.Log("hand set");
+        //Debug.Log("hand set");
     }
 
     public void RemoveHand(SelectExitEventArgs args)
     {
         m_hand = null;
-        Debug.Log("hand removed");
+        //Debug.Log("hand removed");
     }
 
     #endregion

@@ -67,13 +67,6 @@ public class BC_ShipMovementController : MonoBehaviour
     protected float m_maxRateOfYaw = 10f;
 
     /// <summary>
-    /// the toggle between strafing and yaw rotation
-    /// </summary>
-    [SerializeField]
-    [Tooltip("Toggle option for strafing movement")]
-    protected bool m_toggleStrafe;
-
-    /// <summary>
     /// the maximum amount of force that can be applied to strafe
     /// </summary>
     [SerializeField]

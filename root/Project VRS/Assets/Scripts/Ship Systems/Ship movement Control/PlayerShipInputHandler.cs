@@ -58,7 +58,7 @@ public class PlayerShipInputHandler : BC_ShipInputHandler, IinteractorRegister
                 InputRecieval.Invoke();
                 return InputEncoder(m_primaryShipJoystick.value, m_primaryShipJoystick.TwistValue, m_secondaryShipJoystick.value, m_secondaryShipJoystick.TwistValue, activateValue);
             }
-            Debug.Log("are we getting here?");
+            //Debug.Log("are we getting here?");
             InputRecieval.Invoke();
             return InputEncoder(m_primaryShipJoystick.value, m_primaryShipJoystick.TwistValue, m_secondaryShipJoystick.value, m_secondaryShipJoystick.TwistValue, 0);
         }

@@ -40,16 +40,11 @@ public class IM_ShipMovementController : BC_ShipMovementController
         ApplyRotationOnAxis(m_savedPitchAxis, m_savedPitchSpeed);
         ApplyRotationOnAxis(m_savedRollAxis, m_savedRollSpeed);
 
-        if (m_toggleYawForStrafe == true) //true means we strafe, false means we rotate yaw
-        {
-            //apply strafe movement
-            ApplyStrafe(m_savedStrafeVector);
-        }
-        else
-        {
-            //yaw rotations
-            ApplyRotationOnAxis(m_savedYawAxis, m_savedYawSpeed);
-        }
+        //apply strafe movement
+        ApplyStrafe(m_savedStrafeVector);
+
+        //yaw rotations
+        ApplyRotationOnAxis(m_savedYawAxis, m_savedYawSpeed);
 
         //finally, prevent the speed from breaching the speed cap
         ClampVelocityToMaxSpeed();

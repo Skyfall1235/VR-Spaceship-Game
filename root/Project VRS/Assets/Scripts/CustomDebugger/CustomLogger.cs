@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class CustomLogger : ScriptableObject
 {
     [SerializeField]
-    static LogSettings[] m_logSettings = new LogSettings[6];
+    LogSettings[] m_logSettings = new LogSettings[6];
     static private byte _Hash = 0;
 
     private void OnEnable()

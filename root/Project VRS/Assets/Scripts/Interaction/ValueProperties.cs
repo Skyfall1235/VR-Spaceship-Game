@@ -104,6 +104,7 @@ public class ValueProperties
     /// <param name="valueProperties">A reference to the <see cref="ValueProperties"/> instance whose properties will be set.</param>
     public void SetProperties(AdditionalInputForActionBasedController additionalInput, ref ValueProperties valueProperties)
     {
+        Debug.Log("1st set property chain");
         valueProperties.SetProperties(additionalInput.activateAction,
                                       additionalInput.activateActionValue,
                                       additionalInput.PrimaryButtonAction,
@@ -125,6 +126,7 @@ public class ValueProperties
                               InputActionProperty JoystickPressProperty,
                               InputActionProperty JoystickValueProperty)
     {
+        Debug.Log("2nd set property chain");
         HasValues = true;
         m_triggerPressProperty = TriggerPressProperty;
         m_triggerValueProperty = TriggerValueProperty;
@@ -138,6 +140,7 @@ public class ValueProperties
     /// </summary>
     public void RemoveProperties()
     {
+        Debug.Log("remove properties");
         HasValues = false;
         m_triggerPressProperty = null;
         m_triggerValueProperty = null;

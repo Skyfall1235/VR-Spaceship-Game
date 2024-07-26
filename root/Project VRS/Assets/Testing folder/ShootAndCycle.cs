@@ -16,12 +16,13 @@ public class ShootAndCycle : MonoBehaviour
         }
         InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
         InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
+        SetSelectedText();
         if (action.WasPerformedThisFrame())
         {
             weaponManager.RotateSelectedWeaponForward();
-            SetSelectedText();
+            
         }
-        if(trigger.WasPerformedThisFrame())
+        if(trigger.IsPressed())
         {
             weaponManager.LastFireState = true;
         }
