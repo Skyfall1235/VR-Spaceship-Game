@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "Unity.XR.Interaction.Toolkit",
-        "VRS.Interaction"
+        "VRS.Interaction",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

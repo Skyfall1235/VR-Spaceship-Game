@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_weaponName: Flak Cannon
   m_useProjectile: 1
-  m_projectileData: {fileID: 11400000, guid: daaf19d8b1340954487efd7bd3118750, type: 2}
+  m_projectileData: {fileID: 11400000, guid: ee8c229a667191d49a97f9e21209a202, type: 2}
   m_weaponParticleSystem: {fileID: 0}
   m_requiredHardpointSize: 2
   m_weaponFireAudioClip: []
@@ -26,7 +26,7 @@ MonoBehaviour:
   m_fireType:
     m_AssemblyName: vrs.ShipSystems.Weapons.Guns, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_ClassName: SemiAutomaticFire
+    m_ClassName: AutomaticFire
   m_autoFiring: 0
   m_useSpread: 1
   m_spreadValues: {x: 0.3, y: 0.3}

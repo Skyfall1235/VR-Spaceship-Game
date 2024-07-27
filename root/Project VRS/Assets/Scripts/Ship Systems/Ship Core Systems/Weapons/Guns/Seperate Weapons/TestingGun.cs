@@ -12,6 +12,7 @@ public class TestingGun : PooledWeapon
 
     public override void OnFire()
     {
+        Debug.Log("are we getting here?");
         base.OnFire();
     }
 }

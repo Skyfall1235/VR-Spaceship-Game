@@ -52,7 +52,14 @@ public class BC_InteractionRegister : MonoBehaviour
     /// </summary>
     public UnityEvent<bool> OnInteractorRegister = new UnityEvent<bool>();
 
-#endregion
+    #endregion
+
+    protected virtual void Awake()
+    {
+        m_associatedInteractable = GetComponent<XRBaseInteractable>();
+        m_associatedInteractable.selectEntered.AddListener(RegisterInteractor);
+        m_associatedInteractable.selectExited.AddListener(DeRegisterInteractor);
+    }
 
     /// <summary>
     /// Registers an XRBaseInteractor with the current object.

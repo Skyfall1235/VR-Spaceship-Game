@@ -793,6 +793,17 @@
                     "action": "Primary Button",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40afb17c-68a0-4707-8d84-52094e80d34c",
+                    "path": "<ViveController>{LeftHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Primary Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1503,6 +1514,17 @@
                     "name": "",
                     "id": "22de6dd3-f329-4ecc-8d40-0b892be33975",
                     "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Primary Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bc74d06-4aaf-4314-9d2b-0f97cd584c8d",
+                    "path": "<ViveController>{RightHand}/menu",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
