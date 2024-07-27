@@ -23,6 +23,8 @@ public class ShootAndCycle : MonoBehaviour
         }
         InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
         InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
+        Debug.Log(action.name);
+        Debug.Log(action.ReadValue<float>());
 
         if (action.WasPressedThisFrame())
         {
@@ -42,7 +44,7 @@ public class ShootAndCycle : MonoBehaviour
 
     void SetSelectedText()
     {
-        string selectedWeaponName = weaponManager.RetrieveSelectedWeapon().name;
+        string selectedWeaponName = weaponManager.RetrieveSelectedWeapon().WeaponData.WeaponName;
         weaponSelectedText.text = selectedWeaponName;
     }
 
