@@ -9,17 +9,13 @@ public class ShootAndCycle : MonoBehaviour
     public WeaponManagerModule weaponManager;
     public TwoHandedControllerInputHandler handler;
 
+
     private void Update()
     {
         SetSelectedText();
         if (handler.PrimaryValuesProperties.HasValues == false)
         {
-            Debug.Log("does not have values");
             return;
-        }
-        else
-        {
-            Debug.Log("does have value");
         }
         InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
         InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
@@ -28,7 +24,7 @@ public class ShootAndCycle : MonoBehaviour
 
         if (action.WasPressedThisFrame())
         {
-            Debug.Log("primary button press");
+            
             weaponManager.RotateSelectedWeaponForward();
             
         }
@@ -36,10 +32,7 @@ public class ShootAndCycle : MonoBehaviour
         {
             weaponManager.LastFireState = true;
         }
-        else
-        {
-            weaponManager.LastFireState = false;
-        }
+        if(trigger.WasReleasedThisFrame()) { weaponManager.LastFireState = false; }
     }
 
     void SetSelectedText()

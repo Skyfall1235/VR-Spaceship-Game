@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamagable, IHealable
 {
-    uint m_currentHealth;
+    [SerializeField] uint m_currentHealth;
     public uint CurrentHealth
     {
         get
@@ -17,7 +17,8 @@ public class Health : MonoBehaviour, IDamagable, IHealable
             m_currentHealth = value;
         }
     }
-    uint m_maxHealth = 100;
+    
+    [SerializeField] uint m_maxHealth = 100;
     public uint MaxHealth
     {
         get
@@ -36,8 +37,8 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     [SerializeField] bool m_useArmor;
     [SerializeField] uint m_armor;
     [SerializeField] uint m_armorForFiftyPercentReduction = 50;
-    
-    bool m_isInvulnerable = false;
+
+    [SerializeField] bool m_isInvulnerable = false;
     IEnumerator m_currentInvincibilityTimer = null;
     public bool IsInvulnerable
     {
@@ -90,6 +91,9 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     /// </summary>
     public UnityEvent<uint, uint> OnHealthInitialized = new UnityEvent<uint, uint>();
 
+    [field:SerializeField] public UnityEvent<Vector3> OnHullHit { get; set; } = new UnityEvent<Vector3>();
+
+
     /// <summary>
     /// Triggered when a health component dies
     /// </summary>
@@ -133,6 +137,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
             //calculate the damage to be taken
             uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth - ((ignoreArmor || !m_useArmor) ? (int)damageData.Damage : Mathf.CeilToInt((float)damageData.Damage * (float)CalculateDamageReduction(damageData.ArmorPenetration))), 0, m_maxHealth);
             OnDamage.Invoke(m_maxHealth, CurrentHealth, newHealth);
+            OnHullHit.Invoke(damageData.Damager.transform.position);
             //take the damage
             CurrentHealth = newHealth;
             if (m_useInvulnerabilityAfterDamage && ignoreInvulnerabilityAfterDamage && gameObject.activeSelf)
