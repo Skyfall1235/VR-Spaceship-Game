@@ -1,0 +1,133 @@
+\doxysection{Faction\+Reputation Class Reference}
+\hypertarget{class_faction_reputation}{}\label{class_faction_reputation}\index{FactionReputation@{FactionReputation}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_faction_reputation_1_1_reputation_datum}{Reputation\+Datum}}
+\begin{DoxyCompactList}\small\item\em Stores data associated with a faction\textquotesingle{}s reputation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689}{Reputation\+Value}} \{ \newline
+\mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689aa62a927d0ab6a08f916aa9f5ec0306e4}{Hostile}}
+, \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689a0e3046d616e323015d785eddd7e40725}{Disfavored}}
+, \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689ae9bb5320b3890b6747c91b5a71ae5a01}{Neutral}}
+, \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689a6c88c36ffaab88d255865aa3111d7686}{Cooperative}}
+, \newline
+\mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689ac0405d71f21e769c787a10b9620f11ea}{Trusted}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the reputation level a player or faction may have with another faction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_faction_reputation_a34621b85b0823f0f0bffcdf72a655c14}{Modify\+Standing}} (\mbox{\hyperlink{class_s_o___faction_data}{SO\+\_\+\+Faction\+Data}} faction, int value)
+\begin{DoxyCompactList}\small\item\em Modifies the reputation standing of a faction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_faction_reputation_ad9e9a3f545d3112902fcc57b76bec081}{Add\+Faction\+To\+Reputation\+Data}} (\mbox{\hyperlink{class_s_o___faction_data}{SO\+\_\+\+Faction\+Data}} faction)
+\begin{DoxyCompactList}\small\item\em Adds a new faction to the reputation data if it doesn\textquotesingle{}t already exist. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_faction_reputation_acb59ed3a93e002aec1d25004ed4e2693}{Check\+Faction\+Reputation}} (\mbox{\hyperlink{class_s_o___faction_data}{SO\+\_\+\+Faction\+Data}} faction\+To\+Check, out \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689}{Reputation\+Value}} rep\+Value)
+\begin{DoxyCompactList}\small\item\em Checks the reputation of a given faction. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_faction_reputation_af30bffd8a9c2f08a572d653f362f2167}\label{class_faction_reputation_af30bffd8a9c2f08a572d653f362f2167} 
+List$<$ \mbox{\hyperlink{class_faction_reputation_1_1_reputation_datum}{Reputation\+Datum}} $>$ {\bfseries Reputation\+Data} = new List$<$\mbox{\hyperlink{class_faction_reputation_1_1_reputation_datum}{Reputation\+Datum}}$>$()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689}\index{FactionReputation@{FactionReputation}!ReputationValue@{ReputationValue}}
+\index{ReputationValue@{ReputationValue}!FactionReputation@{FactionReputation}}
+\doxysubsubsection{\texorpdfstring{ReputationValue}{ReputationValue}}
+{\footnotesize\ttfamily \label{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689} 
+enum \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689}{Faction\+Reputation.\+Reputation\+Value}}}
+
+
+
+Represents the reputation level a player or faction may have with another faction. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Hostile@{Hostile}!FactionReputation@{FactionReputation}}\index{FactionReputation@{FactionReputation}!Hostile@{Hostile}}}\Hypertarget{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689aa62a927d0ab6a08f916aa9f5ec0306e4}\label{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689} 
+Hostile&The faction is considered an enemy and will be attacked on sight. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Disfavored@{Disfavored}!FactionReputation@{FactionReputation}}\index{FactionReputation@{FactionReputation}!Disfavored@{Disfavored}}}\Hypertarget{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689a0e3046d616e323015d785eddd7e40725}\label{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689} 
+Disfavored&The faction is viewed with suspicion and may be treated with hostility. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Neutral@{Neutral}!FactionReputation@{FactionReputation}}\index{FactionReputation@{FactionReputation}!Neutral@{Neutral}}}\Hypertarget{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689ae9bb5320b3890b6747c91b5a71ae5a01}\label{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689} 
+Neutral&The faction has no standing reputation with the other faction. They will be treated with indifference. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cooperative@{Cooperative}!FactionReputation@{FactionReputation}}\index{FactionReputation@{FactionReputation}!Cooperative@{Cooperative}}}\Hypertarget{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689a6c88c36ffaab88d255865aa3111d7686}\label{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689} 
+Cooperative&The faction has established a positive working relationship with the other faction. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Trusted@{Trusted}!FactionReputation@{FactionReputation}}\index{FactionReputation@{FactionReputation}!Trusted@{Trusted}}}\Hypertarget{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689ac0405d71f21e769c787a10b9620f11ea}\label{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689} 
+Trusted&The faction has earned the trust and respect of the other faction. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_faction_reputation_ad9e9a3f545d3112902fcc57b76bec081}\index{FactionReputation@{FactionReputation}!AddFactionToReputationData@{AddFactionToReputationData}}
+\index{AddFactionToReputationData@{AddFactionToReputationData}!FactionReputation@{FactionReputation}}
+\doxysubsubsection{\texorpdfstring{AddFactionToReputationData()}{AddFactionToReputationData()}}
+{\footnotesize\ttfamily \label{class_faction_reputation_ad9e9a3f545d3112902fcc57b76bec081} 
+void Faction\+Reputation.\+Add\+Faction\+To\+Reputation\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_o___faction_data}{SO\+\_\+\+Faction\+Data}}}]{faction}{}\end{DoxyParamCaption})}
+
+
+
+Adds a new faction to the reputation data if it doesn\textquotesingle{}t already exist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em faction} & The faction data to add.\\
+\hline
+\end{DoxyParams}
+
+
+This method checks if the reputation data already contains information for the provided faction. If not, a new \doxylink{class_faction_reputation_1_1_reputation_datum}{Reputation\+Datum} object is created and added to the internal Reputation\+Data list. \Hypertarget{class_faction_reputation_acb59ed3a93e002aec1d25004ed4e2693}\index{FactionReputation@{FactionReputation}!CheckFactionReputation@{CheckFactionReputation}}
+\index{CheckFactionReputation@{CheckFactionReputation}!FactionReputation@{FactionReputation}}
+\doxysubsubsection{\texorpdfstring{CheckFactionReputation()}{CheckFactionReputation()}}
+{\footnotesize\ttfamily \label{class_faction_reputation_acb59ed3a93e002aec1d25004ed4e2693} 
+bool Faction\+Reputation.\+Check\+Faction\+Reputation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_o___faction_data}{SO\+\_\+\+Faction\+Data}}}]{faction\+To\+Check}{, }\item[{out \mbox{\hyperlink{class_faction_reputation_afcdde406b510fbdb0e3910e557b98689}{Reputation\+Value}}}]{rep\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Checks the reputation of a given faction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em faction\+To\+Check} & The faction whose reputation to check.\\
+\hline
+{\em rep\+Value} & Outputs the reputation value of the faction (if found).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the faction\textquotesingle{}s reputation data is found, False otherwise.
+\end{DoxyReturn}
+\Hypertarget{class_faction_reputation_a34621b85b0823f0f0bffcdf72a655c14}\index{FactionReputation@{FactionReputation}!ModifyStanding@{ModifyStanding}}
+\index{ModifyStanding@{ModifyStanding}!FactionReputation@{FactionReputation}}
+\doxysubsubsection{\texorpdfstring{ModifyStanding()}{ModifyStanding()}}
+{\footnotesize\ttfamily \label{class_faction_reputation_a34621b85b0823f0f0bffcdf72a655c14} 
+void Faction\+Reputation.\+Modify\+Standing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_o___faction_data}{SO\+\_\+\+Faction\+Data}}}]{faction}{, }\item[{int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Modifies the reputation standing of a faction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em faction} & The faction whose reputation to modify.\\
+\hline
+{\em value} & The amount to change the reputation by (positive for increase, negative for decrease).\\
+\hline
+\end{DoxyParams}
+
+
+This method attempts to find the reputation data for the specified faction. If found, the value is added to the existing standing. If the faction data is not found, a log message is created using the provided \doxylink{class_custom_logger}{Custom\+Logger} class. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Factions/Faction\+Reputation\+Manager.\+cs\end{DoxyCompactItemize}

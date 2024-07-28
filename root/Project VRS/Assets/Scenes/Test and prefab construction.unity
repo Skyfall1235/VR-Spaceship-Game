@@ -2319,7 +2319,7 @@ MonoBehaviour:
   m_inventorySize: 1
   m_inventorySlots:
   - item:
-      m_modelToDisplay: {fileID: 0}
+      m_modelToDisplay: {fileID: -5517805144868682806, guid: 3940827fbdfb4f2488259b0dc1642eb0, type: 3}
       m_materialToDisplay: {fileID: 0}
       m_spriteForInventory: {fileID: 0}
       m_itemType: 0

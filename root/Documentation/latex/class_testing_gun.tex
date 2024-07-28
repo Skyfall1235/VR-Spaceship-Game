@@ -1,0 +1,121 @@
+\doxysection{Testing\+Gun Class Reference}
+\hypertarget{class_testing_gun}{}\label{class_testing_gun}\index{TestingGun@{TestingGun}}
+Inheritance diagram for Testing\+Gun\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_testing_gun}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_testing_gun_ab54caa2bb6af58dd2f8963c0fdf23d3f}\label{class_testing_gun_ab54caa2bb6af58dd2f8963c0fdf23d3f} 
+override void {\bfseries On\+Fire} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_pooled_weapon}{Pooled\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+override void {\bfseries On\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Called whenever the weapon is fired. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_b_c___weapon_aadcbd9a0f25b23bed65a2bcb3dcab797}{Update\+Firing\+State}} (bool new\+Firing\+State)
+\begin{DoxyCompactList}\small\item\em Updates the weapon\textquotesingle{}s firing state and attempts to fire if necessary. \end{DoxyCompactList}\item 
+virtual void {\bfseries On\+Start\+Fire} ()
+\item 
+virtual void {\bfseries On\+Stop\+Fire} ()
+\item 
+virtual void {\bfseries On\+Pre\+Fire} ()
+\item 
+virtual void {\bfseries On\+Post\+Fire} ()
+\item 
+void {\bfseries On\+Fire} ()
+\item 
+virtual void {\bfseries Try\+Reload} ()
+\begin{DoxyCompactList}\small\item\em checks if the weapon uses a magazine and reloads tries to run the reload coroutine if it does \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_testing_gun_a667fafe1271ed2d75977cacf88383eab}{Awake}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the weapon based on the attached Weapon\+Data scriptable object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_pooled_weapon}{Pooled\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+Game\+Object \mbox{\hyperlink{class_pooled_weapon_a3a6bef197f60ae10a6d7daddf4b7e82a}{On\+Create}} (Game\+Object prefab\+To\+Instantiate)
+\begin{DoxyCompactList}\small\item\em Called when a new pool object needs to be created. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pooled_weapon_a606310f72c2bf999106e262b21f698e2}{On\+Pulled\+From\+Pool}} (Game\+Object object\+Pulled)
+\begin{DoxyCompactList}\small\item\em Called whenever an object is pulled from a pool. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pooled_weapon_ae8e5fd149dc41eebd786ef13b32a056a}{On\+Returned\+To\+Pool}} (Game\+Object object\+Returned)
+\begin{DoxyCompactList}\small\item\em Called when a Game\+Object is returned to the object pool. This method deactivates the object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pooled_weapon_a135b279d58e11cefc047b9cbd301fa35}{Destroy\+Pooled\+Object}} (Game\+Object object\+To\+Destroy)
+\begin{DoxyCompactList}\small\item\em Destroys the specified Game\+Object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282b}{Weapon\+State}} \{ \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282baad866f19a13c5386d2ec6df246dcbfac}{Preparing}}
+, \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282ba1046222ea676e1c79b0f8d955cf3a55c}{Reloading}}
+, \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282bae7d31fc0602fb2ede144d18cdffd816b}{Ready}}
+, \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282bab9f5c797ebbf55adccdd8539a65a0241}{Disabled}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the possible states of a weapon. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{class_b_c___weapon_a9251c63b99144af6b69a2958a85a8b05}{Weapon\+Action}} \{ \mbox{\hyperlink{class_b_c___weapon_a9251c63b99144af6b69a2958a85a8b05a6adf97f83acf6453d4a6a4b1070f3754}{None}}
+, \mbox{\hyperlink{class_b_c___weapon_a9251c63b99144af6b69a2958a85a8b05a268b6ce41586cddf4a418bd901360469}{Firing}}
+, \mbox{\hyperlink{class_b_c___weapon_a9251c63b99144af6b69a2958a85a8b05a1046222ea676e1c79b0f8d955cf3a55c}{Reloading}}
+ \}
+\begin{DoxyCompactList}\small\item\em The possible actions a weapon can perform. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282b}{Weapon\+State}} {\bfseries Current\+Weapon\+State} = \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282bae7d31fc0602fb2ede144d18cdffd816b}{Weapon\+State.\+Ready}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current weapon state. \end{DoxyCompactList}\item 
+Unity\+Event$<$ \mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282b}{Weapon\+State}} $>$ {\bfseries On\+Change\+Weapon\+State} = new Unity\+Event$<$\mbox{\hyperlink{class_b_c___weapon_ad7499a466b182b2a2d4ecd712e42282b}{Weapon\+State}}$>$()
+\begin{DoxyCompactList}\small\item\em Unity\+Event triggered whenever the weapon\textquotesingle{}s state changes. This event provides the new weapon state as an argument. \end{DoxyCompactList}\item 
+Unity\+Event$<$ \mbox{\hyperlink{class_b_c___weapon_a9251c63b99144af6b69a2958a85a8b05}{Weapon\+Action}} $>$ {\bfseries On\+Weapon\+Action} = new Unity\+Event$<$\mbox{\hyperlink{class_b_c___weapon_a9251c63b99144af6b69a2958a85a8b05}{Weapon\+Action}}$>$()
+\begin{DoxyCompactList}\small\item\em Unity\+Event triggered whenever the weapon performs an action. This event provides the specific weapon action as an argument. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_o___weapon_data}{SO\+\_\+\+Weapon\+Data}} {\bfseries m\+\_\+weapon\+Data}
+\begin{DoxyCompactList}\small\item\em Reference to the attached \doxylink{class_s_o___weapon_data}{SO\+\_\+\+Weapon\+Data} scriptable object. \end{DoxyCompactList}\item 
+Game\+Object {\bfseries m\+\_\+instantiation\+Point}
+\begin{DoxyCompactList}\small\item\em Game\+Object representing the point where projectiles are instantiated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_pooled_weapon}{Pooled\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ Object\+Pool$<$ Game\+Object $>$ $>$ {\bfseries projectile\+Pools} = new List$<$Object\+Pool$<$Game\+Object$>$$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em A list of pools that contain the projectiles for this weapon. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries m\+\_\+minimum\+Time\+Between\+Firing} = 1\hspace{0.3cm}{\ttfamily  \mbox{[}get, protected set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Minimum time in seconds between firing the weapon. \end{DoxyCompactList}\item 
+Transform {\bfseries Weapon\+Base}\hspace{0.3cm}{\ttfamily  \mbox{[}get, protected set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Transform representing the base of the weapon where projectiles are instantiated. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_o___weapon_data}{SO\+\_\+\+Weapon\+Data}} {\bfseries Weapon\+Data}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Game\+Object {\bfseries Instantiation\+Point}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_testing_gun_a667fafe1271ed2d75977cacf88383eab}\index{TestingGun@{TestingGun}!Awake@{Awake}}
+\index{Awake@{Awake}!TestingGun@{TestingGun}}
+\doxysubsubsection{\texorpdfstring{Awake()}{Awake()}}
+{\footnotesize\ttfamily \label{class_testing_gun_a667fafe1271ed2d75977cacf88383eab} 
+override void Testing\+Gun.\+Awake (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Initializes the weapon based on the attached Weapon\+Data scriptable object. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_pooled_weapon_af0bded3393db486c4f03b46260690ef0}{Pooled\+Weapon}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Guns/\+Seperate Weapons/Testing\+Gun.\+cs\end{DoxyCompactItemize}

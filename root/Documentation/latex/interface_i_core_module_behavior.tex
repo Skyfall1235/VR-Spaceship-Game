@@ -1,0 +1,117 @@
+\doxysection{ICore\+Module\+Behavior Interface Reference}
+\hypertarget{interface_i_core_module_behavior}{}\label{interface_i_core_module_behavior}\index{ICoreModuleBehavior@{ICoreModuleBehavior}}
+
+
+Defines the expected behavior for core systems.  
+
+
+Inheritance diagram for ICore\+Module\+Behavior\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{interface_i_core_module_behavior}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_core_module_behavior_a4f742888a73b2370dc18b105b4e80799}{Start\+Up}} ()
+\begin{DoxyCompactList}\small\item\em Starts up the system and initializes its functionality. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_core_module_behavior_aed50b98c5363f54f19c5ee1d015af4b9}{Shut\+Down}} ()
+\begin{DoxyCompactList}\small\item\em Shuts down the system and safely releases resources. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_core_module_behavior_adf16e5d4ec928600041ff025ec892a23}{Reboot}} ()
+\begin{DoxyCompactList}\small\item\em Reboots the module. effectively calls the shutdown then start up methods in series. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_core_module_behavior_a3c3c1d7b197d4c41063a8c4eb58ff76a}{Register\+Core\+Module\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Registers the specified \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} with this system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_core_module_behavior_ac2679e4db45e7e06b73cd3e15d940551}{Deregister\+Core\+System\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Deregisters the specified \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} from this system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the expected behavior for core systems. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_core_module_behavior_ac2679e4db45e7e06b73cd3e15d940551}\index{ICoreModuleBehavior@{ICoreModuleBehavior}!DeregisterCoreSystemManager@{DeregisterCoreSystemManager}}
+\index{DeregisterCoreSystemManager@{DeregisterCoreSystemManager}!ICoreModuleBehavior@{ICoreModuleBehavior}}
+\doxysubsubsection{\texorpdfstring{DeregisterCoreSystemManager()}{DeregisterCoreSystemManager()}}
+{\footnotesize\ttfamily \label{interface_i_core_module_behavior_ac2679e4db45e7e06b73cd3e15d940551} 
+void ICore\+Module\+Behavior.\+Deregister\+Core\+System\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}}}]{current\+Manager}{}\end{DoxyParamCaption})}
+
+
+
+Deregisters the specified \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} from this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Manager} & The \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} to deregister.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_b_c___core_module_a1cb4701f413ca7adaed22920b3103c7b}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{interface_i_core_module_behavior_adf16e5d4ec928600041ff025ec892a23}\index{ICoreModuleBehavior@{ICoreModuleBehavior}!Reboot@{Reboot}}
+\index{Reboot@{Reboot}!ICoreModuleBehavior@{ICoreModuleBehavior}}
+\doxysubsubsection{\texorpdfstring{Reboot()}{Reboot()}}
+{\footnotesize\ttfamily \label{interface_i_core_module_behavior_adf16e5d4ec928600041ff025ec892a23} 
+void ICore\+Module\+Behavior.\+Reboot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reboots the module. effectively calls the shutdown then start up methods in series. 
+
+
+
+Implemented in \mbox{\hyperlink{class_b_c___core_module_a3c9024c79bb8f0f77890075b601e4561}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{interface_i_core_module_behavior_a3c3c1d7b197d4c41063a8c4eb58ff76a}\index{ICoreModuleBehavior@{ICoreModuleBehavior}!RegisterCoreModuleManager@{RegisterCoreModuleManager}}
+\index{RegisterCoreModuleManager@{RegisterCoreModuleManager}!ICoreModuleBehavior@{ICoreModuleBehavior}}
+\doxysubsubsection{\texorpdfstring{RegisterCoreModuleManager()}{RegisterCoreModuleManager()}}
+{\footnotesize\ttfamily \label{interface_i_core_module_behavior_a3c3c1d7b197d4c41063a8c4eb58ff76a} 
+void ICore\+Module\+Behavior.\+Register\+Core\+Module\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}}}]{current\+Manager}{}\end{DoxyParamCaption})}
+
+
+
+Registers the specified \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} with this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Manager} & The \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} to register.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_b_c___core_module_a47475409cf730d535dd097994ad75e21}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{interface_i_core_module_behavior_aed50b98c5363f54f19c5ee1d015af4b9}\index{ICoreModuleBehavior@{ICoreModuleBehavior}!ShutDown@{ShutDown}}
+\index{ShutDown@{ShutDown}!ICoreModuleBehavior@{ICoreModuleBehavior}}
+\doxysubsubsection{\texorpdfstring{ShutDown()}{ShutDown()}}
+{\footnotesize\ttfamily \label{interface_i_core_module_behavior_aed50b98c5363f54f19c5ee1d015af4b9} 
+void ICore\+Module\+Behavior.\+Shut\+Down (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Shuts down the system and safely releases resources. 
+
+
+
+Implemented in \mbox{\hyperlink{class_b_c___core_module_a09979396d8b1e410848b63f487ade169}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{interface_i_core_module_behavior_a4f742888a73b2370dc18b105b4e80799}\index{ICoreModuleBehavior@{ICoreModuleBehavior}!StartUp@{StartUp}}
+\index{StartUp@{StartUp}!ICoreModuleBehavior@{ICoreModuleBehavior}}
+\doxysubsubsection{\texorpdfstring{StartUp()}{StartUp()}}
+{\footnotesize\ttfamily \label{interface_i_core_module_behavior_a4f742888a73b2370dc18b105b4e80799} 
+void ICore\+Module\+Behavior.\+Start\+Up (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Starts up the system and initializes its functionality. 
+
+
+
+Implemented in \mbox{\hyperlink{class_b_c___core_module_a2668bda895edce40325150e42015e9bc}{BC\+\_\+\+Core\+Module}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/\+Ship Interfaces/ICore\+Module\+Behavior.\+cs\end{DoxyCompactItemize}

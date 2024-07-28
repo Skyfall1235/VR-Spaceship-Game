@@ -1,0 +1,93 @@
+\doxysection{Player\+Ship\+Input\+Handler Class Reference}
+\hypertarget{class_player_ship_input_handler}{}\label{class_player_ship_input_handler}\index{PlayerShipInputHandler@{PlayerShipInputHandler}}
+Inheritance diagram for Player\+Ship\+Input\+Handler\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_player_ship_input_handler}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_player_ship_input_handler_a29cb7e840c80b40ff330b4cdb8dc7f5c}{Register\+Primary\+Interactor\+Controller}} (Select\+Enter\+Event\+Args e)
+\item 
+void \mbox{\hyperlink{class_player_ship_input_handler_a53471664a45ca0594436a1e4690da4ad}{Unregister\+Primary\+Interactor\+Controller}} (Select\+Exit\+Event\+Args e)
+\item 
+void \mbox{\hyperlink{class_player_ship_input_handler_a4c50a349871cb186f3bb0f47be00511a}{Register\+Secondary\+Interactor\+Controller}} (Select\+Enter\+Event\+Args e)
+\item 
+void \mbox{\hyperlink{class_player_ship_input_handler_a29a09f39922bbb5ffeeec08ed7782583}{Unregister\+Secondary\+Interactor\+Controller}} (Select\+Exit\+Event\+Args e)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_ship_input_handler_a118877baa38cbf84e9cd2682cbb20a91}\label{class_player_ship_input_handler_a118877baa38cbf84e9cd2682cbb20a91} 
+Unity\+Event {\bfseries Input\+Recieval} = new Unity\+Event()
+\item 
+\Hypertarget{class_player_ship_input_handler_a5e50d63c691d9098374e071720061155}\label{class_player_ship_input_handler_a5e50d63c691d9098374e071720061155} 
+bool {\bfseries use\+Keyboard\+Controls} = true
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_b_c___ship_input_handler}{BC\+\_\+\+Ship\+Input\+Handler}}}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries Controls\+Are\+Responsive} = false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_ship_input_handler_a3e2cab7227c18b413dba5574c498b6b9}\label{class_player_ship_input_handler_a3e2cab7227c18b413dba5574c498b6b9} 
+\mbox{\hyperlink{class_new_x_r_joystick}{New\+XRJoystick}} {\bfseries Primary\+Ship\+Joystick}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_player_ship_input_handler_ae114a9fe5b6b53974d377f733dd87aec}\label{class_player_ship_input_handler_ae114a9fe5b6b53974d377f733dd87aec} 
+\mbox{\hyperlink{class_new_x_r_joystick}{New\+XRJoystick}} {\bfseries Secondary\+Ship\+Joystick}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_player_ship_input_handler_a536f109fb9017007ee4cbed7da81659b}\label{class_player_ship_input_handler_a536f109fb9017007ee4cbed7da81659b} 
+\mbox{\hyperlink{struct_ship_joystick_input}{Ship\+Joystick\+Input}} {\bfseries Current\+Ship\+Joystick\+Inputs}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_ship_input_handler_a29cb7e840c80b40ff330b4cdb8dc7f5c}\index{PlayerShipInputHandler@{PlayerShipInputHandler}!RegisterPrimaryInteractorController@{RegisterPrimaryInteractorController}}
+\index{RegisterPrimaryInteractorController@{RegisterPrimaryInteractorController}!PlayerShipInputHandler@{PlayerShipInputHandler}}
+\doxysubsubsection{\texorpdfstring{RegisterPrimaryInteractorController()}{RegisterPrimaryInteractorController()}}
+{\footnotesize\ttfamily \label{class_player_ship_input_handler_a29cb7e840c80b40ff330b4cdb8dc7f5c} 
+void Player\+Ship\+Input\+Handler.\+Register\+Primary\+Interactor\+Controller (\begin{DoxyParamCaption}\item[{Select\+Enter\+Event\+Args}]{e}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_iinteractor_register}{Iinteractor\+Register}}.
+
+\Hypertarget{class_player_ship_input_handler_a4c50a349871cb186f3bb0f47be00511a}\index{PlayerShipInputHandler@{PlayerShipInputHandler}!RegisterSecondaryInteractorController@{RegisterSecondaryInteractorController}}
+\index{RegisterSecondaryInteractorController@{RegisterSecondaryInteractorController}!PlayerShipInputHandler@{PlayerShipInputHandler}}
+\doxysubsubsection{\texorpdfstring{RegisterSecondaryInteractorController()}{RegisterSecondaryInteractorController()}}
+{\footnotesize\ttfamily \label{class_player_ship_input_handler_a4c50a349871cb186f3bb0f47be00511a} 
+void Player\+Ship\+Input\+Handler.\+Register\+Secondary\+Interactor\+Controller (\begin{DoxyParamCaption}\item[{Select\+Enter\+Event\+Args}]{e}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_iinteractor_register}{Iinteractor\+Register}}.
+
+\Hypertarget{class_player_ship_input_handler_a53471664a45ca0594436a1e4690da4ad}\index{PlayerShipInputHandler@{PlayerShipInputHandler}!UnregisterPrimaryInteractorController@{UnregisterPrimaryInteractorController}}
+\index{UnregisterPrimaryInteractorController@{UnregisterPrimaryInteractorController}!PlayerShipInputHandler@{PlayerShipInputHandler}}
+\doxysubsubsection{\texorpdfstring{UnregisterPrimaryInteractorController()}{UnregisterPrimaryInteractorController()}}
+{\footnotesize\ttfamily \label{class_player_ship_input_handler_a53471664a45ca0594436a1e4690da4ad} 
+void Player\+Ship\+Input\+Handler.\+Unregister\+Primary\+Interactor\+Controller (\begin{DoxyParamCaption}\item[{Select\+Exit\+Event\+Args}]{e}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_iinteractor_register}{Iinteractor\+Register}}.
+
+\Hypertarget{class_player_ship_input_handler_a29a09f39922bbb5ffeeec08ed7782583}\index{PlayerShipInputHandler@{PlayerShipInputHandler}!UnregisterSecondaryInteractorController@{UnregisterSecondaryInteractorController}}
+\index{UnregisterSecondaryInteractorController@{UnregisterSecondaryInteractorController}!PlayerShipInputHandler@{PlayerShipInputHandler}}
+\doxysubsubsection{\texorpdfstring{UnregisterSecondaryInteractorController()}{UnregisterSecondaryInteractorController()}}
+{\footnotesize\ttfamily \label{class_player_ship_input_handler_a29a09f39922bbb5ffeeec08ed7782583} 
+void Player\+Ship\+Input\+Handler.\+Unregister\+Secondary\+Interactor\+Controller (\begin{DoxyParamCaption}\item[{Select\+Exit\+Event\+Args}]{e}{}\end{DoxyParamCaption})}
+
+
+
+Implements \mbox{\hyperlink{interface_iinteractor_register}{Iinteractor\+Register}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship movement Control/Player\+Ship\+Input\+Handler.\+cs\end{DoxyCompactItemize}

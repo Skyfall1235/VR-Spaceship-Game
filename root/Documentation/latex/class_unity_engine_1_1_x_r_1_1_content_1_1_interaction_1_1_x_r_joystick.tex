@@ -1,0 +1,87 @@
+\doxysection{Unity\+Engine.\+XR.\+Content.\+Interaction.\+XRJoystick Class Reference}
+\hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick}{}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick}\index{UnityEngine.XR.Content.Interaction.XRJoystick@{UnityEngine.XR.Content.Interaction.XRJoystick}}
+
+
+An interactable joystick that can move side to side, and forward and back by a direct interactor.  
+
+
+Inheritance diagram for Unity\+Engine.\+XR.\+Content.\+Interaction.\+XRJoystick\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_1_1_value_change_event}{Value\+Change\+Event}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_aab73634a49fc42be74c7cddc0329a174}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_aab73634a49fc42be74c7cddc0329a174} 
+enum {\bfseries Joystick\+Type} \{ {\bfseries Both\+Circle}
+, {\bfseries Both\+Square}
+, {\bfseries Front\+Back}
+, {\bfseries Left\+Right}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_af62176315f7ae9ba2ecf66b6131fa389}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_af62176315f7ae9ba2ecf66b6131fa389} 
+override void {\bfseries Process\+Interactable} (XRInteraction\+Update\+Order.\+Update\+Phase update\+Phase)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a8f8328dc2a89baf45129aa6439978973}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a8f8328dc2a89baf45129aa6439978973} 
+static void {\bfseries Decompose\+Swing\+Twist} (Quaternion q, Vector3 twist\+Axis, out Quaternion swing, out Quaternion twist)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_afe553c33808d8e68e311b825b9e67fe4}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_afe553c33808d8e68e311b825b9e67fe4} 
+override void {\bfseries On\+Enable} ()
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_aaf367a17fb4e74614d276e67d2a69784}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_aaf367a17fb4e74614d276e67d2a69784} 
+override void {\bfseries On\+Disable} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a780f27f6537071bfb5d0e49c3114647c}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a780f27f6537071bfb5d0e49c3114647c} 
+Joystick\+Type {\bfseries joystick\+Motion}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Controls how the joystick moves. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_ac9c6b8e3b135229a4d06010b41c39ccf}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_ac9c6b8e3b135229a4d06010b41c39ccf} 
+Transform {\bfseries handle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The object that is visually grabbed and manipulated. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a8a94c41898bf47a33afa3a96f3899f5f}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a8a94c41898bf47a33afa3a96f3899f5f} 
+Vector2 {\bfseries value}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The value of the joystick. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_aa143925ef24447017a2412036c77f311}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_aa143925ef24447017a2412036c77f311} 
+bool {\bfseries recenter\+On\+Release}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em If true, the joystick will return to dead center on release. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a70266bc01bc6d0f96d064be025910a18}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a70266bc01bc6d0f96d064be025910a18} 
+bool {\bfseries recenter\+XOn\+Release}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em If true, the joysticks X value will return to center on release. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_ab9a02078bd5a6e8a2028358dda21bcb1}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_ab9a02078bd5a6e8a2028358dda21bcb1} 
+float {\bfseries max\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Maximum angle the joystick can move. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_ab0f87f76f7f27f228a9c7296dd277a34}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_ab0f87f76f7f27f228a9c7296dd277a34} 
+float {\bfseries dead\+Zone\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Minimum amount the joystick must move off the center to register changes. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a788b71d7553d43ecf48d42533f67a889}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a788b71d7553d43ecf48d42533f67a889} 
+\mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_1_1_value_change_event}{Value\+Change\+Event}} {\bfseries on\+Value\+ChangeX}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Events to trigger when the joystick\textquotesingle{}s x value changes. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a7df27092780cddba40bce2a64f1f241e}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_a7df27092780cddba40bce2a64f1f241e} 
+\mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick_1_1_value_change_event}{Value\+Change\+Event}} {\bfseries on\+Value\+ChangeY}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Events to trigger when the joystick\textquotesingle{}s y value changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An interactable joystick that can move side to side, and forward and back by a direct interactor. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Deprecated/XRJoystick.\+cs\end{DoxyCompactItemize}

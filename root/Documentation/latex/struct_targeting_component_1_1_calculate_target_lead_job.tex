@@ -1,0 +1,65 @@
+\doxysection{Targeting\+Component.\+Calculate\+Target\+Lead\+Job Struct Reference}
+\hypertarget{struct_targeting_component_1_1_calculate_target_lead_job}{}\label{struct_targeting_component_1_1_calculate_target_lead_job}\index{TargetingComponent.CalculateTargetLeadJob@{TargetingComponent.CalculateTargetLeadJob}}
+
+
+Unity Job that calculates the target lead lneeded for a gun to hit its mark in 3d space.  
+
+
+Inheritance diagram for Targeting\+Component.\+Calculate\+Target\+Lead\+Job\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_targeting_component_1_1_calculate_target_lead_job}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_ad0c7b8e2f3bdf2f6fd802fbc05408f2c}\label{struct_targeting_component_1_1_calculate_target_lead_job_ad0c7b8e2f3bdf2f6fd802fbc05408f2c} 
+{\bfseries Calculate\+Target\+Lead\+Job} (Vector3 player\+Position, Vector3 target\+Position, float3 target\+Acceleration, float projectile\+Speed, Native\+Array$<$ float3 $>$ native\+Array\+Ref)
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_af0bdc13bcd300570b67b6fac17076d6a}\label{struct_targeting_component_1_1_calculate_target_lead_job_af0bdc13bcd300570b67b6fac17076d6a} 
+void {\bfseries Execute} ()
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a87f374d7ab4128ca389b1efd95363d62}\label{struct_targeting_component_1_1_calculate_target_lead_job_a87f374d7ab4128ca389b1efd95363d62} 
+float3 {\bfseries Calulcate\+Lead\+Position} (float3 player\+Position, float3 target\+Position, float3 target\+Acceleration, float projectile\+Speed)
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a65045589b66d930b0aa633a01e5a8f47}\label{struct_targeting_component_1_1_calculate_target_lead_job_a65045589b66d930b0aa633a01e5a8f47} 
+float {\bfseries Distance} (float3 a, float3 b)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a354c39552d995f4611298d33edeed9e2}\label{struct_targeting_component_1_1_calculate_target_lead_job_a354c39552d995f4611298d33edeed9e2} 
+static float3 {\bfseries Vector3\+To\+Float3} (Vector3 from)
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a9c40a36d54ba8134cc87c91ac619aabc}\label{struct_targeting_component_1_1_calculate_target_lead_job_a9c40a36d54ba8134cc87c91ac619aabc} 
+static Vector3 {\bfseries Float3\+To\+Vector3} (float3 from)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a94ecf78fed904dc5476d8c134db2dc25}\label{struct_targeting_component_1_1_calculate_target_lead_job_a94ecf78fed904dc5476d8c134db2dc25} 
+readonly float3 {\bfseries Player\+Position}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_aafac1c1366d61b38e8c4d34153ec94e1}\label{struct_targeting_component_1_1_calculate_target_lead_job_aafac1c1366d61b38e8c4d34153ec94e1} 
+readonly float3 {\bfseries Target\+Position}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a9c63f6633667afcac268187b061dd8f7}\label{struct_targeting_component_1_1_calculate_target_lead_job_a9c63f6633667afcac268187b061dd8f7} 
+readonly float3 {\bfseries Target\+Acceleration}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a1b34c6e4c49e8056d908761f37946f8f}\label{struct_targeting_component_1_1_calculate_target_lead_job_a1b34c6e4c49e8056d908761f37946f8f} 
+readonly float {\bfseries Projectile\+Speed}
+\item 
+\Hypertarget{struct_targeting_component_1_1_calculate_target_lead_job_a9c54c65d506adf692b9d9c34eb50a955}\label{struct_targeting_component_1_1_calculate_target_lead_job_a9c54c65d506adf692b9d9c34eb50a955} 
+Native\+Array$<$ float3 $>$ {\bfseries Native\+Array}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Unity Job that calculates the target lead lneeded for a gun to hit its mark in 3d space. 
+
+The native array inputted into the constructor is how you get an output. you will need to schedule this job with a coroutine 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Turrets/Targeting\+Component.\+cs\end{DoxyCompactItemize}

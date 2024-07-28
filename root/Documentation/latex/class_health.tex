@@ -1,0 +1,170 @@
+\doxysection{Health Class Reference}
+\hypertarget{class_health}{}\label{class_health}\index{Health@{Health}}
+Inheritance diagram for Health\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_health}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}
+\begin{DoxyCompactList}\small\item\em An event type providing info for when the health of an object changes Parameter 1 is the max health Parameter 2 is the health before the event Parameter 3 is the health after the event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_health_a491aae5dc750da8265a749c78f783ea6}{Initialize\+Health}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{class_health}{Health} Component with a full HP and invokes the declaration event. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_health_a7410afe33b6bddd435f4745781a47be4}{Damage}} (\mbox{\hyperlink{struct_damage_data}{Damage\+Data}} damage\+Data, bool ignore\+Invulnerability\+After\+Damage=false, bool ignore\+Armor=false)
+\begin{DoxyCompactList}\small\item\em Damages the health component. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_health_a3327cf48a22bbb5c68dc18cc4a291b24}{Heal}} (uint amount\+To\+Heal)
+\begin{DoxyCompactList}\small\item\em Heals the health component. \end{DoxyCompactList}\item 
+\Hypertarget{class_health_a4fc36561e6ed053ce0ec754634d203c2}\label{class_health_a4fc36561e6ed053ce0ec754634d203c2} 
+void {\bfseries Reset} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_health_ada052f028e066169076f02aa1f887fda}\label{class_health_ada052f028e066169076f02aa1f887fda} 
+Unity\+Event$<$ uint, uint $>$ {\bfseries On\+Health\+Initialized} = new Unity\+Event$<$uint, uint$>$()
+\begin{DoxyCompactList}\small\item\em triggered when a healthcomponent is initialized Parameter 1 is the max health Parameter 2 is the current health \end{DoxyCompactList}\item 
+\Hypertarget{class_health_acbb6b5e69e1c5fb9adb0be9fbe2593dd}\label{class_health_acbb6b5e69e1c5fb9adb0be9fbe2593dd} 
+Unity\+Event {\bfseries On\+Death} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component dies. \end{DoxyCompactList}\item 
+\Hypertarget{class_health_a8df78e98e6d0042c53b35cd48dedbe4b}\label{class_health_a8df78e98e6d0042c53b35cd48dedbe4b} 
+Unity\+Event {\bfseries On\+Revive} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component gets revived. \end{DoxyCompactList}\item 
+\Hypertarget{class_health_a77312415990d9b8ac66cc4c8c3b24617}\label{class_health_a77312415990d9b8ac66cc4c8c3b24617} 
+Unity\+Event {\bfseries On\+Became\+Invulnerable} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component becomes invulnerable. \end{DoxyCompactList}\item 
+\Hypertarget{class_health_aa2c31a0a2c487c9f6663bb21cb050f1c}\label{class_health_aa2c31a0a2c487c9f6663bb21cb050f1c} 
+Unity\+Event {\bfseries On\+Became\+Vulnerable} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component becomes vulnerable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_health_a7c633a5bc96ab7daf457cc1a7a6a9c21}\label{class_health_a7c633a5bc96ab7daf457cc1a7a6a9c21} 
+uint {\bfseries Current\+Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_health_aec3d3c5556050c1afc3995a2b7815dea}\label{class_health_aec3d3c5556050c1afc3995a2b7815dea} 
+uint {\bfseries Max\+Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_health_aff8952b10b2778ce1ca5c5225362bf3f}\label{class_health_aff8952b10b2778ce1ca5c5225362bf3f} 
+bool {\bfseries Is\+Invulnerable}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\Hypertarget{class_health_a52a3f998a6284fc6e15e56e6f84a6b1c}\label{class_health_a52a3f998a6284fc6e15e56e6f84a6b1c} 
+bool {\bfseries Is\+Alive} = true\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}} \mbox{\hyperlink{class_health_aa0a5a74c29b88bc72393d9c7ab39eb12}{On\+Damage}} = new \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Triggered whenever a health component takes damage. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}} \mbox{\hyperlink{class_health_aefed73694cec4387999ad0fbc13a4809}{On\+Heal}} = new \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Triggered whenever a health component is healed. \end{DoxyCompactList}\item 
+\Hypertarget{class_health_af25f3ce3af4daf90581152d5d24b2a59}\label{class_health_af25f3ce3af4daf90581152d5d24b2a59} 
+Unity\+Event$<$ Vector3 $>$ {\bfseries On\+Hull\+Hit} = new Unity\+Event$<$Vector3$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_damagable}{IDamagable}}}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_healable}{IHealable}}}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_health_a7410afe33b6bddd435f4745781a47be4}\index{Health@{Health}!Damage@{Damage}}
+\index{Damage@{Damage}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{Damage()}{Damage()}}
+{\footnotesize\ttfamily \label{class_health_a7410afe33b6bddd435f4745781a47be4} 
+virtual void Health.\+Damage (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_damage_data}{Damage\+Data}}}]{damage\+Data}{, }\item[{bool}]{ignore\+Invulnerability\+After\+Damage}{ = {\ttfamily false}, }\item[{bool}]{ignore\+Armor}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Damages the health component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage\+Data} & The data of the damage trying to be dealt\\
+\hline
+{\em ignore\+Invulnerability\+After\+Damage} & Whether we ignore the invulnerability timer on this damage tick\\
+\hline
+{\em ignore\+Armor} & Whether we ignore armor damage reduction on this damage tick\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_damagable_a43884751487806d3da4d43a5e1eaec53}{IDamagable}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_hull_health_manager_acce4010d7055c4f9f972e8e7bb10abed}{Hull\+Health\+Manager}}.
+
+\Hypertarget{class_health_a3327cf48a22bbb5c68dc18cc4a291b24}\index{Health@{Health}!Heal@{Heal}}
+\index{Heal@{Heal}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{Heal()}{Heal()}}
+{\footnotesize\ttfamily \label{class_health_a3327cf48a22bbb5c68dc18cc4a291b24} 
+virtual void Health.\+Heal (\begin{DoxyParamCaption}\item[{uint}]{amount\+To\+Heal}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Heals the health component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount\+To\+Heal} & The amount to heal the health component\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_healable_a6cf099dd849b0e47d953435a6cd03686}{IHealable}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_hull_health_manager_aecaa59e7a259330878817cecda75aaa1}{Hull\+Health\+Manager}}.
+
+\Hypertarget{class_health_a491aae5dc750da8265a749c78f783ea6}\index{Health@{Health}!InitializeHealth@{InitializeHealth}}
+\index{InitializeHealth@{InitializeHealth}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{InitializeHealth()}{InitializeHealth()}}
+{\footnotesize\ttfamily \label{class_health_a491aae5dc750da8265a749c78f783ea6} 
+virtual void Health.\+Initialize\+Health (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initializes the \doxylink{class_health}{Health} Component with a full HP and invokes the declaration event. 
+
+
+
+Reimplemented in \mbox{\hyperlink{class_hull_health_manager_a0c9821dbc854c0a1b5fda9f81846d0ae}{Hull\+Health\+Manager}}.
+
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{class_health_aa0a5a74c29b88bc72393d9c7ab39eb12}\index{Health@{Health}!OnDamage@{OnDamage}}
+\index{OnDamage@{OnDamage}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{OnDamage}{OnDamage}}
+{\footnotesize\ttfamily \label{class_health_aa0a5a74c29b88bc72393d9c7ab39eb12} 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}} Health.\+On\+Damage = new \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}()\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Triggered whenever a health component takes damage. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_damagable_aa1d5146de62bcd7d4dbd80349ad49ff5}{IDamagable}}.
+
+\Hypertarget{class_health_aefed73694cec4387999ad0fbc13a4809}\index{Health@{Health}!OnHeal@{OnHeal}}
+\index{OnHeal@{OnHeal}!Health@{Health}}
+\doxysubsubsection{\texorpdfstring{OnHeal}{OnHeal}}
+{\footnotesize\ttfamily \label{class_health_aefed73694cec4387999ad0fbc13a4809} 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}} Health.\+On\+Heal = new \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}()\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Triggered whenever a health component is healed. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_healable_ae68c267c7c961822a5bd4b760e413477}{IHealable}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/\+Updated Health/Health.\+cs\end{DoxyCompactItemize}

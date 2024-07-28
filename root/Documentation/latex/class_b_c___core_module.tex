@@ -1,0 +1,334 @@
+\doxysection{BC\+\_\+\+Core\+Module Class Reference}
+\hypertarget{class_b_c___core_module}{}\label{class_b_c___core_module}\index{BC\_CoreModule@{BC\_CoreModule}}
+
+
+Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module\textquotesingle{}s state, health, and management.  
+
+
+Inheritance diagram for BC\+\_\+\+Core\+Module\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_b_c___core_module}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___core_module_a69c05afa9253830cd079521e667fb207}\label{class_b_c___core_module_a69c05afa9253830cd079521e667fb207} 
+virtual void {\bfseries Awake} ()
+\item 
+\Hypertarget{class_b_c___core_module_ae6f995a3dab2adee803d0395424c5b12}\label{class_b_c___core_module_ae6f995a3dab2adee803d0395424c5b12} 
+void {\bfseries Intialize\+To\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Attempts to initialize a connection between this module and a \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}. If the module already has a manager assigned, no action is taken. Otherwise, it searches for a \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} component attached to the module\textquotesingle{}s parent object and attempts to link with it if found. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_c___core_module_ae97a835c777f501a1b9cba2cea3b743e}{Attempt\+To\+Link\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Assumes the module is ready to initialize with a provided \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}. If the module already has a manager assigned, no action is taken. Otherwise, it registers the module with the provided manager and stores the manager reference. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a966bae16b34b2f58cf0dd987cc5b9583}\label{class_b_c___core_module_a966bae16b34b2f58cf0dd987cc5b9583} 
+virtual void {\bfseries Initialize\+Module} ()
+\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a09979396d8b1e410848b63f487ade169}{Shut\+Down}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the shutdown sequence for the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a2668bda895edce40325150e42015e9bc}{Start\+Up}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the startup sequence for the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a3c9024c79bb8f0f77890075b601e4561}{Reboot}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the reboot sequence for the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a47475409cf730d535dd097994ad75e21}{Register\+Core\+Module\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Registers the provided \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} with the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a1cb4701f413ca7adaed22920b3103c7b}{Deregister\+Core\+System\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Deregisters the \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} from the module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___core_module_a5206a4e752fcfa08103ba10ca0e97d87}\label{class_b_c___core_module_a5206a4e752fcfa08103ba10ca0e97d87} 
+\mbox{\hyperlink{class_i_core_module_1_1_on_core_module_state_change}{On\+Core\+Module\+State\+Change}} {\bfseries On\+Core\+Module\+State\+Change} = new()
+\begin{DoxyCompactList}\small\item\em An event that is raised whenever the Core\+State of the system changes. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a234f2d56952d2b676865d5104dd2eb92}\label{class_b_c___core_module_a234f2d56952d2b676865d5104dd2eb92} 
+\mbox{\hyperlink{class_i_core_module_1_1_on_module_operational_state_change}{On\+Module\+Operational\+State\+Change}} {\bfseries On\+Module\+Operational\+State\+Change} = new()
+\begin{DoxyCompactList}\small\item\em An event that is raised whenever the operational state of the system changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___core_module_a928261907d0761f0e6102f96f12b2896}\label{class_b_c___core_module_a928261907d0761f0e6102f96f12b2896} 
+virtual void {\bfseries Pre\+Start\+Up\+Logic} ()
+\item 
+\Hypertarget{class_b_c___core_module_affbbbaae7d271c6bb8382651690ded97}\label{class_b_c___core_module_affbbbaae7d271c6bb8382651690ded97} 
+virtual void {\bfseries Post\+Start\+Up\+Logic} ()
+\item 
+\Hypertarget{class_b_c___core_module_aa59b8e37bf56f7d7c3e9c9a01362bf99}\label{class_b_c___core_module_aa59b8e37bf56f7d7c3e9c9a01362bf99} 
+virtual void {\bfseries Pre\+Shut\+Down\+Logic} ()
+\item 
+\Hypertarget{class_b_c___core_module_a4a4bdc0a9efc501b940465e15388547e}\label{class_b_c___core_module_a4a4bdc0a9efc501b940465e15388547e} 
+virtual void {\bfseries Post\+Shut\+Down\+Logic} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___core_module_a6589292700877c846399003db4ce6604}\label{class_b_c___core_module_a6589292700877c846399003db4ce6604} 
+\mbox{\hyperlink{class_health}{Health}} {\bfseries m\+\_\+internal\+Module\+Health}
+\item 
+\Hypertarget{class_b_c___core_module_ad37aed43d15b00930ad1d8583763b67f}\label{class_b_c___core_module_ad37aed43d15b00930ad1d8583763b67f} 
+\mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} {\bfseries m\+\_\+core\+State}
+\begin{DoxyCompactList}\small\item\em Sets the current Core\+Module\+State of the system. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a592e158cf5648abcd0c873d0fc21a2dc}\label{class_b_c___core_module_a592e158cf5648abcd0c873d0fc21a2dc} 
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} {\bfseries m\+\_\+operational\+State}
+\begin{DoxyCompactList}\small\item\em Represents the current operational state of the system, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a5465a864f9f2e0e64c132110495885b4}\label{class_b_c___core_module_a5465a864f9f2e0e64c132110495885b4} 
+int {\bfseries m\+\_\+boost\+Percent} = 0
+\begin{DoxyCompactList}\small\item\em The percent boost this module gets to apply to its functions. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a3f10c706d29c24512c703da6c8762015}\label{class_b_c___core_module_a3f10c706d29c24512c703da6c8762015} 
+int {\bfseries m\+\_\+power\+Requirement}
+\begin{DoxyCompactList}\small\item\em The power requirement for this module. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_b_c___core_module_abc691d2ae6ce99c2ed3566a000e46802}{m\+\_\+module\+Energy\+Priorty}} = 0
+\begin{DoxyCompactList}\small\item\em The priority of this module in the energy system. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a26d361423a54273b08f96cdaedae3e2c}\label{class_b_c___core_module_a26d361423a54273b08f96cdaedae3e2c} 
+Pip\+Selection {\bfseries m\+\_\+system\+Type} = Pip\+Selection.\+internal\+Systems
+\item 
+\Hypertarget{class_b_c___core_module_aca57a5c985addd9b905e4bff8cb321c1}\label{class_b_c___core_module_aca57a5c985addd9b905e4bff8cb321c1} 
+float {\bfseries m\+\_\+start\+Up\+Delay} = 1f
+\item 
+\Hypertarget{class_b_c___core_module_aa3d1b5ff209f0fb056bdce60ca1e7c73}\label{class_b_c___core_module_aa3d1b5ff209f0fb056bdce60ca1e7c73} 
+float {\bfseries m\+\_\+shut\+Down\+Delay} = 1f
+\item 
+\Hypertarget{class_b_c___core_module_a3b663dbe58b4b2825d85deb8f04569db}\label{class_b_c___core_module_a3b663dbe58b4b2825d85deb8f04569db} 
+float {\bfseries m\+\_\+reboot\+Delay} = 1f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___core_module_a82b5a96a202c426ddf83b5b4147f74e0}\label{class_b_c___core_module_a82b5a96a202c426ddf83b5b4147f74e0} 
+\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} {\bfseries Ship\+Module\+Manager}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_b_c___core_module_a5946ffdcddee2c5de88aa9d16fe13a9b}\label{class_b_c___core_module_a5946ffdcddee2c5de88aa9d16fe13a9b} 
+\mbox{\hyperlink{class_health}{Health}} {\bfseries Internal\+Module\+Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} \mbox{\hyperlink{class_b_c___core_module_a6cd94553d7389dc27f308aaddf5f0a78}{Core\+Module\+State}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Defines the core system state, which can be Operational, Standby, or Disabled. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___core_module_a708e8db129567f4faf2adc963b6caaee}\label{class_b_c___core_module_a708e8db129567f4faf2adc963b6caaee} 
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} {\bfseries Operational\+State}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_b_c___core_module_a6faad2b16c1ed5d91750d0a766ca6996}\label{class_b_c___core_module_a6faad2b16c1ed5d91750d0a766ca6996} 
+int {\bfseries Boost\+Percent}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\Hypertarget{class_b_c___core_module_a3b1c866b082b6559772eb25264ffaa31}\label{class_b_c___core_module_a3b1c866b082b6559772eb25264ffaa31} 
+int {\bfseries Power\+Requirements}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_b_c___core_module_ae3672bc304993ab8ceb86bd903dc6d58}\label{class_b_c___core_module_ae3672bc304993ab8ceb86bd903dc6d58} 
+int {\bfseries Module\+Energy\+Priority}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_b_c___core_module_a38eadd7884c5b6cc281a7949f326a041}\label{class_b_c___core_module_a38eadd7884c5b6cc281a7949f326a041} 
+Pip\+Selection {\bfseries System\+Type}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{interface_i_core_module}{ICore\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} \{ \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a4d3d769b812b6faa6b76e1a8abaece2d}{Active}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87aad866f19a13c5386d2ec6df246dcbfac}{Preparing}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87adae81795121c735af447f6e997c1650c}{Ready\+For\+Use}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87af7bd791aac4fda53ce6d08edc1a62e01}{Damaged}}
+, \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a46caef17790fcbc2eed679b680fa7e97}{Rebooting}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the different operational states a system can be in, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53}{Module\+State\+Change\+Type}} \{ \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a853775e23634ae9908128f071202dd32}{Core\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a1b8bbf8258cf0db161a695518e06556d}{Operational\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a605669cab962bf944d99ce89cf9e58d9}{Health}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53aaefbd0597f1bc2493bbc18898243513b}{Destroyed}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration defining the different types of state changes that can occur for a core module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module\textquotesingle{}s state, health, and management. 
+
+
+\begin{DoxyItemize}
+\item {\bfseries{State Management\+:}}
+\begin{DoxyItemize}
+\item Tracks the module\textquotesingle{}s overall state (e.\+g., Starting Up, Running, Shutting Down) through an interface (ICore\+Module.\+Core\+Module\+State). This state can change and trigger the {\ttfamily On\+Core\+Module\+State\+Change} event.
+\item Tracks the module\textquotesingle{}s operational state (e.\+g., Active, Idle, Offline) through an interface (ICore\+Module.\+Module\+Operational\+State). This state can represent operational readiness and trigger the {\ttfamily On\+Module\+Operational\+State\+Change} event. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{\doxylink{class_health}{Health} Management\+:}}
+\begin{DoxyItemize}
+\item Provides an {\ttfamily Internal\+Module\+Health} component for handling health changes (damage and healing).
+\item Exposes methods for taking damage ({\ttfamily Take\+Damage}) and receiving healing ({\ttfamily Heal\+Object}).
+\item Triggers {\ttfamily On\+Damage\+Event} and {\ttfamily On\+Heal\+Event} (with {\ttfamily \doxylink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a605669cab962bf944d99ce89cf9e58d9}{Module\+State\+Change\+Type.\+Health}}) upon health changes. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Manager Registration\+:}}
+\begin{DoxyItemize}
+\item Allows registering with a {\ttfamily \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} using {\ttfamily Register\+Core\+Module\+Manager}. This establishes a link between the module and the manager for potential coordination.
+\item Provides {\ttfamily Attempt\+To\+Link\+Manager} for internal use during initialization to link with a provided manager.
+\item Offers virtual methods for {\ttfamily Deregister\+Core\+System\+Manager} to break the link with the manager if needed. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Initialization and Virtual Methods\+:}}
+\begin{DoxyItemize}
+\item Defines an {\ttfamily Initialize\+Module} method for potential module-\/specific initialization (currently calls {\ttfamily m\+\_\+internal\+Module\+Health.\+Initialize\+Health}).
+\item Provides abstract methods for core functionalities\+:
+\begin{DoxyItemize}
+\item {\ttfamily Release\+Resources}\+: Needs implementation for releasing resources when a module is no longer needed.
+\item {\ttfamily Shut\+Down}\+: Requires implementation for handling module shutdown procedures.
+\item {\ttfamily Start\+Up}\+: Requires implementation for handling module startup procedures.
+\item {\ttfamily Reboot}\+: Requires implementation for handling module reboot procedures. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Events\+:}}
+\begin{DoxyItemize}
+\item {\ttfamily On\+Core\+Module\+State\+Change}\+: Triggered when the module\textquotesingle{}s overall state changes.
+\item {\ttfamily On\+Module\+Operational\+State\+Change}\+: Triggered when the module\textquotesingle{}s operational state changes.
+\item {\ttfamily On\+Damage\+Event}\+: Triggered when the module takes damage.
+\item {\ttfamily On\+Heal\+Event}\+: Triggered when the module receives healing.
+\item {\ttfamily On\+Death\+Event}\+: Potentially intended to be triggered when the module is destroyed due to health depletion . 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+{\bfseries{Inheritance\+:}} This class is marked as abstract, meaning it cannot be directly instantiated. Concrete core module classes should inherit from {\ttfamily \doxylink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} and implement the abstract methods to provide specific functionalities. Abstract base class representing a core module within a ship system. This class defines core functionalities, properties, and events related to a module\textquotesingle{}s state, health, and management. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_c___core_module_ae97a835c777f501a1b9cba2cea3b743e}\index{BC\_CoreModule@{BC\_CoreModule}!AttemptToLinkManager@{AttemptToLinkManager}}
+\index{AttemptToLinkManager@{AttemptToLinkManager}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{AttemptToLinkManager()}{AttemptToLinkManager()}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_ae97a835c777f501a1b9cba2cea3b743e} 
+void BC\+\_\+\+Core\+Module.\+Attempt\+To\+Link\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}}}]{current\+Manager}{}\end{DoxyParamCaption})}
+
+
+
+Assumes the module is ready to initialize with a provided \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}. If the module already has a manager assigned, no action is taken. Otherwise, it registers the module with the provided manager and stores the manager reference. 
+
+This is an internal call from the \doxylink{class_b_c___core_module_a47475409cf730d535dd097994ad75e21}{Register\+Core\+Module\+Manager(\+Core\+Ship\+Module\+Manager)} to couple the manager with the module on initialization 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Manager} & The \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} to link with.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_b_c___core_module_a1cb4701f413ca7adaed22920b3103c7b}\index{BC\_CoreModule@{BC\_CoreModule}!DeregisterCoreSystemManager@{DeregisterCoreSystemManager}}
+\index{DeregisterCoreSystemManager@{DeregisterCoreSystemManager}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{DeregisterCoreSystemManager()}{DeregisterCoreSystemManager()}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_a1cb4701f413ca7adaed22920b3103c7b} 
+virtual void BC\+\_\+\+Core\+Module.\+Deregister\+Core\+System\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}}}]{current\+Manager}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Deregisters the \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} from the module. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Manager} & The \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} instance to deregister (presumably the same as the previously registered one).\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_core_module_behavior_ac2679e4db45e7e06b73cd3e15d940551}{ICore\+Module\+Behavior}}.
+
+\Hypertarget{class_b_c___core_module_a3c9024c79bb8f0f77890075b601e4561}\index{BC\_CoreModule@{BC\_CoreModule}!Reboot@{Reboot}}
+\index{Reboot@{Reboot}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{Reboot()}{Reboot()}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_a3c9024c79bb8f0f77890075b601e4561} 
+virtual void BC\+\_\+\+Core\+Module.\+Reboot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initiates the reboot sequence for the module. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_core_module_behavior_adf16e5d4ec928600041ff025ec892a23}{ICore\+Module\+Behavior}}.
+
+\Hypertarget{class_b_c___core_module_a47475409cf730d535dd097994ad75e21}\index{BC\_CoreModule@{BC\_CoreModule}!RegisterCoreModuleManager@{RegisterCoreModuleManager}}
+\index{RegisterCoreModuleManager@{RegisterCoreModuleManager}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{RegisterCoreModuleManager()}{RegisterCoreModuleManager()}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_a47475409cf730d535dd097994ad75e21} 
+virtual void BC\+\_\+\+Core\+Module.\+Register\+Core\+Module\+Manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}}}]{current\+Manager}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Registers the provided \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} with the module. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Manager} & The \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} instance to register with this module.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_core_module_behavior_a3c3c1d7b197d4c41063a8c4eb58ff76a}{ICore\+Module\+Behavior}}.
+
+\Hypertarget{class_b_c___core_module_a09979396d8b1e410848b63f487ade169}\index{BC\_CoreModule@{BC\_CoreModule}!ShutDown@{ShutDown}}
+\index{ShutDown@{ShutDown}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{ShutDown()}{ShutDown()}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_a09979396d8b1e410848b63f487ade169} 
+virtual void BC\+\_\+\+Core\+Module.\+Shut\+Down (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initiates the shutdown sequence for the module. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_core_module_behavior_aed50b98c5363f54f19c5ee1d015af4b9}{ICore\+Module\+Behavior}}.
+
+\Hypertarget{class_b_c___core_module_a2668bda895edce40325150e42015e9bc}\index{BC\_CoreModule@{BC\_CoreModule}!StartUp@{StartUp}}
+\index{StartUp@{StartUp}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{StartUp()}{StartUp()}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_a2668bda895edce40325150e42015e9bc} 
+virtual void BC\+\_\+\+Core\+Module.\+Start\+Up (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initiates the startup sequence for the module. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_core_module_behavior_a4f742888a73b2370dc18b105b4e80799}{ICore\+Module\+Behavior}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_b_c___core_module_abc691d2ae6ce99c2ed3566a000e46802}\index{BC\_CoreModule@{BC\_CoreModule}!m\_moduleEnergyPriorty@{m\_moduleEnergyPriorty}}
+\index{m\_moduleEnergyPriorty@{m\_moduleEnergyPriorty}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{m\_moduleEnergyPriorty}{m\_moduleEnergyPriorty}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_abc691d2ae6ce99c2ed3566a000e46802} 
+int BC\+\_\+\+Core\+Module.\+m\+\_\+module\+Energy\+Priorty = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The priority of this module in the energy system. 
+
+The lower the value, the higher the priority to keep power in the case of an outage. 
+
+\doxysubsection{Property Documentation}
+\Hypertarget{class_b_c___core_module_a6cd94553d7389dc27f308aaddf5f0a78}\index{BC\_CoreModule@{BC\_CoreModule}!CoreModuleState@{CoreModuleState}}
+\index{CoreModuleState@{CoreModuleState}!BC\_CoreModule@{BC\_CoreModule}}
+\doxysubsubsection{\texorpdfstring{CoreModuleState}{CoreModuleState}}
+{\footnotesize\ttfamily \label{class_b_c___core_module_a6cd94553d7389dc27f308aaddf5f0a78} 
+\mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{BC\+\_\+\+Core\+Module.\+Core\+Module\+State}}\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Defines the core system state, which can be Operational, Standby, or Disabled. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{ICore\+Module}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/BC\+\_\+\+Core\+Module.\+cs\end{DoxyCompactItemize}

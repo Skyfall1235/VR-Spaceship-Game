@@ -1,0 +1,151 @@
+\doxysection{Core\+Ship\+Module\+Manager Class Reference}
+\hypertarget{class_core_ship_module_manager}{}\label{class_core_ship_module_manager}\index{CoreShipModuleManager@{CoreShipModuleManager}}
+
+
+Manages a collection of core modules within a ship system. This class is responsible for registering core modules, applying various operations (start-\/up, shut-\/down, reboot) to them, and retrieving information about their state and health.  
+
+
+Inheritance diagram for Core\+Ship\+Module\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.686747cm]{class_core_ship_module_manager}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_core_ship_module_manager_1_1_report_module_event}{Report\+Module\+Event}}
+\begin{DoxyCompactList}\small\item\em Custom Unity\+Event class specifically designed to report core module state changes. This class inherits from Unity\+Event and overrides its functionality to handle two arguments\+: \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1}{Affector\+Type}} \{ \mbox{\hyperlink{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1a62697cf4b8d5f13a548430b5be1be665}{Start\+Up}}
+, \mbox{\hyperlink{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1a22981224d4ae3725235016230b969179}{Shut\+Down}}
+, \mbox{\hyperlink{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1a1de72c4fc6d69a741fff1cbb7cdb9e90}{Reboot}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the different types of operations that can be applied to core modules. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{interface_i_core_module}{ICore\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} \{ \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4a431accab7897f05b0424e002ca30391d}{Operational}}
+, \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4a2dbec34a65724db94f81e8533ee18192}{Standby}}
+, \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4ab9f5c797ebbf55adccdd8539a65a0241}{Disabled}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the core system state, which can be Operational, Standby, or Disabled. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} \{ \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a4d3d769b812b6faa6b76e1a8abaece2d}{Active}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87aad866f19a13c5386d2ec6df246dcbfac}{Preparing}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87adae81795121c735af447f6e997c1650c}{Ready\+For\+Use}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87af7bd791aac4fda53ce6d08edc1a62e01}{Damaged}}
+, \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a46caef17790fcbc2eed679b680fa7e97}{Rebooting}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the different operational states a system can be in, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53}{Module\+State\+Change\+Type}} \{ \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a853775e23634ae9908128f071202dd32}{Core\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a1b8bbf8258cf0db161a695518e06556d}{Operational\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a605669cab962bf944d99ce89cf9e58d9}{Health}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53aaefbd0597f1bc2493bbc18898243513b}{Destroyed}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration defining the different types of state changes that can occur for a core module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_core_ship_module_manager_a4bf65d6a6073f5a36bba61a7c1a97fbe}{Add\+Single\+Module}} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} module)
+\begin{DoxyCompactList}\small\item\em Adds a core module to the internal registry. \end{DoxyCompactList}\item 
+\Hypertarget{class_core_ship_module_manager_a3b6cfe14e581b046aa27cc7a2936be94}\label{class_core_ship_module_manager_a3b6cfe14e581b046aa27cc7a2936be94} 
+void {\bfseries Remove\+Single\+Module} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} module)
+\item 
+\Hypertarget{class_core_ship_module_manager_ad148d5520f7f4f4da15c9c0ecbe46045}\label{class_core_ship_module_manager_ad148d5520f7f4f4da15c9c0ecbe46045} 
+uint {\bfseries Retrieve\+Health\+Of\+Selected\+Module} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} module)
+\item 
+\Hypertarget{class_core_ship_module_manager_a528d80a8f255330d7b130d9e7b92939f}\label{class_core_ship_module_manager_a528d80a8f255330d7b130d9e7b92939f} 
+ICore\+Module.\+Core\+Module\+State {\bfseries Get\+Single\+Core\+Module\+State} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} selected\+Module)
+\item 
+\Hypertarget{class_core_ship_module_manager_a68309d3181b548cf3fcaf2bcad68403a}\label{class_core_ship_module_manager_a68309d3181b548cf3fcaf2bcad68403a} 
+ICore\+Module.\+Module\+Operational\+State {\bfseries Get\+Single\+Core\+Module\+Operational\+State} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} selected\+Module)
+\item 
+\Hypertarget{class_core_ship_module_manager_a4280e2868b13c50485f67d859df8e24b}\label{class_core_ship_module_manager_a4280e2868b13c50485f67d859df8e24b} 
+void {\bfseries On\+Module\+Event\+Repeater} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} module, ICore\+Module.\+Module\+State\+Change\+Type change\+Type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_core_ship_module_manager_afd9063d14a7d8bfb246cd158c9eca0c4}\label{class_core_ship_module_manager_afd9063d14a7d8bfb246cd158c9eca0c4} 
+List$<$ \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} $>$ {\bfseries core\+Modules} = new List$<$\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}$>$()
+\item 
+\Hypertarget{class_core_ship_module_manager_a6b8f969058566b2af3ad93d5926c39ba}\label{class_core_ship_module_manager_a6b8f969058566b2af3ad93d5926c39ba} 
+Unity\+Event$<$ \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} $>$ {\bfseries On\+Module\+Added} = new Unity\+Event$<$\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}$>$()
+\item 
+\Hypertarget{class_core_ship_module_manager_ada78715f2ab4f6a3e3cf2b803ad67a4a}\label{class_core_ship_module_manager_ada78715f2ab4f6a3e3cf2b803ad67a4a} 
+Unity\+Event$<$ \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} $>$ {\bfseries On\+Module\+Removed} = new Unity\+Event$<$\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}$>$()
+\item 
+\Hypertarget{class_core_ship_module_manager_a6aa0c3821d27f5c125b10185f79606b6}\label{class_core_ship_module_manager_a6aa0c3821d27f5c125b10185f79606b6} 
+\mbox{\hyperlink{class_core_ship_module_manager_1_1_report_module_event}{Report\+Module\+Event}} {\bfseries On\+Module\+Event} = new \mbox{\hyperlink{class_core_ship_module_manager_1_1_report_module_event}{Report\+Module\+Event}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_core_ship_module_manager_ac3dbdd6cac5d1f11c0b7c7aef101a8f6}\label{class_core_ship_module_manager_ac3dbdd6cac5d1f11c0b7c7aef101a8f6} 
+int {\bfseries Incoming\+Power}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\Hypertarget{class_core_ship_module_manager_ac8655d714e27e4d05c33b40a19bddda9}\label{class_core_ship_module_manager_ac8655d714e27e4d05c33b40a19bddda9} 
+int {\bfseries Remaining\+Power}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages a collection of core modules within a ship system. This class is responsible for registering core modules, applying various operations (start-\/up, shut-\/down, reboot) to them, and retrieving information about their state and health. 
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1}\index{CoreShipModuleManager@{CoreShipModuleManager}!AffectorType@{AffectorType}}
+\index{AffectorType@{AffectorType}!CoreShipModuleManager@{CoreShipModuleManager}}
+\doxysubsubsection{\texorpdfstring{AffectorType}{AffectorType}}
+{\footnotesize\ttfamily \label{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1} 
+enum \mbox{\hyperlink{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1}{Core\+Ship\+Module\+Manager.\+Affector\+Type}}}
+
+
+
+Defines the different types of operations that can be applied to core modules. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{StartUp@{StartUp}!CoreShipModuleManager@{CoreShipModuleManager}}\index{CoreShipModuleManager@{CoreShipModuleManager}!StartUp@{StartUp}}}\Hypertarget{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1a62697cf4b8d5f13a548430b5be1be665}\label{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1} 
+Start\+Up&Initiates the startup process for a core module. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ShutDown@{ShutDown}!CoreShipModuleManager@{CoreShipModuleManager}}\index{CoreShipModuleManager@{CoreShipModuleManager}!ShutDown@{ShutDown}}}\Hypertarget{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1a22981224d4ae3725235016230b969179}\label{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1} 
+Shut\+Down&Initiates the shutdown process for a core module. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Reboot@{Reboot}!CoreShipModuleManager@{CoreShipModuleManager}}\index{CoreShipModuleManager@{CoreShipModuleManager}!Reboot@{Reboot}}}\Hypertarget{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1a1de72c4fc6d69a741fff1cbb7cdb9e90}\label{class_core_ship_module_manager_a454add82205450442de2a05de6bc9fd1} 
+Reboot&Initiates a reboot process for a core module. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_core_ship_module_manager_a4bf65d6a6073f5a36bba61a7c1a97fbe}\index{CoreShipModuleManager@{CoreShipModuleManager}!AddSingleModule@{AddSingleModule}}
+\index{AddSingleModule@{AddSingleModule}!CoreShipModuleManager@{CoreShipModuleManager}}
+\doxysubsubsection{\texorpdfstring{AddSingleModule()}{AddSingleModule()}}
+{\footnotesize\ttfamily \label{class_core_ship_module_manager_a4bf65d6a6073f5a36bba61a7c1a97fbe} 
+void Core\+Ship\+Module\+Manager.\+Add\+Single\+Module (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}]{module}{}\end{DoxyParamCaption})}
+
+
+
+Adds a core module to the internal registry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em module} & The core module to be added.\\
+\hline
+\end{DoxyParams}
+
+
+This method attempts to add the specified core module to the internal registry of modules managed by this class. If the module is already registered, no action is taken.
+
+After successful registration, the method attempts to establish a link between the module and this manager. This may involve the module registering for events or accessing functionalities provided by this manager. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/Core\+Ship\+Module\+Manager.\+cs\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/Module\+Manager\+Energy\+Handler.\+cs\end{DoxyCompactItemize}

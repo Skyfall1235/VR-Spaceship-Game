@@ -1,0 +1,118 @@
+\doxysection{IBroadcasting\+Protocol Interface Reference}
+\hypertarget{interface_i_broadcasting_protocol}{}\label{interface_i_broadcasting_protocol}\index{IBroadcastingProtocol@{IBroadcastingProtocol}}
+
+
+Interface representing a broadcasting protocol.  
+
+
+Inheritance diagram for IBroadcasting\+Protocol\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{interface_i_broadcasting_protocol}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_i_broadcasting_protocol_1_1_broadcast_data}{Broadcast\+Data}}
+\begin{DoxyCompactList}\small\item\em Abstract base class representing broadcast data. Specific broadcast data types should inherit from this class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_broadcasting_protocol_ac290f181c7c35ca9e2b81e518645a96f}{Update\+Last\+Broadcast\+Time}} (Date\+Time current\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the Last\+Broadcast\+Time property with the provided current time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_broadcasting_protocol_a5828a47ee24ed1100908c47f5daadc5d}{Initialize\+Time\+At\+Start}} (Date\+Time current\+Time)
+\begin{DoxyCompactList}\small\item\em Initializes the Broadcast\+Time\+At\+Start property with the provided current time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Guid \mbox{\hyperlink{interface_i_broadcasting_protocol_a3d6ea87c39d70c4c41e34cc98fb69223}{Broad\+Casting\+UID}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for the broadcasting entity. \end{DoxyCompactList}\item 
+Date\+Time \mbox{\hyperlink{interface_i_broadcasting_protocol_a9ac36563512178df735095e79909ab3f}{Last\+Broadcast\+Time}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The timestamp of the last broadcast sent by this entity. \end{DoxyCompactList}\item 
+\Hypertarget{interface_i_broadcasting_protocol_a56da79d9f211bcd075ec7a4475649dca}\label{interface_i_broadcasting_protocol_a56da79d9f211bcd075ec7a4475649dca} 
+Date\+Time {\bfseries Broadcast\+Time\+At\+Start}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em (Protected) The timestamp of this entity\textquotesingle{}s broadcast at the start (used for internal calculations). This property can be set. \end{DoxyCompactList}\item 
+\Hypertarget{interface_i_broadcasting_protocol_a03b8b845a03108d3387a8378ff22477d}\label{interface_i_broadcasting_protocol_a03b8b845a03108d3387a8378ff22477d} 
+Date\+Time {\bfseries Global\+Start\+Broadcast\+Time}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em (Protected) The global start broadcast time for all entities implementing this interface (reference point to the start of the application). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface representing a broadcasting protocol. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_broadcasting_protocol_a5828a47ee24ed1100908c47f5daadc5d}\index{IBroadcastingProtocol@{IBroadcastingProtocol}!InitializeTimeAtStart@{InitializeTimeAtStart}}
+\index{InitializeTimeAtStart@{InitializeTimeAtStart}!IBroadcastingProtocol@{IBroadcastingProtocol}}
+\doxysubsubsection{\texorpdfstring{InitializeTimeAtStart()}{InitializeTimeAtStart()}}
+{\footnotesize\ttfamily \label{interface_i_broadcasting_protocol_a5828a47ee24ed1100908c47f5daadc5d} 
+void IBroadcasting\+Protocol.\+Initialize\+Time\+At\+Start (\begin{DoxyParamCaption}\item[{Date\+Time}]{current\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the Broadcast\+Time\+At\+Start property with the provided current time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Time} & The start time of the application to be used for initialization.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_basic_beacon_a07dfc34e15c3ab3ae124f1f66f5317ef}{Basic\+Beacon}}.
+
+\Hypertarget{interface_i_broadcasting_protocol_ac290f181c7c35ca9e2b81e518645a96f}\index{IBroadcastingProtocol@{IBroadcastingProtocol}!UpdateLastBroadcastTime@{UpdateLastBroadcastTime}}
+\index{UpdateLastBroadcastTime@{UpdateLastBroadcastTime}!IBroadcastingProtocol@{IBroadcastingProtocol}}
+\doxysubsubsection{\texorpdfstring{UpdateLastBroadcastTime()}{UpdateLastBroadcastTime()}}
+{\footnotesize\ttfamily \label{interface_i_broadcasting_protocol_ac290f181c7c35ca9e2b81e518645a96f} 
+void IBroadcasting\+Protocol.\+Update\+Last\+Broadcast\+Time (\begin{DoxyParamCaption}\item[{Date\+Time}]{current\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Updates the Last\+Broadcast\+Time property with the provided current time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Time} & The current time to be used for update.\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_basic_beacon_a152443471896e11bcf1670460c2fd11a}{Basic\+Beacon}}.
+
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{interface_i_broadcasting_protocol_a3d6ea87c39d70c4c41e34cc98fb69223}\index{IBroadcastingProtocol@{IBroadcastingProtocol}!BroadCastingUID@{BroadCastingUID}}
+\index{BroadCastingUID@{BroadCastingUID}!IBroadcastingProtocol@{IBroadcastingProtocol}}
+\doxysubsubsection{\texorpdfstring{BroadCastingUID}{BroadCastingUID}}
+{\footnotesize\ttfamily \label{interface_i_broadcasting_protocol_a3d6ea87c39d70c4c41e34cc98fb69223} 
+Guid IBroadcasting\+Protocol.\+Broad\+Casting\+UID\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Unique identifier for the broadcasting entity. 
+
+
+
+Implemented in \mbox{\hyperlink{class_basic_beacon_a4fa8b6be7cb961cf1fb9361c5b3abdc3}{Basic\+Beacon}}.
+
+\Hypertarget{interface_i_broadcasting_protocol_a9ac36563512178df735095e79909ab3f}\index{IBroadcastingProtocol@{IBroadcastingProtocol}!LastBroadcastTime@{LastBroadcastTime}}
+\index{LastBroadcastTime@{LastBroadcastTime}!IBroadcastingProtocol@{IBroadcastingProtocol}}
+\doxysubsubsection{\texorpdfstring{LastBroadcastTime}{LastBroadcastTime}}
+{\footnotesize\ttfamily \label{interface_i_broadcasting_protocol_a9ac36563512178df735095e79909ab3f} 
+Date\+Time IBroadcasting\+Protocol.\+Last\+Broadcast\+Time\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The timestamp of the last broadcast sent by this entity. 
+
+
+
+Implemented in \mbox{\hyperlink{class_basic_beacon_ae01ac106082615517a85b406b758e7f6}{Basic\+Beacon}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Broadcasting \& Recieval/\+Interfaces/IBroadcasting\+Protocol.\+cs\end{DoxyCompactItemize}

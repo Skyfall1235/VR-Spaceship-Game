@@ -1,0 +1,92 @@
+\doxysection{Semi\+Automatic\+Fire Class Reference}
+\hypertarget{class_semi_automatic_fire}{}\label{class_semi_automatic_fire}\index{SemiAutomaticFire@{SemiAutomaticFire}}
+Inheritance diagram for Semi\+Automatic\+Fire\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_semi_automatic_fire}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_semi_automatic_fire_a5121b96bd653416823d43320b3b55654}{Semi\+Automatic\+Fire}} (\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} weapon, \mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} fire\+Action, \mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} start\+Fire\+Action=null, \mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} stop\+Fire\+Action=null, Post\+Fire post\+Fire\+Action=null, Pre\+Fire pre\+Fire\+Action=null)
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_automatic_fire}{Automatic\+Fire}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+delegate void {\bfseries Start\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fired when the weapon starts firing. \end{DoxyCompactList}\item 
+delegate void {\bfseries Stop\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fired when the weapon stops firing. \end{DoxyCompactList}\item 
+delegate void {\bfseries Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fire when the weapon fires. \end{DoxyCompactList}\item 
+delegate void {\bfseries Pre\+Fire} ()
+\item 
+delegate void {\bfseries Post\+Fire} ()
+\item 
+virtual void \mbox{\hyperlink{class_b_c___fire_type_a2d0e70acd9997abc5f35caefa1198711}{Update\+Firing\+State}} (bool new\+Firing\+State)
+\begin{DoxyCompactList}\small\item\em Method updates the underlying fire state of the weapon. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_b_c___fire_type_aaa41f66e93fc559a49cee4eb9c753aec}{BC\+\_\+\+Fire\+Type}} (\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} weapon, \mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} main\+Fire\+Action, \mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} start\+Fire\+Action=null, \mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} stop\+Fire\+Action=null, Post\+Fire post\+Fire\+Action=null, Pre\+Fire pre\+Fire\+Action=null)
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_semi_automatic_fire_a6532423506b95bf0cbbbd6ced864c0a1}\label{class_semi_automatic_fire_a6532423506b95bf0cbbbd6ced864c0a1} 
+override IEnumerator {\bfseries Try\+Fire\+Logic\+Async} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+IEnumerator \mbox{\hyperlink{class_b_c___fire_type_aed151aeccaa75acbd84c991ae1dce765}{Try\+Fire\+Logic\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Logic for triggering when each weapon is fired. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} {\bfseries m\+\_\+start\+Fire\+Methods}
+\item 
+\mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} {\bfseries m\+\_\+stop\+Fire\+Methods}
+\item 
+\mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} {\bfseries m\+\_\+fire\+Methods}
+\item 
+Pre\+Fire {\bfseries m\+\_\+pre\+Fire\+Methods}
+\item 
+Post\+Fire {\bfseries m\+\_\+post\+Fire\+Methods}
+\item 
+\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} {\bfseries m\+\_\+weapon}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries m\+\_\+current\+Firing\+State} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, protected set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_semi_automatic_fire_a5121b96bd653416823d43320b3b55654}\index{SemiAutomaticFire@{SemiAutomaticFire}!SemiAutomaticFire@{SemiAutomaticFire}}
+\index{SemiAutomaticFire@{SemiAutomaticFire}!SemiAutomaticFire@{SemiAutomaticFire}}
+\doxysubsubsection{\texorpdfstring{SemiAutomaticFire()}{SemiAutomaticFire()}}
+{\footnotesize\ttfamily \label{class_semi_automatic_fire_a5121b96bd653416823d43320b3b55654} 
+Semi\+Automatic\+Fire.\+Semi\+Automatic\+Fire (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}]{weapon}{, }\item[{\mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}}}]{fire\+Action}{, }\item[{\mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}}}]{start\+Fire\+Action}{ = {\ttfamily null}, }\item[{\mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}}}]{stop\+Fire\+Action}{ = {\ttfamily null}, }\item[{Post\+Fire}]{post\+Fire\+Action}{ = {\ttfamily null}, }\item[{Pre\+Fire}]{pre\+Fire\+Action}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+Creates a new \doxylink{class_automatic_fire}{Automatic\+Fire}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fire\+Action} & Void methods fired when the weapon starts firing\\
+\hline
+{\em weapon} & Monobehavior that the coroutines will run on\\
+\hline
+{\em start\+Fire\+Action} & Void methods fired when the weapon stops firing\\
+\hline
+{\em stop\+Fire\+Action} & Void methods fired when the weapon stops firing\\
+\hline
+\end{DoxyParams}
+~\newline
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Guns/\+Fire Types/Semi\+Automatic\+Fire.\+cs\end{DoxyCompactItemize}

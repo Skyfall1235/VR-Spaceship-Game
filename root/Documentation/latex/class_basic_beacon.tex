@@ -1,0 +1,117 @@
+\doxysection{Basic\+Beacon Class Reference}
+\hypertarget{class_basic_beacon}{}\label{class_basic_beacon}\index{BasicBeacon@{BasicBeacon}}
+Inheritance diagram for Basic\+Beacon\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_basic_beacon}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_basic_beacon_a07dfc34e15c3ab3ae124f1f66f5317ef}{Initialize\+Time\+At\+Start}} (Date\+Time current\+Time)
+\begin{DoxyCompactList}\small\item\em Initializes the Broadcast\+Time\+At\+Start property with the provided current time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_basic_beacon_a152443471896e11bcf1670460c2fd11a}{Update\+Last\+Broadcast\+Time}} (Date\+Time current\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the Last\+Broadcast\+Time property with the provided current time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_i_beacon_1_1_beacon_data}{IBeacon.\+Beacon\+Data}} \mbox{\hyperlink{class_basic_beacon_aee4207f6840ce78c2b6eb98ae936f6a1}{Broadcasting\+Data}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Stores the beacon data associated with this broadcaster. \end{DoxyCompactList}\item 
+Guid \mbox{\hyperlink{class_basic_beacon_a4fa8b6be7cb961cf1fb9361c5b3abdc3}{Broad\+Casting\+UID}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for the broadcasting entity. \end{DoxyCompactList}\item 
+Date\+Time \mbox{\hyperlink{class_basic_beacon_ae01ac106082615517a85b406b758e7f6}{Last\+Broadcast\+Time}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The timestamp of the last broadcast sent by this entity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_beacon}{IBeacon}}}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_broadcasting_protocol}{IBroadcasting\+Protocol}}}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_basic_beacon_a07dfc34e15c3ab3ae124f1f66f5317ef}\index{BasicBeacon@{BasicBeacon}!InitializeTimeAtStart@{InitializeTimeAtStart}}
+\index{InitializeTimeAtStart@{InitializeTimeAtStart}!BasicBeacon@{BasicBeacon}}
+\doxysubsubsection{\texorpdfstring{InitializeTimeAtStart()}{InitializeTimeAtStart()}}
+{\footnotesize\ttfamily \label{class_basic_beacon_a07dfc34e15c3ab3ae124f1f66f5317ef} 
+void Basic\+Beacon.\+Initialize\+Time\+At\+Start (\begin{DoxyParamCaption}\item[{Date\+Time}]{current\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the Broadcast\+Time\+At\+Start property with the provided current time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Time} & The start time of the application to be used for initialization.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_broadcasting_protocol_a5828a47ee24ed1100908c47f5daadc5d}{IBroadcasting\+Protocol}}.
+
+\Hypertarget{class_basic_beacon_a152443471896e11bcf1670460c2fd11a}\index{BasicBeacon@{BasicBeacon}!UpdateLastBroadcastTime@{UpdateLastBroadcastTime}}
+\index{UpdateLastBroadcastTime@{UpdateLastBroadcastTime}!BasicBeacon@{BasicBeacon}}
+\doxysubsubsection{\texorpdfstring{UpdateLastBroadcastTime()}{UpdateLastBroadcastTime()}}
+{\footnotesize\ttfamily \label{class_basic_beacon_a152443471896e11bcf1670460c2fd11a} 
+void Basic\+Beacon.\+Update\+Last\+Broadcast\+Time (\begin{DoxyParamCaption}\item[{Date\+Time}]{current\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Updates the Last\+Broadcast\+Time property with the provided current time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Time} & The current time to be used for update.\\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{interface_i_broadcasting_protocol_ac290f181c7c35ca9e2b81e518645a96f}{IBroadcasting\+Protocol}}.
+
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{class_basic_beacon_aee4207f6840ce78c2b6eb98ae936f6a1}\index{BasicBeacon@{BasicBeacon}!BroadcastingData@{BroadcastingData}}
+\index{BroadcastingData@{BroadcastingData}!BasicBeacon@{BasicBeacon}}
+\doxysubsubsection{\texorpdfstring{BroadcastingData}{BroadcastingData}}
+{\footnotesize\ttfamily \label{class_basic_beacon_aee4207f6840ce78c2b6eb98ae936f6a1} 
+\mbox{\hyperlink{class_i_beacon_1_1_beacon_data}{IBeacon.\+Beacon\+Data}} Basic\+Beacon.\+Broadcasting\+Data\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Stores the beacon data associated with this broadcaster. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_beacon_a867d15bd0517dad1ccf328e0006550ce}{IBeacon}}.
+
+\Hypertarget{class_basic_beacon_a4fa8b6be7cb961cf1fb9361c5b3abdc3}\index{BasicBeacon@{BasicBeacon}!BroadCastingUID@{BroadCastingUID}}
+\index{BroadCastingUID@{BroadCastingUID}!BasicBeacon@{BasicBeacon}}
+\doxysubsubsection{\texorpdfstring{BroadCastingUID}{BroadCastingUID}}
+{\footnotesize\ttfamily \label{class_basic_beacon_a4fa8b6be7cb961cf1fb9361c5b3abdc3} 
+Guid Basic\+Beacon.\+Broad\+Casting\+UID\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Unique identifier for the broadcasting entity. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_broadcasting_protocol_a3d6ea87c39d70c4c41e34cc98fb69223}{IBroadcasting\+Protocol}}.
+
+\Hypertarget{class_basic_beacon_ae01ac106082615517a85b406b758e7f6}\index{BasicBeacon@{BasicBeacon}!LastBroadcastTime@{LastBroadcastTime}}
+\index{LastBroadcastTime@{LastBroadcastTime}!BasicBeacon@{BasicBeacon}}
+\doxysubsubsection{\texorpdfstring{LastBroadcastTime}{LastBroadcastTime}}
+{\footnotesize\ttfamily \label{class_basic_beacon_ae01ac106082615517a85b406b758e7f6} 
+Date\+Time Basic\+Beacon.\+Last\+Broadcast\+Time\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The timestamp of the last broadcast sent by this entity. 
+
+
+
+Implements \mbox{\hyperlink{interface_i_broadcasting_protocol_a9ac36563512178df735095e79909ab3f}{IBroadcasting\+Protocol}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Broadcasting \& Recieval/Basic\+Beacon.\+cs\end{DoxyCompactItemize}

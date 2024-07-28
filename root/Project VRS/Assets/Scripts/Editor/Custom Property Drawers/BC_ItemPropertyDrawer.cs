@@ -11,6 +11,7 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
     const string filePathForBC_ItemDrawerTree = "Assets/Scripts/Editor/UXML/ItemCustomInspector.uxml";
     const int ImageHeight = 128;
     bool init = true;
+    static Quaternion m_previewCameraRotation = Quaternion.Euler(20, -120, 0);
     public PreviewRenderUtility m_previewRenderUtility;
     VisualTreeAsset m_itemCustomInspectorTree;
     public virtual void OnEnable(SerializedProperty property)
@@ -72,15 +73,14 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
         else
         {
             float largestBound = Mathf.Max(meshToDisplay.bounds.size.x, meshToDisplay.bounds.size.y, meshToDisplay.bounds.size.z);
-            Vector3 scale = new Vector3(1 / largestBound, 1/ largestBound, 1/largestBound);
             Quaternion rotation = Quaternion.identity;
-            Vector3 position =  new Vector3(0 - (meshToDisplay.bounds.center.x * scale.x), 0 - (meshToDisplay.bounds.center.y * scale.y), 0 - (meshToDisplay.bounds.center.z * scale.z));
-            m_previewRenderUtility.camera.transform.LookAt(position);
-            Matrix4x4 meshTransformations = Matrix4x4.TRS(position, rotation, scale);
+            m_previewRenderUtility.camera.transform.LookAt(Vector3.zero);
+            Matrix4x4 meshTransformations = Matrix4x4.TRS(-meshToDisplay.bounds.center, Quaternion.identity, Vector3.one);
             Vector2Int desiredImageDimensions = new Vector2Int(512, 512);
             m_previewRenderUtility.BeginPreview(new Rect(0, 0, desiredImageDimensions.x, desiredImageDimensions.y), GUIStyle.none);
             m_previewRenderUtility.lights[0].transform.localEulerAngles = new Vector3(30, 30, 0);
             m_previewRenderUtility.lights[0].intensity = 2;
+            PositionCamera3D(m_previewRenderUtility.camera, meshToDisplay.bounds, Vector3.zero, 6);
             m_previewRenderUtility.DrawMesh(meshToDisplay, meshTransformations, materialToDisplay, 0);
             m_previewRenderUtility.camera.Render();
             image.image = m_previewRenderUtility.EndPreview();
@@ -208,6 +208,19 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
         CreateModelDisplayForInspector(root, property);
         return root;
 
+    }
+
+
+    public static void PositionCamera3D(Camera camera, Bounds bounds, Vector3 center, float distMultiplier)
+    {
+        float halfSize = Mathf.Max(bounds.extents.magnitude, 0.0001f);
+        float distance = halfSize * distMultiplier;
+
+        Vector3 cameraPosition = center - m_previewCameraRotation * (Vector3.forward * distance);
+
+        camera.transform.SetPositionAndRotation(cameraPosition, m_previewCameraRotation);
+        camera.nearClipPlane = distance - halfSize * 1.1f;
+        camera.farClipPlane = distance + halfSize * 1.1f;
     }
 
     #region OnEnable OnDisable and OnDestroy event handling

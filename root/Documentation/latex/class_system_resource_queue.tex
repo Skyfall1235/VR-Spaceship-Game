@@ -1,0 +1,60 @@
+\doxysection{System\+Resource\+Queue Class Reference}
+\hypertarget{class_system_resource_queue}{}\label{class_system_resource_queue}\index{SystemResourceQueue@{SystemResourceQueue}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_system_resource_queue_a4ffe970482cceb58e90c4d323378cd81}\label{class_system_resource_queue_a4ffe970482cceb58e90c4d323378cd81} 
+enum \mbox{\hyperlink{class_system_resource_queue_a4ffe970482cceb58e90c4d323378cd81}{Pip\+Selection}} \{ {\bfseries Engine}
+, {\bfseries internal\+Systems}
+, {\bfseries Weapons}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration representing the different types of system resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_system_resource_queue_a6cf5f2fdcd777180494ff4c60f641dd2}{Reallocate\+Resource}} (\mbox{\hyperlink{class_system_resource_queue_a4ffe970482cceb58e90c4d323378cd81}{Pip\+Selection}} selection)
+\begin{DoxyCompactList}\small\item\em Reallocates resources based on the selected Pip\+Selection (engine, internal systems, or weapons). Attempts to allocate a resource from the total stack first, then from the highest non-\/selected stack if the total stack is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_system_resource_queue_a1434ffb59108ebd3262a68b5ab0fe147}\label{class_system_resource_queue_a1434ffb59108ebd3262a68b5ab0fe147} 
+Unity\+Event {\bfseries On\+Update\+System\+Resource\+Queue} = new()
+\item 
+\Hypertarget{class_system_resource_queue_a84b774122b0540a82ceaefc079bff980}\label{class_system_resource_queue_a84b774122b0540a82ceaefc079bff980} 
+Unity\+Event {\bfseries On\+Fail\+To\+Allocate} = new()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_system_resource_queue_a0f8773939c56749918d291eb331a8030}\label{class_system_resource_queue_a0f8773939c56749918d291eb331a8030} 
+int {\bfseries Engine\+Val}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_system_resource_queue_a48f93db274e24490995021d057e39274}\label{class_system_resource_queue_a48f93db274e24490995021d057e39274} 
+int {\bfseries Internal\+Systems\+Val}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_system_resource_queue_a508073f414589de2a513de7acf479d69}\label{class_system_resource_queue_a508073f414589de2a513de7acf479d69} 
+int {\bfseries Weapons\+Val}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_system_resource_queue_a6cf5f2fdcd777180494ff4c60f641dd2}\index{SystemResourceQueue@{SystemResourceQueue}!ReallocateResource@{ReallocateResource}}
+\index{ReallocateResource@{ReallocateResource}!SystemResourceQueue@{SystemResourceQueue}}
+\doxysubsubsection{\texorpdfstring{ReallocateResource()}{ReallocateResource()}}
+{\footnotesize\ttfamily \label{class_system_resource_queue_a6cf5f2fdcd777180494ff4c60f641dd2} 
+void System\+Resource\+Queue.\+Reallocate\+Resource (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_system_resource_queue_a4ffe970482cceb58e90c4d323378cd81}{Pip\+Selection}}}]{selection}{}\end{DoxyParamCaption})}
+
+
+
+Reallocates resources based on the selected Pip\+Selection (engine, internal systems, or weapons). Attempts to allocate a resource from the total stack first, then from the highest non-\/selected stack if the total stack is empty. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em selection} & The Pip\+Selection enum value indicating the desired resource type.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+PIP System/System\+Resource\+Queue.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,59 @@
+\doxysection{IBeacon Interface Reference}
+\hypertarget{interface_i_beacon}{}\label{interface_i_beacon}\index{IBeacon@{IBeacon}}
+Inheritance diagram for IBeacon\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{interface_i_beacon}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_i_beacon_1_1_beacon_data}{Beacon\+Data}}
+\begin{DoxyCompactList}\small\item\em Class representing data transmitted by a beacon implementing the \doxylink{interface_i_broadcasting_protocol}{IBroadcasting\+Protocol} interface. Inherits from the Broadcast\+Data base class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_i_beacon_1_1_beacon_data}{Beacon\+Data}} \mbox{\hyperlink{interface_i_beacon_a867d15bd0517dad1ccf328e0006550ce}{Broadcasting\+Data}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Stores the beacon data associated with this broadcaster. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_broadcasting_protocol}{IBroadcasting\+Protocol}}}
+\begin{DoxyCompactItemize}
+\item 
+Guid \mbox{\hyperlink{interface_i_broadcasting_protocol_a3d6ea87c39d70c4c41e34cc98fb69223}{Broad\+Casting\+UID}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for the broadcasting entity. \end{DoxyCompactList}\item 
+Date\+Time \mbox{\hyperlink{interface_i_broadcasting_protocol_a9ac36563512178df735095e79909ab3f}{Last\+Broadcast\+Time}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The timestamp of the last broadcast sent by this entity. \end{DoxyCompactList}\item 
+Date\+Time {\bfseries Broadcast\+Time\+At\+Start}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em (Protected) The timestamp of this entity\textquotesingle{}s broadcast at the start (used for internal calculations). This property can be set. \end{DoxyCompactList}\item 
+Date\+Time {\bfseries Global\+Start\+Broadcast\+Time}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em (Protected) The global start broadcast time for all entities implementing this interface (reference point to the start of the application). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{interface_i_broadcasting_protocol}{IBroadcasting\+Protocol}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_broadcasting_protocol_ac290f181c7c35ca9e2b81e518645a96f}{Update\+Last\+Broadcast\+Time}} (Date\+Time current\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the Last\+Broadcast\+Time property with the provided current time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{interface_i_broadcasting_protocol_a5828a47ee24ed1100908c47f5daadc5d}{Initialize\+Time\+At\+Start}} (Date\+Time current\+Time)
+\begin{DoxyCompactList}\small\item\em Initializes the Broadcast\+Time\+At\+Start property with the provided current time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{interface_i_beacon_a867d15bd0517dad1ccf328e0006550ce}\index{IBeacon@{IBeacon}!BroadcastingData@{BroadcastingData}}
+\index{BroadcastingData@{BroadcastingData}!IBeacon@{IBeacon}}
+\doxysubsubsection{\texorpdfstring{BroadcastingData}{BroadcastingData}}
+{\footnotesize\ttfamily \label{interface_i_beacon_a867d15bd0517dad1ccf328e0006550ce} 
+\mbox{\hyperlink{class_i_beacon_1_1_beacon_data}{Beacon\+Data}} IBeacon.\+Broadcasting\+Data\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Stores the beacon data associated with this broadcaster. 
+
+
+
+Implemented in \mbox{\hyperlink{class_basic_beacon_aee4207f6840ce78c2b6eb98ae936f6a1}{Basic\+Beacon}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Broadcasting \& Recieval/\+Interfaces/IBeacon.\+cs\end{DoxyCompactItemize}

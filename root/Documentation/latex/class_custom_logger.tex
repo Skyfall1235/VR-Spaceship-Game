@@ -1,0 +1,62 @@
+\doxysection{Custom\+Logger Class Reference}
+\hypertarget{class_custom_logger}{}\label{class_custom_logger}\index{CustomLogger@{CustomLogger}}
+Inheritance diagram for Custom\+Logger\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_custom_logger}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_custom_logger_ade0627e1fc636a21d7d0797c16d8d1de}\label{class_custom_logger_ade0627e1fc636a21d7d0797c16d8d1de} 
+enum {\bfseries Log\+Category} \{ \newline
+{\bfseries System}
+, {\bfseries Audio}
+, {\bfseries Enemy}
+, {\bfseries Player}
+, \newline
+{\bfseries Environment}
+, {\bfseries Default}
+, {\bfseries Other}
+, {\bfseries Nulled}
+ \}
+\item 
+\Hypertarget{class_custom_logger_aaf02340e76517e01ad33833862aaec1f}\label{class_custom_logger_aaf02340e76517e01ad33833862aaec1f} 
+enum {\bfseries Log\+Level} \{ {\bfseries Error}
+, {\bfseries Warning}
+, {\bfseries Info}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_custom_logger_a1edff528d570f5f4230f98e8a749cb07}\label{class_custom_logger_a1edff528d570f5f4230f98e8a749cb07} 
+void {\bfseries Log} (string message, Log\+Level level=Log\+Level.\+Info, Log\+Category category=Log\+Category.\+Nulled, Unity\+Engine.\+Object sender=null)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_custom_logger_a621cefaf00170dc3abe316b538e2ea6f}\label{class_custom_logger_a621cefaf00170dc3abe316b538e2ea6f} 
+static void {\bfseries Log} (string message)
+\item 
+\Hypertarget{class_custom_logger_aafc23947fc745e862700e6fa42365f5e}\label{class_custom_logger_aafc23947fc745e862700e6fa42365f5e} 
+static void {\bfseries Log} (string message, Log\+Level severity)
+\item 
+\Hypertarget{class_custom_logger_a57c4cab04a60a65e23f75be3c3c462c5}\label{class_custom_logger_a57c4cab04a60a65e23f75be3c3c462c5} 
+static void {\bfseries Log} (string message, Log\+Level severity, Log\+Category category)
+\item 
+\Hypertarget{class_custom_logger_af1a2c6ece73dcf19ea876e0db1c0b8d6}\label{class_custom_logger_af1a2c6ece73dcf19ea876e0db1c0b8d6} 
+static string {\bfseries Color\+Text} (string text, Color color)
+\item 
+\Hypertarget{class_custom_logger_a094973507bc077a32686cff88bac8ce1}\label{class_custom_logger_a094973507bc077a32686cff88bac8ce1} 
+static string {\bfseries To\+Hex} (Color c)
+\item 
+\Hypertarget{class_custom_logger_ae455fb337f033ecf0364baaa425ec07e}\label{class_custom_logger_ae455fb337f033ecf0364baaa425ec07e} 
+static void {\bfseries Log\+Error\+To\+File} (string message, Unity\+Engine.\+Object sender, Log\+Category category=Log\+Category.\+Default)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Custom\+Debugger/Custom\+Logger.\+cs\end{DoxyCompactItemize}
