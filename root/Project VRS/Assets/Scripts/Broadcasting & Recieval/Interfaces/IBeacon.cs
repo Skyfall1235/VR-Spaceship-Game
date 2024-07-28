@@ -22,5 +22,11 @@ public interface IBeacon : IBroadcastingProtocol
         /// The position in 3D space where the beacon is located.
         /// </summary>
         public Vector3 broadcastPosition;
+
+        public BeaconData(SO_FactionData factionData, Vector3 broadcastPosition)
+        {
+            m_factionData = factionData;
+            this.broadcastPosition = broadcastPosition;
+        }
     }
 }

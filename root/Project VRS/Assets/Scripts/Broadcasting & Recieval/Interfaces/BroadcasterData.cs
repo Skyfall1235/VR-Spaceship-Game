@@ -20,14 +20,23 @@ public class BroadcasterData
         //is used to trigger false flag events like starting meteor swarms or a pirate attack
         public bool FalseFlag;
         public UnityEvent FalseFlagEvent;
+
+        public DistressBeaconData(SO_FactionData factionData, Vector3 broadcastPosition) : base(factionData, broadcastPosition)
+        {
+        }
     }
     public class InterceptionBeaconData : BeaconData
     {
         //to be done at a later date when encryption becomes an added feature
+        public InterceptionBeaconData(SO_FactionData factionData, Vector3 broadcastPosition) : base(factionData, broadcastPosition)
+        {
+        }
     }
     public class AntennaData : BeaconData
     {
-        
+        public AntennaData(SO_FactionData factionData, Vector3 broadcastPosition) : base(factionData, broadcastPosition)
+        {
+        }
     }
 
 }
