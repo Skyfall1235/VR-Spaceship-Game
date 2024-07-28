@@ -1,0 +1,120 @@
+\doxysection{Ship\+Movement\+Controller Class Reference}
+\hypertarget{class_ship_movement_controller}{}\label{class_ship_movement_controller}\index{ShipMovementController@{ShipMovementController}}
+Inheritance diagram for Ship\+Movement\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_ship_movement_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_ship_movement_controller_a7dc580442553479fb09ed02d5d262177}\label{class_ship_movement_controller_a7dc580442553479fb09ed02d5d262177} 
+void {\bfseries Call\+Update\+For\+Linear\+Motion} ()
+\item 
+\Hypertarget{class_ship_movement_controller_af8fd9df9ccc0d262db032da5eb5ea582}\label{class_ship_movement_controller_af8fd9df9ccc0d262db032da5eb5ea582} 
+void {\bfseries Call\+Update\+For\+Rotation} ()
+\item 
+\Hypertarget{class_ship_movement_controller_ad621cb27de65e622625fa789dd676b03}\label{class_ship_movement_controller_ad621cb27de65e622625fa789dd676b03} 
+void {\bfseries Call\+Update\+For\+Strafe} ()
+\item 
+\Hypertarget{class_ship_movement_controller_a041b146371f27f9b9ea38b9c6f618b8d}\label{class_ship_movement_controller_a041b146371f27f9b9ea38b9c6f618b8d} 
+void {\bfseries Call\+Update\+For\+Braking} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_ship_movement_controller_a7f655e1aa7de883168ce0a212f9922b0}{Fixed\+Update}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_i_m___ship_movement_controller}{IM\+\_\+\+Ship\+Movement\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Save\+New\+Linear\+Motion\+Vector} (float raw\+Throttle\+Input)
+\item 
+void {\bfseries Save\+New\+Rotation\+On\+Axis} (\mbox{\hyperlink{struct_ship_joystick_input}{Ship\+Joystick\+Input}} current\+Input)
+\item 
+void {\bfseries Save\+New\+Strafe\+Vector} (float raw\+Yaw\+Input)
+\item 
+Vector3 {\bfseries Return\+Torque\+Vector} (float input, Vector3 Axi\+Of\+Rotation)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_b_c___ship_movement_controller}{BC\+\_\+\+Ship\+Movement\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries m\+\_\+\+On\+Velocity\+Change\+Event} = new \mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}}()
+\item 
+Unity\+Event$<$ \mbox{\hyperlink{struct_ship_joystick_input}{Ship\+Joystick\+Input}} $>$ {\bfseries On\+Update\+Inputs} = new Unity\+Event$<$\mbox{\hyperlink{struct_ship_joystick_input}{Ship\+Joystick\+Input}}$>$()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_i_m___ship_movement_controller}{IM\+\_\+\+Ship\+Movement\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 {\bfseries m\+\_\+saved\+Forward\+Vector}
+\item 
+Vector3 {\bfseries m\+\_\+saved\+Pitch\+Axis}
+\item 
+float {\bfseries m\+\_\+saved\+Pitch\+Speed}
+\item 
+Vector3 {\bfseries m\+\_\+saved\+Roll\+Axis}
+\item 
+float {\bfseries m\+\_\+saved\+Roll\+Speed}
+\item 
+Vector3 {\bfseries m\+\_\+saved\+Strafe\+Vector}
+\item 
+Vector3 {\bfseries m\+\_\+saved\+Yaw\+Axis}
+\item 
+float {\bfseries m\+\_\+saved\+Yaw\+Speed}
+\item 
+bool {\bfseries m\+\_\+toggle\+Yaw\+For\+Strafe}
+\item 
+float {\bfseries m\+\_\+braking\+Force}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_b_c___ship_movement_controller}{BC\+\_\+\+Ship\+Movement\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_c___ship_input_handler}{BC\+\_\+\+Ship\+Input\+Handler}} {\bfseries m\+\_\+ship\+Input\+Handler}
+\begin{DoxyCompactList}\small\item\em The input handler of the entire ship. \end{DoxyCompactList}\item 
+Rigidbody {\bfseries m\+\_\+ship\+Rigidbody}
+\begin{DoxyCompactList}\small\item\em the rigidbody component of the entire ship \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+max\+Acceleration} = 10f
+\begin{DoxyCompactList}\small\item\em maximum acceleration force that the ship can use \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+max\+Deceleration} = -\/10f
+\begin{DoxyCompactList}\small\item\em maximum decceleration force that the ship can use \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+\+Max\+Break\+Value} = 5f
+\begin{DoxyCompactList}\small\item\em maxmimum breaking value for the rigidbody \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+max\+Rate\+Of\+Pitch} = 10f
+\begin{DoxyCompactList}\small\item\em maximum amount of torque that can be applied to the rigidbody \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+max\+Rate\+Of\+Roll} = 10f
+\begin{DoxyCompactList}\small\item\em maximum amount of torque that can be applied to the rigidbody \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+max\+Rate\+Of\+Yaw} = 10f
+\begin{DoxyCompactList}\small\item\em maximum amount of torque that can be applied to the rigidbody \end{DoxyCompactList}\item 
+float {\bfseries m\+\_\+max\+Speed} = 100f
+\item 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries m\+\_\+\+On\+Rotation\+Change\+Event} = new \mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}}()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_b_c___ship_movement_controller}{BC\+\_\+\+Ship\+Movement\+Controller}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries m\+\_\+max\+Strafe\+Speed}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em the maximum amount of force that can be applied to strafe \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries On\+Rotation\+Change\+Event}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries On\+Velocity\+Change\+Event}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_ship_movement_controller_a7f655e1aa7de883168ce0a212f9922b0}\index{ShipMovementController@{ShipMovementController}!FixedUpdate@{FixedUpdate}}
+\index{FixedUpdate@{FixedUpdate}!ShipMovementController@{ShipMovementController}}
+\doxysubsubsection{\texorpdfstring{FixedUpdate()}{FixedUpdate()}}
+{\footnotesize\ttfamily \label{class_ship_movement_controller_a7f655e1aa7de883168ce0a212f9922b0} 
+override void Ship\+Movement\+Controller.\+Fixed\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_i_m___ship_movement_controller}{IM\+\_\+\+Ship\+Movement\+Controller}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship movement Control/Ship\+Movement\+Controller.\+cs\end{DoxyCompactItemize}

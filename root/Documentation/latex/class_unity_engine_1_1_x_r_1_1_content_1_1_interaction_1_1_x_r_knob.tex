@@ -1,0 +1,65 @@
+\doxysection{Unity\+Engine.\+XR.\+Content.\+Interaction.\+XRKnob Class Reference}
+\hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob}{}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob}\index{UnityEngine.XR.Content.Interaction.XRKnob@{UnityEngine.XR.Content.Interaction.XRKnob}}
+
+
+An interactable knob that follows the rotation of the interactor.  
+
+
+Inheritance diagram for Unity\+Engine.\+XR.\+Content.\+Interaction.\+XRKnob\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_1_1_value_change_event}{Value\+Change\+Event}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_ae8209b1b4c435c48d8857e5cf1c19cf0}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_ae8209b1b4c435c48d8857e5cf1c19cf0} 
+override void {\bfseries Process\+Interactable} (XRInteraction\+Update\+Order.\+Update\+Phase update\+Phase)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_ad4170ad967759c34057754b7d00a1ac1}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_ad4170ad967759c34057754b7d00a1ac1} 
+override void {\bfseries On\+Enable} ()
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_ab46e52ef62c2cd66474a09947ea51849}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_ab46e52ef62c2cd66474a09947ea51849} 
+override void {\bfseries On\+Disable} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a5cacd0e9377997a4b1d9858bca235df3}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a5cacd0e9377997a4b1d9858bca235df3} 
+Transform {\bfseries handle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The object that is visually grabbed and manipulated. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a266a3750e03aaa7a6808518af30044cc}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a266a3750e03aaa7a6808518af30044cc} 
+float {\bfseries value}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The value of the knob. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a6a5c7da9c315a8e9a861fbf524ad7e64}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a6a5c7da9c315a8e9a861fbf524ad7e64} 
+bool {\bfseries clamped\+Motion}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Whether this knob\textquotesingle{}s rotation should be clamped by the angle limits. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_aa5e6557daebe4fc9075cd7ce9a0ed34f}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_aa5e6557daebe4fc9075cd7ce9a0ed34f} 
+float {\bfseries max\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Rotation of the knob at value \textquotesingle{}1\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a9fc0391f69f87616713f38b290f36856}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_a9fc0391f69f87616713f38b290f36856} 
+float {\bfseries min\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Rotation of the knob at value \textquotesingle{}0\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_aee881e6987b2961c6387d03d8864960a}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_aee881e6987b2961c6387d03d8864960a} 
+float {\bfseries position\+Tracked\+Radius}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The position of the interactor controls rotation when outside this radius. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_aa46fd0fe3090b4710f5c040abb8ddc64}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_aa46fd0fe3090b4710f5c040abb8ddc64} 
+\mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_knob_1_1_value_change_event}{Value\+Change\+Event}} {\bfseries on\+Value\+Change}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Events to trigger when the knob is rotated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An interactable knob that follows the rotation of the interactor. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+UI\+\_\+3\+D/XRKnob.\+cs\end{DoxyCompactItemize}

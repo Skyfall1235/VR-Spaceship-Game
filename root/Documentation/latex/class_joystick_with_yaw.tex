@@ -1,0 +1,88 @@
+\doxysection{Joystick\+With\+Yaw Class Reference}
+\hypertarget{class_joystick_with_yaw}{}\label{class_joystick_with_yaw}\index{JoystickWithYaw@{JoystickWithYaw}}
+Inheritance diagram for Joystick\+With\+Yaw\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_joystick_with_yaw}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_joystick_with_yaw_1_1_value_change_event}{Value\+Change\+Event}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_joystick_with_yaw_a1305e2a1e47c956c19b16d1bddf2ca4e}\label{class_joystick_with_yaw_a1305e2a1e47c956c19b16d1bddf2ca4e} 
+enum {\bfseries Joystick\+Type} \{ {\bfseries Both\+Circle}
+, {\bfseries Both\+Square}
+, {\bfseries Front\+Back}
+, {\bfseries Left\+Right}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_joystick_with_yaw_a3486c307a9d564cfa85b7a0b503faf72}\label{class_joystick_with_yaw_a3486c307a9d564cfa85b7a0b503faf72} 
+override void {\bfseries Process\+Interactable} (XRInteraction\+Update\+Order.\+Update\+Phase update\+Phase)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_joystick_with_yaw_ab0c95b7686adaa761dfc5ceb66aac047}\label{class_joystick_with_yaw_ab0c95b7686adaa761dfc5ceb66aac047} 
+override void {\bfseries On\+Enable} ()
+\item 
+\Hypertarget{class_joystick_with_yaw_a35aa5e95433f1f944d1004b409ccc6c6}\label{class_joystick_with_yaw_a35aa5e95433f1f944d1004b409ccc6c6} 
+override void {\bfseries On\+Disable} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_joystick_with_yaw_aa34b92cc876e1ac6c9978fcd31186f5c}\label{class_joystick_with_yaw_aa34b92cc876e1ac6c9978fcd31186f5c} 
+Joystick\+Type {\bfseries joystick\+Motion}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Controls how the joystick moves. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a181ab50aca6803c0c07b1a97897015c4}\label{class_joystick_with_yaw_a181ab50aca6803c0c07b1a97897015c4} 
+Transform {\bfseries handle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The object that is visually grabbed and manipulated. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_aeaa786a5ac31b4eb7f6412036b9dc3fd}\label{class_joystick_with_yaw_aeaa786a5ac31b4eb7f6412036b9dc3fd} 
+Vector2 {\bfseries Joystick\+Value}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The value of the joystick. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a827675d3fd0194bcc9b2afea7288eba1}\label{class_joystick_with_yaw_a827675d3fd0194bcc9b2afea7288eba1} 
+bool {\bfseries recenter\+On\+Release}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em If true, the joystick will return to center on release. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_ada516e8b0620da4894ba22514d11e7fa}\label{class_joystick_with_yaw_ada516e8b0620da4894ba22514d11e7fa} 
+float {\bfseries max\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Maximum angle the joystick can move. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a38687959441248561dcdd350e99f6218}\label{class_joystick_with_yaw_a38687959441248561dcdd350e99f6218} 
+float {\bfseries dead\+Zone\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Minimum amount the joystick must move off the center to register changes. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_addf6be638d2334b30838ee59419177d6}\label{class_joystick_with_yaw_addf6be638d2334b30838ee59419177d6} 
+\mbox{\hyperlink{class_joystick_with_yaw_1_1_value_change_event}{Value\+Change\+Event}} {\bfseries on\+Value\+ChangeX}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Events to trigger when the joystick\textquotesingle{}s x value changes. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a3b0df118f2f233ce9ed08765b72a88f1}\label{class_joystick_with_yaw_a3b0df118f2f233ce9ed08765b72a88f1} 
+\mbox{\hyperlink{class_joystick_with_yaw_1_1_value_change_event}{Value\+Change\+Event}} {\bfseries on\+Value\+ChangeY}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Events to trigger when the joystick\textquotesingle{}s y value changes. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_ac45a588e943bb2b258d95ca0b0353121}\label{class_joystick_with_yaw_ac45a588e943bb2b258d95ca0b0353121} 
+float {\bfseries Knob\+Value}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The value of the knob. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a3fa33ebe3131249949e1f7d90951bbc6}\label{class_joystick_with_yaw_a3fa33ebe3131249949e1f7d90951bbc6} 
+bool {\bfseries Knob\+Clamped\+Motion}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Whether this knob\textquotesingle{}s rotation should be clamped by the angle limits. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_acca4ba3391d7005aa681200cb6eeee9b}\label{class_joystick_with_yaw_acca4ba3391d7005aa681200cb6eeee9b} 
+float {\bfseries Knob\+Max\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Rotation of the knob at value \textquotesingle{}1\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a36bfa9bcb29792eba58188a81738439a}\label{class_joystick_with_yaw_a36bfa9bcb29792eba58188a81738439a} 
+float {\bfseries Knob\+Min\+Angle}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Rotation of the knob at value \textquotesingle{}0\textquotesingle{}. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_a82a9c113c2fd165648123ce1e4ba2be1}\label{class_joystick_with_yaw_a82a9c113c2fd165648123ce1e4ba2be1} 
+float {\bfseries Knob\+Position\+Tracked\+Radius}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The position of the interactor controls rotation when outside this radius. \end{DoxyCompactList}\item 
+\Hypertarget{class_joystick_with_yaw_ae8c7f7080d0efedc1a9aa4ad4c8f9fda}\label{class_joystick_with_yaw_ae8c7f7080d0efedc1a9aa4ad4c8f9fda} 
+\mbox{\hyperlink{class_joystick_with_yaw_1_1_value_change_event}{Value\+Change\+Event}} {\bfseries on\+Knob\+Value\+Change}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Events to trigger when the knob is rotated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+UI\+\_\+3\+D/Joystick\+With\+Yaw.\+cs\end{DoxyCompactItemize}

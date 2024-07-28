@@ -1,0 +1,142 @@
+\doxysection{ICore\+Module Interface Reference}
+\hypertarget{interface_i_core_module}{}\label{interface_i_core_module}\index{ICoreModule@{ICoreModule}}
+
+
+Defines the interface for core systems within the VR spaceship, providing common functionalities like startup, shutdown, resource management, and state management.  
+
+
+Inheritance diagram for ICore\+Module\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.373494cm]{interface_i_core_module}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_i_core_module_1_1_on_core_module_state_change}{On\+Core\+Module\+State\+Change}}
+\begin{DoxyCompactList}\small\item\em Unity\+Event triggered when a core module\textquotesingle{}s overall state changes. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_i_core_module_1_1_on_module_operational_state_change}{On\+Module\+Operational\+State\+Change}}
+\begin{DoxyCompactList}\small\item\em Unity\+Event triggered when a core module\textquotesingle{}s operational state changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} \{ \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4a431accab7897f05b0424e002ca30391d}{Operational}}
+, \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4a2dbec34a65724db94f81e8533ee18192}{Standby}}
+, \mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4ab9f5c797ebbf55adccdd8539a65a0241}{Disabled}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the core system state, which can be Operational, Standby, or Disabled. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} \{ \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a4d3d769b812b6faa6b76e1a8abaece2d}{Active}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87aad866f19a13c5386d2ec6df246dcbfac}{Preparing}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87adae81795121c735af447f6e997c1650c}{Ready\+For\+Use}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87af7bd791aac4fda53ce6d08edc1a62e01}{Damaged}}
+, \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a46caef17790fcbc2eed679b680fa7e97}{Rebooting}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the different operational states a system can be in, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53}{Module\+State\+Change\+Type}} \{ \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a853775e23634ae9908128f071202dd32}{Core\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a1b8bbf8258cf0db161a695518e06556d}{Operational\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a605669cab962bf944d99ce89cf9e58d9}{Health}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53aaefbd0597f1bc2493bbc18898243513b}{Destroyed}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration defining the different types of state changes that can occur for a core module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the interface for core systems within the VR spaceship, providing common functionalities like startup, shutdown, resource management, and state management. 
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}\index{ICoreModule@{ICoreModule}!CoreModuleState@{CoreModuleState}}
+\index{CoreModuleState@{CoreModuleState}!ICoreModule@{ICoreModule}}
+\doxysubsubsection{\texorpdfstring{CoreModuleState}{CoreModuleState}}
+{\footnotesize\ttfamily \label{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4} 
+enum ICore\+Module.\+Core\+Module\+State}
+
+
+
+Defines the core system state, which can be Operational, Standby, or Disabled. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Operational@{Operational}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Operational@{Operational}}}\Hypertarget{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4a431accab7897f05b0424e002ca30391d}\label{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4} 
+Operational&The system is fully functional and ready to use. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Standby@{Standby}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Standby@{Standby}}}\Hypertarget{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4a2dbec34a65724db94f81e8533ee18192}\label{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4} 
+Standby&The system is not currently active but can be quickly brought online. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Disabled@{Disabled}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Disabled@{Disabled}}}\Hypertarget{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4ab9f5c797ebbf55adccdd8539a65a0241}\label{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4} 
+Disabled&The system is offline and cannot be used until repaired or reactivated. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Implemented in \mbox{\hyperlink{class_b_c___core_module_a6cd94553d7389dc27f308aaddf5f0a78}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}\index{ICoreModule@{ICoreModule}!ModuleOperationalState@{ModuleOperationalState}}
+\index{ModuleOperationalState@{ModuleOperationalState}!ICoreModule@{ICoreModule}}
+\doxysubsubsection{\texorpdfstring{ModuleOperationalState}{ModuleOperationalState}}
+{\footnotesize\ttfamily \label{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87} 
+enum ICore\+Module.\+Module\+Operational\+State}
+
+
+
+Defines the different operational states a system can be in, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Active@{Active}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Active@{Active}}}\Hypertarget{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a4d3d769b812b6faa6b76e1a8abaece2d}\label{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87} 
+Active&The system is currently active and performing its primary function. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Preparing@{Preparing}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Preparing@{Preparing}}}\Hypertarget{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87aad866f19a13c5386d2ec6df246dcbfac}\label{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87} 
+Preparing&The system is currently preparing to become active, such as warming up or initializing components. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ReadyForUse@{ReadyForUse}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!ReadyForUse@{ReadyForUse}}}\Hypertarget{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87adae81795121c735af447f6e997c1650c}\label{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87} 
+Ready\+For\+Use&The system is ready to be used but may not be actively performing its function yet. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Damaged@{Damaged}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Damaged@{Damaged}}}\Hypertarget{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87af7bd791aac4fda53ce6d08edc1a62e01}\label{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87} 
+Damaged&The system has sustained damage and may not be functioning at full capacity. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Rebooting@{Rebooting}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Rebooting@{Rebooting}}}\Hypertarget{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a46caef17790fcbc2eed679b680fa7e97}\label{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87} 
+Rebooting&The system is currently rebooting and may be unavailable for a short period. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53}\index{ICoreModule@{ICoreModule}!ModuleStateChangeType@{ModuleStateChangeType}}
+\index{ModuleStateChangeType@{ModuleStateChangeType}!ICoreModule@{ICoreModule}}
+\doxysubsubsection{\texorpdfstring{ModuleStateChangeType}{ModuleStateChangeType}}
+{\footnotesize\ttfamily \label{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53} 
+enum ICore\+Module.\+Module\+State\+Change\+Type}
+
+
+
+Enumeration defining the different types of state changes that can occur for a core module. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CoreState@{CoreState}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!CoreState@{CoreState}}}\Hypertarget{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a853775e23634ae9908128f071202dd32}\label{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53} 
+Core\+State&Indicates a change in the core module\textquotesingle{}s overall state (e.\+g., Operational, On Standby, Disabled). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OperationalState@{OperationalState}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!OperationalState@{OperationalState}}}\Hypertarget{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a1b8bbf8258cf0db161a695518e06556d}\label{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53} 
+Operational\+State&Indicates a change in the core module\textquotesingle{}s operational state. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Health@{Health}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Health@{Health}}}\Hypertarget{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a605669cab962bf944d99ce89cf9e58d9}\label{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53} 
+Health&Indicates a change in the core module\textquotesingle{}s health (damage taken or healing received). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Destroyed@{Destroyed}!ICoreModule@{ICoreModule}}\index{ICoreModule@{ICoreModule}!Destroyed@{Destroyed}}}\Hypertarget{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53aaefbd0597f1bc2493bbc18898243513b}\label{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53} 
+Destroyed&Indicates the core module has been destroyed. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/\+Ship Interfaces/ICore\+Module.\+cs\end{DoxyCompactItemize}

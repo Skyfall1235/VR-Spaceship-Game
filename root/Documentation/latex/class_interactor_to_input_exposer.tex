@@ -1,0 +1,141 @@
+\doxysection{Interactor\+To\+Input\+Exposer Class Reference}
+\hypertarget{class_interactor_to_input_exposer}{}\label{class_interactor_to_input_exposer}\index{InteractorToInputExposer@{InteractorToInputExposer}}
+Inheritance diagram for Interactor\+To\+Input\+Exposer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_interactor_to_input_exposer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_interactor_to_input_exposer_adea95a7d3b0d0ee99fb28f4586e5b80c}{Register\+Interactor\+Controller}} (Select\+Enter\+Event\+Args e)
+\begin{DoxyCompactList}\small\item\em Registers the action based controller based on what selected the associated item. \end{DoxyCompactList}\item 
+\Hypertarget{class_interactor_to_input_exposer_a4b7ade4d9ab267b52315c5e818f2b47a}\label{class_interactor_to_input_exposer_a4b7ade4d9ab267b52315c5e818f2b47a} 
+void {\bfseries Unregister\+Interactor\+Controller} ()
+\begin{DoxyCompactList}\small\item\em Unregisters the action based controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static T \mbox{\hyperlink{class_interactor_to_input_exposer_a99d775cdaf08b5072551005b89eab62e}{Retrieve\+Value\+From\+Action$<$ T $>$}} (Input\+Action\+Property action\+Property)
+\begin{DoxyCompactList}\small\item\em Retrieves a value of type T from a Unity Input\+Action\+Property. \end{DoxyCompactList}\item 
+static Game\+Object \mbox{\hyperlink{class_interactor_to_input_exposer_afdb09b83350475e082765c645e851948}{Retrieve\+Game\+Object\+From\+Interactor}} (IXRInteractor interactor)
+\begin{DoxyCompactList}\small\item\em Sometimes, we need the gameobject from the interactor. \end{DoxyCompactList}\item 
+static Action\+Based\+Controller \mbox{\hyperlink{class_interactor_to_input_exposer_a2525889d28061e0cd05c1cb51318351a}{Grab\+Action\+Based\+Controller}} (IXRInteractor interactor)
+\begin{DoxyCompactList}\small\item\em returns the action based controller from an interactor if it has one \end{DoxyCompactList}\item 
+\Hypertarget{class_interactor_to_input_exposer_a69624c28f40cbc9851d8eb3ce770f78a}\label{class_interactor_to_input_exposer_a69624c28f40cbc9851d8eb3ce770f78a} 
+static \mbox{\hyperlink{class_additional_input_for_action_based_controller}{Additional\+Input\+For\+Action\+Based\+Controller}} {\bfseries Grab\+Optional\+Additional\+Inputfrom\+Controller} (IXRInteractor interactor)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_a0e97806f9b865750d62bdf672f4798ce}\label{class_interactor_to_input_exposer_a0e97806f9b865750d62bdf672f4798ce} 
+bool {\bfseries Select}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_afa58eff98ab6ae5b8a4157999fd35140}\label{class_interactor_to_input_exposer_afa58eff98ab6ae5b8a4157999fd35140} 
+float {\bfseries Select\+Value}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_afea77c74c753decb0ad2a4a0339d2f44}\label{class_interactor_to_input_exposer_afea77c74c753decb0ad2a4a0339d2f44} 
+bool {\bfseries Activate}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_a3075c1f92c41663830931e686d46b93d}\label{class_interactor_to_input_exposer_a3075c1f92c41663830931e686d46b93d} 
+float {\bfseries Activate\+Value}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_a60557cba3bde493794c05a9030ea09b8}\label{class_interactor_to_input_exposer_a60557cba3bde493794c05a9030ea09b8} 
+bool {\bfseries Primary\+Button}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_a87b7082cff3638a19dc79dc3aa5261c0}\label{class_interactor_to_input_exposer_a87b7082cff3638a19dc79dc3aa5261c0} 
+bool {\bfseries Joystick\+Click}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_ae6896c954f15d7feb8903c28414251a8}\label{class_interactor_to_input_exposer_ae6896c954f15d7feb8903c28414251a8} 
+Vector2 {\bfseries Joystick\+Val}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_interactor_to_input_exposer_a90b0a7a99eb330ad68a510e0ae0c206c}\label{class_interactor_to_input_exposer_a90b0a7a99eb330ad68a510e0ae0c206c} 
+Game\+Object {\bfseries Interactor\+Game\+Object}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_interactor_to_input_exposer_a2525889d28061e0cd05c1cb51318351a}\index{InteractorToInputExposer@{InteractorToInputExposer}!GrabActionBasedController@{GrabActionBasedController}}
+\index{GrabActionBasedController@{GrabActionBasedController}!InteractorToInputExposer@{InteractorToInputExposer}}
+\doxysubsubsection{\texorpdfstring{GrabActionBasedController()}{GrabActionBasedController()}}
+{\footnotesize\ttfamily \label{class_interactor_to_input_exposer_a2525889d28061e0cd05c1cb51318351a} 
+static Action\+Based\+Controller Interactor\+To\+Input\+Exposer.\+Grab\+Action\+Based\+Controller (\begin{DoxyParamCaption}\item[{IXRInteractor}]{interactor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+returns the action based controller from an interactor if it has one 
+
+
+\begin{DoxyParams}{Parameters}
+{\em interactor} & the interactor we want to search\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The action based controller from an interactor if it has one
+\end{DoxyReturn}
+\Hypertarget{class_interactor_to_input_exposer_adea95a7d3b0d0ee99fb28f4586e5b80c}\index{InteractorToInputExposer@{InteractorToInputExposer}!RegisterInteractorController@{RegisterInteractorController}}
+\index{RegisterInteractorController@{RegisterInteractorController}!InteractorToInputExposer@{InteractorToInputExposer}}
+\doxysubsubsection{\texorpdfstring{RegisterInteractorController()}{RegisterInteractorController()}}
+{\footnotesize\ttfamily \label{class_interactor_to_input_exposer_adea95a7d3b0d0ee99fb28f4586e5b80c} 
+void Interactor\+To\+Input\+Exposer.\+Register\+Interactor\+Controller (\begin{DoxyParamCaption}\item[{Select\+Enter\+Event\+Args}]{e}{}\end{DoxyParamCaption})}
+
+
+
+Registers the action based controller based on what selected the associated item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & the event args that contain the interactor and interactable associated with this unityevent\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_interactor_to_input_exposer_afdb09b83350475e082765c645e851948}\index{InteractorToInputExposer@{InteractorToInputExposer}!RetrieveGameObjectFromInteractor@{RetrieveGameObjectFromInteractor}}
+\index{RetrieveGameObjectFromInteractor@{RetrieveGameObjectFromInteractor}!InteractorToInputExposer@{InteractorToInputExposer}}
+\doxysubsubsection{\texorpdfstring{RetrieveGameObjectFromInteractor()}{RetrieveGameObjectFromInteractor()}}
+{\footnotesize\ttfamily \label{class_interactor_to_input_exposer_afdb09b83350475e082765c645e851948} 
+static Game\+Object Interactor\+To\+Input\+Exposer.\+Retrieve\+Game\+Object\+From\+Interactor (\begin{DoxyParamCaption}\item[{IXRInteractor}]{interactor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Sometimes, we need the gameobject from the interactor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em interactor} & is the interactor that is currently registered\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the Game object currently interacting with the associated Interactable
+\end{DoxyReturn}
+\Hypertarget{class_interactor_to_input_exposer_a99d775cdaf08b5072551005b89eab62e}\index{InteractorToInputExposer@{InteractorToInputExposer}!RetrieveValueFromAction$<$ T $>$@{RetrieveValueFromAction$<$ T $>$}}
+\index{RetrieveValueFromAction$<$ T $>$@{RetrieveValueFromAction$<$ T $>$}!InteractorToInputExposer@{InteractorToInputExposer}}
+\doxysubsubsection{\texorpdfstring{RetrieveValueFromAction$<$ T $>$()}{RetrieveValueFromAction< T >()}}
+{\footnotesize\ttfamily \label{class_interactor_to_input_exposer_a99d775cdaf08b5072551005b89eab62e} 
+static T Interactor\+To\+Input\+Exposer.\+Retrieve\+Value\+From\+Action$<$ T $>$ (\begin{DoxyParamCaption}\item[{Input\+Action\+Property}]{action\+Property}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Retrieves a value of type T from a Unity Input\+Action\+Property. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of the value to retrieve. Must be a struct.\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Property} & The Input\+Action\+Property object containing the value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of type T retrieved from the Input\+Action\+Property.
+\end{DoxyReturn}
+\begin{Desc}
+\item[Type Constraints]\begin{description}
+\item[{\em T} : {\em struct}]\end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Interaction/Interactor\+To\+Input\+Exposer.\+cs\end{DoxyCompactItemize}

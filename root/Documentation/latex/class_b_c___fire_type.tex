@@ -1,0 +1,122 @@
+\doxysection{BC\+\_\+\+Fire\+Type Class Reference}
+\hypertarget{class_b_c___fire_type}{}\label{class_b_c___fire_type}\index{BC\_FireType@{BC\_FireType}}
+Inheritance diagram for BC\+\_\+\+Fire\+Type\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_b_c___fire_type}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}\label{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742} 
+delegate void {\bfseries Start\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fired when the weapon starts firing. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}\label{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9} 
+delegate void {\bfseries Stop\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fired when the weapon stops firing. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}\label{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92} 
+delegate void {\bfseries Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fire when the weapon fires. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___fire_type_afa2904c8345a644faf16dcddb4425688}\label{class_b_c___fire_type_afa2904c8345a644faf16dcddb4425688} 
+delegate void {\bfseries Pre\+Fire} ()
+\item 
+\Hypertarget{class_b_c___fire_type_a8d49f8f3b2764e18f601e67441839d15}\label{class_b_c___fire_type_a8d49f8f3b2764e18f601e67441839d15} 
+delegate void {\bfseries Post\+Fire} ()
+\item 
+virtual void \mbox{\hyperlink{class_b_c___fire_type_a2d0e70acd9997abc5f35caefa1198711}{Update\+Firing\+State}} (bool new\+Firing\+State)
+\begin{DoxyCompactList}\small\item\em Method updates the underlying fire state of the weapon. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_b_c___fire_type_aaa41f66e93fc559a49cee4eb9c753aec}{BC\+\_\+\+Fire\+Type}} (\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} weapon, \mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} main\+Fire\+Action, \mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} start\+Fire\+Action=null, \mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} stop\+Fire\+Action=null, Post\+Fire post\+Fire\+Action=null, Pre\+Fire pre\+Fire\+Action=null)
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+IEnumerator \mbox{\hyperlink{class_b_c___fire_type_aed151aeccaa75acbd84c991ae1dce765}{Try\+Fire\+Logic\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Logic for triggering when each weapon is fired. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___fire_type_afed0b70edf2a1292156e5494dffc7342}\label{class_b_c___fire_type_afed0b70edf2a1292156e5494dffc7342} 
+\mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} {\bfseries m\+\_\+start\+Fire\+Methods}
+\item 
+\Hypertarget{class_b_c___fire_type_a6ade4feafac438d804fc810c845ce345}\label{class_b_c___fire_type_a6ade4feafac438d804fc810c845ce345} 
+\mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} {\bfseries m\+\_\+stop\+Fire\+Methods}
+\item 
+\Hypertarget{class_b_c___fire_type_a555d32c0f77e35c5c3916907d257f6f7}\label{class_b_c___fire_type_a555d32c0f77e35c5c3916907d257f6f7} 
+\mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} {\bfseries m\+\_\+fire\+Methods}
+\item 
+\Hypertarget{class_b_c___fire_type_adb79925454ce5f0437b785cdbf0af983}\label{class_b_c___fire_type_adb79925454ce5f0437b785cdbf0af983} 
+Pre\+Fire {\bfseries m\+\_\+pre\+Fire\+Methods}
+\item 
+\Hypertarget{class_b_c___fire_type_a45f66257a48feddb90d8c05f05a2ced4}\label{class_b_c___fire_type_a45f66257a48feddb90d8c05f05a2ced4} 
+Post\+Fire {\bfseries m\+\_\+post\+Fire\+Methods}
+\item 
+\Hypertarget{class_b_c___fire_type_a2b3b9ffbec10a465dcbf02dafca5e70b}\label{class_b_c___fire_type_a2b3b9ffbec10a465dcbf02dafca5e70b} 
+\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} {\bfseries m\+\_\+weapon}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___fire_type_a0efce0cd8686e2828c867f67cd8f54ec}\label{class_b_c___fire_type_a0efce0cd8686e2828c867f67cd8f54ec} 
+bool {\bfseries m\+\_\+current\+Firing\+State} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, protected set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_b_c___fire_type_aaa41f66e93fc559a49cee4eb9c753aec}\index{BC\_FireType@{BC\_FireType}!BC\_FireType@{BC\_FireType}}
+\index{BC\_FireType@{BC\_FireType}!BC\_FireType@{BC\_FireType}}
+\doxysubsubsection{\texorpdfstring{BC\_FireType()}{BC\_FireType()}}
+{\footnotesize\ttfamily \label{class_b_c___fire_type_aaa41f66e93fc559a49cee4eb9c753aec} 
+BC\+\_\+\+Fire\+Type.\+BC\+\_\+\+Fire\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}}}]{weapon}{, }\item[{\mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}}}]{main\+Fire\+Action}{, }\item[{\mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}}}]{start\+Fire\+Action}{ = {\ttfamily null}, }\item[{\mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}}}]{stop\+Fire\+Action}{ = {\ttfamily null}, }\item[{Post\+Fire}]{post\+Fire\+Action}{ = {\ttfamily null}, }\item[{Pre\+Fire}]{pre\+Fire\+Action}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+Creates a new \doxylink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fire\+Action} & Void methods fired when the weapon starts firing\\
+\hline
+{\em weapon} & Monobehavior that the coroutines will run on\\
+\hline
+{\em start\+Fire\+Action} & Void methods fired when the weapon stops firing\\
+\hline
+{\em stop\+Fire\+Action} & Void methods fired when the weapon stops firing\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_c___fire_type_aed151aeccaa75acbd84c991ae1dce765}\index{BC\_FireType@{BC\_FireType}!TryFireLogicAsync@{TryFireLogicAsync}}
+\index{TryFireLogicAsync@{TryFireLogicAsync}!BC\_FireType@{BC\_FireType}}
+\doxysubsubsection{\texorpdfstring{TryFireLogicAsync()}{TryFireLogicAsync()}}
+{\footnotesize\ttfamily \label{class_b_c___fire_type_aed151aeccaa75acbd84c991ae1dce765} 
+IEnumerator BC\+\_\+\+Fire\+Type.\+Try\+Fire\+Logic\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [abstract]}, {\ttfamily [protected]}}
+
+
+
+Logic for triggering when each weapon is fired. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\Hypertarget{class_b_c___fire_type_a2d0e70acd9997abc5f35caefa1198711}\index{BC\_FireType@{BC\_FireType}!UpdateFiringState@{UpdateFiringState}}
+\index{UpdateFiringState@{UpdateFiringState}!BC\_FireType@{BC\_FireType}}
+\doxysubsubsection{\texorpdfstring{UpdateFiringState()}{UpdateFiringState()}}
+{\footnotesize\ttfamily \label{class_b_c___fire_type_a2d0e70acd9997abc5f35caefa1198711} 
+virtual void BC\+\_\+\+Fire\+Type.\+Update\+Firing\+State (\begin{DoxyParamCaption}\item[{bool}]{new\+Firing\+State}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Method updates the underlying fire state of the weapon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Firing\+State} & The new firing state of the weapon\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Guns/\+Fire Types/BC\+\_\+\+Fire\+Type.\+cs\end{DoxyCompactItemize}

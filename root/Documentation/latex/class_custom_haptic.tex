@@ -1,0 +1,64 @@
+\doxysection{Custom\+Haptic Class Reference}
+\hypertarget{class_custom_haptic}{}\label{class_custom_haptic}\index{CustomHaptic@{CustomHaptic}}
+
+
+This class provides functionality for triggering haptic feedback on XR controllers.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_custom_haptic_a03b5b448fd0c3239e2bb33949cb78839}{Trigger\+Haptic}} (Base\+Interaction\+Event\+Args args)
+\begin{DoxyCompactList}\small\item\em Attempts to trigger haptic feedback based on the provided interaction arguments. If the interactor object is an XRBase\+Controller, it triggers haptic feedback on that controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_custom_haptic_a4a13450662f11d63a6f29d0b3dd721fe}{Trigger\+Haptic}} (XRBase\+Controller controller)
+\begin{DoxyCompactList}\small\item\em Triggers haptic feedback on a specified XRBase\+Controller. If the intensity is greater than zero, it sends a haptic impulse with the defined intensity and duration to the controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_custom_haptic_a636f240d264c5bd4659980340d0154d5}\label{class_custom_haptic_a636f240d264c5bd4659980340d0154d5} 
+float {\bfseries Intensity}
+\begin{DoxyCompactList}\small\item\em The intensity of the haptic feedback (0 to 1, where 1 is strongest). \end{DoxyCompactList}\item 
+\Hypertarget{class_custom_haptic_a8a45e31730469b1a79eb3cf6994881d4}\label{class_custom_haptic_a8a45e31730469b1a79eb3cf6994881d4} 
+float {\bfseries Duration}
+\begin{DoxyCompactList}\small\item\em The duration of the haptic feedback in seconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class provides functionality for triggering haptic feedback on XR controllers. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_custom_haptic_a03b5b448fd0c3239e2bb33949cb78839}\index{CustomHaptic@{CustomHaptic}!TriggerHaptic@{TriggerHaptic}}
+\index{TriggerHaptic@{TriggerHaptic}!CustomHaptic@{CustomHaptic}}
+\doxysubsubsection{\texorpdfstring{TriggerHaptic()}{TriggerHaptic()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_custom_haptic_a03b5b448fd0c3239e2bb33949cb78839} 
+void Custom\+Haptic.\+Trigger\+Haptic (\begin{DoxyParamCaption}\item[{Base\+Interaction\+Event\+Args}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Attempts to trigger haptic feedback based on the provided interaction arguments. If the interactor object is an XRBase\+Controller, it triggers haptic feedback on that controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em args} & The interaction arguments containing information about the interaction event.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_custom_haptic_a4a13450662f11d63a6f29d0b3dd721fe}\index{CustomHaptic@{CustomHaptic}!TriggerHaptic@{TriggerHaptic}}
+\index{TriggerHaptic@{TriggerHaptic}!CustomHaptic@{CustomHaptic}}
+\doxysubsubsection{\texorpdfstring{TriggerHaptic()}{TriggerHaptic()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_custom_haptic_a4a13450662f11d63a6f29d0b3dd721fe} 
+void Custom\+Haptic.\+Trigger\+Haptic (\begin{DoxyParamCaption}\item[{XRBase\+Controller}]{controller}{}\end{DoxyParamCaption})}
+
+
+
+Triggers haptic feedback on a specified XRBase\+Controller. If the intensity is greater than zero, it sends a haptic impulse with the defined intensity and duration to the controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em controller} & The XRBase\+Controller on which to trigger haptic feedback.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Generic Data/Custom\+Haptic.\+cs\end{DoxyCompactItemize}

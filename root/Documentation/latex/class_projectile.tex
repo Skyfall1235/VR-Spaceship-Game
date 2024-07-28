@@ -1,0 +1,122 @@
+\doxysection{Projectile Class Reference}
+\hypertarget{class_projectile}{}\label{class_projectile}\index{Projectile@{Projectile}}
+Inheritance diagram for Projectile\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_projectile}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_projectile_af30c08ba7974ef8af76511eb74f378fb}{Fire}} (Vector3 starting\+Position, Quaternion starting\+Rotation, \mbox{\hyperlink{class_projectile_data}{Projectile\+Data}} projectile\+Data, int pool\+Index)
+\begin{DoxyCompactList}\small\item\em Initializes projectile variables, sets up vfx, and adds force to the projectile. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_projectile_aa7cfb9a39f21c6c6bc157d9b12cf3404}{Set\+Firing\+Weapon}} (\mbox{\hyperlink{class_pooled_weapon}{Pooled\+Weapon}} weapon)
+\begin{DoxyCompactList}\small\item\em Passes weapon reference to the projectile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_projectile_a649cb7ef7d2907026a4937cba5791247}\label{class_projectile_a649cb7ef7d2907026a4937cba5791247} 
+\mbox{\hyperlink{class_pooled_weapon}{Pooled\+Weapon}} {\bfseries m\+\_\+gun\+That\+Fired\+Projectile}
+\begin{DoxyCompactList}\small\item\em The weapon that fired a projectile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual IEnumerator \mbox{\hyperlink{class_projectile_a8f4ee1728e8e7ce001bca7f6adb000ee}{Destroy\+After\+Time\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the projectile or returns it to its pool after a given time. \end{DoxyCompactList}\item 
+virtual IEnumerator \mbox{\hyperlink{class_projectile_a4ca5707e7387980f4bd2d8c1ca57de16}{Split\+After\+Time\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Splits after a given period. \end{DoxyCompactList}\item 
+\Hypertarget{class_projectile_a006a25c372a73a32c97bb259e0135c1b}\label{class_projectile_a006a25c372a73a32c97bb259e0135c1b} 
+virtual void {\bfseries On\+Collision\+Enter} (Collision collision)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_projectile_aecd72574e7e67c39620600bedabf26d6}\label{class_projectile_aecd72574e7e67c39620600bedabf26d6} 
+Force\+Mode {\bfseries m\+\_\+force\+Mode} = Force\+Mode.\+Impulse
+\item 
+\Hypertarget{class_projectile_ae1bccfcca2b32b998f4eb012abe0663b}\label{class_projectile_ae1bccfcca2b32b998f4eb012abe0663b} 
+Rigidbody {\bfseries m\+\_\+projectile\+Rigid\+Body}
+\item 
+\Hypertarget{class_projectile_acf3782cf7498231d473cc45cd3f3dc42}\label{class_projectile_acf3782cf7498231d473cc45cd3f3dc42} 
+Trail\+Renderer {\bfseries m\+\_\+trail\+Render}
+\item 
+\Hypertarget{class_projectile_ac590708d1ea68e362568ba2c2da7ace5}\label{class_projectile_ac590708d1ea68e362568ba2c2da7ace5} 
+\mbox{\hyperlink{class_projectile_data}{Projectile\+Data}} {\bfseries m\+\_\+projectile\+Data}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_projectile_a5ea6f7f34738b861929e31618b9364d1}\label{class_projectile_a5ea6f7f34738b861929e31618b9364d1} 
+int {\bfseries Projectile\+Pool\+Index}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The index of the projectile pool to return to on the pooled weapon. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_projectile_a8f4ee1728e8e7ce001bca7f6adb000ee}\index{Projectile@{Projectile}!DestroyAfterTimeAsync@{DestroyAfterTimeAsync}}
+\index{DestroyAfterTimeAsync@{DestroyAfterTimeAsync}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{DestroyAfterTimeAsync()}{DestroyAfterTimeAsync()}}
+{\footnotesize\ttfamily \label{class_projectile_a8f4ee1728e8e7ce001bca7f6adb000ee} 
+virtual IEnumerator Projectile.\+Destroy\+After\+Time\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Destroys the projectile or returns it to its pool after a given time. 
+
+\begin{DoxyReturn}{Returns}
+Nothing
+\end{DoxyReturn}
+\Hypertarget{class_projectile_af30c08ba7974ef8af76511eb74f378fb}\index{Projectile@{Projectile}!Fire@{Fire}}
+\index{Fire@{Fire}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{Fire()}{Fire()}}
+{\footnotesize\ttfamily \label{class_projectile_af30c08ba7974ef8af76511eb74f378fb} 
+virtual void Projectile.\+Fire (\begin{DoxyParamCaption}\item[{Vector3}]{starting\+Position}{, }\item[{Quaternion}]{starting\+Rotation}{, }\item[{\mbox{\hyperlink{class_projectile_data}{Projectile\+Data}}}]{projectile\+Data}{, }\item[{int}]{pool\+Index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initializes projectile variables, sets up vfx, and adds force to the projectile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em starting\+Position} & The place for the projectile to be fired from\\
+\hline
+{\em starting\+Rotation} & The quaternion describing the rotation of the projectile\\
+\hline
+{\em projectile\+Data} & The data that the pprojectile should use for its attributes\\
+\hline
+{\em pool\+Index} & The pool index of the projectile\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_projectile_aa7cfb9a39f21c6c6bc157d9b12cf3404}\index{Projectile@{Projectile}!SetFiringWeapon@{SetFiringWeapon}}
+\index{SetFiringWeapon@{SetFiringWeapon}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{SetFiringWeapon()}{SetFiringWeapon()}}
+{\footnotesize\ttfamily \label{class_projectile_aa7cfb9a39f21c6c6bc157d9b12cf3404} 
+void Projectile.\+Set\+Firing\+Weapon (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pooled_weapon}{Pooled\+Weapon}}}]{weapon}{}\end{DoxyParamCaption})}
+
+
+
+Passes weapon reference to the projectile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weapon} & weapon to pass\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_projectile_a4ca5707e7387980f4bd2d8c1ca57de16}\index{Projectile@{Projectile}!SplitAfterTimeAsync@{SplitAfterTimeAsync}}
+\index{SplitAfterTimeAsync@{SplitAfterTimeAsync}!Projectile@{Projectile}}
+\doxysubsubsection{\texorpdfstring{SplitAfterTimeAsync()}{SplitAfterTimeAsync()}}
+{\footnotesize\ttfamily \label{class_projectile_a4ca5707e7387980f4bd2d8c1ca57de16} 
+virtual IEnumerator Projectile.\+Split\+After\+Time\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Splits after a given period. 
+
+\begin{DoxyReturn}{Returns}
+Nothing
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Guns/projectiles/Projectile.\+cs\end{DoxyCompactItemize}

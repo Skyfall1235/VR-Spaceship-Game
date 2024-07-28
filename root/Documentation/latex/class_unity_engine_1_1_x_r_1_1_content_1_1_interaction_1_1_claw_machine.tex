@@ -1,0 +1,77 @@
+\doxysection{Unity\+Engine.\+XR.\+Content.\+Interaction.\+Claw\+Machine Class Reference}
+\hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine}{}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine}\index{UnityEngine.XR.Content.Interaction.ClawMachine@{UnityEngine.XR.Content.Interaction.ClawMachine}}
+
+
+This class is responsible to update the claw position and its state. The 3 states (No\+Prize, Try\+Grab\+Prize and Release\+Prize) are coroutines and they update the claw speed, particles and the \doxylink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_ufo_abduction_force}{Ufo\+Abduction\+Force} \begin{DoxySeeAlso}{See also}
+\doxylink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick}{XRJoystick}, \doxylink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_push_button}{XRPush\+Button}
+
+
+\end{DoxySeeAlso}
+and   
+
+
+Inheritance diagram for Unity\+Engine.\+XR.\+Content.\+Interaction.\+Claw\+Machine\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_ab95df88167824b620d46167371a599a5}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_ab95df88167824b620d46167371a599a5} 
+void {\bfseries On\+Button\+Press} ()
+\begin{DoxyCompactList}\small\item\em Updates the internal state of the push button used by this class. Called by the {\ttfamily XRPush\+Button.\+On\+Press} event. \end{DoxyCompactList}\item 
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a49063858cac3244cf96f9282c9243a6a}\label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a49063858cac3244cf96f9282c9243a6a} 
+void {\bfseries On\+Button\+Release} ()
+\begin{DoxyCompactList}\small\item\em Updates the internal state of the push button used by this class. Called by the {\ttfamily XRPush\+Button.\+On\+Release} event. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a697a86a12691a8141e4ebb9b64161ddf}{On\+Joystick\+Value\+ChangeX}} (float x)
+\begin{DoxyCompactList}\small\item\em Gets the X value of the joystick. Called by the {\ttfamily XRJoystick.\+On\+Value\+ChangeX} event. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a77126485623c7c5b5f8e586d47bb5817}{On\+Joystick\+Value\+ChangeY}} (float y)
+\begin{DoxyCompactList}\small\item\em Gets the Y value of the joystick. Called by the {\ttfamily XRJoystick.\+On\+Value\+ChangeY} event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible to update the claw position and its state. The 3 states (No\+Prize, Try\+Grab\+Prize and Release\+Prize) are coroutines and they update the claw speed, particles and the \doxylink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_ufo_abduction_force}{Ufo\+Abduction\+Force} \begin{DoxySeeAlso}{See also}
+\doxylink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_joystick}{XRJoystick}, \doxylink{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_x_r_push_button}{XRPush\+Button}
+
+
+\end{DoxySeeAlso}
+and  
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a697a86a12691a8141e4ebb9b64161ddf}\index{UnityEngine.XR.Content.Interaction.ClawMachine@{UnityEngine.XR.Content.Interaction.ClawMachine}!OnJoystickValueChangeX@{OnJoystickValueChangeX}}
+\index{OnJoystickValueChangeX@{OnJoystickValueChangeX}!UnityEngine.XR.Content.Interaction.ClawMachine@{UnityEngine.XR.Content.Interaction.ClawMachine}}
+\doxysubsubsection{\texorpdfstring{OnJoystickValueChangeX()}{OnJoystickValueChangeX()}}
+{\footnotesize\ttfamily \label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a697a86a12691a8141e4ebb9b64161ddf} 
+void Unity\+Engine.\+XR.\+Content.\+Interaction.\+Claw\+Machine.\+On\+Joystick\+Value\+ChangeX (\begin{DoxyParamCaption}\item[{float}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Gets the X value of the joystick. Called by the {\ttfamily XRJoystick.\+On\+Value\+ChangeX} event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The joystick\textquotesingle{}s X value\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a77126485623c7c5b5f8e586d47bb5817}\index{UnityEngine.XR.Content.Interaction.ClawMachine@{UnityEngine.XR.Content.Interaction.ClawMachine}!OnJoystickValueChangeY@{OnJoystickValueChangeY}}
+\index{OnJoystickValueChangeY@{OnJoystickValueChangeY}!UnityEngine.XR.Content.Interaction.ClawMachine@{UnityEngine.XR.Content.Interaction.ClawMachine}}
+\doxysubsubsection{\texorpdfstring{OnJoystickValueChangeY()}{OnJoystickValueChangeY()}}
+{\footnotesize\ttfamily \label{class_unity_engine_1_1_x_r_1_1_content_1_1_interaction_1_1_claw_machine_a77126485623c7c5b5f8e586d47bb5817} 
+void Unity\+Engine.\+XR.\+Content.\+Interaction.\+Claw\+Machine.\+On\+Joystick\+Value\+ChangeY (\begin{DoxyParamCaption}\item[{float}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Gets the Y value of the joystick. Called by the {\ttfamily XRJoystick.\+On\+Value\+ChangeY} event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em y} & The joystick\textquotesingle{}s Y value\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+UI\+\_\+3\+D/\+UI\+\_\+3\+D\+\_\+examples/\+Claw\+Machine/Claw\+Machine.\+cs\end{DoxyCompactItemize}

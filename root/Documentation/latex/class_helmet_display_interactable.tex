@@ -1,0 +1,59 @@
+\doxysection{Helmet\+Display\+Interactable Class Reference}
+\hypertarget{class_helmet_display_interactable}{}\label{class_helmet_display_interactable}\index{HelmetDisplayInteractable@{HelmetDisplayInteractable}}
+
+
+this class handles the interactable section, as well as the event driven behavior to and from it. it interfaces with the \doxylink{class_player_h_u_d_reciever}{Player\+HUDReciever} to ensure huds are displayed accurately  
+
+
+Inheritance diagram for Helmet\+Display\+Interactable\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_helmet_display_interactable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_helmet_display_interactable_a3b0fb0f58adecc5e49c6100d350bb364}\label{class_helmet_display_interactable_a3b0fb0f58adecc5e49c6100d350bb364} 
+float {\bfseries View\+Distance}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_b_c___interaction_register}{BC\+\_\+\+Interaction\+Register}}}
+\begin{DoxyCompactItemize}
+\item 
+XRBase\+Interactor {\bfseries Registered\+Interactor}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the currently registered XRBase\+Interactor. Setting this property triggers the On\+Interactor\+Register event based on registration (true) or unregistration (false). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_b_c___interaction_register}{BC\+\_\+\+Interaction\+Register}}}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_b_c___interaction_register_a93a87ecc9e578d9325e38ea4971cb31f}{Has\+Registered}} ()
+\begin{DoxyCompactList}\small\item\em Checks if an XRBase\+Interactor is currently registered. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_b_c___interaction_register}{BC\+\_\+\+Interaction\+Register}}}
+\begin{DoxyCompactItemize}
+\item 
+Unity\+Event$<$ bool $>$ {\bfseries On\+Interactor\+Register} = new Unity\+Event$<$bool$>$()
+\begin{DoxyCompactList}\small\item\em This event is invoked whenever the Registered\+Interactor property is set. The event argument is true for registration and false for unregistration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_b_c___interaction_register}{BC\+\_\+\+Interaction\+Register}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries Awake} ()
+\item 
+void \mbox{\hyperlink{class_b_c___interaction_register_a762e6c6d5c28fcdec9f472a5c9046f71}{Register\+Interactor}} (Base\+Interaction\+Event\+Args args)
+\begin{DoxyCompactList}\small\item\em Registers an XRBase\+Interactor with the current object. \end{DoxyCompactList}\item 
+void {\bfseries De\+Register\+Interactor} (Base\+Interaction\+Event\+Args args)
+\begin{DoxyCompactList}\small\item\em Deregisters the currently registered XRBase\+Interactor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_b_c___interaction_register}{BC\+\_\+\+Interaction\+Register}}}
+\begin{DoxyCompactItemize}
+\item 
+XRBase\+Interactor {\bfseries m\+\_\+registered\+Interactor}
+\begin{DoxyCompactList}\small\item\em The currently registered XRBase\+Interactor. \end{DoxyCompactList}\item 
+XRBase\+Interactable {\bfseries m\+\_\+associated\+Interactable}
+\begin{DoxyCompactList}\small\item\em The associated XRBase\+Interactable object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+this class handles the interactable section, as well as the event driven behavior to and from it. it interfaces with the \doxylink{class_player_h_u_d_reciever}{Player\+HUDReciever} to ensure huds are displayed accurately 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Player\+UI/Helmet\+Display\+Interactable.\+cs\end{DoxyCompactItemize}

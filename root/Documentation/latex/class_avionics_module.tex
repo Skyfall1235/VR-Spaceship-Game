@@ -1,0 +1,195 @@
+\doxysection{Avionics\+Module Class Reference}
+\hypertarget{class_avionics_module}{}\label{class_avionics_module}\index{AvionicsModule@{AvionicsModule}}
+Inheritance diagram for Avionics\+Module\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_avionics_module}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{class_avionics_module_a5b66874fa292327b1184a8d75d9ec92b}{Pre\+Start\+Up\+Logic}} ()
+\item 
+override void \mbox{\hyperlink{class_avionics_module_a7f22fc79f213cc6a9196ca5443fc7fde}{Post\+Start\+Up\+Logic}} ()
+\item 
+override void \mbox{\hyperlink{class_avionics_module_ac2f8e623b23896ebf6ffc6f361b61c4d}{Pre\+Shut\+Down\+Logic}} ()
+\item 
+override void \mbox{\hyperlink{class_avionics_module_ab797cd85e1df6919e8c72aeb99d1fc44}{Post\+Shut\+Down\+Logic}} ()
+\item 
+\Hypertarget{class_avionics_module_a6a7a6ba9cf937878907d5589ac728ced}\label{class_avionics_module_a6a7a6ba9cf937878907d5589ac728ced} 
+void {\bfseries Retrieve\+Rigidbody\+Info} ()
+\item 
+\Hypertarget{class_avionics_module_a8d8cae07ebbf00285f11f3a5104cdd73}\label{class_avionics_module_a8d8cae07ebbf00285f11f3a5104cdd73} 
+void {\bfseries Calculate\+Intertial\+Force} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_avionics_module_a3b51e4cdf3c11318ec713cae0625f9c7}\label{class_avionics_module_a3b51e4cdf3c11318ec713cae0625f9c7} 
+\mbox{\hyperlink{class_b_c___ship_movement_controller}{BC\+\_\+\+Ship\+Movement\+Controller}} {\bfseries movement\+Controller}
+\item 
+\Hypertarget{class_avionics_module_a7dbfb4182cec0d55f7bf13a4f0573d55}\label{class_avionics_module_a7dbfb4182cec0d55f7bf13a4f0573d55} 
+Rigidbody {\bfseries Ship\+Rigidbody}
+\item 
+\Hypertarget{class_avionics_module_a2621025197086638669426d6c327facc}\label{class_avionics_module_a2621025197086638669426d6c327facc} 
+\mbox{\hyperlink{class_b_c___ship_input_handler}{BC\+\_\+\+Ship\+Input\+Handler}} {\bfseries ship\+Input\+Handler}
+\item 
+\Hypertarget{class_avionics_module_a20d2740ccfd754b2d5ca415714428255}\label{class_avionics_module_a20d2740ccfd754b2d5ca415714428255} 
+Vector3 {\bfseries Angular\+Velocity}
+\item 
+\Hypertarget{class_avionics_module_ad56ab406ec30d5f7a373028b80bad0d2}\label{class_avionics_module_ad56ab406ec30d5f7a373028b80bad0d2} 
+Vector3 {\bfseries Velocity}
+\item 
+\Hypertarget{class_avionics_module_a66ceb67b131a37d851c78a6254e679f6}\label{class_avionics_module_a66ceb67b131a37d851c78a6254e679f6} 
+Vector3 {\bfseries Last\+Velocity}
+\item 
+\Hypertarget{class_avionics_module_a1794f96b8548d5721819c1165e9a7c30}\label{class_avionics_module_a1794f96b8548d5721819c1165e9a7c30} 
+float {\bfseries Engine\+Thrust}
+\item 
+\Hypertarget{class_avionics_module_aeaab20794cff56ddad17311692b5edea}\label{class_avionics_module_aeaab20794cff56ddad17311692b5edea} 
+float {\bfseries Inertial\+Force}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_health}{Health}} {\bfseries m\+\_\+internal\+Module\+Health}
+\item 
+\mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} {\bfseries m\+\_\+core\+State}
+\begin{DoxyCompactList}\small\item\em Sets the current Core\+Module\+State of the system. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} {\bfseries m\+\_\+operational\+State}
+\begin{DoxyCompactList}\small\item\em Represents the current operational state of the system, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. \end{DoxyCompactList}\item 
+int {\bfseries m\+\_\+boost\+Percent} = 0
+\begin{DoxyCompactList}\small\item\em The percent boost this module gets to apply to its functions. \end{DoxyCompactList}\item 
+int {\bfseries m\+\_\+power\+Requirement}
+\begin{DoxyCompactList}\small\item\em The power requirement for this module. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_b_c___core_module_abc691d2ae6ce99c2ed3566a000e46802}{m\+\_\+module\+Energy\+Priorty}} = 0
+\begin{DoxyCompactList}\small\item\em The priority of this module in the energy system. \end{DoxyCompactList}\item 
+Pip\+Selection {\bfseries m\+\_\+system\+Type} = Pip\+Selection.\+internal\+Systems
+\item 
+float {\bfseries m\+\_\+start\+Up\+Delay} = 1f
+\item 
+float {\bfseries m\+\_\+shut\+Down\+Delay} = 1f
+\item 
+float {\bfseries m\+\_\+reboot\+Delay} = 1f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_avionics_module_a96727d0a2f818445af44d8e34b06633f}\label{class_avionics_module_a96727d0a2f818445af44d8e34b06633f} 
+Vector3 {\bfseries Position\+In\+Space}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} {\bfseries Ship\+Module\+Manager}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{class_health}{Health}} {\bfseries Internal\+Module\+Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{interface_i_core_module_aac706b4d0b50b29d0135612857866ae4}{Core\+Module\+State}} \mbox{\hyperlink{class_b_c___core_module_a6cd94553d7389dc27f308aaddf5f0a78}{Core\+Module\+State}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Defines the core system state, which can be Operational, Standby, or Disabled. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} {\bfseries Operational\+State}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int {\bfseries Boost\+Percent}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+int {\bfseries Power\+Requirements}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int {\bfseries Module\+Energy\+Priority}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Pip\+Selection {\bfseries System\+Type}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Types inherited from \mbox{\hyperlink{interface_i_core_module}{ICore\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87}{Module\+Operational\+State}} \{ \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a4d3d769b812b6faa6b76e1a8abaece2d}{Active}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87aad866f19a13c5386d2ec6df246dcbfac}{Preparing}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87adae81795121c735af447f6e997c1650c}{Ready\+For\+Use}}
+, \mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87af7bd791aac4fda53ce6d08edc1a62e01}{Damaged}}
+, \newline
+\mbox{\hyperlink{interface_i_core_module_adfb503ee774e9c799f1b1f79e27d7d87a46caef17790fcbc2eed679b680fa7e97}{Rebooting}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the different operational states a system can be in, such as Active, Preparing, Ready\+For\+Use, Damaged, or Rebooting. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53}{Module\+State\+Change\+Type}} \{ \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a853775e23634ae9908128f071202dd32}{Core\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a1b8bbf8258cf0db161a695518e06556d}{Operational\+State}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53a605669cab962bf944d99ce89cf9e58d9}{Health}}
+, \mbox{\hyperlink{interface_i_core_module_a3846425da4ecc978dd2a2da4141e1e53aaefbd0597f1bc2493bbc18898243513b}{Destroyed}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration defining the different types of state changes that can occur for a core module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries Awake} ()
+\item 
+void {\bfseries Intialize\+To\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Attempts to initialize a connection between this module and a \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}. If the module already has a manager assigned, no action is taken. Otherwise, it searches for a \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} component attached to the module\textquotesingle{}s parent object and attempts to link with it if found. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_b_c___core_module_ae97a835c777f501a1b9cba2cea3b743e}{Attempt\+To\+Link\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Assumes the module is ready to initialize with a provided \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}. If the module already has a manager assigned, no action is taken. Otherwise, it registers the module with the provided manager and stores the manager reference. \end{DoxyCompactList}\item 
+virtual void {\bfseries Initialize\+Module} ()
+\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a09979396d8b1e410848b63f487ade169}{Shut\+Down}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the shutdown sequence for the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a2668bda895edce40325150e42015e9bc}{Start\+Up}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the startup sequence for the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a3c9024c79bb8f0f77890075b601e4561}{Reboot}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the reboot sequence for the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a47475409cf730d535dd097994ad75e21}{Register\+Core\+Module\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Registers the provided \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} with the module. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_b_c___core_module_a1cb4701f413ca7adaed22920b3103c7b}{Deregister\+Core\+System\+Manager}} (\mbox{\hyperlink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager}} current\+Manager)
+\begin{DoxyCompactList}\small\item\em Deregisters the \doxylink{class_core_ship_module_manager}{Core\+Ship\+Module\+Manager} from the module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_i_core_module_1_1_on_core_module_state_change}{On\+Core\+Module\+State\+Change}} {\bfseries On\+Core\+Module\+State\+Change} = new()
+\begin{DoxyCompactList}\small\item\em An event that is raised whenever the Core\+State of the system changes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_i_core_module_1_1_on_module_operational_state_change}{On\+Module\+Operational\+State\+Change}} {\bfseries On\+Module\+Operational\+State\+Change} = new()
+\begin{DoxyCompactList}\small\item\em An event that is raised whenever the operational state of the system changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_avionics_module_ab797cd85e1df6919e8c72aeb99d1fc44}\index{AvionicsModule@{AvionicsModule}!PostShutDownLogic@{PostShutDownLogic}}
+\index{PostShutDownLogic@{PostShutDownLogic}!AvionicsModule@{AvionicsModule}}
+\doxysubsubsection{\texorpdfstring{PostShutDownLogic()}{PostShutDownLogic()}}
+{\footnotesize\ttfamily \label{class_avionics_module_ab797cd85e1df6919e8c72aeb99d1fc44} 
+override void Avionics\+Module.\+Post\+Shut\+Down\+Logic (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{class_avionics_module_a7f22fc79f213cc6a9196ca5443fc7fde}\index{AvionicsModule@{AvionicsModule}!PostStartUpLogic@{PostStartUpLogic}}
+\index{PostStartUpLogic@{PostStartUpLogic}!AvionicsModule@{AvionicsModule}}
+\doxysubsubsection{\texorpdfstring{PostStartUpLogic()}{PostStartUpLogic()}}
+{\footnotesize\ttfamily \label{class_avionics_module_a7f22fc79f213cc6a9196ca5443fc7fde} 
+override void Avionics\+Module.\+Post\+Start\+Up\+Logic (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{class_avionics_module_ac2f8e623b23896ebf6ffc6f361b61c4d}\index{AvionicsModule@{AvionicsModule}!PreShutDownLogic@{PreShutDownLogic}}
+\index{PreShutDownLogic@{PreShutDownLogic}!AvionicsModule@{AvionicsModule}}
+\doxysubsubsection{\texorpdfstring{PreShutDownLogic()}{PreShutDownLogic()}}
+{\footnotesize\ttfamily \label{class_avionics_module_ac2f8e623b23896ebf6ffc6f361b61c4d} 
+override void Avionics\+Module.\+Pre\+Shut\+Down\+Logic (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}.
+
+\Hypertarget{class_avionics_module_a5b66874fa292327b1184a8d75d9ec92b}\index{AvionicsModule@{AvionicsModule}!PreStartUpLogic@{PreStartUpLogic}}
+\index{PreStartUpLogic@{PreStartUpLogic}!AvionicsModule@{AvionicsModule}}
+\doxysubsubsection{\texorpdfstring{PreStartUpLogic()}{PreStartUpLogic()}}
+{\footnotesize\ttfamily \label{class_avionics_module_a5b66874fa292327b1184a8d75d9ec92b} 
+override void Avionics\+Module.\+Pre\+Start\+Up\+Logic (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Avionics Module/Avionics\+Module.\+cs\end{DoxyCompactItemize}

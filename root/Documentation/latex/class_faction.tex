@@ -1,0 +1,161 @@
+\doxysection{Faction Class Reference}
+\hypertarget{class_faction}{}\label{class_faction}\index{Faction@{Faction}}
+
+
+The main class representing a faction, storing its name, description, emblem, government type, and associated ship and station data.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_faction_1_1_classified_ship_datum}{Classified\+Ship\+Datum}}
+\begin{DoxyCompactList}\small\item\em Stores data associated with a classified ship type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8e}{Entity\+Size}} \{ \newline
+\mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8ea5db14795d4c6928f94927d0c0a060bee}{Fighter}}
+, \mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8ea9605451b84c2e38a07f592f6136bbb98}{Corvette}}
+, \mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8ea13043338eecd23cbe5db922777cbd82e}{Frigate}}
+, \mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8eaabd715b683db0b712626562efe9b3567}{Cruiser}}
+, \newline
+\mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8eab846373e48cf002363110ff72973f24b}{Battleship}}
+, \mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8ea2a04477c1fc0a8e35f0d06299b75da3e}{Dreadnaught}}
+ \}
+\begin{DoxyCompactList}\small\item\em Specifies the size and capabilities of an entity (ship, station, etc.). \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317}{Government}} \{ \newline
+\mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a43db2a9bc6b7310c67fd6873bb6ca7a4}{Federation}}
+, \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317af1737ba64e9ad803edcb8cb961713e6f}{Empire}}
+, \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a0dd6c4f3a9b3b3429b0d8b8a817ddaad}{Republic}}
+, \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317af8b3fd42be3874f170df53d449ca8604}{Confederacy}}
+, \newline
+\mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317abaf5238559a9f184e5ac3a63d417cfab}{Conglomerate}}
+, \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317aeda34a694a6e0be233460818c8505355}{Hive\+Mind}}
+, \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a6e1840796d0172e9b09af38d681aa866}{Genetic\+Caste}}
+, \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317adfbb07c21c89e554678523278b6196e9}{Monarchy}}
+, \newline
+\mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a842ce398b1702101f875c12f96474778}{Council}}
+ \}
+\begin{DoxyCompactList}\small\item\em Represents the type of government a faction might have. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_faction_a3a8acfd3ee852d324c41727e2180c44e}\label{class_faction_a3a8acfd3ee852d324c41727e2180c44e} 
+List$<$ Game\+Object $>$ {\bfseries m\+\_\+station\+Prefabs} = new List$<$Game\+Object$>$()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_faction_a9c8e2cceae6c1c1807d23fe4c50ed40a}\label{class_faction_a9c8e2cceae6c1c1807d23fe4c50ed40a} 
+string {\bfseries Name}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the name of the faction. \end{DoxyCompactList}\item 
+\Hypertarget{class_faction_ae7bf460102ca26c4bc036b46c8e76abd}\label{class_faction_ae7bf460102ca26c4bc036b46c8e76abd} 
+string {\bfseries Description}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a textual description of the faction. \end{DoxyCompactList}\item 
+\Hypertarget{class_faction_a65e92ca0a2dabb07d906f575558c7bfa}\label{class_faction_a65e92ca0a2dabb07d906f575558c7bfa} 
+Texture {\bfseries Emblem}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the visual emblem representing the faction. \end{DoxyCompactList}\item 
+\Hypertarget{class_faction_a86e9e60d6febeba33a2171db014f4b60}\label{class_faction_a86e9e60d6febeba33a2171db014f4b60} 
+\mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317}{Government}} {\bfseries Government\+Type}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the type of government the faction has (e.\+g., Federation, Empire). \end{DoxyCompactList}\item 
+\Hypertarget{class_faction_a8b2f6ff25eae065f5510c82bae531cc6}\label{class_faction_a8b2f6ff25eae065f5510c82bae531cc6} 
+\mbox{\hyperlink{class_faction_1_1_classified_ship_datum}{Classified\+Ship\+Datum}}\mbox{[}$\,$\mbox{]} {\bfseries Classified\+Ship\+Data}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_faction_af1c53759cb05f2a5160f9ce25ccf6521}\label{class_faction_af1c53759cb05f2a5160f9ce25ccf6521} 
+List$<$ Game\+Object $>$ {\bfseries Station\+Prefabs}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main class representing a faction, storing its name, description, emblem, government type, and associated ship and station data. 
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8e}\index{Faction@{Faction}!EntitySize@{EntitySize}}
+\index{EntitySize@{EntitySize}!Faction@{Faction}}
+\doxysubsubsection{\texorpdfstring{EntitySize}{EntitySize}}
+{\footnotesize\ttfamily \label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+enum \mbox{\hyperlink{class_faction_a0a26e8537d125f610b327890815c6e8e}{Faction.\+Entity\+Size}}}
+
+
+
+Specifies the size and capabilities of an entity (ship, station, etc.). 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Fighter@{Fighter}!Faction@{Faction}}\index{Faction@{Faction}!Fighter@{Fighter}}}\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8ea5db14795d4c6928f94927d0c0a060bee}\label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+Fighter&A small, agile spacecraft, often used for reconnaissance or dogfighting. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Corvette@{Corvette}!Faction@{Faction}}\index{Faction@{Faction}!Corvette@{Corvette}}}\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8ea9605451b84c2e38a07f592f6136bbb98}\label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+Corvette&Slightly larger and more heavily armed than a fighter, capable of taking on multiple smaller targets. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Frigate@{Frigate}!Faction@{Faction}}\index{Faction@{Faction}!Frigate@{Frigate}}}\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8ea13043338eecd23cbe5db922777cbd82e}\label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+Frigate&A versatile warship with balanced firepower, armor, and maneuverability. Forms the backbone of a fleet. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cruiser@{Cruiser}!Faction@{Faction}}\index{Faction@{Faction}!Cruiser@{Cruiser}}}\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8eaabd715b683db0b712626562efe9b3567}\label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+Cruiser&A larger and more powerful warship, excelling in firepower and durability. Can serve as a command ship or spearhead attacks. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Battleship@{Battleship}!Faction@{Faction}}\index{Faction@{Faction}!Battleship@{Battleship}}}\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8eab846373e48cf002363110ff72973f24b}\label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+Battleship&A heavily armored and heavily armed behemoth, capable of devastating firepower against smaller ships. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dreadnaught@{Dreadnaught}!Faction@{Faction}}\index{Faction@{Faction}!Dreadnaught@{Dreadnaught}}}\Hypertarget{class_faction_a0a26e8537d125f610b327890815c6e8ea2a04477c1fc0a8e35f0d06299b75da3e}\label{class_faction_a0a26e8537d125f610b327890815c6e8e} 
+Dreadnaught&The largest and most powerful warship class, often serving as a flagship with unmatched firepower and resilience. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317}\index{Faction@{Faction}!Government@{Government}}
+\index{Government@{Government}!Faction@{Faction}}
+\doxysubsubsection{\texorpdfstring{Government}{Government}}
+{\footnotesize\ttfamily \label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+enum \mbox{\hyperlink{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317}{Faction.\+Government}}}
+
+
+
+Represents the type of government a faction might have. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Federation@{Federation}!Faction@{Faction}}\index{Faction@{Faction}!Federation@{Federation}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a43db2a9bc6b7310c67fd6873bb6ca7a4}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Federation&A union of independent states or planets working together for mutual benefit. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Empire@{Empire}!Faction@{Faction}}\index{Faction@{Faction}!Empire@{Empire}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317af1737ba64e9ad803edcb8cb961713e6f}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Empire&A vast, centralized government with a single ruler or ruling body holding absolute power. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Republic@{Republic}!Faction@{Faction}}\index{Faction@{Faction}!Republic@{Republic}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a0dd6c4f3a9b3b3429b0d8b8a817ddaad}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Republic&A democratic system where citizens participate in electing representatives to govern on their behalf. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Confederacy@{Confederacy}!Faction@{Faction}}\index{Faction@{Faction}!Confederacy@{Confederacy}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317af8b3fd42be3874f170df53d449ca8604}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Confederacy&A loose alliance of independent states or planets with a central governing body for mutual defense or trade. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Conglomerate@{Conglomerate}!Faction@{Faction}}\index{Faction@{Faction}!Conglomerate@{Conglomerate}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317abaf5238559a9f184e5ac3a63d417cfab}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Conglomerate&A powerful corporation or group of corporations that holds significant political and economic control over a region or species. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HiveMind@{HiveMind}!Faction@{Faction}}\index{Faction@{Faction}!HiveMind@{HiveMind}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317aeda34a694a6e0be233460818c8505355}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Hive\+Mind&A collective intelligence where individual members act in unison under the control of a central consciousness. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GeneticCaste@{GeneticCaste}!Faction@{Faction}}\index{Faction@{Faction}!GeneticCaste@{GeneticCaste}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a6e1840796d0172e9b09af38d681aa866}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Genetic\+Caste&A society divided into distinct castes based on genetic engineering or predetermined roles. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Monarchy@{Monarchy}!Faction@{Faction}}\index{Faction@{Faction}!Monarchy@{Monarchy}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317adfbb07c21c89e554678523278b6196e9}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Monarchy&A government ruled by a single hereditary leader (king, queen, emperor, etc.). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Council@{Council}!Faction@{Faction}}\index{Faction@{Faction}!Council@{Council}}}\Hypertarget{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317a842ce398b1702101f875c12f96474778}\label{class_faction_a02c28a146ff50d34ebaa3bd64dfbf317} 
+Council&A governing body composed of representatives from different groups or factions, working together for the benefit of the whole. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Factions/SO\+\_\+\+Faction\+Data.\+cs\end{DoxyCompactItemize}

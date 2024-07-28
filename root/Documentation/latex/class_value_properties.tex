@@ -1,0 +1,205 @@
+\doxysection{Value\+Properties Class Reference}
+\hypertarget{class_value_properties}{}\label{class_value_properties}\index{ValueProperties@{ValueProperties}}
+
+
+Represents properties for accessing input action values.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_value_properties_a7cc54b285ca458fce8760285a638ad3f}{Set\+Properties}} (\mbox{\hyperlink{class_additional_input_for_action_based_controller}{Additional\+Input\+For\+Action\+Based\+Controller}} additional\+Input, ref \mbox{\hyperlink{class_value_properties}{Value\+Properties}} value\+Properties)
+\begin{DoxyCompactList}\small\item\em Sets the properties of a \doxylink{class_value_properties}{Value\+Properties} instance using the provided additional input configuration for an action-\/based controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_value_properties_ad59333690fbe0837cd1450e981bdade0}{Set\+Properties}} (Input\+Action\+Property Trigger\+Press\+Property, Input\+Action\+Property Trigger\+Value\+Property, Input\+Action\+Property Primary\+Button\+Press\+Property, Input\+Action\+Property Joystick\+Press\+Property, Input\+Action\+Property Joystick\+Value\+Property)
+\begin{DoxyCompactList}\small\item\em Sets the properties used to retrieve input action values. \end{DoxyCompactList}\item 
+\Hypertarget{class_value_properties_a159f4e79aac11581734427336a870d19}\label{class_value_properties_a159f4e79aac11581734427336a870d19} 
+void {\bfseries Remove\+Properties} ()
+\begin{DoxyCompactList}\small\item\em Clears the properties used to retrieve input action values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_value_properties_af33498289665de4fab580ed7fa0e7ddb}{Value\+Properties}} (Game\+Object Owner, \mbox{\hyperlink{class_custom_logger}{Custom\+Logger}} logger, Input\+Action\+Property? trigger\+Press\+Property=null, Input\+Action\+Property? trigger\+Value\+Property=null, Input\+Action\+Property? primary\+Button\+Press\+Property=null, Input\+Action\+Property? joystick\+Press\+Property=null, Input\+Action\+Property? joystick\+Value\+Property=null)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \doxylink{class_value_properties}{Value\+Properties} class with the specified owner and optional input action properties. \end{DoxyCompactList}\item 
+System.\+Exception \mbox{\hyperlink{class_value_properties_a766f92ad5391c6d5e437b241df9f33a3}{Throw\+Error\+With\+Log}} (string action\+Property\+Name)
+\begin{DoxyCompactList}\small\item\em Throws a new System.\+Exception with a log message about a failed retrieval of a value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_value_properties_ab07dfb059923b0d96e7ffe61c1f6cadb}\label{class_value_properties_ab07dfb059923b0d96e7ffe61c1f6cadb} 
+bool {\bfseries Has\+Values} = false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_value_properties_a916cdd1cca8665f9c99e6bed84837743}\label{class_value_properties_a916cdd1cca8665f9c99e6bed84837743} 
+Input\+Action\+Property? {\bfseries Trigger\+Press\+Property}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_value_properties_ae474127627ab617c7f982cde17298754}\label{class_value_properties_ae474127627ab617c7f982cde17298754} 
+Input\+Action\+Property? {\bfseries Trigger\+Value\+Property}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_value_properties_a3a03b7819ea29fb4696697da36b24b5c}\label{class_value_properties_a3a03b7819ea29fb4696697da36b24b5c} 
+Input\+Action\+Property? {\bfseries Primary\+Button\+Press\+Property}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_value_properties_a742602195893ec04b64800b657c9024f}\label{class_value_properties_a742602195893ec04b64800b657c9024f} 
+Input\+Action\+Property? {\bfseries Joystick\+Press\+Property}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_value_properties_afecea044a05c7127d09b9df5fc32d585}\label{class_value_properties_afecea044a05c7127d09b9df5fc32d585} 
+Input\+Action\+Property? {\bfseries Joystick\+Value\+Property}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_value_properties_a09fbb776d931ba50e3ada233c6816570}{Trigger\+Pressed}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the trigger button is currently pressed. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_value_properties_a0b242ecb3deb096d7c23629b1ca7ee31}{Trigger\+Value}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the current value of the trigger axis (usually a value between 0.\+0 and 1.\+0). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_value_properties_a17f9a1f643a6b0161bb1cab1821c56c7}{Primary\+Button\+Pressed}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the primary button is currently pressed. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_value_properties_a1a8c7474e8abbd2629f62deb3f8c9578}{Touchpad\+Pressed}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the joystick is currently pressed, does not care about where on the touchpad. \end{DoxyCompactList}\item 
+Vector2 \mbox{\hyperlink{class_value_properties_a3eaa3b68232bef9f0433ca2993cdfbcb}{Touchpad\+Value}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the current X and Y values of the joystick. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents properties for accessing input action values. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_value_properties_af33498289665de4fab580ed7fa0e7ddb}\index{ValueProperties@{ValueProperties}!ValueProperties@{ValueProperties}}
+\index{ValueProperties@{ValueProperties}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{ValueProperties()}{ValueProperties()}}
+{\footnotesize\ttfamily \label{class_value_properties_af33498289665de4fab580ed7fa0e7ddb} 
+Value\+Properties.\+Value\+Properties (\begin{DoxyParamCaption}\item[{Game\+Object}]{Owner}{, }\item[{\mbox{\hyperlink{class_custom_logger}{Custom\+Logger}}}]{logger}{, }\item[{Input\+Action\+Property?}]{trigger\+Press\+Property}{ = {\ttfamily null}, }\item[{Input\+Action\+Property?}]{trigger\+Value\+Property}{ = {\ttfamily null}, }\item[{Input\+Action\+Property?}]{primary\+Button\+Press\+Property}{ = {\ttfamily null}, }\item[{Input\+Action\+Property?}]{joystick\+Press\+Property}{ = {\ttfamily null}, }\item[{Input\+Action\+Property?}]{joystick\+Value\+Property}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \doxylink{class_value_properties}{Value\+Properties} class with the specified owner and optional input action properties. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Owner} & The Game\+Object that owns this instance.\\
+\hline
+{\em trigger\+Press\+Property} & The property for retrieving the trigger press state (nullable).\\
+\hline
+{\em trigger\+Value\+Property} & The property for retrieving the trigger value (nullable).\\
+\hline
+{\em primary\+Button\+Press\+Property} & The property for retrieving the primary button press state (nullable).\\
+\hline
+{\em joystick\+Press\+Property} & The property for retrieving the joystick press state (nullable, assumed left/right press).\\
+\hline
+{\em joystick\+Value\+Property} & The property for retrieving the X and Y values of the joystick (nullable).\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_value_properties_a7cc54b285ca458fce8760285a638ad3f}\index{ValueProperties@{ValueProperties}!SetProperties@{SetProperties}}
+\index{SetProperties@{SetProperties}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{SetProperties()}{SetProperties()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_value_properties_a7cc54b285ca458fce8760285a638ad3f} 
+void Value\+Properties.\+Set\+Properties (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_additional_input_for_action_based_controller}{Additional\+Input\+For\+Action\+Based\+Controller}}}]{additional\+Input}{, }\item[{ref \mbox{\hyperlink{class_value_properties}{Value\+Properties}}}]{value\+Properties}{}\end{DoxyParamCaption})}
+
+
+
+Sets the properties of a \doxylink{class_value_properties}{Value\+Properties} instance using the provided additional input configuration for an action-\/based controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em additional\+Input} & An object containing additional input configuration for an action-\/based controller.\\
+\hline
+{\em value\+Properties} & A reference to the \doxylink{class_value_properties}{Value\+Properties} instance whose properties will be set.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_value_properties_ad59333690fbe0837cd1450e981bdade0}\index{ValueProperties@{ValueProperties}!SetProperties@{SetProperties}}
+\index{SetProperties@{SetProperties}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{SetProperties()}{SetProperties()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_value_properties_ad59333690fbe0837cd1450e981bdade0} 
+void Value\+Properties.\+Set\+Properties (\begin{DoxyParamCaption}\item[{Input\+Action\+Property}]{Trigger\+Press\+Property}{, }\item[{Input\+Action\+Property}]{Trigger\+Value\+Property}{, }\item[{Input\+Action\+Property}]{Primary\+Button\+Press\+Property}{, }\item[{Input\+Action\+Property}]{Joystick\+Press\+Property}{, }\item[{Input\+Action\+Property}]{Joystick\+Value\+Property}{}\end{DoxyParamCaption})}
+
+
+
+Sets the properties used to retrieve input action values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Trigger\+Press\+Property} & The property for retrieving the trigger press state.\\
+\hline
+{\em Trigger\+Value\+Property} & The property for retrieving the trigger value.\\
+\hline
+{\em Primary\+Button\+Press\+Property} & The property for retrieving the primary button press state.\\
+\hline
+{\em Joystick\+Press\+Property} & The property for retrieving the joystick press state (assumed to be left/right press).\\
+\hline
+{\em Joystick\+Value\+Property} & The property for retrieving the X and Y values of the joystick.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_value_properties_a766f92ad5391c6d5e437b241df9f33a3}\index{ValueProperties@{ValueProperties}!ThrowErrorWithLog@{ThrowErrorWithLog}}
+\index{ThrowErrorWithLog@{ThrowErrorWithLog}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{ThrowErrorWithLog()}{ThrowErrorWithLog()}}
+{\footnotesize\ttfamily \label{class_value_properties_a766f92ad5391c6d5e437b241df9f33a3} 
+System.\+Exception Value\+Properties.\+Throw\+Error\+With\+Log (\begin{DoxyParamCaption}\item[{string}]{action\+Property\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Throws a new System.\+Exception with a log message about a failed retrieval of a value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Property\+Name} & The name of the action property that failed retrieval.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new System.\+Exception object.
+\end{DoxyReturn}
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{class_value_properties_a17f9a1f643a6b0161bb1cab1821c56c7}\index{ValueProperties@{ValueProperties}!PrimaryButtonPressed@{PrimaryButtonPressed}}
+\index{PrimaryButtonPressed@{PrimaryButtonPressed}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{PrimaryButtonPressed}{PrimaryButtonPressed}}
+{\footnotesize\ttfamily \label{class_value_properties_a17f9a1f643a6b0161bb1cab1821c56c7} 
+bool Value\+Properties.\+Primary\+Button\+Pressed\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether the primary button is currently pressed. 
+
+This property retrieves the value from the internally stored {\ttfamily m\+\_\+primary\+Button\+Press\+Property} using the {\ttfamily Interactor\+To\+Input\+Exposer.\+Retrieve\+Value\+From\+Action} method. \Hypertarget{class_value_properties_a1a8c7474e8abbd2629f62deb3f8c9578}\index{ValueProperties@{ValueProperties}!TouchpadPressed@{TouchpadPressed}}
+\index{TouchpadPressed@{TouchpadPressed}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{TouchpadPressed}{TouchpadPressed}}
+{\footnotesize\ttfamily \label{class_value_properties_a1a8c7474e8abbd2629f62deb3f8c9578} 
+bool Value\+Properties.\+Touchpad\+Pressed\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether the joystick is currently pressed, does not care about where on the touchpad. 
+
+This property retrieves the value from the internally stored {\ttfamily m\+\_\+joystick\+Press\+Property} using the {\ttfamily Interactor\+To\+Input\+Exposer.\+Retrieve\+Value\+From\+Action} method. \Hypertarget{class_value_properties_a3eaa3b68232bef9f0433ca2993cdfbcb}\index{ValueProperties@{ValueProperties}!TouchpadValue@{TouchpadValue}}
+\index{TouchpadValue@{TouchpadValue}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{TouchpadValue}{TouchpadValue}}
+{\footnotesize\ttfamily \label{class_value_properties_a3eaa3b68232bef9f0433ca2993cdfbcb} 
+Vector2 Value\+Properties.\+Touchpad\+Value\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the current X and Y values of the joystick. 
+
+This property retrieves the value from the internally stored {\ttfamily m\+\_\+joystick\+Value\+Property} using the {\ttfamily Interactor\+To\+Input\+Exposer.\+Retrieve\+Value\+From\+Action} method. \Hypertarget{class_value_properties_a09fbb776d931ba50e3ada233c6816570}\index{ValueProperties@{ValueProperties}!TriggerPressed@{TriggerPressed}}
+\index{TriggerPressed@{TriggerPressed}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{TriggerPressed}{TriggerPressed}}
+{\footnotesize\ttfamily \label{class_value_properties_a09fbb776d931ba50e3ada233c6816570} 
+bool Value\+Properties.\+Trigger\+Pressed\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether the trigger button is currently pressed. 
+
+This property retrieves the value from the internally stored {\ttfamily m\+\_\+trigger\+Press\+Property} using the {\ttfamily Interactor\+To\+Input\+Exposer.\+Retrieve\+Value\+From\+Action} method. \Hypertarget{class_value_properties_a0b242ecb3deb096d7c23629b1ca7ee31}\index{ValueProperties@{ValueProperties}!TriggerValue@{TriggerValue}}
+\index{TriggerValue@{TriggerValue}!ValueProperties@{ValueProperties}}
+\doxysubsubsection{\texorpdfstring{TriggerValue}{TriggerValue}}
+{\footnotesize\ttfamily \label{class_value_properties_a0b242ecb3deb096d7c23629b1ca7ee31} 
+float Value\+Properties.\+Trigger\+Value\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the current value of the trigger axis (usually a value between 0.\+0 and 1.\+0). 
+
+This property retrieves the value from the internally stored {\ttfamily m\+\_\+trigger\+Value\+Property} using the {\ttfamily Interactor\+To\+Input\+Exposer.\+Retrieve\+Value\+From\+Action} method. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Interaction/Value\+Properties.\+cs\end{DoxyCompactItemize}

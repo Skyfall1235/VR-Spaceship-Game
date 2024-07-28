@@ -1,0 +1,68 @@
+\doxysection{Inventory Class Reference}
+\hypertarget{class_inventory}{}\label{class_inventory}\index{Inventory@{Inventory}}
+Inheritance diagram for Inventory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_inventory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_inventory_ace0852cf7eb1e48e5b7fa25b50719502}\label{class_inventory_ace0852cf7eb1e48e5b7fa25b50719502} 
+List$<$ \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} $>$? {\bfseries Get\+Slots\+With\+Item} (\mbox{\hyperlink{class_b_c___item}{BC\+\_\+\+Item}} item)
+\item 
+\Hypertarget{class_inventory_a222545803ee5dc4b76adcee2796518c2}\label{class_inventory_a222545803ee5dc4b76adcee2796518c2} 
+List$<$ uint $>$? {\bfseries Get\+Indicies\+Of\+Slots\+With\+Item} (\mbox{\hyperlink{class_b_c___item}{BC\+\_\+\+Item}} item)
+\item 
+\Hypertarget{class_inventory_a1e89680a34e190bda7b36cc267040f78}\label{class_inventory_a1e89680a34e190bda7b36cc267040f78} 
+List$<$ \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} $>$? {\bfseries Get\+Slots\+With\+Item\+With\+Name} (string name)
+\item 
+\Hypertarget{class_inventory_ae87177c1651a1974653c2867de0f039e}\label{class_inventory_ae87177c1651a1974653c2867de0f039e} 
+List$<$ uint $>$? {\bfseries Get\+Indicies\+Of\+Slots\+With\+Item\+With\+Name} (string name)
+\item 
+\Hypertarget{class_inventory_ae8a97832841fa3bf9c538a7c0b368da3}\label{class_inventory_ae8a97832841fa3bf9c538a7c0b368da3} 
+List$<$ \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} $>$? {\bfseries Get\+Slots\+With\+Item\+With\+Tag} (BC\+\_\+\+Item.\+Item\+Flags flags)
+\item 
+\Hypertarget{class_inventory_a4b6c3abdf3b47474d649abec039edaf5}\label{class_inventory_a4b6c3abdf3b47474d649abec039edaf5} 
+List$<$ uint $>$? {\bfseries Get\+Indicies\+Of\+Slots\+With\+Item\+With\+Tag} (BC\+\_\+\+Item.\+Item\+Flags flags)
+\item 
+uint \mbox{\hyperlink{class_inventory_a82ff21c4685a60d0698b98b48e9868ac}{Try\+Add\+To\+Inventory}} (\mbox{\hyperlink{class_b_c___item}{BC\+\_\+\+Item}} item\+To\+Add, uint amount\+To\+Add=1)
+\begin{DoxyCompactList}\small\item\em Adds a selected item to the inventory. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_a3c6d6c4f2250915804f9eca4fd078981}\label{class_inventory_a3c6d6c4f2250915804f9eca4fd078981} 
+uint {\bfseries Try\+Remove\+From\+Inventory} (\mbox{\hyperlink{class_b_c___item}{BC\+\_\+\+Item}} item, uint amount\+To\+Remove=1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_inventory_a62a98598d107b67d5d1c2a31227e8172}\label{class_inventory_a62a98598d107b67d5d1c2a31227e8172} 
+\mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} {\bfseries this\mbox{[}int i\mbox{]}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_inventory_a82ff21c4685a60d0698b98b48e9868ac}\index{Inventory@{Inventory}!TryAddToInventory@{TryAddToInventory}}
+\index{TryAddToInventory@{TryAddToInventory}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{TryAddToInventory()}{TryAddToInventory()}}
+{\footnotesize\ttfamily \label{class_inventory_a82ff21c4685a60d0698b98b48e9868ac} 
+uint Inventory.\+Try\+Add\+To\+Inventory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_b_c___item}{BC\+\_\+\+Item}}}]{item\+To\+Add}{, }\item[{uint}]{amount\+To\+Add}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Adds a selected item to the inventory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item\+To\+Add} & The item to add to the inventory\\
+\hline
+{\em amount\+To\+Add} & The amount of the item to add\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The amount of items that failed to be added to the inventory
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Item/Inventory.\+cs\end{DoxyCompactItemize}

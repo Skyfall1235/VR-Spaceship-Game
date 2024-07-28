@@ -1,0 +1,74 @@
+\doxysection{IDamagable Interface Reference}
+\hypertarget{interface_i_damagable}{}\label{interface_i_damagable}\index{IDamagable@{IDamagable}}
+
+
+Interface that defines properties and methods related to handling damage.  
+
+
+Inheritance diagram for IDamagable\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{interface_i_damagable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interface_i_damagable_a43884751487806d3da4d43a5e1eaec53}{Damage}} (\mbox{\hyperlink{struct_damage_data}{Damage\+Data}} damage\+Data, bool ignore\+Invulnerability\+After\+Damage=false, bool ignore\+Armor=false)
+\begin{DoxyCompactList}\small\item\em This method takes a {\ttfamily \doxylink{struct_damage_data}{Damage\+Data}} object containing information about the damage and applies it to the object. You can optionally choose to ignore invulnerability and armor while applying damage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{Health.\+On\+Health\+Changed\+Event}} \mbox{\hyperlink{interface_i_damagable_aa1d5146de62bcd7d4dbd80349ad49ff5}{On\+Damage}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em This property exposes a {\ttfamily \doxylink{class_health_1_1_on_health_changed_event}{Health.\+On\+Health\+Changed\+Event}} delegate. It allows subscribing to events triggered when the object takes damage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface that defines properties and methods related to handling damage. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{interface_i_damagable_a43884751487806d3da4d43a5e1eaec53}\index{IDamagable@{IDamagable}!Damage@{Damage}}
+\index{Damage@{Damage}!IDamagable@{IDamagable}}
+\doxysubsubsection{\texorpdfstring{Damage()}{Damage()}}
+{\footnotesize\ttfamily \label{interface_i_damagable_a43884751487806d3da4d43a5e1eaec53} 
+void IDamagable.\+Damage (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_damage_data}{Damage\+Data}}}]{damage\+Data}{, }\item[{bool}]{ignore\+Invulnerability\+After\+Damage}{ = {\ttfamily false}, }\item[{bool}]{ignore\+Armor}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+This method takes a {\ttfamily \doxylink{struct_damage_data}{Damage\+Data}} object containing information about the damage and applies it to the object. You can optionally choose to ignore invulnerability and armor while applying damage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage\+Data} & The \doxylink{struct_damage_data}{Damage\+Data} object containing information about the damage.\\
+\hline
+{\em ignore\+Invulnerability\+After\+Damage} & Optional flag to ignore invulnerability after damage (default\+: false).\\
+\hline
+{\em ignore\+Armor} & Optional flag to ignore armor while applying damage (default\+: false).\\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_health_a7410afe33b6bddd435f4745781a47be4}{Health}}, and \mbox{\hyperlink{class_hull_health_manager_acce4010d7055c4f9f972e8e7bb10abed}{Hull\+Health\+Manager}}.
+
+
+
+\doxysubsection{Property Documentation}
+\Hypertarget{interface_i_damagable_aa1d5146de62bcd7d4dbd80349ad49ff5}\index{IDamagable@{IDamagable}!OnDamage@{OnDamage}}
+\index{OnDamage@{OnDamage}!IDamagable@{IDamagable}}
+\doxysubsubsection{\texorpdfstring{OnDamage}{OnDamage}}
+{\footnotesize\ttfamily \label{interface_i_damagable_aa1d5146de62bcd7d4dbd80349ad49ff5} 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{Health.\+On\+Health\+Changed\+Event}} IDamagable.\+On\+Damage\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+This property exposes a {\ttfamily \doxylink{class_health_1_1_on_health_changed_event}{Health.\+On\+Health\+Changed\+Event}} delegate. It allows subscribing to events triggered when the object takes damage. 
+
+
+
+Implemented in \mbox{\hyperlink{class_health_aa0a5a74c29b88bc72393d9c7ab39eb12}{Health}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/\+Updated Health/IDamagable.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,85 @@
+\doxysection{Ship\+Joystick\+Input Struct Reference}
+\hypertarget{struct_ship_joystick_input}{}\label{struct_ship_joystick_input}\index{ShipJoystickInput@{ShipJoystickInput}}
+
+
+Represents input data from a joystick for controlling a ship.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_ship_joystick_input_a7443fe31d8ba67bab3197b3ed42a7ef2}{Ship\+Joystick\+Input}} (Vector2 primary\+Flight\+Stick, float primaryyaw\+Value, Vector2 secondary\+Flight\+Stick, float secondaryyaw\+Value, float break\+Value)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \doxylink{struct_ship_joystick_input}{Ship\+Joystick\+Input} struct with the specified primary flight stick values, yaw value, secondary flight stick values, and brake value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_ship_joystick_input_a9018581258b06a1b3a5713982f344158}{Ship\+Joystick\+Input}} (Vector3 primary\+Flight\+Stick, Vector3 secondary\+Flight\+Stick, float break\+Value)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \doxylink{struct_ship_joystick_input}{Ship\+Joystick\+Input} struct with the specified primary and secondary flight stick directions as Vector3 (assuming Z is yaw), and brake value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_ship_joystick_input_a86efa94e48cd2078d6f80f2b493e851b}\label{struct_ship_joystick_input_a86efa94e48cd2078d6f80f2b493e851b} 
+Vector2 {\bfseries Primary\+Flight\+Stick}
+\begin{DoxyCompactList}\small\item\em X and Y values of the main joystick used for movement. \end{DoxyCompactList}\item 
+\Hypertarget{struct_ship_joystick_input_a9a90495ed0ca6ba375b4dea8c223a4b3}\label{struct_ship_joystick_input_a9a90495ed0ca6ba375b4dea8c223a4b3} 
+float {\bfseries Primary\+Yaw\+Value}
+\begin{DoxyCompactList}\small\item\em Single value for yaw rotation. \end{DoxyCompactList}\item 
+\Hypertarget{struct_ship_joystick_input_a7c83a5aefd910e2b84e759a368e08ee9}\label{struct_ship_joystick_input_a7c83a5aefd910e2b84e759a368e08ee9} 
+Vector2 {\bfseries Secondary\+Flight\+Stick}
+\begin{DoxyCompactList}\small\item\em X and Y values of a secondary joystick. \end{DoxyCompactList}\item 
+\Hypertarget{struct_ship_joystick_input_a8ee21b43029ca9757e14d58724098a29}\label{struct_ship_joystick_input_a8ee21b43029ca9757e14d58724098a29} 
+float {\bfseries Secondary\+Yaw\+Value}
+\begin{DoxyCompactList}\small\item\em Single value for yaw rotation of the secondary joystick. \end{DoxyCompactList}\item 
+\Hypertarget{struct_ship_joystick_input_a661e636ecb777021634e811844ecc810}\label{struct_ship_joystick_input_a661e636ecb777021634e811844ecc810} 
+float {\bfseries Break\+Value}
+\begin{DoxyCompactList}\small\item\em Value for applying brakes (deceleration) to the ship. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents input data from a joystick for controlling a ship. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_ship_joystick_input_a7443fe31d8ba67bab3197b3ed42a7ef2}\index{ShipJoystickInput@{ShipJoystickInput}!ShipJoystickInput@{ShipJoystickInput}}
+\index{ShipJoystickInput@{ShipJoystickInput}!ShipJoystickInput@{ShipJoystickInput}}
+\doxysubsubsection{\texorpdfstring{ShipJoystickInput()}{ShipJoystickInput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_ship_joystick_input_a7443fe31d8ba67bab3197b3ed42a7ef2} 
+Ship\+Joystick\+Input.\+Ship\+Joystick\+Input (\begin{DoxyParamCaption}\item[{Vector2}]{primary\+Flight\+Stick}{, }\item[{float}]{primaryyaw\+Value}{, }\item[{Vector2}]{secondary\+Flight\+Stick}{, }\item[{float}]{secondaryyaw\+Value}{, }\item[{float}]{break\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \doxylink{struct_ship_joystick_input}{Ship\+Joystick\+Input} struct with the specified primary flight stick values, yaw value, secondary flight stick values, and brake value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em primary\+Flight\+Stick} & The X and Y values of the main joystick for movement.\\
+\hline
+{\em primaryyaw\+Value} & The single value for yaw rotation (turning left or right) using the primary joystick.\\
+\hline
+{\em secondary\+Flight\+Stick} & The X and Y values of a secondary joystick (if applicable).\\
+\hline
+{\em secondaryyaw\+Value} & The single value for yaw rotation (turning left or right) using the secondary joystick (if applicable).\\
+\hline
+{\em break\+Value} & The value for applying brakes (deceleration) to the ship.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_ship_joystick_input_a9018581258b06a1b3a5713982f344158}\index{ShipJoystickInput@{ShipJoystickInput}!ShipJoystickInput@{ShipJoystickInput}}
+\index{ShipJoystickInput@{ShipJoystickInput}!ShipJoystickInput@{ShipJoystickInput}}
+\doxysubsubsection{\texorpdfstring{ShipJoystickInput()}{ShipJoystickInput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_ship_joystick_input_a9018581258b06a1b3a5713982f344158} 
+Ship\+Joystick\+Input.\+Ship\+Joystick\+Input (\begin{DoxyParamCaption}\item[{Vector3}]{primary\+Flight\+Stick}{, }\item[{Vector3}]{secondary\+Flight\+Stick}{, }\item[{float}]{break\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \doxylink{struct_ship_joystick_input}{Ship\+Joystick\+Input} struct with the specified primary and secondary flight stick directions as Vector3 (assuming Z is yaw), and brake value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em primary\+Flight\+Stick} & The X, Y, and Z (yaw) values of the main joystick for movement.\\
+\hline
+{\em secondary\+Flight\+Stick} & The X, Y, and Z (yaw) values of a secondary joystick (if applicable).\\
+\hline
+{\em break\+Value} & The value for applying brakes (deceleration) to the ship.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship movement Control/BC\+\_\+\+Ship\+Input\+Handler.\+cs\end{DoxyCompactItemize}

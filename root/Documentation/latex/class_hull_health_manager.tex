@@ -1,0 +1,185 @@
+\doxysection{Hull\+Health\+Manager Class Reference}
+\hypertarget{class_hull_health_manager}{}\label{class_hull_health_manager}\index{HullHealthManager@{HullHealthManager}}
+Inheritance diagram for Hull\+Health\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_hull_health_manager}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_hull_health_manager_a86c2266b09a9242d60db73636f81719e}{Initial\+Subscribe\+To\+All\+Module\+Events}} (List$<$ \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} $>$ all\+Modules)
+\begin{DoxyCompactList}\small\item\em Subscribes to the health of all modules in a provided list. \end{DoxyCompactList}\item 
+\Hypertarget{class_hull_health_manager_a21ea68c4497b94baac72a841118e4ac4}\label{class_hull_health_manager_a21ea68c4497b94baac72a841118e4ac4} 
+void {\bfseries Dump\+All\+Modules} ()
+\begin{DoxyCompactList}\small\item\em Removes all modules subscriptions for the hull. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hull_health_manager_a7c16da678a15afdef5b22ac3fb1f6fea}{Subscribe\+To\+Module}} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} module)
+\begin{DoxyCompactList}\small\item\em Subscribes to the health of another module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hull_health_manager_a9320130f96a19e3111c8ad865327e931}{Unsubscribe\+To\+Module}} (\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} module)
+\begin{DoxyCompactList}\small\item\em Unsubscribes from the health of another module. \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_hull_health_manager_a0c9821dbc854c0a1b5fda9f81846d0ae}{Initialize\+Health}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the \doxylink{class_health}{Health} Component with a full HP and invokes the declaration event. \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_hull_health_manager_acce4010d7055c4f9f972e8e7bb10abed}{Damage}} (\mbox{\hyperlink{struct_damage_data}{Damage\+Data}} damage\+Data, bool ignore\+Invulnerability\+After\+Damage=false, bool ignore\+Armor=false)
+\begin{DoxyCompactList}\small\item\em Damages the health component. \end{DoxyCompactList}\item 
+override void \mbox{\hyperlink{class_hull_health_manager_aecaa59e7a259330878817cecda75aaa1}{Heal}} (uint amount\+To\+Heal)
+\begin{DoxyCompactList}\small\item\em Heals the health component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_health}{Health}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Reset} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_hull_health_manager_a5668569a1248127d212990f49cc942c1}\label{class_hull_health_manager_a5668569a1248127d212990f49cc942c1} 
+List$<$ \mbox{\hyperlink{class_health}{Health}} $>$ {\bfseries Entity\+Healths} = new List$<$\mbox{\hyperlink{class_health}{Health}}$>$()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_health}{Health}}}
+\begin{DoxyCompactItemize}
+\item 
+Unity\+Event$<$ uint, uint $>$ {\bfseries On\+Health\+Initialized} = new Unity\+Event$<$uint, uint$>$()
+\begin{DoxyCompactList}\small\item\em triggered when a healthcomponent is initialized Parameter 1 is the max health Parameter 2 is the current health \end{DoxyCompactList}\item 
+Unity\+Event {\bfseries On\+Death} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component dies. \end{DoxyCompactList}\item 
+Unity\+Event {\bfseries On\+Revive} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component gets revived. \end{DoxyCompactList}\item 
+Unity\+Event {\bfseries On\+Became\+Invulnerable} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component becomes invulnerable. \end{DoxyCompactList}\item 
+Unity\+Event {\bfseries On\+Became\+Vulnerable} = new Unity\+Event()
+\begin{DoxyCompactList}\small\item\em Triggered when a health component becomes vulnerable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_health}{Health}}}
+\begin{DoxyCompactItemize}
+\item 
+uint {\bfseries Current\+Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+uint {\bfseries Max\+Health}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool {\bfseries Is\+Invulnerable}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+bool {\bfseries Is\+Alive} = true\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}} \mbox{\hyperlink{class_health_aa0a5a74c29b88bc72393d9c7ab39eb12}{On\+Damage}} = new \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Triggered whenever a health component takes damage. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}} \mbox{\hyperlink{class_health_aefed73694cec4387999ad0fbc13a4809}{On\+Heal}} = new \mbox{\hyperlink{class_health_1_1_on_health_changed_event}{On\+Health\+Changed\+Event}}()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Triggered whenever a health component is healed. \end{DoxyCompactList}\item 
+Unity\+Event$<$ Vector3 $>$ {\bfseries On\+Hull\+Hit} = new Unity\+Event$<$Vector3$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_damagable}{IDamagable}}}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{interface_i_healable}{IHealable}}}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_hull_health_manager_acce4010d7055c4f9f972e8e7bb10abed}\index{HullHealthManager@{HullHealthManager}!Damage@{Damage}}
+\index{Damage@{Damage}!HullHealthManager@{HullHealthManager}}
+\doxysubsubsection{\texorpdfstring{Damage()}{Damage()}}
+{\footnotesize\ttfamily \label{class_hull_health_manager_acce4010d7055c4f9f972e8e7bb10abed} 
+override void Hull\+Health\+Manager.\+Damage (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_damage_data}{Damage\+Data}}}]{damage\+Data}{, }\item[{bool}]{ignore\+Invulnerability\+After\+Damage}{ = {\ttfamily false}, }\item[{bool}]{ignore\+Armor}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Damages the health component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage\+Data} & The data of the damage trying to be dealt\\
+\hline
+{\em ignore\+Invulnerability\+After\+Damage} & Whether we ignore the invulnerability timer on this damage tick\\
+\hline
+{\em ignore\+Armor} & Whether we ignore armor damage reduction on this damage tick\\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_health_a7410afe33b6bddd435f4745781a47be4}{Health}}.
+
+\Hypertarget{class_hull_health_manager_aecaa59e7a259330878817cecda75aaa1}\index{HullHealthManager@{HullHealthManager}!Heal@{Heal}}
+\index{Heal@{Heal}!HullHealthManager@{HullHealthManager}}
+\doxysubsubsection{\texorpdfstring{Heal()}{Heal()}}
+{\footnotesize\ttfamily \label{class_hull_health_manager_aecaa59e7a259330878817cecda75aaa1} 
+override void Hull\+Health\+Manager.\+Heal (\begin{DoxyParamCaption}\item[{uint}]{amount\+To\+Heal}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Heals the health component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount\+To\+Heal} & The amount to heal the health component\\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_health_a3327cf48a22bbb5c68dc18cc4a291b24}{Health}}.
+
+\Hypertarget{class_hull_health_manager_a0c9821dbc854c0a1b5fda9f81846d0ae}\index{HullHealthManager@{HullHealthManager}!InitializeHealth@{InitializeHealth}}
+\index{InitializeHealth@{InitializeHealth}!HullHealthManager@{HullHealthManager}}
+\doxysubsubsection{\texorpdfstring{InitializeHealth()}{InitializeHealth()}}
+{\footnotesize\ttfamily \label{class_hull_health_manager_a0c9821dbc854c0a1b5fda9f81846d0ae} 
+override void Hull\+Health\+Manager.\+Initialize\+Health (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Initializes the \doxylink{class_health}{Health} Component with a full HP and invokes the declaration event. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_health_a491aae5dc750da8265a749c78f783ea6}{Health}}.
+
+\Hypertarget{class_hull_health_manager_a86c2266b09a9242d60db73636f81719e}\index{HullHealthManager@{HullHealthManager}!InitialSubscribeToAllModuleEvents@{InitialSubscribeToAllModuleEvents}}
+\index{InitialSubscribeToAllModuleEvents@{InitialSubscribeToAllModuleEvents}!HullHealthManager@{HullHealthManager}}
+\doxysubsubsection{\texorpdfstring{InitialSubscribeToAllModuleEvents()}{InitialSubscribeToAllModuleEvents()}}
+{\footnotesize\ttfamily \label{class_hull_health_manager_a86c2266b09a9242d60db73636f81719e} 
+void Hull\+Health\+Manager.\+Initial\+Subscribe\+To\+All\+Module\+Events (\begin{DoxyParamCaption}\item[{List$<$ \mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} $>$}]{all\+Modules}{}\end{DoxyParamCaption})}
+
+
+
+Subscribes to the health of all modules in a provided list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em all\+Modules} & A List containing \doxylink{class_b_c___core_module}{BC\+\_\+\+Core\+Module} instances to subscribe to for health updates.\\
+\hline
+\end{DoxyParams}
+
+
+This method iterates through each {\ttfamily \doxylink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}} in the provided {\ttfamily all\+Modules} list. For each module, it calls the {\ttfamily Subscribe\+To\+Module} method to add its {\ttfamily Internal\+Module\+Health} component to the internal {\ttfamily Entity\+Healths} list. This allows the script to track the health of all modules in the list for centralized monitoring or processing. \Hypertarget{class_hull_health_manager_a7c16da678a15afdef5b22ac3fb1f6fea}\index{HullHealthManager@{HullHealthManager}!SubscribeToModule@{SubscribeToModule}}
+\index{SubscribeToModule@{SubscribeToModule}!HullHealthManager@{HullHealthManager}}
+\doxysubsubsection{\texorpdfstring{SubscribeToModule()}{SubscribeToModule()}}
+{\footnotesize\ttfamily \label{class_hull_health_manager_a7c16da678a15afdef5b22ac3fb1f6fea} 
+void Hull\+Health\+Manager.\+Subscribe\+To\+Module (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}]{module}{}\end{DoxyParamCaption})}
+
+
+
+Subscribes to the health of another module. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em module} & The \doxylink{class_b_c___core_module}{BC\+\_\+\+Core\+Module} instance to subscribe to for health updates.\\
+\hline
+\end{DoxyParams}
+
+
+This method retrieves the {\ttfamily Internal\+Module\+Health} component from the provided {\ttfamily module}. It then adds this health component to an internal list named {\ttfamily Entity\+Healths}. \Hypertarget{class_hull_health_manager_a9320130f96a19e3111c8ad865327e931}\index{HullHealthManager@{HullHealthManager}!UnsubscribeToModule@{UnsubscribeToModule}}
+\index{UnsubscribeToModule@{UnsubscribeToModule}!HullHealthManager@{HullHealthManager}}
+\doxysubsubsection{\texorpdfstring{UnsubscribeToModule()}{UnsubscribeToModule()}}
+{\footnotesize\ttfamily \label{class_hull_health_manager_a9320130f96a19e3111c8ad865327e931} 
+void Hull\+Health\+Manager.\+Unsubscribe\+To\+Module (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_b_c___core_module}{BC\+\_\+\+Core\+Module}}}]{module}{}\end{DoxyParamCaption})}
+
+
+
+Unsubscribes from the health of another module. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em module} & The \doxylink{class_b_c___core_module}{BC\+\_\+\+Core\+Module} instance to unsubscribe from for health updates.\\
+\hline
+\end{DoxyParams}
+
+
+This method retrieves the {\ttfamily Internal\+Module\+Health} component from the provided {\ttfamily module}. It then removes this health component from the internal list named {\ttfamily Entity\+Healths}. This stops the script from tracking the health of the specific module. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Core/\+Health Management/Hull\+Health\+Manager.\+cs\end{DoxyCompactItemize}

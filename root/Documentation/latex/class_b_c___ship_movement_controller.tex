@@ -1,0 +1,72 @@
+\doxysection{BC\+\_\+\+Ship\+Movement\+Controller Class Reference}
+\hypertarget{class_b_c___ship_movement_controller}{}\label{class_b_c___ship_movement_controller}\index{BC\_ShipMovementController@{BC\_ShipMovementController}}
+Inheritance diagram for BC\+\_\+\+Ship\+Movement\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_b_c___ship_movement_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___ship_movement_controller_a3270b88631458f6d27a1d90df04225dd}\label{class_b_c___ship_movement_controller_a3270b88631458f6d27a1d90df04225dd} 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries m\+\_\+\+On\+Velocity\+Change\+Event} = new \mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}}()
+\item 
+\Hypertarget{class_b_c___ship_movement_controller_aad454979b8f529211fbbc874f95a7764}\label{class_b_c___ship_movement_controller_aad454979b8f529211fbbc874f95a7764} 
+Unity\+Event$<$ \mbox{\hyperlink{struct_ship_joystick_input}{Ship\+Joystick\+Input}} $>$ {\bfseries On\+Update\+Inputs} = new Unity\+Event$<$\mbox{\hyperlink{struct_ship_joystick_input}{Ship\+Joystick\+Input}}$>$()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___ship_movement_controller_aa3f394925042fdfc5957da3575d6b8ef}\label{class_b_c___ship_movement_controller_aa3f394925042fdfc5957da3575d6b8ef} 
+\mbox{\hyperlink{class_b_c___ship_input_handler}{BC\+\_\+\+Ship\+Input\+Handler}} {\bfseries m\+\_\+ship\+Input\+Handler}
+\begin{DoxyCompactList}\small\item\em The input handler of the entire ship. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_ac072af9cf361e080b977157c06864c1a}\label{class_b_c___ship_movement_controller_ac072af9cf361e080b977157c06864c1a} 
+Rigidbody {\bfseries m\+\_\+ship\+Rigidbody}
+\begin{DoxyCompactList}\small\item\em the rigidbody component of the entire ship \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_a1b7ee29225afed1d602a60fdfdbf2bb8}\label{class_b_c___ship_movement_controller_a1b7ee29225afed1d602a60fdfdbf2bb8} 
+float {\bfseries m\+\_\+max\+Acceleration} = 10f
+\begin{DoxyCompactList}\small\item\em maximum acceleration force that the ship can use \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_a84e883fe6c802b14cdcc742237c6f77a}\label{class_b_c___ship_movement_controller_a84e883fe6c802b14cdcc742237c6f77a} 
+float {\bfseries m\+\_\+max\+Deceleration} = -\/10f
+\begin{DoxyCompactList}\small\item\em maximum decceleration force that the ship can use \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_af9db486c4c3964877cd613b2499bb16a}\label{class_b_c___ship_movement_controller_af9db486c4c3964877cd613b2499bb16a} 
+float {\bfseries m\+\_\+\+Max\+Break\+Value} = 5f
+\begin{DoxyCompactList}\small\item\em maxmimum breaking value for the rigidbody \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_a9bd7d963a30d1bf941b4921cf52bf2c6}\label{class_b_c___ship_movement_controller_a9bd7d963a30d1bf941b4921cf52bf2c6} 
+float {\bfseries m\+\_\+max\+Rate\+Of\+Pitch} = 10f
+\begin{DoxyCompactList}\small\item\em maximum amount of torque that can be applied to the rigidbody \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_a4f23017555e036a877d99047101603a1}\label{class_b_c___ship_movement_controller_a4f23017555e036a877d99047101603a1} 
+float {\bfseries m\+\_\+max\+Rate\+Of\+Roll} = 10f
+\begin{DoxyCompactList}\small\item\em maximum amount of torque that can be applied to the rigidbody \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_aaed1b4b439fb4aa79ec0278347464406}\label{class_b_c___ship_movement_controller_aaed1b4b439fb4aa79ec0278347464406} 
+float {\bfseries m\+\_\+max\+Rate\+Of\+Yaw} = 10f
+\begin{DoxyCompactList}\small\item\em maximum amount of torque that can be applied to the rigidbody \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_a2cee64b0f730957b68c58d64051e69ae}\label{class_b_c___ship_movement_controller_a2cee64b0f730957b68c58d64051e69ae} 
+float {\bfseries m\+\_\+max\+Speed} = 100f
+\item 
+\Hypertarget{class_b_c___ship_movement_controller_a016c0a804d23f2c605ad50cd2725d552}\label{class_b_c___ship_movement_controller_a016c0a804d23f2c605ad50cd2725d552} 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries m\+\_\+\+On\+Rotation\+Change\+Event} = new \mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_b_c___ship_movement_controller_a13874db648127614cf8dc0526e4acb18}\label{class_b_c___ship_movement_controller_a13874db648127614cf8dc0526e4acb18} 
+float {\bfseries m\+\_\+max\+Strafe\+Speed}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em the maximum amount of force that can be applied to strafe \end{DoxyCompactList}\item 
+\Hypertarget{class_b_c___ship_movement_controller_a4eff4b92025683cac7430ea71265df4f}\label{class_b_c___ship_movement_controller_a4eff4b92025683cac7430ea71265df4f} 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries On\+Rotation\+Change\+Event}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_b_c___ship_movement_controller_a27c4b758b6d8ffffe8d9b05d5c65cee5}\label{class_b_c___ship_movement_controller_a27c4b758b6d8ffffe8d9b05d5c65cee5} 
+\mbox{\hyperlink{class_b_c___ship_movement_controller_1_1_transform_change_event}{Transform\+Change\+Event}} {\bfseries On\+Velocity\+Change\+Event}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship movement Control/BC\+\_\+\+Ship\+Movement\+Controller.\+cs\end{DoxyCompactItemize}

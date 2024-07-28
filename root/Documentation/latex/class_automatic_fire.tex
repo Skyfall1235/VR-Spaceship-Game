@@ -1,0 +1,68 @@
+\doxysection{Automatic\+Fire Class Reference}
+\hypertarget{class_automatic_fire}{}\label{class_automatic_fire}\index{AutomaticFire@{AutomaticFire}}
+Inheritance diagram for Automatic\+Fire\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_automatic_fire}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_automatic_fire_af5f2baf2994f21754cacc2bff5e23547}\label{class_automatic_fire_af5f2baf2994f21754cacc2bff5e23547} 
+{\bfseries Automatic\+Fire} (\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} weapon, \mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} fire\+Action, \mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} start\+Fire\+Action=null, \mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} stop\+Fire\+Action=null, Post\+Fire post\+Fire\+Action=null, Pre\+Fire pre\+Fire\+Action=null)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+delegate void {\bfseries Start\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fired when the weapon starts firing. \end{DoxyCompactList}\item 
+delegate void {\bfseries Stop\+Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fired when the weapon stops firing. \end{DoxyCompactList}\item 
+delegate void {\bfseries Fire} ()
+\begin{DoxyCompactList}\small\item\em Void methods fire when the weapon fires. \end{DoxyCompactList}\item 
+delegate void {\bfseries Pre\+Fire} ()
+\item 
+delegate void {\bfseries Post\+Fire} ()
+\item 
+virtual void \mbox{\hyperlink{class_b_c___fire_type_a2d0e70acd9997abc5f35caefa1198711}{Update\+Firing\+State}} (bool new\+Firing\+State)
+\begin{DoxyCompactList}\small\item\em Method updates the underlying fire state of the weapon. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_b_c___fire_type_aaa41f66e93fc559a49cee4eb9c753aec}{BC\+\_\+\+Fire\+Type}} (\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} weapon, \mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} main\+Fire\+Action, \mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} start\+Fire\+Action=null, \mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} stop\+Fire\+Action=null, Post\+Fire post\+Fire\+Action=null, Pre\+Fire pre\+Fire\+Action=null)
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_automatic_fire_ab33387eb707c8ff4a23283c9b86a8081}\label{class_automatic_fire_ab33387eb707c8ff4a23283c9b86a8081} 
+override IEnumerator {\bfseries Try\+Fire\+Logic\+Async} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+IEnumerator \mbox{\hyperlink{class_b_c___fire_type_aed151aeccaa75acbd84c991ae1dce765}{Try\+Fire\+Logic\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Logic for triggering when each weapon is fired. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_b_c___fire_type_ae8c6613c0d4f2a7b656f6bb9bda68742}{Start\+Fire}} {\bfseries m\+\_\+start\+Fire\+Methods}
+\item 
+\mbox{\hyperlink{class_b_c___fire_type_abde702bbef9e41f59dbe4c05d6db2ef9}{Stop\+Fire}} {\bfseries m\+\_\+stop\+Fire\+Methods}
+\item 
+\mbox{\hyperlink{class_b_c___fire_type_a6999437cf487d329bbd341595812ec92}{Fire}} {\bfseries m\+\_\+fire\+Methods}
+\item 
+Pre\+Fire {\bfseries m\+\_\+pre\+Fire\+Methods}
+\item 
+Post\+Fire {\bfseries m\+\_\+post\+Fire\+Methods}
+\item 
+\mbox{\hyperlink{class_b_c___weapon}{BC\+\_\+\+Weapon}} {\bfseries m\+\_\+weapon}
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_b_c___fire_type}{BC\+\_\+\+Fire\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries m\+\_\+current\+Firing\+State} = false\hspace{0.3cm}{\ttfamily  \mbox{[}get, protected set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Guns/\+Fire Types/Automatic\+Fire.\+cs\end{DoxyCompactItemize}

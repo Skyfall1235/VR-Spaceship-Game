@@ -1,0 +1,94 @@
+\doxysection{Targeting\+Component Class Reference}
+\hypertarget{class_targeting_component}{}\label{class_targeting_component}\index{TargetingComponent@{TargetingComponent}}
+Inheritance diagram for Targeting\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_targeting_component}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_targeting_component_1_1_calculate_target_lead_job}{Calculate\+Target\+Lead\+Job}}
+\begin{DoxyCompactList}\small\item\em Unity Job that calculates the target lead lneeded for a gun to hit its mark in 3d space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+IEnumerator \mbox{\hyperlink{class_targeting_component_aff93f2ab7f8f22619aec69e8eeee7391}{Compute\+Target\+Lead}} (Vector3 gun\+Position, \mbox{\hyperlink{struct_target_data}{Target\+Data}} target\+Data, float projectile\+Speed)
+\begin{DoxyCompactList}\small\item\em This coroutine calculates the lead position necessary to hit a moving target with a projectile, utilizing a multithreaded job for efficient calculation. \end{DoxyCompactList}\item 
+\Hypertarget{class_targeting_component_a8f9e7891dff672836d4fc1f93ec2ab59}\label{class_targeting_component_a8f9e7891dff672836d4fc1f93ec2ab59} 
+void {\bfseries Kill\+Tracking} ()
+\begin{DoxyCompactList}\small\item\em Instantly stops the coroutine and disposes of the memory and job in a safe fashion. \end{DoxyCompactList}\item 
+Job\+Handle \mbox{\hyperlink{class_targeting_component_afe4855b791999adc246791044d1a9313}{Find\+Target\+Lead}} (Vector3 player\+Position, Vector3 target\+Position, float3 target\+Acceleration, float projectile\+Speed, Native\+Array$<$ float3 $>$ native\+Array\+Ref)
+\begin{DoxyCompactList}\small\item\em This method schedules a job to calculate the lead needed to hit a moving target with a projectile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_targeting_component_a569ea91db9afb01edf836fa960ce3e3a}\label{class_targeting_component_a569ea91db9afb01edf836fa960ce3e3a} 
+\mbox{\hyperlink{struct_target_data}{Target\+Data}} {\bfseries Current\+Target\+Data}\hspace{0.3cm}{\ttfamily  \mbox{[}set\mbox{]}}
+\item 
+\Hypertarget{class_targeting_component_a57b6b3a8cf5bd8565f3b595cc1bffd53}\label{class_targeting_component_a57b6b3a8cf5bd8565f3b595cc1bffd53} 
+Vector3 {\bfseries Lead\+Position\+To\+Target}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\Hypertarget{class_targeting_component_a00a3e44c067a124a62fdd03e2ce7f2b2}\label{class_targeting_component_a00a3e44c067a124a62fdd03e2ce7f2b2} 
+\mbox{\hyperlink{class_s_o___weapon_data}{SO\+\_\+\+Weapon\+Data}} {\bfseries Weapon\+Data}\hspace{0.3cm}{\ttfamily  \mbox{[}set\mbox{]}}
+\item 
+\Hypertarget{class_targeting_component_a1ff67400a0ffe8116b2b7fcd7bbc44b9}\label{class_targeting_component_a1ff67400a0ffe8116b2b7fcd7bbc44b9} 
+Game\+Object {\bfseries Projectile\+Instantiation\+Point}\hspace{0.3cm}{\ttfamily  \mbox{[}set\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_targeting_component_aff93f2ab7f8f22619aec69e8eeee7391}\index{TargetingComponent@{TargetingComponent}!ComputeTargetLead@{ComputeTargetLead}}
+\index{ComputeTargetLead@{ComputeTargetLead}!TargetingComponent@{TargetingComponent}}
+\doxysubsubsection{\texorpdfstring{ComputeTargetLead()}{ComputeTargetLead()}}
+{\footnotesize\ttfamily \label{class_targeting_component_aff93f2ab7f8f22619aec69e8eeee7391} 
+IEnumerator Targeting\+Component.\+Compute\+Target\+Lead (\begin{DoxyParamCaption}\item[{Vector3}]{gun\+Position}{, }\item[{\mbox{\hyperlink{struct_target_data}{Target\+Data}}}]{target\+Data}{, }\item[{float}]{projectile\+Speed}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+This coroutine calculates the lead position necessary to hit a moving target with a projectile, utilizing a multithreaded job for efficient calculation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gun\+Position} & The position of the gun firing the projectile.\\
+\hline
+{\em target\+Data} & An object containing information about the target, including its Game\+Object and Rigidbody.\\
+\hline
+{\em projectile\+Speed} & The speed of the projectile.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An IEnumerator that can be used to yield and wait for job completion.
+\end{DoxyReturn}
+\Hypertarget{class_targeting_component_afe4855b791999adc246791044d1a9313}\index{TargetingComponent@{TargetingComponent}!FindTargetLead@{FindTargetLead}}
+\index{FindTargetLead@{FindTargetLead}!TargetingComponent@{TargetingComponent}}
+\doxysubsubsection{\texorpdfstring{FindTargetLead()}{FindTargetLead()}}
+{\footnotesize\ttfamily \label{class_targeting_component_afe4855b791999adc246791044d1a9313} 
+Job\+Handle Targeting\+Component.\+Find\+Target\+Lead (\begin{DoxyParamCaption}\item[{Vector3}]{player\+Position}{, }\item[{Vector3}]{target\+Position}{, }\item[{float3}]{target\+Acceleration}{, }\item[{float}]{projectile\+Speed}{, }\item[{Native\+Array$<$ float3 $>$}]{native\+Array\+Ref}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+This method schedules a job to calculate the lead needed to hit a moving target with a projectile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Position} & The position of the player firing the projectile.\\
+\hline
+{\em target\+Position} & The current position of the target.\\
+\hline
+{\em target\+Acceleration} & The acceleration of the target (optional, defaults to Vector3.\+zero).\\
+\hline
+{\em projectile\+Speed} & The speed of the projectile.\\
+\hline
+{\em native\+Array\+Ref} & A reference to a pre-\/allocated Native\+Array$<$float3$>$ to store the calculated lead position (must have a length of 1).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A Job\+Handle that can be used to check the job\textquotesingle{}s completion status.
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+Unity/\+Projects/\+VR-\/\+Spaceship-\/\+Game/root/\+Project VRS/\+Assets/\+Scripts/\+Ship Systems/\+Ship Core Systems/\+Weapons/\+Turrets/Targeting\+Component.\+cs\end{DoxyCompactItemize}
