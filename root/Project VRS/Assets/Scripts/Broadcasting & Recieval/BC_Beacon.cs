@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Represents a basic beacon with broadcasting capabilities.
 /// </summary>
-public partial class BasicBeacon : MonoBehaviour, IBeacon
+public partial class BC_Beacon : MonoBehaviour, IBeacon
 {
     /// <summary>
     /// Maximum distance for detecting accessible beacons.
@@ -144,7 +144,7 @@ public partial class BasicBeacon : MonoBehaviour, IBeacon
 
 }
 
-public partial class BasicBeacon
+public partial class BC_Beacon
 {
     /// <summary>
     /// Unique identifier for the broadcasting beacon. This property is hidden in the inspector.
@@ -172,6 +172,7 @@ public partial class BasicBeacon
     {
         if (!IsBroadcasting)
         {
+            CustomLogger.Log("An item is requesting the time since broad cast while the object is not active.", CustomLogger.LogLevel.Warning, CustomLogger.LogCategory.System);
             return null;
         }
 
