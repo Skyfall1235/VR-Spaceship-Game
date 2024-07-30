@@ -2616,11 +2616,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fdcb813be3b3e4cad595409e96af09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_currentHealth: 0
+  m_maxHealth: 100
   m_useInvulnerabilityAfterDamage: 0
   m_inulnerabilityAfterDamageTimer: 3
   m_useArmor: 1
   m_armor: 10
   m_armorForFiftyPercentReduction: 50
+  m_isInvulnerable: 0
   <OnDamage>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -2628,6 +2631,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnHealthInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHullHit>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   OnDeath:
@@ -3137,7 +3143,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5db8767801f3a614b8a629d792fbca03, type: 2}
+  - {fileID: 2100000, guid: e75a8f12d85e33e4b9fcc680d48f086f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5486,6 +5492,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5904361696486201797, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.94
@@ -5526,6 +5536,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6836801961705904453, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836801961705904453, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836801961705904453, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b0044395bad18db48a2673d24496bf15, type: 2}
     - target: {fileID: 7819190104186297756, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: speed
       value: 5
@@ -6953,6 +6975,14 @@ PrefabInstance:
     - target: {fileID: 1365037682381130345, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_Name
       value: Turret V2 Laser
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543769172443889763, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543769172443889763, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2881506368289842355, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_LocalPosition.x

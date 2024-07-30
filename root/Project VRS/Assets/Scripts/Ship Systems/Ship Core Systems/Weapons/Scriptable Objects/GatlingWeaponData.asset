@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0e29a67e47194591e626937d38269, type: 3}
   m_Name: GatlingWeaponData
   m_EditorClassIdentifier: 
+  m_weaponName: GatlingWeaponData
   m_useProjectile: 1
   m_projectileData: {fileID: 11400000, guid: 7a3e814e6ffd0a247b24e5788044b609, type: 2}
   m_weaponParticleSystem: {fileID: 0}
@@ -26,6 +27,6 @@ MonoBehaviour:
     m_AssemblyName: vrs.ShipSystems.Weapons.Guns, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     m_ClassName: AutomaticFire
-  m_autoFiring: 1
+  m_autoFiring: 0
   m_useSpread: 1
   m_spreadValues: {x: 0.5, y: 0.5}

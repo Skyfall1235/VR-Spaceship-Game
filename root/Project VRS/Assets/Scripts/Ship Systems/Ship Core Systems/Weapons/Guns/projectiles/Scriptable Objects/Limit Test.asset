@@ -32,7 +32,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 10
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 1
@@ -46,7 +46,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2
@@ -60,7 +60,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2
@@ -74,7 +74,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2
@@ -88,7 +88,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2
@@ -102,7 +102,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2
@@ -116,7 +116,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 10
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2
@@ -130,7 +130,7 @@ MonoBehaviour:
       type: {class: ProjectileData, ns: , asm: vrs.ShipSystems.Weapons.Guns}
       data:
         m_speed: 1
-        m_damage: 0
+        m_damage: 1
         m_armorPenetration: 0
         m_lifetime: 1
         m_projectileCount: 2

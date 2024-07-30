@@ -137,7 +137,6 @@ public class Health : MonoBehaviour, IDamagable, IHealable
             //calculate the damage to be taken
             uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth - ((ignoreArmor || !m_useArmor) ? (int)damageData.Damage : Mathf.CeilToInt((float)damageData.Damage * (float)CalculateDamageReduction(damageData.ArmorPenetration))), 0, m_maxHealth);
             OnDamage.Invoke(m_maxHealth, CurrentHealth, newHealth);
-            OnHullHit.Invoke(damageData.Damager.transform.position);
             //take the damage
             CurrentHealth = newHealth;
             if (m_useInvulnerabilityAfterDamage && ignoreInvulnerabilityAfterDamage && gameObject.activeSelf)

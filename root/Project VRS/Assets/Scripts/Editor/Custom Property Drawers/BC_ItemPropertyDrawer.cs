@@ -72,13 +72,12 @@ public class BC_ItemPropertyDrawer : PropertyDrawer
         }
         else
         {
-            float largestBound = Mathf.Max(meshToDisplay.bounds.size.x, meshToDisplay.bounds.size.y, meshToDisplay.bounds.size.z);
             Quaternion rotation = Quaternion.identity;
             m_previewRenderUtility.camera.transform.LookAt(Vector3.zero);
             Matrix4x4 meshTransformations = Matrix4x4.TRS(-meshToDisplay.bounds.center, Quaternion.identity, Vector3.one);
             Vector2Int desiredImageDimensions = new Vector2Int(512, 512);
             m_previewRenderUtility.BeginPreview(new Rect(0, 0, desiredImageDimensions.x, desiredImageDimensions.y), GUIStyle.none);
-            m_previewRenderUtility.lights[0].transform.localEulerAngles = new Vector3(30, 30, 0);
+            m_previewRenderUtility.lights[0].transform.localEulerAngles = new Vector3(30, -30, 0);
             m_previewRenderUtility.lights[0].intensity = 2;
             PositionCamera3D(m_previewRenderUtility.camera, meshToDisplay.bounds, Vector3.zero, 6);
             m_previewRenderUtility.DrawMesh(meshToDisplay, meshTransformations, materialToDisplay, 0);

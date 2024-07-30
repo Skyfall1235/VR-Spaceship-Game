@@ -53,10 +53,10 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    border-top-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 3px;
-    border-left-width: 3px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
     border-top-color: var(--unity-colors-default-border);
     border-right-color: var(--unity-colors-default-border);
     border-bottom-color: var(--unity-colors-default-border);

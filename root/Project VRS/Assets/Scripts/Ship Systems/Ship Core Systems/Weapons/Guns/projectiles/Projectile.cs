@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected ForceMode m_forceMode = ForceMode.Impulse;
     [SerializeField] protected Rigidbody m_projectileRigidBody;
     protected TrailRenderer m_trailRender;
+    [SerializeField]
     protected ProjectileData m_projectileData;
     private void Awake()
     {
@@ -117,10 +118,12 @@ public class Projectile : MonoBehaviour
     {
         if(collision != null && collision.gameObject.GetComponent<IDamagable>() != null) 
         {
+            
             IDamagable objectHealth = collision.gameObject.GetComponent<IDamagable>();
             DamageData damageData = new DamageData(m_projectileData.Damage, m_projectileData.ArmorPenetration, this.gameObject);
             objectHealth.Damage(damageData);
         }
+        Destroy(gameObject);
     }
 
     /// <summary>
