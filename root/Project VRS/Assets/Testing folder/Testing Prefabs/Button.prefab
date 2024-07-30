@@ -10,35 +10,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.029463083
+      value: 0.3957
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.477
+      value: 0.1358
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5554063
+      value: 0.0678
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99917966
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.040498033
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -4.642
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -48,9 +48,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6870320917684876907, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -6177116964146060575, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       propertyPath: m_Name
       value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -59,12 +71,71 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8543106253059171767}
+    - targetCorrespondingSourceObject: {fileID: -6870320917684876907, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3070837182752334563}
+    - targetCorrespondingSourceObject: {fileID: -6870320917684876907, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7582707471583843027}
   m_SourcePrefab: {fileID: 100100000, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
 --- !u!4 &2440341834595561455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5150511469643430328, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
   m_PrefabInstance: {fileID: 7397055857906423383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5044076225254465474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -6870320917684876907, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
+  m_PrefabInstance: {fileID: 7397055857906423383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &3070837182752334563
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044076225254465474}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.02245621
+  m_Center: {x: -0.000000054948032, y: 0.01688414, z: -0.00000025238842}
+--- !u!54 &7582707471583843027
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044076225254465474}
+  serializedVersion: 4
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7667086777822292742 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 393ac97f8ddd07e489cdce5eff40260c, type: 3}
@@ -173,11 +244,35 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Button: {fileID: 2440341834595561455}
-  m_PressDistance: 0.1
-  m_ToggleButton: 0
+  m_PressDistance: 0.01
+  m_ToggleButton: 1
   m_OnPress:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShootAndCycle, Assembly-CSharp
+        m_MethodName: ArmToggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShootAndCycle, Assembly-CSharp
+        m_MethodName: ArmToggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
