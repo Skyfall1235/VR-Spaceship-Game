@@ -79,34 +79,44 @@ public class BC_ShipMovementController : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// The maximum speed of the ship.
     /// </summary>
     [SerializeField]
     protected float m_maxSpeed = 100f;
 
     /// <summary>
-    /// 
+    /// Event raised when the ship's transform changes.
     /// </summary>
     [Serializable]
     public class TransformChangeEvent : UnityEvent<float> { }
 
     /// <summary>
-    /// 
+    /// Event raised when the ship's rotation changes.
     /// </summary>
     [SerializeField]
     [Tooltip("Events to trigger when the ships rotational value changes")]
     protected TransformChangeEvent m_OnRotationChangeEvent = new TransformChangeEvent();
 
     /// <summary>
-    /// 
+    /// Event raised when the ship's linear movement changes.
     /// </summary>
     [SerializeField]
     [Tooltip("Events to trigger when the linear movement value changes")]
     public TransformChangeEvent m_OnVelocityChangeEvent = new TransformChangeEvent();
 
+    /// <summary>
+    /// Gets the event raised when the ship's rotation changes.
+    /// </summary>
     public TransformChangeEvent OnRotationChangeEvent => m_OnRotationChangeEvent;
+
+    /// <summary>
+    /// Gets the event raised when the ship's linear movement changes.
+    /// </summary>
     public TransformChangeEvent OnVelocityChangeEvent => m_OnVelocityChangeEvent;
 
+    /// <summary>
+    /// Event raised when ship joystick input is updated.
+    /// </summary>
     public UnityEvent<ShipJoystickInput> OnUpdateInputs = new UnityEvent<ShipJoystickInput>();
 
     #endregion
@@ -146,7 +156,7 @@ public class BC_ShipMovementController : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies strafing movement to the ship based on the X component of the provided vector.
+    /// Applies up, down, left, and right strafing movement to the ship based on the X component of the provided vector and an elvation speed.
     /// Raises the `m_OnVelocityChangeEvent` event with the applied strafe value.
     /// </summary>
     /// <param name="strafeVector">The direction and strength of the desired strafe (X component determines strafe).</param>
@@ -155,6 +165,13 @@ public class BC_ShipMovementController : MonoBehaviour
         float appliedStrafeValue = strafeVector.x;
         m_shipRigidbody.AddRelativeForce(strafeVector, ForceMode.Acceleration);
         m_OnVelocityChangeEvent.Invoke(appliedStrafeValue);
+    }
+
+    internal void ApplyElavation(float elavationSpeed)
+    {
+        Vector3 elavation = transform.up * elavationSpeed;
+        m_shipRigidbody.AddRelativeForce(elavation, ForceMode.Acceleration);
+        m_OnVelocityChangeEvent.Invoke(elavationSpeed);
     }
 
     #endregion

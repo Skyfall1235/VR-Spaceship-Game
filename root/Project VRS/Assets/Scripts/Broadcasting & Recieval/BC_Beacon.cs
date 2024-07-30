@@ -126,7 +126,7 @@ public partial class BC_Beacon : MonoBehaviour, IBeacon
     /// </summary>
     protected virtual void OnBroadcastUpdate()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     /// <summary>

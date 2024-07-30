@@ -19,8 +19,7 @@ public class IM_ShipMovementController : BC_ShipMovementController
 
     protected Vector3 m_savedYawAxis;
     protected float m_savedYawSpeed;
-
-    protected bool m_toggleYawForStrafe;
+    protected float m_savedElavationSpeed;
 
     protected float m_brakingForce;
 
@@ -42,6 +41,7 @@ public class IM_ShipMovementController : BC_ShipMovementController
 
         //apply strafe movement
         ApplyStrafe(m_savedStrafeVector);
+        ApplyElavation(m_savedElavationSpeed);
 
         //yaw rotations
         ApplyRotationOnAxis(m_savedYawAxis, m_savedYawSpeed);
@@ -121,6 +121,18 @@ public class IM_ShipMovementController : BC_ShipMovementController
 
         //save the values
         m_savedStrafeVector = strafeVector;
+    }
+
+    protected void SaveNewElevationVector(float rawYawInput)
+    {
+        //remap the joystick value
+        float appliedYawValue = ExtensionMethods.Remap(rawYawInput,                // Value to modify  
+                                      m_lowerJoystickInputBounds, // Lower original bound
+                                      m_upperJoystickInputBounds, // Upper original bound
+                                      -m_maxStrafeSpeed,          // Lower new bound
+                                      m_maxStrafeSpeed);          // Upper new bound
+        //save the values
+        m_savedElavationSpeed = appliedYawValue;
     }
 
     protected Vector3 ReturnTorqueVector(float input, Vector3 AxiOfRotation)

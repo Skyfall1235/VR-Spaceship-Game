@@ -168,8 +168,8 @@ public class NewXRJoystick : XRBaseInteractable
         float joystickTwist = GetYawTwistFloat();
 
         //set deadzone by allowing the value to be updated if its value would exceed the deadzone threshhold
-        m_joystickTwistValue = joystickTwist > m_deadZoneYawAngle ? joystickTwist : 0.0f;
         m_joystickValue = joystickVector.AbsOfVector2AsFloat() > (m_deadZoneJoystickValue * 2) ? joystickVector : Vector2.zero;
+        m_joystickTwistValue = MathF.Abs(joystickTwist) > (m_deadZoneYawAngle / 180) ? joystickTwist : 0.0f;
         SetValues();
 
     //DEPRICATED
@@ -268,7 +268,7 @@ public class NewXRJoystick : XRBaseInteractable
     private float GetYawTwistFloat()
     {
         // Calculate the current yaw angle relative to the initial rotation in local space
-        float currentYaw = Mathf.DeltaAngle(m_initialRotation.eulerAngles.y, transform.localRotation.eulerAngles.y);
+        float currentYaw = Mathf.DeltaAngle(m_initialRotation.eulerAngles.y, m_handle.localRotation.eulerAngles.y);
 
         // Normalize the yaw twist value to be between -1 and 1
         float normalizedYawTwist = Mathf.Clamp(currentYaw / m_maxYawAngle, -1f, 1f);
@@ -353,7 +353,7 @@ public class NewXRJoystick : XRBaseInteractable
     void OnValidate()
     {
         m_deadZoneJoystickValue = Mathf.Min(m_deadZoneJoystickValue, m_maxJoystickAngle * MaxDeadZonePercent);
-        m_deadZoneYawAngle = Mathf.Min(m_maxYawAngle, m_maxYawAngle * MaxDeadZonePercent);
+        //m_deadZoneYawAngle = Mathf.Min(m_maxYawAngle, m_maxYawAngle * MaxDeadZonePercent);
     }
 
     /// <summary>

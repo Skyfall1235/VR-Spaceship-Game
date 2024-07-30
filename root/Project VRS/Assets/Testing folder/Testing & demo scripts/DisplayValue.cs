@@ -21,9 +21,9 @@ public class DisplayValue : MonoBehaviour
     void Update()
     {
         displayText.text = $"Right Joystick - {rightjoystick.value}\n" +
-                           $"Right Twist - {rightjoystick.value}\n" +
+                           $"Right Twist - {rightjoystick.TwistValue}\n" +
                            $"Left Joystick - {leftjoystick.value}\n" +
-                           $"Left Twist - {leftjoystick.value}\n" +
+                           $"Left Twist - {leftjoystick.TwistValue}\n" +
                            $"Velocity - {rb.velocity.magnitude}m/s";
     }
 }

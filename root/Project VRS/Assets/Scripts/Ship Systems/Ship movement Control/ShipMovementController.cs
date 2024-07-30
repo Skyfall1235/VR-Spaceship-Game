@@ -41,7 +41,16 @@ public class ShipMovementController : IM_ShipMovementController
         ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
         OnUpdateInputs.Invoke(currentInput);
         //save new strafe takes the raw yaw value and maps it, then saves it
-        SaveNewStrafeVector(currentInput.SecondaryYawValue);
+        SaveNewStrafeVector(currentInput.SecondaryFlightStick.x);
+    }
+
+    public void CallUpdateForElevation()
+    {
+        //get the current inputs
+        ShipJoystickInput currentInput = GrabCurrentShipControlInputs();
+        OnUpdateInputs.Invoke(currentInput);
+        //save new strafe takes the raw yaw value and maps it, then saves it
+        SaveNewElevationVector(currentInput.SecondaryYawValue);
     }
 
     //THIS IS TEMP

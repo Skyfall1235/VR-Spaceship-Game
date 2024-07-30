@@ -34,8 +34,13 @@ public class BroadcasterData
     }
     public class AntennaData : BeaconData
     {
+
+
+
+
         public AntennaData(SO_FactionData factionData, Vector3 broadcastPosition) : base(factionData, broadcastPosition)
         {
+
         }
     }
 
