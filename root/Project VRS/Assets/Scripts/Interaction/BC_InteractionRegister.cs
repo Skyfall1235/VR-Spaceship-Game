@@ -29,13 +29,15 @@ public class BC_InteractionRegister : MonoBehaviour
         {
             if(value != null) 
             {
-                m_registeredInteractor = value;
+                Debug.Log("set true");
                 OnInteractorRegister.Invoke(true);
+                m_registeredInteractor = value;
             }
             else
             {
-                m_registeredInteractor = null;
+                Debug.Log("set false");
                 OnInteractorRegister.Invoke(false);
+                m_registeredInteractor = null;
             }
         }
     }
@@ -67,7 +69,7 @@ public class BC_InteractionRegister : MonoBehaviour
     /// <param name="args">The arguments associated with the interaction event.</param>
     protected void RegisterInteractor(BaseInteractionEventArgs args)
     {
-        m_registeredInteractor = args.interactorObject as XRBaseInteractor;
+        RegisteredInteractor = args.interactorObject as XRBaseInteractor;
     }
 
     /// <summary>
@@ -75,7 +77,7 @@ public class BC_InteractionRegister : MonoBehaviour
     /// </summary>
     protected void DeRegisterInteractor(BaseInteractionEventArgs args)
     {
-        m_registeredInteractor = null;
+        RegisteredInteractor = null;
     }
 
     /// <summary>

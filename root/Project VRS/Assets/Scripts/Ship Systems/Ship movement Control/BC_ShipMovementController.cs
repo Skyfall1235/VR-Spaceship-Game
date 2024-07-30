@@ -25,7 +25,7 @@ public class BC_ShipMovementController : MonoBehaviour
     /// <summary>
     /// maximum acceleration force that the ship can use
     /// </summary>
-    [Range(0f, 100f)]
+    [Range(0f, 1000f)]
     [SerializeField]
     [Tooltip("Maximum acceleration speed the ship can reach (0-100, higher values mean faster acceleration).")]
     protected float m_maxAcceleration = 10f;
@@ -33,7 +33,7 @@ public class BC_ShipMovementController : MonoBehaviour
     /// <summary>
     /// maximum decceleration force that the ship can use
     /// </summary>
-    [Range(-100f, 0f)]
+    [Range(-1000f, 0f)]
     [SerializeField]
     [Tooltip("Maximum deceleration speed the ship can reach (-100-0, higher negative values mean faster deceleration).")]
     protected float m_maxDeceleration = -10f;
