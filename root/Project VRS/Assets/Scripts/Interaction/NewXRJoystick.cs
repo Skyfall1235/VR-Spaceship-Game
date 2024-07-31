@@ -30,6 +30,17 @@ public class NewXRJoystick : XRBaseInteractable
     [SerializeField] private float m_deadZoneYawAngle;
     [SerializeField] private CustomLogger m_logger;
 
+
+    public void SetStickDeadzone(float val)
+    {
+        m_deadZoneJoystickValue = val;
+    }
+    public void SetTwistDeadzone(float val) 
+    { 
+        m_deadZoneYawAngle = val;
+    }
+
+
     #region publics
 
     // Read-only property for joystickVector
