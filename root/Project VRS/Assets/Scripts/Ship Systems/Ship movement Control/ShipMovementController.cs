@@ -99,5 +99,6 @@ public class ShipMovementController : IM_ShipMovementController
         Debug.LogWarning("SETTING THE PITCH MAX TURN RATE. REMEMBER TO REMOVE FOR BUILD");
         m_maxRateOfPitch = value;
     }
+
 #endif
 }
