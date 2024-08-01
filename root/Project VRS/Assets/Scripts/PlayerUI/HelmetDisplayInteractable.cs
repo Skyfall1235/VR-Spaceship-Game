@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
-
-
 
 /// <summary>
 /// this class handles the interactable section, as well as the event driven behavior to and from it. it interfaces with the <see cref="PlayerHUDReciever"/> to ensure huds are displayed accurately

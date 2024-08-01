@@ -253,6 +253,8 @@ public class FOVSensor : MonoBehaviour
     }
 
 }
+
+#if UNITY_EDITOR
 [CustomEditor(typeof(FOVSensor))]
 public class AISensorInspector : Editor
 {
@@ -300,3 +302,4 @@ public class AISensorInspector : Editor
         scriptToUpdate.CreateShape();
     }
 }
+#endif

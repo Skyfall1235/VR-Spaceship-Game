@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class ShipMovementController : IM_ShipMovementController
 {
     #region Variables
