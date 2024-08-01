@@ -1,33 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ForwardHUDDisplayer : MonoBehaviour
 {
     [SerializeField]
-    private Transform targetObject; //the HUD / THE HMD
+    private Transform m_targetObject; //the HUD / THE HMD
 
     [SerializeField]
-    private TransformType transformSelection;
+    private TransformType m_transformSelection;
 
     [Range(0f, 90f)]
     [SerializeField]
-    private float maximumOffset = 20f; // The maximum allowed offset in degrees
+    private float m_maximumOffset = 20f; // The maximum allowed offset in degrees
 
-    public UnityEvent OnPointingAtTarget = new UnityEvent();
+    [SerializeField]
+    bool m_isLookingAtTarget;
 
-    
-    
+    private void SetisLookingAtTarget(bool value)
+    {
+        if (value != m_isLookingAtTarget)
+        {
+            m_isLookingAtTarget = value;
+            OnView.Invoke(value);
+        }
+    }
+
+    public OnLookEvent OnView = new OnLookEvent();
+
+    public class OnLookEvent : UnityEvent<bool> { }
+
+    private void FixedUpdate()
+    {
+        SetisLookingAtTarget(IsPointingAtTarget());
+    }
 
     private bool IsPointingAtTarget()
     {
         // Calculate the vector from this object to the target object
-        Vector3 targetDirection = targetObject.position - transform.position;
+        Vector3 targetDirection = m_targetObject.position - transform.position;
         targetDirection.Normalize();
 
         // Calculate the local transform direction based on the selected TransformType
-        Vector3 localTransformDirection = PerformTransform(transformSelection);
+        Vector3 localTransformDirection = PerformTransform(m_transformSelection);
 
         // Transform the local transform direction into the global direction
         Vector3 globalDirection = transform.TransformDirection(localTransformDirection);
@@ -39,7 +53,7 @@ public class ForwardHUDDisplayer : MonoBehaviour
         Debug.DrawRay(transform.position, targetDirection, Color.green);
 
         // Check if the angle is within the allowed maximum offset
-        if (angle <= maximumOffset)
+        if (angle <= m_maximumOffset)
         {
             return true;
         }
@@ -76,7 +90,6 @@ public class ForwardHUDDisplayer : MonoBehaviour
                 return Vector3.zero;
         }
     }
-
 
     private enum TransformType
     {
