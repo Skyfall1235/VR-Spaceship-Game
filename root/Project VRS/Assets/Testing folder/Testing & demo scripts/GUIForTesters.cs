@@ -27,13 +27,13 @@ public class GUIForTesters : MonoBehaviour
     }
     public void SetStickDeadzone()
     {
-        texts[4].text = $"Stick Deadzones: " + sliders[4].value;
+        texts[3].text = $"Stick Deadzones: " + sliders[3].value;
         lJS.SetStickDeadzone(sliders[3].value);
         RJS.SetStickDeadzone(sliders[3].value);
     }
     public void SetTwistDeadzone()
     {
-        texts[5].text = $"Twist deadzones: " + sliders[5].value;
+        texts[4].text = $"Twist deadzones: " + sliders[4].value;
         lJS.SetTwistDeadzone(sliders[4].value);
         RJS.SetTwistDeadzone(sliders[4].value);
     }

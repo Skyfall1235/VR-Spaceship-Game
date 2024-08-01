@@ -33,7 +33,7 @@ public class HullHealthManager : Health
         //add all the interanl modules to the health data
         foreach (BC_CoreModule module in allModules)
         {
-            SubscribeToModule(module);
+            //SubscribeToModule(module);
         }
     }
 
