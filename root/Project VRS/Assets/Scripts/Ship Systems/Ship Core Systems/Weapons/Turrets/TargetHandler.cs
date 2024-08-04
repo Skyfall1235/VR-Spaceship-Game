@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using Unity.Jobs;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using Unity.Burst;
 using Unity.Mathematics;
 
-//FOR THIS SCRIPT TO WORK, WE HAVE T START USING TAGS OR LAYERS.
-//LAYERS WILL BE USES FOR PHYSICS AND TAGS WILL BE USED TO DIFFERENCIATE OBJECTS IN SCENE
-
+/// <summary>
+/// Manages target acquisition and prioritization for an AI or player character.
+/// Utilizes Unity Jobs for multithreaded target scoring and sorting.
+/// </summary>
 [RequireComponent(typeof(Collider))]
 public class TargetHandler : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class TargetHandler : MonoBehaviour
             }
             else
             {
-                List<TargetData> currentTargetData = new List<TargetData>(RegisteredTargetsIncludingOverride);
+                List<TargetData> currentTargetData = new List<TargetData>(RegisteredTargetsExcludingOverride);
                 if(currentTargetData.Contains(targetOverride))
                 {
                     currentTargetData.Remove(targetOverride);
@@ -42,7 +42,6 @@ public class TargetHandler : MonoBehaviour
         }
     }
     public TargetData targetOverride;
-    public UnityEvent<TargetData> OverridePriorityTarget;
 
     JobHandle m_jobHandle;
     NativeList<float> m_scoreResults;

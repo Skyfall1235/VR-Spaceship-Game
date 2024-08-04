@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Controls the rotation of a turret towards a target position.
+/// Manages turret parts and calculates desired rotations based on gimbal limits.
+/// </summary>
 public class TurretRotation : MonoBehaviour
 {
     private SO_TurretData m_turretData;
@@ -21,6 +25,12 @@ public class TurretRotation : MonoBehaviour
     [SerializeField]
     protected GameObject m_barrel;
 
+    /// <summary>
+    /// Rotates the turret towards the specified target position.
+    /// Calculates the desired rotation for both X and Y axes, considering gimbal limits.
+    /// Rotates the turret towards the calculated rotation at a specified speed.
+    /// </summary>
+    /// <param name="targetPosition">The target position to aim at.</param>
     public void TurnToLeadPosition(Vector3 targetPosition)
     {
         Vector3 desiredDirection = (targetPosition - m_barrel.transform.position).normalized;
@@ -39,6 +49,12 @@ public class TurretRotation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the desired turret rotation is within the gimbal limits.
+    /// Calculates the desired rotation and compares it to the maximum allowed angles.
+    /// </summary>
+    /// <param name="targetPosition">The target position to check against.</param>
+    /// <returns>True if the desired rotation is within limits, false otherwise.</returns>
     public bool CheckInGimbalLimits(Vector3 targetPosition)
     {
         Vector3 desiredDirection = (targetPosition - m_barrel.transform.position).normalized;

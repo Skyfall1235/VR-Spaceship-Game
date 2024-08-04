@@ -6,6 +6,11 @@ using Unity.Collections;
 using Unity.Mathematics;
 using System.Collections;
 
+/// <summary>
+/// Manages targeting for the turret system.
+/// Calculates lead positions for projectiles to hit moving targets.
+/// Utilizes coroutines and Unity Jobs for efficient computation.
+/// </summary>
 public class TargetingComponent : MonoBehaviour
 {
     //so, what external things ddoes this script need?
@@ -26,6 +31,8 @@ public class TargetingComponent : MonoBehaviour
         }
     }
 
+    internal bool m_hasTarget;
+
     [SerializeField]
     [Tooltip("The calculated lead position for targeting enemies in motion. Defaults to Vector3.zero.")]
     private Vector3 m_leadPosition = Vector3.zero;
@@ -37,9 +44,6 @@ public class TargetingComponent : MonoBehaviour
         }
     } 
 
-    /// <summary>
-    /// 
-    /// </summary>
     private SO_WeaponData m_weaponData;
     public SO_WeaponData WeaponData
     {
@@ -49,9 +53,6 @@ public class TargetingComponent : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     private GameObject m_projectileInstantiationPoint;
     public GameObject ProjectileInstantiationPoint
     {
@@ -66,7 +67,7 @@ public class TargetingComponent : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_currentTargetData.IsEmpty)
+        if (m_currentTargetData.IsEmpty || !m_hasTarget)
         {
             return;
         }
