@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the overall behavior of a self-firing turret, including target acquisition, rotation, and firing.
+/// Requires TurretRotation, TargetingComponent, and TargetHandler components.
+/// </summary>
 [RequireComponent(typeof(TurretRotation))]
 [RequireComponent(typeof(TargetingComponent))]
 public class TurretCoordinator : MonoBehaviour
 {
     [Header("Required References")]
-    [SerializeField]
-    private BC_Weapon m_turretWeapon;
+    [SerializeField] private BC_Weapon m_turretWeapon; // the weapon for this self firing turret
+    [SerializeField] private SO_TurretData m_turretData; //the turrets data fro how fast it should rotate and fire and do other things
+    [SerializeField] private TurretRotation m_turretRotationController; //the rotation component
+    [SerializeField] private TargetingComponent m_turretTargetingComponent; //the targeting component
+    [SerializeField] private TargetHandler targetHandler; //the component in charge of computing target priority
+    public bool shouldRotate;
+    [SerializeField] float m_maxAngleDeviationFromTarget = 10f;
+    internal bool m_isFiring;
 
-    [SerializeField] 
-    private SO_TurretData m_turretData;
+    CustomLogger m_logger;
 
-    private TurretRotation m_turretRotationController;
-
-    private TargetingComponent m_turretTargetingComponent;
-
-    public TargetData? m_priorityTarget;
-
-    bool shouldRotate;
-
-    #region Monobehavior Methods & their dependencies
+    #region Monobehavior Methods
 
     private void Awake()
     {
@@ -35,12 +36,97 @@ public class TurretCoordinator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(shouldRotate) 
+        if (!shouldRotate)
         {
-            
+            return;
         }
 
+        //if there are no targets
+        if(targetHandler.RegisteredTargetsIncludingOverride.Count == 0)
+        {
+            //send the turret back to forward
+            m_turretRotationController.TurnToLeadPosition(transform.forward);
+            return;
+        }
 
+        //we use a bool to cut things short if they fail rather than go through the entire sequence
+        if(!DetermineTurretActivity())
+        {
+            return;
+        }
+        if(!TurretFireControl())
+        {
+            return;
+        }
+    }
+
+    #endregion
+
+    #region Dependencies
+
+    private bool DetermineTurretActivity()
+    {
+        TargetData? dataToUse;
+
+        //check the override first
+        if (targetHandler.targetOverride.IsEmpty)
+        {
+            //check if is gimballed
+            if (m_turretData.IsGimballed)
+            {
+                //send the turret back to forward
+                m_turretRotationController.TurnToLeadPosition(transform.forward);
+                m_turretTargetingComponent.m_hasTarget = false;
+                return false;
+            }
+
+            //if not gimballed, we just take the highest priority, check,
+            //and go down the list til we find one thats with in gimbal limits
+            dataToUse = ChooseBestTargetIfAvailable(targetHandler.RegisteredTargetsIncludingOverride);
+        }
+        else
+        {
+            dataToUse = targetHandler.targetOverride;
+        }
+
+        //detemine target data to use
+        //found object is our chosen target
+        m_turretTargetingComponent.CurrentTargetData = (TargetData)dataToUse;
+        m_turretTargetingComponent.m_hasTarget = true;
+        return true;
+    }
+
+    private bool TurretFireControl()
+    {
+        //begin caluclation for lead
+        Vector3 targetPosition = m_turretTargetingComponent.LeadPositionToTarget;
+
+        if (!m_turretRotationController.CheckInGimbalLimits(targetPosition))
+        {
+            //send the turret back to forward
+            m_turretRotationController.TurnToLeadPosition(transform.forward);
+            m_turretTargetingComponent.m_hasTarget = false;
+            return false;
+        }
+
+        //check the angle between the direction the gun is facing and the target lead prediction
+        float degreesBetweenAngles = Quaternion.Angle(Quaternion.Euler(m_turretWeapon.InstantiationPoint.transform.forward), Quaternion.Euler(targetPosition));
+
+        //if shallow, check if the firing bool is true,
+        //if not start a coroutine with the bullet reload time
+        if (degreesBetweenAngles < m_maxAngleDeviationFromTarget)
+        {
+            if (m_isFiring)
+            {
+                StartCoroutine(ControlFiringTiming());
+            }
+        }
+        //if angle is steep, stop firing, dont end corotuine
+        else
+        {
+            m_turretWeapon.UpdateFiringState(false);
+        }
+        return true;
     }
 
     private void LinkRequiredComponents()
@@ -58,7 +144,15 @@ public class TurretCoordinator : MonoBehaviour
         //check for instantiation point as its crucial for calculations and movement
         if (m_turretWeapon == null)
         {
-            Debug.LogError($"TurretCoordinator {this.gameObject.name} missing turret Weapon reference, stopping functionality");
+            m_logger.Log($"TurretCoordinator {this.gameObject.name} missing turret Weapon reference, stopping functionality", CustomLogger.LogLevel.Error, CustomLogger.LogCategory.Default, this);
+            this.enabled = false;
+            return;
+        }
+
+        //check for turret data to ensure the turret operates
+        if (m_turretData == null)
+        {
+            m_logger.Log($"TurretCoordinator {this.gameObject.name} missing turret data, stopping functionality", CustomLogger.LogLevel.Error, CustomLogger.LogCategory.Default, this);
             this.enabled = false;
             return;
         }
@@ -71,34 +165,23 @@ public class TurretCoordinator : MonoBehaviour
         m_turretTargetingComponent.ProjectileInstantiationPoint = m_turretWeapon.InstantiationPoint;
     }
 
-
-
-    //see if the rotation is within our gimbal limits
     private bool CheckIfTargetIsWithinGimbalLimits(TargetData data)
     {
-        return false;
+        return m_turretRotationController.CheckInGimbalLimits(data.TargetGameObject.transform.position);
     }
 
-    /// <summary>
-    /// Chooses the best target from the provided list if one is available within gimbal limits.
-    /// </summary>
-    /// <param name="sortedPriorityTargets">A list of target data sorted by priority (highest first).</param>
-    /// <param name="bestTarget">The chosen target data (output).</param>
-    /// <returns>True if a target was found within gimbal limits, false otherwise.</returns>
-    private bool ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets, out TargetData bestTarget)
+    private TargetData? ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets)
     {
         if (sortedPriorityTargets == null)
         {
             // No targets provided, set bestTarget to default and return false
-            bestTarget = new TargetData();
-            return false;
+            return null;
         }
 
         // Check pre-selected target first (if any)
-        if (m_priorityTarget != null)
+        if (!targetHandler.targetOverride.IsEmpty)
         {
-            bestTarget = (TargetData)m_priorityTarget;
-            return true;
+            return targetHandler.targetOverride;
         }
 
         // Loop through sorted targets
@@ -107,25 +190,22 @@ public class TurretCoordinator : MonoBehaviour
             // Check if target is within gimbal limits
             if (CheckIfTargetIsWithinGimbalLimits(currentTarget))
             {
-                bestTarget = currentTarget;
-                return true;
+                return currentTarget;
             }
         }
 
-        // No target within gimbal limits, set bestTarget to default and return false
-        bestTarget = new TargetData();
-        return false;
+        // No target within gimbal limits, return false
+        return null;
     }
 
-
-    //set the rotation for the target if it is within the gimbal limits and we have a target, and also how often should we call it??
-
-    private void RotateToBestTargetIfApplicable(TargetData bestTarget)
+    private IEnumerator ControlFiringTiming()
     {
-
+        m_turretWeapon.UpdateFiringState(true);
+        yield return new WaitForSeconds(m_turretWeapon.m_minimumTimeBetweenFiring + 0.05f);
+        m_turretWeapon.UpdateFiringState(false);
     }
 
     #endregion
 
-    
+
 }

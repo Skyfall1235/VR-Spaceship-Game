@@ -1,8 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages weapons for a player character.
+/// Handles weapon registration, deregistration, selection, and firing.
+/// </summary>
 public class WeaponManagerModule : BC_CoreModule
 {
     [field:SerializeField] public List<WeaponSlot> WeaponSlots { get; private set; } = new List<WeaponSlot>();
