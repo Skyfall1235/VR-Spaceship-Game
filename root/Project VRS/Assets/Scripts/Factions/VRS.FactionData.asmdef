@@ -1,11 +1,8 @@
 {
-    "name": "vrs.PlayerUI",
+    "name": "VRS.FactionData",
     "rootNamespace": "",
     "references": [
-        "Unity.XR.Interaction.Toolkit",
-        "VRS.Interaction",
-        "Unity.TextMeshPro",
-        "VRS.Broadcasting"
+        "GUID:9b7bd7a944f1e1b4cb0ed961def17e41"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

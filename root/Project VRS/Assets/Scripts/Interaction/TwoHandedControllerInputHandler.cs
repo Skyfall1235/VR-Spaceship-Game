@@ -1,8 +1,4 @@
-using log4net.Repository.Hierarchy;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class TwoHandedControllerInputHandler : MonoBehaviour, IinteractorRegister

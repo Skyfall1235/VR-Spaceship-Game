@@ -1,11 +1,9 @@
 {
-    "name": "vrs.PlayerUI",
+    "name": "VRS.Broadcasting",
     "rootNamespace": "",
     "references": [
-        "Unity.XR.Interaction.Toolkit",
-        "VRS.Interaction",
-        "Unity.TextMeshPro",
-        "VRS.Broadcasting"
+        "VRS.FactionData",
+        "vrs.CustomDebugger"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

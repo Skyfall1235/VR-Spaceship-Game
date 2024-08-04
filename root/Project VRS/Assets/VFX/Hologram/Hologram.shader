@@ -32,7 +32,7 @@ Shader "Custom/Hologram"
         Tags {
                 "Queue" = "Transparent"
                 "RenderType" = "Transparent"
-                "RenderPipeline" = "UniversalRenderPipeline"
+                "RenderPipeline" = "UniversalPipeline"
              }
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha

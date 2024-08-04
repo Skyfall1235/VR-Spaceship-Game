@@ -96,13 +96,13 @@ public class InterStationMovement : MonoBehaviour
         else if (CheckIfSubNode(SelectedNode))
         {
             //if its not in the same node, we move out, then move to the new node primary index, and then move to the new sub index
-            IEnumerator CrossNodeMovement()
-            {
-                //mpve to the primary Nodes poisition
-                //move to the new primary nodes position
-                //move to the new subnode position
-                yield return null;
-            }
+            //IEnumerator CrossNodeMovement()
+            //{
+            //    //mpve to the primary Nodes poisition
+            //    //move to the new primary nodes position
+            //    //move to the new subnode position
+            //    yield return null;
+            //}
         }
 
         yield return null;

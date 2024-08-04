@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Planet))]
 public class PlanetEditor : Editor
 {
@@ -32,7 +33,7 @@ public class PlanetEditor : Editor
     //using a cached editor if available, fold out and display the settings editor
     void DrawSettingsEditor(Object Settings, System.Action onSettingsUpdated, ref bool foldout, ref Editor editor)
     {
-        if(Settings != null)
+        if (Settings != null)
         {
             //create the foldout
             foldout = EditorGUILayout.InspectorTitlebar(foldout, Settings);
@@ -58,3 +59,4 @@ public class PlanetEditor : Editor
         }
     }
 }
+#endif

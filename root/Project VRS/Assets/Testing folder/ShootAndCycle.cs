@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,8 +27,6 @@ public class ShootAndCycle : MonoBehaviour
         }
         InputAction action  = handler.PrimaryValuesProperties.PrimaryButtonPressProperty.Value.action;
         InputAction trigger = handler.PrimaryValuesProperties.TriggerPressProperty.Value.action;
-        Debug.Log(action.name);
-        Debug.Log(action.ReadValue<float>());
 
         if (action.WasPressedThisFrame())
         {

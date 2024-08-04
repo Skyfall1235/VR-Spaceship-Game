@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 //im doing this entire baking process because i want a reason to learn how to use the editor stuff.
 // yes i am still going to go into thins with a performance mindset.
 [CustomEditor(typeof(InterStationMovement))]
@@ -34,3 +35,4 @@ public class ED_NodeBake : Editor
         }
     }
 }
+#endif

@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
-
-
 
 /// <summary>
 /// this class handles the interactable section, as well as the event driven behavior to and from it. it interfaces with the <see cref="PlayerHUDReciever"/> to ensure huds are displayed accurately
@@ -21,15 +18,13 @@ public class HelmetDisplayInteractable : BC_InteractionRegister
 
     private List<IHudView> m_hudViews = new List<IHudView>();
 
+    private IHudView m_currentView;
 
-    private void OnValidate()
+    private void FixedUpdate()
     {
-        foreach(var hudView in m_hudViews)
+        if (m_currentView != null)
         {
-            if ((HelmetView)hudView is HelmetView)
-            {
-                
-            }
+            m_currentView.OnUpdate();
         }
     }
 }
@@ -57,7 +52,6 @@ public class HelmetView : IHudView
     GameObject m_container;
 
     public HelmetDisplayInteractable m_interactable;
-
 
     public string ViewName { get => m_viewName; }
     public GameObject Container { get => m_container; }
@@ -90,23 +84,35 @@ public class BasicView : HelmetView
 
 public class ScanningView : HelmetView
 {
+    [SerializeField]
+    BC_Scanner scannerInstance = new BC_Scanner();
     //tracking for any object and implementation for returning it
-
-    internal GameObject FireRaycastAtLookDirection(Transform startingLocation)
+    public GameObject CurrentlyLockedItem = null;
+    Coroutine ScanRoutine;
+    public void DisengageLockedItem()
     {
-        //shoot ray with a set distance looking for certain
+        CurrentlyLockedItem = null;
+        ScanRoutine = null;
+    }
 
+    public override void BeginView() 
+    { 
+        base.BeginView();
+    }
+    public override void OnUpdate()
+    {
+        //wait for command to begin searcxhing
 
+        //search
 
-        RaycastHit hit;
-        Ray ray = new Ray(); 
+        //report found object and end search
 
-        int layer_mask = LayerMask.GetMask("Floor");
-        if (Physics.Raycast(ray, out hit, m_interactable.ViewDistance, layer_mask))
-        {
+        //wait for next search
+    }
 
-        }
-        return null;
+    public override void EndView() 
+    {
+        base.EndView();
     }
 
     //store currently locked item
@@ -131,7 +137,7 @@ public class CombatView : ScanningView
     //the icons for the input
 }
 
-public class MaterialScanningView : HelmetView
+public class MaterialScanningView : ScanningView
 {
     //basic combat view has the whole tracking thing built into it
 }
