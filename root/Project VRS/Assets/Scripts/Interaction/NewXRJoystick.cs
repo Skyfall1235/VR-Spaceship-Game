@@ -178,9 +178,10 @@ public class NewXRJoystick : XRBaseInteractable
         Vector2 joystickVector = GetJoyStickVector();
         float joystickTwist = GetYawTwistFloat();
 
+        m_joystickTwistValue = MathF.Abs(joystickTwist) > (m_deadZoneYawAngle / 180) ? joystickTwist : 0.0f;
         //set deadzone by allowing the value to be updated if its value would exceed the deadzone threshhold
         m_joystickValue = joystickVector.AbsOfVector2AsFloat() > (m_deadZoneJoystickValue * 2) ? joystickVector : Vector2.zero;
-        m_joystickTwistValue = MathF.Abs(joystickTwist) > (m_deadZoneYawAngle / 180) ? joystickTwist : 0.0f;
+        
 
         //set the values
         SetValues();

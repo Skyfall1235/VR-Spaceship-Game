@@ -25,8 +25,10 @@ public class ForwardHUDDisplayer : MonoBehaviour
         }
     }
 
+    [SerializeField]
     public OnLookEvent OnView = new OnLookEvent();
 
+    [System.Serializable]
     public class OnLookEvent : UnityEvent<bool> { }
 
     private void FixedUpdate()
