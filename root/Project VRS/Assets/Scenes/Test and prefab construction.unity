@@ -7104,6 +7104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: X Axis Rotator
       objectReference: {fileID: 0}
+    - target: {fileID: 1409045739913352495, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2008819655636149052, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_xAxisRotator
       value: 
@@ -7166,6 +7170,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4491000681847863527, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4575073633732335148, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5497593087302435098, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}

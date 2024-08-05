@@ -43,13 +43,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083125980364554340}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f93e7f0401ae364094bebab0eb01b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_turretWeapon: {fileID: 4294037586097658261}
   m_turretData: {fileID: 11400000, guid: 80f363b9e83b46345aec1fe9fc39a724, type: 2}
+  m_turretRotationController: {fileID: 8807881547368397111}
+  m_turretTargetingComponent: {fileID: 6538664286930203418}
+  targetHandler: {fileID: 0}
+  shouldRotate: 0
+  m_maxAngleDeviationFromTarget: 10
 --- !u!114 &6538664286930203418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b2910e9616a634093c4c8010cb5d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_xAxisRotator: {fileID: 2162137905935564094}
-  m_yAxisRotator: {fileID: 8237662225900675208}
+  m_xAxisRotator: {fileID: 8237662225900675208}
+  m_yAxisRotator: {fileID: 2162137905935564094}
   m_barrel: {fileID: 6203949945885574002}
 --- !u!1 &2162137905935564094
 GameObject:
@@ -96,7 +101,7 @@ GameObject:
   - component: {fileID: 4280947718809187502}
   - component: {fileID: 3957644632616515406}
   m_Layer: 0
-  m_Name: X Axis Rotator
+  m_Name: Y Axis Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,8 +454,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8f87ee24848ac43a8ecf45edee10a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_currentMag: 0
+  <WeaponBase>k__BackingField: {fileID: 0}
   m_weaponData: {fileID: 11400000, guid: b77bfc5b9cdeded419cdf7018e168207, type: 2}
   m_instantiationPoint: {fileID: 3115579243751891333}
+  CurrentWeaponState: 2
+  OnChangeWeaponState:
+    m_PersistentCalls:
+      m_Calls: []
+  OnWeaponAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8237662225900675208
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +478,7 @@ GameObject:
   - component: {fileID: 5775410788062646703}
   - component: {fileID: 4245799017164323003}
   m_Layer: 0
-  m_Name: Y Axis Rotator
+  m_Name: X Axis Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
