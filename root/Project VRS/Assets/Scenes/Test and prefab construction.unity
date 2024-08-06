@@ -7100,6 +7100,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hud weapon text
       objectReference: {fileID: 0}
+    - target: {fileID: 1011164506913634319, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388491543384060613, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1407706295257610883, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_Name
       value: X Axis Rotator
