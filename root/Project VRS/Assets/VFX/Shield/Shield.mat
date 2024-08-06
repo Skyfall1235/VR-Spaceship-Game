@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: Shield
   m_Shader: {fileID: -6465566751694194690, guid: 73f68f3a7d5adc04286ea50e958551ed, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -90,7 +90,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Depth_Offset: 0
+    - _Depth_Offset: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DistortionAmount: 0.3
@@ -102,6 +102,9 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Hit_Displacement_Strength: 0
+    - _Hit_Hardness: 0
+    - _Hit_Radius: 0.91
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -116,17 +119,18 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _Zoom: 0.1
+    - _Zoom: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.9807761, g: 1.3275638, b: 2.1886792, a: 1}
     - _Distortion_Falloff: {r: 0.6, g: 1.8, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Hit_Position: {r: 0, g: 0, b: 0, a: 0}
     - _Offset: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Sway_Amplitude: {r: 0.27, g: 0.27, b: 0.27, a: 0}
     - _Sway_Difference: {r: 1, g: 1, b: 1, a: 0}
-    - _Sway_Distance: {r: 0, g: 0, b: 0, a: 0}
+    - _Sway_Distance: {r: 0.01, g: 0.01, b: 0.01, a: 0}
     - _Sway_Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Sway_Period: {r: 0.11, g: 0.11, b: 0.11, a: 0}
     - _Swirl_Tiling: {r: 5, g: 5, b: 0, a: 0}
