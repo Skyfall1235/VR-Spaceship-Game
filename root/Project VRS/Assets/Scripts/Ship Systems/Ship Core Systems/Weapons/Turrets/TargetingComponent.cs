@@ -31,8 +31,6 @@ public class TargetingComponent : MonoBehaviour
         }
     }
 
-    internal bool m_hasTarget;
-
     [SerializeField]
     [Tooltip("The calculated lead position for targeting enemies in motion. Defaults to Vector3.zero.")]
     private Vector3 m_leadPosition = Vector3.zero;
@@ -64,10 +62,14 @@ public class TargetingComponent : MonoBehaviour
 
 
     #region Monobehavior Methods
+    private void Awake()
+    {
+        targetLeadDataStorage = new NativeArray<float3>(1, Allocator.Persistent);
+    }
 
     private void FixedUpdate()
     {
-        if (m_currentTargetData.IsEmpty || !m_hasTarget)
+        if (m_currentTargetData.IsEmpty)
         {
             return;
         }
@@ -115,7 +117,7 @@ public class TargetingComponent : MonoBehaviour
 
     private Coroutine TargetLeadCoroutine;
     private JobHandle ComputeTargetLeadJob;
-    private NativeArray<float3> targetLeadDataStorage;
+    private NativeArray<float3> targetLeadDataStorage = new NativeArray<float3>(1, Allocator.Persistent);
     private bool CoroutineIsFinished = true;
 
     /// <summary>

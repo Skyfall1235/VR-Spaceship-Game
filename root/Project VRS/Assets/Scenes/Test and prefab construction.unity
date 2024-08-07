@@ -2366,7 +2366,7 @@ Transform:
   m_GameObject: {fileID: 767918980}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.606, y: 2.247, z: 0}
+  m_LocalPosition: {x: 0.192, y: 0.858, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4201,6 +4201,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+--- !u!114 &1736075662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3308382123066777239, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+  m_PrefabInstance: {fileID: 7524369253438478928}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73016f969f498af46b112fe0902a7901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1757470048
 GameObject:
   m_ObjectHideFlags: 0
@@ -5786,6 +5797,10 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3455485793611499167, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5473391963076838367, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -5812,11 +5827,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: -2.95
       objectReference: {fileID: 0}
     - target: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.3
+      value: 13.11
       objectReference: {fileID: 0}
     - target: {fileID: 6123804020889509317, guid: 05ac2ac2def5a9f4a80ce5fd859380d6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7221,6 +7236,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1543769172443889763, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543769172443889763, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2008819655636149052, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_xAxisRotator
       value: 
@@ -7277,6 +7300,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3308382123066777239, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: targetOverride.IsEmpty
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4018517146590862640, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7293,9 +7320,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponTestingCockpit
       objectReference: {fileID: 0}
+    - target: {fileID: 6036226574212066533, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.596
+      objectReference: {fileID: 0}
     - target: {fileID: 6303797751221813128, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6396321248885259040, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6751603085650748255, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7308,6 +7343,14 @@ PrefabInstance:
     - target: {fileID: 7308171826463526472, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: shouldRotate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308171826463526472, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: targetHandler
+      value: 
+      objectReference: {fileID: 1736075662}
+    - target: {fileID: 7308171826463526472, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
+      propertyPath: m_maxAngleDeviationFromTarget
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7778520503577314745, guid: 84d500308547ede4cb9a1a658e7e6124, type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target

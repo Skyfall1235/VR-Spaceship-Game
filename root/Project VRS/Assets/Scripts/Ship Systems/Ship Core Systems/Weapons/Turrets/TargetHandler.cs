@@ -19,7 +19,8 @@ public class TargetHandler : MonoBehaviour
     public string EnemyTag = "Enemy";
     public SphereCollider DetectionCollider;
     public float ColliderRadius = 10f;
-    public List<TargetData> RegisteredTargetsExcludingOverride { get; private set; } = new List<TargetData>();
+
+    [field: SerializeField] public List<TargetData> RegisteredTargetsExcludingOverride { get; private set; } = new List<TargetData>();
     public List<TargetData> RegisteredTargetsIncludingOverride 
     {
         get 
@@ -259,6 +260,20 @@ public struct TargetData
         this.TargetRB = targetRB;
         this.IsEmpty = isEmpty;
         this.TargetScore = targetScore;
+    }
+    public TargetData(TargetData newData)
+    {
+        this.TargetGameObject = newData.TargetGameObject;
+        this.TargetRB = newData.TargetRB;
+        this.IsEmpty = false;
+        this.TargetScore = newData.TargetScore;
+    }
+    public TargetData(bool isEmpty)
+    {
+        this.IsEmpty = isEmpty;
+        this.TargetScore = 0;
+        this.TargetRB = null;
+        this.TargetGameObject = null;
     }
 }
 

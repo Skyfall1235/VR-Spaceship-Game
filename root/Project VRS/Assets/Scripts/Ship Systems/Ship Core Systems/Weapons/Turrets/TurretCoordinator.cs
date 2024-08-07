@@ -50,11 +50,13 @@ public class TurretCoordinator : MonoBehaviour
         }
 
         //we use a bool to cut things short if they fail rather than go through the entire sequence
-        if(!DetermineTurretActivity())
+        bool state;
+        DetermineTurretActivity(out state);
+        if (!state)
         {
             return;
         }
-        if(!TurretFireControl())
+        if (!TurretFireControl())
         {
             return;
         }
@@ -64,9 +66,9 @@ public class TurretCoordinator : MonoBehaviour
 
     #region Dependencies
 
-    private bool DetermineTurretActivity()
+    private void DetermineTurretActivity( out bool state)
     {
-        TargetData? dataToUse;
+        TargetData dataToUse;
 
         //check the override first
         if (targetHandler.targetOverride.IsEmpty)
@@ -76,39 +78,47 @@ public class TurretCoordinator : MonoBehaviour
             {
                 //send the turret back to forward
                 m_turretRotationController.TurnToLeadPosition(transform.forward);
-                m_turretTargetingComponent.m_hasTarget = false;
-                return false;
+                Debug.Log("has target set here");
+                //m_turretTargetingComponent.m_hasTarget = false;
+                state = false;
             }
 
             //if not gimballed, we just take the highest priority, check,
             //and go down the list til we find one thats with in gimbal limits
-            dataToUse = ChooseBestTargetIfAvailable(targetHandler.RegisteredTargetsIncludingOverride);
+            dataToUse = new TargetData(ChooseBestTargetIfAvailable(targetHandler.RegisteredTargetsIncludingOverride));
         }
         else
         {
-            dataToUse = targetHandler.targetOverride;
+            dataToUse = new TargetData(targetHandler.targetOverride);
+            
         }
-
         //detemine target data to use
         //found object is our chosen target
-        m_turretTargetingComponent.CurrentTargetData = (TargetData)dataToUse;
-        m_turretTargetingComponent.m_hasTarget = true;
-        return true;
+        m_turretTargetingComponent.CurrentTargetData = new TargetData(dataToUse);
+        //m_turretTargetingComponent.m_hasTarget = true;
+        //Debug.Log("has target set here");
+        state = true;
     }
 
     private bool TurretFireControl()
     {
         //begin caluclation for lead
         Vector3 targetPosition = m_turretTargetingComponent.LeadPositionToTarget;
+        //Debug.Log(targetPosition);
 
         if (!m_turretRotationController.CheckInGimbalLimits(targetPosition))
         {
             //send the turret back to forward
             m_turretRotationController.TurnToLeadPosition(transform.forward);
-            m_turretTargetingComponent.m_hasTarget = false;
+            //m_turretTargetingComponent.m_hasTarget = false;
+            //Debug.Log("has target set here");
             return false;
         }
-
+        else
+        {
+            m_turretRotationController.TurnToLeadPosition(targetPosition);
+        }
+        //Debug.Log("has target set here");
         //check the angle between the direction the gun is facing and the target lead prediction
         float degreesBetweenAngles = Quaternion.Angle(Quaternion.Euler(m_turretWeapon.InstantiationPoint.transform.forward), Quaternion.Euler(targetPosition));
 
@@ -170,12 +180,12 @@ public class TurretCoordinator : MonoBehaviour
         return m_turretRotationController.CheckInGimbalLimits(data.TargetGameObject.transform.position);
     }
 
-    private TargetData? ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets)
+    private TargetData ChooseBestTargetIfAvailable(List<TargetData> sortedPriorityTargets)
     {
         if (sortedPriorityTargets == null)
         {
             // No targets provided, set bestTarget to default and return false
-            return null;
+            return new TargetData(true);
         }
 
         // Check pre-selected target first (if any)
@@ -187,6 +197,7 @@ public class TurretCoordinator : MonoBehaviour
         // Loop through sorted targets
         foreach (TargetData currentTarget in sortedPriorityTargets)
         {
+
             // Check if target is within gimbal limits
             if (CheckIfTargetIsWithinGimbalLimits(currentTarget))
             {
@@ -195,7 +206,7 @@ public class TurretCoordinator : MonoBehaviour
         }
 
         // No target within gimbal limits, return false
-        return null;
+        return new TargetData(true);
     }
 
     private IEnumerator ControlFiringTiming()
