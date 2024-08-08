@@ -1,3 +1,5 @@
+using UnityEngine.Events;
+
 /// <summary>
 /// Interface that defines properties and methods related to healing
 /// </summary>
@@ -7,11 +9,11 @@ public interface IHealable
     /// This property exposes a `Health.OnHealthChanged` delegate. 
     /// It allows subscribing to events triggered when the object heals.
     /// </summary>
-    public Health.OnHealthChangedEvent OnHeal { get; set; }
+    public UnityEvent<HealData, uint, uint> OnHeal { get; set; }
 
     /// <summary>
-    /// Heals the health component by a given amount
+    /// Heals a health component using the HealData struct
     /// </summary>
-    /// <param name="amountToHeal">The amount to heal a health component</param>
-    public void Heal(uint amountToHeal);
+    /// <param name="healData">The heal data to apply</param>
+    public void Heal(HealData healData);
 }

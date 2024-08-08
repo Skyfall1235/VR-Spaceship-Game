@@ -120,7 +120,7 @@ public class Projectile : MonoBehaviour
         {
             
             IDamagable objectHealth = collision.gameObject.GetComponent<IDamagable>();
-            DamageData damageData = new DamageData(m_projectileData.Damage, m_projectileData.ArmorPenetration, this.gameObject);
+            DamageData damageData = new DamageData(m_projectileData.Damage, collision.contacts[0].point, m_projectileData.ArmorPenetration, this.gameObject);
             objectHealth.Damage(damageData);
         }
         Destroy(gameObject);

@@ -52,7 +52,7 @@ public class Laser : BC_Weapon
                 if (damagableComponent != null)
                 {
                     Debug.Log("Damage Dealt");
-                    damagableComponent.Damage(new DamageData(1));
+                    damagableComponent.Damage(new DamageData(1, hit.point));
                 }
                 dpsTimer = 0;
             }
