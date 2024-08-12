@@ -1,3 +1,5 @@
+using UnityEngine.Events;
+
 /// <summary>
 /// Interface that defines properties and methods related to handling damage
 /// </summary>
@@ -7,7 +9,7 @@ public interface IDamagable
     /// This property exposes a `Health.OnHealthChangedEvent` delegate. 
     /// It allows subscribing to events triggered when the object takes damage.
     /// </summary>
-    public Health.OnHealthChangedEvent OnDamage {  get; set; }
+    public UnityEvent<DamageData, uint, uint> OnDamage { get; set; }
 
     /// <summary>
     /// This method takes a `DamageData` object containing information about the damage and applies it to the object.

@@ -94,10 +94,6 @@ public class HullHealthManager : Health
         base.Damage(damageData, ignoreInvulnerabilityAfterDamage, ignoreArmor);
     }
 
-    public override void Heal(uint amountToHeal)
-    {
-        base.Heal(amountToHeal);
-    }
 
     #endregion
 

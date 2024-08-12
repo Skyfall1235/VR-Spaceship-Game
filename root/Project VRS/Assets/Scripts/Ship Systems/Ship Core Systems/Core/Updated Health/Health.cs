@@ -66,23 +66,17 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     public bool IsAlive { get; private set; } = true;
 
     #region Events
-    /// <summary>
-    /// An event type providing info for when the health of an object changes
-    /// Parameter 1 is the max health
-    /// Parameter 2 is the health before the event
-    /// Parameter 3 is the health after the event
-    /// </summary>
-    [System.Serializable] public class OnHealthChangedEvent : UnityEvent<uint, uint, uint> { }
+
 
     /// <summary>
     /// Triggered whenever a health component takes damage
     /// </summary>
-    [field:SerializeField] public OnHealthChangedEvent OnDamage { get; set; } = new OnHealthChangedEvent();
+    [field:SerializeField] public UnityEvent<DamageData, uint, uint> OnDamage { get; set; } = new UnityEvent<DamageData, uint, uint>();
 
     /// <summary>
     /// Triggered whenever a health component is healed
     /// </summary>
-    [field:SerializeField] public OnHealthChangedEvent OnHeal { get; set; } = new OnHealthChangedEvent();
+    [field:SerializeField] public UnityEvent<HealData, uint, uint> OnHeal { get; set; } = new UnityEvent<HealData, uint, uint>();
 
     /// <summary>
     /// triggered when a healthcomponent is initialized
@@ -90,9 +84,6 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     /// Parameter 2 is the current health
     /// </summary>
     public UnityEvent<uint, uint> OnHealthInitialized = new UnityEvent<uint, uint>();
-
-    [field:SerializeField] public UnityEvent<Vector3> OnHullHit { get; set; } = new UnityEvent<Vector3>();
-
 
     /// <summary>
     /// Triggered when a health component dies
@@ -136,7 +127,7 @@ public class Health : MonoBehaviour, IDamagable, IHealable
         {
             //calculate the damage to be taken
             uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth - ((ignoreArmor || !m_useArmor) ? (int)damageData.Damage : Mathf.CeilToInt((float)damageData.Damage * (float)CalculateDamageReduction(damageData.ArmorPenetration))), 0, m_maxHealth);
-            OnDamage.Invoke(m_maxHealth, CurrentHealth, newHealth);
+            OnDamage.Invoke(damageData, CurrentHealth, newHealth);
             //take the damage
             CurrentHealth = newHealth;
             if (m_useInvulnerabilityAfterDamage && ignoreInvulnerabilityAfterDamage && gameObject.activeSelf)
@@ -149,10 +140,10 @@ public class Health : MonoBehaviour, IDamagable, IHealable
     /// Heals the health component
     /// </summary>
     /// <param name="amountToHeal">The amount to heal the health component</param>
-    public virtual void Heal(uint amountToHeal)
+    public virtual void Heal(HealData healData)
     {
-        uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth + (int)amountToHeal, 0, m_maxHealth); ;
-        OnHeal.Invoke(m_maxHealth, CurrentHealth, newHealth);
+        uint newHealth = (uint)Mathf.Clamp((int)CurrentHealth + (int)healData.HealAmount, 0, m_maxHealth); ;
+        OnHeal.Invoke(healData, CurrentHealth, newHealth);
         CurrentHealth = newHealth;
     }
     /// <summary>
@@ -217,11 +208,13 @@ public struct DamageData
     /// <param name="damage">The amount of damage dealt</param>
     /// <param name="armorPenetration">The amount of armor penetration of the damage</param>
     /// <param name="damager">The GameObject who dealt the damage</param>
-    public DamageData(uint damage, uint armorPenetration = 0, GameObject damager = null)
+    /// <param name="damageLocation">The location at which damage was dealt</param>
+    public DamageData(uint damage, Vector3 damageLocation, uint armorPenetration = 0, GameObject damager = null)
     {
         Damage = damage;
         ArmorPenetration = armorPenetration;
         Damager = damager;
+        DamageLocation = damageLocation;
     }
     /// <summary>
     /// The amount of damage dealt
@@ -235,4 +228,40 @@ public struct DamageData
     /// The GameObject who dealt the damage
     /// </summary>
     public GameObject Damager { get; private set; }
+    /// <summary>
+    /// The location at which damage was dealt
+    /// </summary>
+    public Vector3 DamageLocation { get; private set; }
+}
+
+/// <summary>
+/// A struct containing data required for healing
+/// </summary>
+public struct HealData
+{
+    /// <summary>
+    /// Creates a HealData struct
+    /// </summary>
+    /// <param name="healAmount">The amount of damage healed</param>
+    /// <param name="healer">The GameObject who healed the health component</param>
+    /// <param name="healLocation">The location at which the healing occured</param>
+    public HealData(uint healAmount, Vector3 healLocation, GameObject healer = null)
+    {
+        HealAmount = healAmount;
+        Healer = healer;
+        DamageLocation = healLocation;
+    }
+    /// <summary>
+    /// The amount healed
+    /// </summary>
+    public uint HealAmount { get; private set; }
+
+    /// <summary>
+    /// The GameObject who healed the health component
+    /// </summary>
+    public GameObject Healer { get; private set; }
+    /// <summary>
+    /// The location at which the healing occured
+    /// </summary>
+    public Vector3 DamageLocation { get; private set; }
 }
