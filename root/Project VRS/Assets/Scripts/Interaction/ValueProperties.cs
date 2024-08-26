@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 [System.Serializable]
 public class ValueProperties
 {
-    private CustomLogger logger;
-    private GameObject scriptOwner;
+    private readonly CustomLogger m_logger;
+    private readonly GameObject m_scriptOwner;
     public bool HasValues = false;
 
     #region Input action properties
@@ -163,8 +163,8 @@ public class ValueProperties
                            InputActionProperty? joystickPressProperty = null,
                            InputActionProperty? joystickValueProperty = null)
     {
-        this.scriptOwner = Owner;
-        this.logger = logger;
+        this.m_scriptOwner = Owner;
+        this.m_logger = logger;
         this.m_triggerPressProperty = triggerPressProperty;
         this.m_triggerValueProperty = triggerValueProperty;
         this.m_primaryButtonPressProperty = primaryButtonPressProperty;
@@ -179,7 +179,7 @@ public class ValueProperties
     /// <returns>A new System.Exception object.</returns>
     public System.Exception ThrowErrorWithLog(string actionPropertyName)
     {
-        logger.Log($"Failed to retrieve trigger press value from {actionPropertyName}", CustomLogger.LogLevel.Error, CustomLogger.LogCategory.Player, this.scriptOwner);
+        m_logger.Log($"Failed to retrieve trigger press value from {actionPropertyName}", CustomLogger.LogLevel.Error, CustomLogger.LogCategory.Player, this.m_scriptOwner);
         return new System.Exception();
     }
 
